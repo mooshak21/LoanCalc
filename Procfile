@@ -1,1 +1,1 @@
-web: java -jar target/loancalculator.jar
+web: java -jar target/LoanCalculator-1.0-SNAPSHOT.jar
