@@ -13,7 +13,7 @@ class LoanCalculatorApp {
 			Float inpLeft = Float.valueOf(inputLeft);
 			Float inpRight = Float.valueOf(inputRight);
 
-			return new String(inpLeft + inpRight);
+			return new String(new Float(inpLeft + inpRight));
 		}
 	}
 
