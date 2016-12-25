@@ -15,6 +15,8 @@ class LoanCalculatorApp {
 
 			return String.valueOf(new Float(inpLeft + inpRight));
 		}
+
+		return "No Value";
 	}
 
 	public static void main(String[] args){
