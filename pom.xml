@@ -43,6 +43,7 @@
 		</configuration>
 	</plugin>
 	</plugins>
+    </build>
     <dependencies>
     	<dependency>
 		<groupId>org.jfxtras</groupId>
@@ -50,5 +51,4 @@
 		<version>8.0-r1</version>
 	</dependency>
     </dependencies>
-    </build>
 </project>
