@@ -20,7 +20,7 @@ class LoanCalculatorApp {
 	}
 
 	public static void main(String[] args){
-		LoanCalculatorApp lca = new LoanCalculatorApp(args[0], args[1], args[2], args[3]);
+		LoanCalculatorApp lca = new LoanCalculatorApp("169125", "12467","+","=");
 		System.out.println(lca.calculate());
 
 	}
