@@ -30,7 +30,7 @@
 				<addClasspath>true</addClasspath>
 				<classpathPrefix>lib/</classpathPrefix>
 				<mainClass>LoanCalculator></mainClass>
-			<manifest>
+			</manifest>
 		</archive>
 	    </configuration>
 	    </plugin>
