@@ -9,8 +9,8 @@ class Loan {
 		amount = 0;
 		lender = "Bank";
 		state = "NJ";
-		interestRate = 0.0;
-		apr = 0.0;
+		interestRate = 0.0F;
+		apr = 0.0F;
 	}
 
 	public Loan(int amt, String lndr, String st, float intRate, float Apr){
