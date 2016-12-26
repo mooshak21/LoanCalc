@@ -34,7 +34,15 @@
 		</archive>
 	    </configuration>
 	    </plugin>
-	</plugins>
+    	   <plugin>
+		   <groupId>com.zenjava</groupId>
+		   <artifactId>javafx-maven-plugin</artifactId>
+		   <version>1.3</version>
+		   <configuration>
+			   <mainClass>LoanCalculator</mainClass>
+		   </configuration>
+	   </plugin>
+    	</plugins>
     </build>
     <dependencies>
     	<dependency>
