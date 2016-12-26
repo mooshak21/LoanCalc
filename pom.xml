@@ -48,6 +48,6 @@
 		<version>2.2.3</version>
 		<scope>system</scope>
 		<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
-	</dependency>--!>
+	</dependency>-->
     </dependencies>
 </project>
