@@ -20,7 +20,7 @@
                     </execution>
                 </executions>
 	    </plugin>
-	    <!--<plugin>
+	    <plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
 	    <artifactId>maven-jar-plugin</artifactId>
 	    <version>3.0.2</version>
@@ -33,7 +33,7 @@
 			</manifest>
 		</archive>
 	    </configuration>
-	    </plugin>-->
+	    </plugin>
 	</plugins>
     </build>
     <dependencies>
@@ -47,7 +47,7 @@
 		<artifactId>javafx</artifactId>
 		<version>2.2.3</version>
 		<scope>system</scope>
-		<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+		<systemPath>lib/jfxrt.jar</systemPath>
 	</dependency>
     </dependencies>
 </project>
