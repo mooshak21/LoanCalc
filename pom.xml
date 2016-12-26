@@ -29,7 +29,7 @@
 	    		<manifest>
 				<addClasspath>true</addClasspath>
 				<classpathPrefix>lib/</classpathPrefix>
-				<mainClass>LoanCalculatorApp</mainClass>
+				<mainClass>LoanCalculator</mainClass>
 			</manifest>
 		</archive>
 	    </configuration>
@@ -39,7 +39,7 @@
 		   <artifactId>javafx-maven-plugin</artifactId>
 		   <version>1.3</version>
 		   <configuration>
-			   <mainClass>LoanCalculatorApp</mainClass>
+			   <mainClass>LoanCalculator</mainClass>
 		   </configuration>
 	   </plugin>
     	</plugins>
