@@ -42,12 +42,12 @@
 		<artifactId>jfxtras-agenda</artifactId>
 		<version>8.0-r1</version>
 	</dependency>
-	<dependency>
+	<!--<dependency>
 		<groupId>com.oracle</groupId>
 		<artifactId>javafx</artifactId>
 		<version>2.2.3</version>
 		<scope>system</scope>
 		<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
-	</dependency>
+	</dependency>--!>
     </dependencies>
 </project>
