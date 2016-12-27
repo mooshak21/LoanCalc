@@ -23,7 +23,7 @@ public class LoanCalculatorApp {
 			double periodicInterestRate = Double.valueOf(air)/12;
 			double addOne = (1 + periodicInterestRate);
 			double loanAmt = Double.valueOf(loanAmount);
-			double compoundingPeriods = Double.valueOf(numOfYears);
+			double compoundingPeriods = Double.valueOf(numOfYears)*12;
 			
 			double monthly = 0;
 			double total = 0;
