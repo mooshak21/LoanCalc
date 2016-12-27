@@ -76,5 +76,9 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
 	</dependency>
+	<dependency>
+    		<groupId>com.fasterxml.jackson.dataformat</groupId>
+    		<artifactId>jackson-dataformat-xml</artifactId>
+	</dependency>
     </dependencies>
 </project>
