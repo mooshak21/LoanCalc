@@ -18,7 +18,7 @@ public class LoanCalculatorApp {
 	@RequestMapping("/loan")
     	@ResponseBody
     	Loan loan() {
-		return new Loan(Integer.valueOf(inputLeft), "PNC BANK", "NJ", 3.5, 3.75);
+		return new Loan(Integer.valueOf(inputLeft), "PNC BANK", "NJ", 3.5F, 3.75F);
     	}
 
 	public LoanCalculatorApp(){
