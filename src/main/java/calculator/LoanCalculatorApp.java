@@ -18,7 +18,7 @@ public class LoanCalculatorApp {
 	@RequestMapping("/loan")
     	@ResponseBody
     	String loan() {
-		return new Loan();
+		return new Loan().getLender();
     	}
 	public LoanCalculatorApp(){
 	}
