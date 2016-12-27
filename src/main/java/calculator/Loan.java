@@ -1,7 +1,7 @@
 package calculator;
 
 public class Loan {
-	private float amount, total, monthly;
+	private double amount, total, monthly;
 	private String lender;
 	private String state;
 	private float interestRate;
@@ -9,9 +9,9 @@ public class Loan {
 	private int compoundingPeriods;
 
 	public Loan(){
-		amount = 0.0F;
-		total = 0.0F;
-		monthly = 0.0F;
+		amount = 0.0;
+		total = 0.0;
+		monthly = 0.0;
 		lender = "Bank";
 		state = "NJ";
 		interestRate = 0.0F;
@@ -19,7 +19,7 @@ public class Loan {
 		compoundingPeriods = 12;
 	}
 
-	public Loan(float mnthly, float amt, float tot, String lndr, String st, float intRate, float Apr, int cmpPeriods){
+	public Loan(double mnthly, double amt, doubnle tot, String lndr, String st, float intRate, float Apr, int cmpPeriods){
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
@@ -29,22 +29,22 @@ public class Loan {
 		apr = Apr;
 		compoundingPeriods = cmpPeriods;
 	}
-	public void setMonthly (float mthly){
+	public void setMonthly (double mthly){
 		monthly = mthly;
 	}
-	public float getMonthly(){
+	public double getMonthly(){
 		return monthly;
 	}
-	public void setAmount (float amt){
+	public void setAmount (double amt){
 		amount = amt;
 	}
-	public float getAmount(){
+	public double getAmount(){
 		return amount;
 	}
-	public void setTotal (float tot){
+	public void setTotal (double tot){
 		total = tot;
 	}
-	public float getTotal(){
+	public double getTotal(){
 		return total;
 	}
 	public void setLender(String lndr){
