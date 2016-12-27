@@ -42,7 +42,7 @@ class LoanCalculatorApp {
 	}
 
 	public static void main(String[] args) throws Exception {
-	        SpringApplication.run(SampleController.class, args);
+	        SpringApplication.run(LoanCalculatorApp.class, args);
 		LoanCalculatorApp lcaSalaryIncrement = new LoanCalculatorApp("169125", "2.5", "%", "=");
 		System.out.println(lcaSalaryIncrement.calculate());
 
