@@ -19,7 +19,7 @@ public class Loan {
 		numberOfYears = 1;
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears{
+	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
