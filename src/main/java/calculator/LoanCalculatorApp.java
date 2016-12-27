@@ -12,12 +12,15 @@ public class LoanCalculatorApp {
 	@RequestMapping("/")
     	@ResponseBody
     	String home() {
+		return (LoanCalculatorApp.calculate());
+    	}
+
+	public LoanCalculatorApp(){
 		inputLeft = "169125";
 		inputRight = "12467";
 		calcEquals = "+";
 		inputOperator = "=";
-		return (LoanCalculatorApp.calculate());
-    	}
+	}
 	
 	public LoanCalculatorApp(String inpLft, String inpRgt, String calcEq, String inpOp){
 		inputLeft = inpLft;
