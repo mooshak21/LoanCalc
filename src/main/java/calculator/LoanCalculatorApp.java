@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @EnableAutoConfiguration
 class LoanCalculatorApp {
-	private String inputLeft, inputRight, calcEquals, inputOperator;
+	private static String inputLeft, inputRight, calcEquals, inputOperator;
 	@RequestMapping("/")
     	@ResponseBody
     	String home() {
@@ -26,7 +26,7 @@ class LoanCalculatorApp {
 		inputOperator = inpOp;
 	}
 
-	public String calculate(){
+	public static String calculate(){
 		Float inpLeft = Float.valueOf(inputLeft);
 		Float inpRight = Float.valueOf(inputRight);
 		if(calcEquals != null && calcEquals.equals("+")){
