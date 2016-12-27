@@ -16,7 +16,7 @@ class LoanCalculatorApp {
 		inputRight = "12467";
 		calcEquals = "+";
 		inputOperator = "=";
-		return (lcaSalaryBonus.calculate());
+		return (calculate());
     	}
 	
 	public LoanCalculatorApp(String inpLft, String inpRgt, String calcEq, String inpOp){
