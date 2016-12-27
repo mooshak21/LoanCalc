@@ -6,7 +6,7 @@ public class Loan {
 	private String state;
 	private double interestRate;
 	private double apr;
-	private int compoundingPeriods;
+	private int numberOfYears;
 
 	public Loan(){
 		amount = 0.0;
@@ -16,10 +16,10 @@ public class Loan {
 		state = "NJ";
 		interestRate = 0.0;
 		apr = 0.0;
-		compoundingPeriods = 12;
+		numberOfYears = 1;
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int cmpPeriods){
+	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears{
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
@@ -27,7 +27,7 @@ public class Loan {
 		state = st;
 		interestRate = intRate;
 		apr = Apr;
-		compoundingPeriods = cmpPeriods;
+		numberOfYears = numYears;
 	}
 	public void setMonthly (double mthly){
 		monthly = mthly;
@@ -71,11 +71,11 @@ public class Loan {
 	public double getAPR(){
 		return apr;
 	}
-	public void setCompoundingPeriods (int cp){
-		compoundingPeriods = cp;
+	public void setNumberOfYears (int num){
+		numberOfYears = num;
 	}
-	public int getCompoundingPeriods(){
-		return compoundingPeriods;
+	public int getNumberOfYears(){
+		return numberOfYears;
 	}
 
 
