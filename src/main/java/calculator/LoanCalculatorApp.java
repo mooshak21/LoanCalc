@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @EnableAutoConfiguration
 public class LoanCalculatorApp {
 	private static String inputLeft, inputRight, calcEquals, inputOperator;
+	private static String air, numOfYears, loanAmount;
 	@RequestMapping("/")
     	@ResponseBody
     	String home() {
@@ -18,7 +19,19 @@ public class LoanCalculatorApp {
 	@RequestMapping("/loan")
     	@ResponseBody
     	Loan loan() {
-		return new Loan(Integer.valueOf(inputLeft), "PNC BANK", "NJ", 3.5F, 3.75F);
+			
+			double periodicInterestRate = Double.valueOf(air) / 12;
+			double addOne = (1 + periodicInterestRate);
+			double loanAmt = Double.valueOf(loanAmount);
+			double compoundingPeriods = Double.valueOf(numOfYears) * 12;
+			
+			double monthly = 0;
+			double total = 0;
+			
+			monthly = (periodicInterestRate * loanAmt) / (1-(Math.pow(addOne, -compoundingPeriods)));
+			total = (compoundingPeriods) * monthly;
+
+		return new Loan(monthly, total, loanAmt, "PNC BANK", "NJ", periodicInterestRate, air, numOfYears);
     	}
 
 	public LoanCalculatorApp(){
@@ -54,6 +67,9 @@ public class LoanCalculatorApp {
 		inputRight = args[1];
 		calcEquals = args[2];
 		inputOperator = args[3];
+		air = args[4];
+		numOfYears = args[5];
+		loanAmount = args[6];
 	        SpringApplication.run(LoanCalculatorApp.class, args);
 
 
