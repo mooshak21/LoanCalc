@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @EnableAutoConfiguration
-class LoanCalculatorApp {
+public class LoanCalculatorApp {
 	private static String inputLeft, inputRight, calcEquals, inputOperator;
 	@RequestMapping("/")
     	@ResponseBody
