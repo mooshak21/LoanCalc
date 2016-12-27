@@ -12,9 +12,9 @@ class LoanCalculatorApp {
 	@RequestMapping("/")
     	@ResponseBody
     	String home() {
-		inputLeft = "169125"
-		inputRight = "12467"
-		calcEquals = "+"
+		inputLeft = "169125";
+		inputRight = "12467";
+		calcEquals = "+";
 		inputOperator = "=";
 		return (lcaSalaryBonus.calculate());
     	}
