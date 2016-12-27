@@ -20,7 +20,7 @@ public class LoanCalculatorApp {
     	@ResponseBody
     	Loan loan() {
 			
-			double periodicInterestRate = Double.valueOf(air);
+			double periodicInterestRate = Double.valueOf(air)/12;
 			double addOne = (1 + periodicInterestRate);
 			double loanAmt = Double.valueOf(loanAmount);
 			double compoundingPeriods = Double.valueOf(numOfYears) * 12;
@@ -28,7 +28,7 @@ public class LoanCalculatorApp {
 			double monthly = 0;
 			double total = 0;
 			
-			monthly = (((periodicInterestRate * loanAmt) * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1));
+			monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1));
 			total = (compoundingPeriods) * monthly;
 
 		return new Loan(monthly, loanAmt, total, "PNC BANK", "NJ", periodicInterestRate, Double.valueOf(air), Integer.valueOf(numOfYears));    	}
