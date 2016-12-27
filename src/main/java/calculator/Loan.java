@@ -4,8 +4,8 @@ public class Loan {
 	private double amount, total, monthly;
 	private String lender;
 	private String state;
-	private float interestRate;
-	private float apr;
+	private double interestRate;
+	private double apr;
 	private int compoundingPeriods;
 
 	public Loan(){
@@ -14,12 +14,12 @@ public class Loan {
 		monthly = 0.0;
 		lender = "Bank";
 		state = "NJ";
-		interestRate = 0.0F;
-		apr = 0.0F;
+		interestRate = 0.0;
+		apr = 0.0;
 		compoundingPeriods = 12;
 	}
 
-	public Loan(double mnthly, double amt, doubnle tot, String lndr, String st, float intRate, float Apr, int cmpPeriods){
+	public Loan(double mnthly, double amt, doubnle tot, String lndr, String st, double intRate, double Apr, int cmpPeriods){
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
@@ -59,16 +59,16 @@ public class Loan {
 	public String getState(){
 		return state;
 	}
-	public void setInterestRate(float intRate){
+	public void setInterestRate(double intRate){
 		interestRate = intRate;
 	}
-	public float getInterestRate(){
+	public double getInterestRate(){
 		return interestRate;
 	}
-	public void setAPR(float Apr){
+	public void setAPR(double Apr){
 		apr = Apr;
 	}
-	public float getAPR(){
+	public double getAPR(){
 		return apr;
 	}
 	public void setCompoundingPeriods (int cp){
