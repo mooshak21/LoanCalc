@@ -1,3 +1,3 @@
 #web: java -jar target/LoanCalculator-1.0-SNAPSHOT.jar
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/*.jar 169125 12467 + =
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/*.jar 165000 18125 + =
 
