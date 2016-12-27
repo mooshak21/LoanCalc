@@ -6,6 +6,7 @@
     <groupId>com.example</groupId>
     <version>1.0-SNAPSHOT</version>
     <artifactId>LoanCalculator</artifactId>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
@@ -42,6 +43,10 @@
 			   <mainClass>hello.SampleController</mainClass>
 		   </configuration>
 	   </plugin>
+<plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+    </plugin>
     	</plugins>
     </build>
 <parent>
