@@ -31,7 +31,8 @@ public class LoanCalculatorApp {
 			monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1)));
 			total = (compoundingPeriods) * monthly;
 
-		return new Loan(monthly, loanAmt, total, "PNC BANK", "NJ", periodicInterestRate, Double.valueOf(air), Integer.valueOf(numOfYears));    	}
+		return new Loan(monthly, loanAmt, total, "PNC BANK", "NJ", periodicInterestRate, Double.valueOf(air), Integer.valueOf(numOfYears));    	
+	}
 
 	public LoanCalculatorApp(){
 	}
