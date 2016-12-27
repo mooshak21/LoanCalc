@@ -1,5 +1,20 @@
+package calculator;
+
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@EnableAutoConfiguration
 class LoanCalculatorApp {
 	private String inputLeft, inputRight, calcEquals, inputOperator;
+	@RequestMapping("/")
+    	@ResponseBody
+    	String home() {
+		LoanCalculatorApp lcaSalaryBonus = new LoanCalculatorApp("169125", "12467","+","=");
+		return (lcaSalaryBonus.calculate());
+    	}
 	
 	public LoanCalculatorApp(String inpLft, String inpRgt, String calcEq, String inpOp){
 		inputLeft = inpLft;
@@ -26,10 +41,8 @@ class LoanCalculatorApp {
 		return "No Value";
 	}
 
-	public static void main(String[] args){
-		LoanCalculatorApp lcaSalaryBonus = new LoanCalculatorApp("169125", "12467","+","=");
-		System.out.println(lcaSalaryBonus.calculate());
-
+	public static void main(String[] args) throws Exception {
+	        SpringApplication.run(SampleController.class, args);
 		LoanCalculatorApp lcaSalaryIncrement = new LoanCalculatorApp("169125", "2.5", "%", "=");
 		System.out.println(lcaSalaryIncrement.calculate());
 
