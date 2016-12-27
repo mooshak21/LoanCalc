@@ -18,8 +18,11 @@ public class LoanCalculatorApp {
 
 	@RequestMapping("/loan")
     	@ResponseBody
-    	Loan loan() {
-			
+    	Loan loan(String airVal, String numYrs, String loanAmt) {
+			air = airVal;
+			numOfYears = numYrs;
+			loanAmount = loanAmt;
+
 			double periodicInterestRate = Double.valueOf(air)/(12*100);
 			double addOne = (1 + periodicInterestRate);
 			double loanAmt = Double.valueOf(loanAmount);
