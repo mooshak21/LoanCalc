@@ -20,7 +20,7 @@ public class LoanCalculatorApp {
     	@ResponseBody
     	Loan loan() {
 			
-			double periodicInterestRate = Double.valueOf(air)/12;
+			double periodicInterestRate = Double.valueOf(air)/(12*100);
 			double addOne = (1 + periodicInterestRate);
 			double loanAmt = Double.valueOf(loanAmount);
 			double compoundingPeriods = Double.valueOf(numOfYears)*12;
