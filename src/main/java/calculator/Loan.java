@@ -1,4 +1,6 @@
-class Loan {
+package loan;
+
+public class Loan {
 	private int amount;
 	private String lender;
 	private String state;
