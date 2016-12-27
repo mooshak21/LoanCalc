@@ -1,4 +1,4 @@
-package loan;
+package calculator;
 
 public class Loan {
 	private int amount;
