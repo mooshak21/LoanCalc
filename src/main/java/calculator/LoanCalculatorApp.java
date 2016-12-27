@@ -16,10 +16,6 @@ public class LoanCalculatorApp {
     	}
 
 	public LoanCalculatorApp(){
-		inputLeft = "169125";
-		inputRight = "12467";
-		calcEquals = "+";
-		inputOperator = "=";
 	}
 	
 	public LoanCalculatorApp(String inpLft, String inpRgt, String calcEq, String inpOp){
@@ -48,7 +44,13 @@ public class LoanCalculatorApp {
 	}
 
 	public static void main(String[] args) throws Exception {
+		inputLeft = args[0];
+		inputRight = args[1];
+		calcEquals = args[2];
+		inputOperator = args[3];
 	        SpringApplication.run(LoanCalculatorApp.class, args);
+
+
 		/*LoanCalculatorApp lcaSalaryIncrement = new LoanCalculatorApp("169125", "2.5", "%", "=");
 		System.out.println(lcaSalaryIncrement.calculate());
 
