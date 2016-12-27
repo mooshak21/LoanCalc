@@ -19,7 +19,7 @@ public class Loan {
 		compoundingPeriods = 12;
 	}
 
-	public Loan(double mnthly, double amt, doubnle tot, String lndr, String st, double intRate, double Apr, int cmpPeriods){
+	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int cmpPeriods){
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
