@@ -43,7 +43,7 @@ class LoanCalculatorApp {
 
 	public static void main(String[] args) throws Exception {
 	        SpringApplication.run(LoanCalculatorApp.class, args);
-		LoanCalculatorApp lcaSalaryIncrement = new LoanCalculatorApp("169125", "2.5", "%", "=");
+		/*LoanCalculatorApp lcaSalaryIncrement = new LoanCalculatorApp("169125", "2.5", "%", "=");
 		System.out.println(lcaSalaryIncrement.calculate());
 
 		LoanCalculatorApp lcaSalaryLoss = new LoanCalculatorApp("169125", "19125", "-", "=");
@@ -53,6 +53,6 @@ class LoanCalculatorApp {
 		System.out.println(lcaSalaryPayCheck.calculate());
 
 		LoanCalculatorApp lcaSalaryPayIncrease = new LoanCalculatorApp("6667", "26", "*", "=");
-		System.out.println(lcaSalaryPayIncrease.calculate());
+		System.out.println(lcaSalaryPayIncrease.calculate());*/
 	}
 }
