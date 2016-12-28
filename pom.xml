@@ -40,7 +40,8 @@
 		        <version>2.6</version>
 			  <configuration>
 				      <failOnMissingWebXml>true</failOnMissingWebXml>
-				        </configuration>
+				    	<webXml>src\main\webapp\WEB-INF\web.xml</webXml>        
+			</configuration>
 				</plugin>
 <!-- <plugin>
 		    <groupId>org.apache.maven.plugins</groupId>
