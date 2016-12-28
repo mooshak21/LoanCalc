@@ -17,7 +17,7 @@
 								        </servlet-mapping>
 									<context-param>
 										<param-name>contextConfigLocation</param-name>
-										<param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+										<param-value>/WEB-INF/loan-servlet.xml</param-value>
 									</context-param>
 									    <!-- Welcome files -->
 									        <welcome-file-list>
