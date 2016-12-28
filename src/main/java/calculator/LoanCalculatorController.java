@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoanCalculatorController {
 
-	    @RequestMapping(path="/helloWorld")
+	    @RequestMapping(value="/helloWorld", method=RequestMethod.GET)
 	        public String helloWorld(Model model) {
 			        model.addAttribute("message", "Hello World!");
 			        return "helloWorld";
