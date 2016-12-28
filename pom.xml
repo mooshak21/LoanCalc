@@ -40,7 +40,7 @@
 		        <version>2.6</version>
 			  <configuration>
 				      <failOnMissingWebXml>true</failOnMissingWebXml>
-				    	<webXml>src/main/webapp/WEB-INF/web.xml</webXml>        
+				    	<webXml>${project.basedir}/src/main/webapp/WEB-INF/web.xml</webXml>        
 			</configuration>
 				</plugin>
 <!-- <plugin>
