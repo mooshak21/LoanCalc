@@ -16,7 +16,7 @@ public class LoanCalculatorApp {
 		return (LoanCalculatorApp.calculate());
     	}
 
-	@RequestMapping("/loan")
+	@RequestMapping("/loan", produces = "text/html")
     	@ResponseBody
     	Loan loan(String airVal, String numYrs, String loanAmtVal, String lndr, String st) {
 			air = airVal;
