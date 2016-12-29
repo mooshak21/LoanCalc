@@ -1,6 +1,7 @@
 package calculator;
 
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -70,27 +71,4 @@ public class LoanCalculatorApp {
 		return "No Value";
 	}
 
-	public static void main(String[] args) throws Exception {
-		inputLeft = args[0];
-		inputRight = args[1];
-calcEquals = args[2];
-		inputOperator = args[3];
-		air = args[4];
-		numOfYears = args[5];
-		loanAmount = args[6];
-	        SpringApplication.run(LoanCalculatorApp.class, args);
-
-
-		/*LoanCalculatorApp lcaSalaryIncrement = new LoanCalculatorApp("169125", "2.5", "%", "=");
-		System.out.println(lcaSalaryIncrement.calculate());
-
-		LoanCalculatorApp lcaSalaryLoss = new LoanCalculatorApp("169125", "19125", "-", "=");
-		System.out.println(lcaSalaryLoss.calculate());
-
-		LoanCalculatorApp lcaSalaryPayCheck = new LoanCalculatorApp("169125", "26", "/", "=");
-		System.out.println(lcaSalaryPayCheck.calculate());
-
-		LoanCalculatorApp lcaSalaryPayIncrease = new LoanCalculatorApp("6667", "26", "*", "=");
-		System.out.println(lcaSalaryPayIncrease.calculate());*/
-	}
 }
