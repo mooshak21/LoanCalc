@@ -22,7 +22,11 @@ public class LoanCalculatorController {
 		@RequestParam("numOfYears") String numOfYears, Model model) {
 				RestTemplate restTemplate = new RestTemplate();
 			String loan = restTemplate.getForObject("https://ayushiloancalculatorapp.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, String.class);
-				model.addAttribute("message", loan);
+				GsonBuilder gsonb = new GsonBuilder();
+				Gson gson = gsonb.create();
+				JSONObject jsonObject = new JSONObject(loan);
+				String monthlyPayment = jsonObject.get("monthly");
+				model.addAttribute("message", monthlyPayment);
 			        return "viewloan";
 		    }
 	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
