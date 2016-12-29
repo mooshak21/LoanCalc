@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
+import javax.util.HashMap;
+import javax.util.Map;
 
 @Controller
 public class LoanCalculatorController {
@@ -17,7 +20,17 @@ public class LoanCalculatorController {
 		@RequestParam("loanAmt") String loanAmt,
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, Model model) {
-			        model.addAttribute("message", new LoanCalculatorApp().calculateloan(airVal, numOfYears, loanAmt, lender, state).toString());
+				RestTemplate restTemplate = new RestTemplate();
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("airVal", airVal);
+				params.put("lender", lender);
+				params.put("loanAmt", loanAmt);
+				params.put("state", state);
+				params.put("numOfYears", numOfYears);
+
+				Loan loan = restTemplate.getForObject("https://ayushiloancalculatorapp.herokuapp.com/calculateloan", Loan.class, params);
+				model.addAttribute("message", loan.toString());
+			        //model.addAttribute("message", new LoanCalculatorApp().calculateloan(airVal, numOfYears, loanAmt, lender, state).toString());
 				
 			        return "viewloan";
 		    }
