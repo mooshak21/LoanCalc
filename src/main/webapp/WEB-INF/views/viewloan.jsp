@@ -3,7 +3,8 @@
    <title>Loan</title>
    </head>
    <body>
-   <h2>${message}</h2>
+   <h2>${loan.monthly}</h2>
+   <h2>${loan.apr}</h2>
    </body>
 </html>
 

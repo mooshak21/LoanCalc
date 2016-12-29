@@ -26,7 +26,7 @@ public class LoanCalculatorController {
 				GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);
-				model.addAttribute("message", loanObject.getMonthly());
+				model.addAttribute("loan", loanObject);
 			        return "viewloan";
 		    }
 	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
