@@ -3,7 +3,7 @@
    <title>Loan</title>
    </head>
    <body>
-	   <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
+	   <form name="loanForm" action="/loan" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
 		   Loan Amount: <input type="text" name="loanAmt"><br>
 		   Number of Years: <input type="text" name="numOfYears"><br>
 		   Lender: <input type="text" name="lender"><br>
