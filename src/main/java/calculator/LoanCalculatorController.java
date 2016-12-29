@@ -25,9 +25,8 @@ public class LoanCalculatorController {
 			String loan = restTemplate.getForObject("https://ayushiloancalculatorapp.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, String.class);
 				GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
-				JSONObject jsonObject = new JSONObject(loan);
-				String monthlyPayment = jsonObject.get("monthly");
-				model.addAttribute("message", monthlyPayment);
+				Loan loanObject = gson.fromJson(loan, Loan.class);
+				model.addAttribute("message", loanObject.getMonthly());
 			        return "viewloan";
 		    }
 	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
