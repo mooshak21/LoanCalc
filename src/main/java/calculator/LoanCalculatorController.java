@@ -13,7 +13,7 @@ import com.google.gson.*;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.ApplicationContext
+import org.springframework.context.support.ApplicationContext;
 
 @Controller
 public class LoanCalculatorController {
