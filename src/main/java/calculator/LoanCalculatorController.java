@@ -27,5 +27,9 @@ public class LoanCalculatorController {
 
 				return "createloan";
 		    }
+	    @RequestMapping(value="/")
+	    	   public String home(){
+			   return "index";
+		   }
 }
 
