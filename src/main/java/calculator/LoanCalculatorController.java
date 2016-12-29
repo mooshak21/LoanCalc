@@ -14,7 +14,7 @@ public class LoanCalculatorController {
 		    
 	        public String loan(Model model) {
 			        model.addAttribute("message", new Loan().toString());
-			        return "helloWorld";
+			        return "loan";
 		    }
 }
 
