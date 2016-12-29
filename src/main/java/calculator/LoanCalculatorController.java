@@ -12,10 +12,8 @@ import java.util.Map;
 import com.google.gson.*;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.hibernate.SessionFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.ApplicationContext
 
 @Controller
 public class LoanCalculatorController {
