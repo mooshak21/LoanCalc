@@ -13,7 +13,7 @@ public class LoanCalculatorApp {
 	@RequestMapping("/")
     	@ResponseBody
     	String home() {
-		return (LoanCalculatorApp.calculate());
+		return "home";
     	}
 
 	@RequestMapping(path="/loan", produces="application/json")
