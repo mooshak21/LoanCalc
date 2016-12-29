@@ -23,10 +23,10 @@ public class LoanCalculatorController {
 				RestTemplate restTemplate = new RestTemplate();
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("airVal", airVal);
-				params.put("lender", lender);
-				params.put("loanAmt", loanAmt);
-				params.put("state", state);
-				params.put("numOfYears", numOfYears);
+				params.put("lndr", lender);
+				params.put("loanAmtVal", loanAmt);
+				params.put("st", state);
+				params.put("numYrs", numOfYears);
 
 				Loan loan = restTemplate.getForObject("https://ayushiloancalculatorapp.herokuapp.com/calculateloan", Loan.class, params);
 				model.addAttribute("message", loan.toString());
