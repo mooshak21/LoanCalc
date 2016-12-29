@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.*;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.SessionFactory;
+import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessExeption;
 @Controller
 public class LoanCalculatorController {
