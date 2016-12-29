@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoanCalculatorController {
 
-	    @RequestMapping(value="/loan", method=RequestMethod.GET)
+	    @RequestMapping(value="/loan", method=RequestMethod.GET),
 		@RequestParam(name="airVal") String airVal,
 		@RequestParam(name="lender") String lender,
 		@RequestParam(name="loanAmt") String loanAmt,
 		@RequestParam(name="state") String state,
-		@RequestParam(name="numOfYears") String numOfYears
+		@RequestParam(name="numOfYears") String numOfYears;
 	        public String loan(Model model) {
 			        model.addAttribute("message", new LoanCalculatorApp().loan(airVal, loanAmt, numOfYears, lender, state).toString());
 			        return "loan";
