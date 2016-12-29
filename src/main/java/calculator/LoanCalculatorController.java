@@ -21,5 +21,11 @@ public class LoanCalculatorController {
 				
 			        return "viewloan";
 		    }
+	    @RequestMapping(value="/createloan", method=RequestMethod=GET)
+		    public String createloan(Model model){
+			    	model.addAttribute("message","Create Loan");
+
+				return "createloan";
+		    }
 }
 
