@@ -17,13 +17,13 @@ public class LoanCalculatorApp {
     	}
 
 	@RequestMapping(path="/calculateloan", produces="application/json")
-    	               @RequestParam("airVal") String airVal,
+    	Loan calculateloan(@RequestParam("airVal") String airVal,
 		                @RequestParam("lender") String lndr,
 				                @RequestParam("loanAmt") String loanAmtVal,
 						                @RequestParam("state") String st,
 								                @RequestParam("numOfYears") String numYrs
 		@ResponseBody
-    	Loan calculateloan() {
+    	) {
 			air = airVal;
 			numOfYears = numYrs;
 			loanAmount = loanAmtVal;
