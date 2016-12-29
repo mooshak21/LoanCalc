@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoanCalculatorController {
 
-	    @RequestMapping(value="/helloWorld", method=RequestMethod.GET)
-	        public String helloWorld(Model model) {
-			        model.addAttribute("message", "Hello World!");
+	    @RequestMapping(value="/loan", method=RequestMethod.GET)
+		    
+	        public String loan(Model model) {
+			        model.addAttribute("message", new Loan().toString());
 			        return "helloWorld";
 		    }
 }

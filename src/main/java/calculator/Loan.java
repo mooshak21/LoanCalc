@@ -78,5 +78,7 @@ public class Loan {
 		return numberOfYears;
 	}
 
-
+	public String toString(){
+		return "Loan " + this.getAmount() + "is from " + this.getLender() + " at interest rate of " + this.getInterestRate());
+	}
 };
