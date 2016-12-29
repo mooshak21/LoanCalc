@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoanCalculatorController {
 
 	    @RequestMapping(value="/loan", method=RequestMethod.GET)
-		@RequestParam(name="airVal"
+		@RequestParam(name="airVal")
 		@RequestParam(name="lender")
 		@RequestParam(name="loanAmt")
 		@RequestParam(name="state")
