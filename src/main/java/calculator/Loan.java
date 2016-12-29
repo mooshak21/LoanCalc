@@ -79,6 +79,6 @@ public class Loan {
 	}
 
 	public String toString(){
-		return "Loan " + this.getAmount() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + " %";
+		return "Loan $" + this.getAmount() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%";
 	}
 };
