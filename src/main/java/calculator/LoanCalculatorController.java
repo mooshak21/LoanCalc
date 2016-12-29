@@ -32,8 +32,8 @@ public class LoanCalculatorController {
 				GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);
-				Resource r=new ClassPathResource("applicationContext.xml");  
-				BeanFactory factory=new XmlBeanFactory(r);  
+				ApplicationContext appCtx = new ClassPathXmlApplicationContext("applicationContext.xml");
+				BeanFactory factory= appCtx.getBeanFactory(); 
 					SessionFactory sessionFactory = (SessionFactory)factory.getBean("sessionFactory");
 					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 					hibernateTemplate.saveOrUpdate(loanObject);
