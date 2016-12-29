@@ -1,6 +1,9 @@
 package calculator;
 
-public class Loan {
+import java.io.Serializable;
+
+public class Loan implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private double amount, total, monthly;
 	private String lender;
 	private String state;

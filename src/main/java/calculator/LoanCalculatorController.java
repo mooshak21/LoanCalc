@@ -10,7 +10,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.*;
-
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate3.SessionFactory;
+import org.springframework.dao.DataAccessExeption;
 @Controller
 public class LoanCalculatorController {
 
@@ -26,6 +28,13 @@ public class LoanCalculatorController {
 				GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);
+				try{
+					SessionFactory sessionFactory = new SessionFactory();
+					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+					hibernateTemplate.saveOrUpdate(loanObject);
+				}catch(DataAccessException dae){
+					dae.printStackTrace();
+				}
 				model.addAttribute("loan", loanObject);
 			        return "viewloan";
 		    }

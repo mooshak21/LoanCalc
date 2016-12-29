@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="calculator.Loan" table="loan">
+        <id name="loanId" type="java.lang.Long">
+            <column name="LOAN_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="loanAmt" type="double">
+            <column name="LOAN_AMT" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="apr" type="double">
+            <column name="APR" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="interestRate" type="double">
+            <column name="INT_RATE" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="monthly" type="double">
+            <column name="MTHLY_PAYMT" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="lender" type="string">
+            <column name="LENDER" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="ST" length="10" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>
