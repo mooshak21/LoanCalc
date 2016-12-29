@@ -81,7 +81,7 @@
     	</plugins>
     <finalName>LoanCalculator</finalName>
 </build>
-<parent>
+<!--<parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>1.4.3.RELEASE</version>
@@ -90,7 +90,7 @@
 	    <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
+    </dependency>-->
     	<dependency>
 		<groupId>org.jfxtras</groupId>
 		<artifactId>jfxtras-agenda</artifactId>

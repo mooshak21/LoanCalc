@@ -1,10 +1,9 @@
 package calculator;
 
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.stereotype.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
 @EnableAutoConfiguration
 public class LoanCalculatorApp {
