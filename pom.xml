@@ -116,4 +116,7 @@
 	</dependency>
 	 
 </dependencies>
+    <build>
+	    <finalName>LoanCalculator</finalName>
+    </build>
 </project>
