@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LoanCalculatorController {
 
 	    @RequestMapping(value="/loan", method=RequestMethod.GET),
-		@RequestParam(name="airVal") String airVal,
-		@RequestParam(name="lender") String lender,
-		@RequestParam(name="loanAmt") String loanAmt,
-		@RequestParam(name="state") String state,
-		@RequestParam(name="numOfYears") String numOfYears;
+		@RequestParam("airVal") String airVal,
+		@RequestParam("lender") String lender,
+		@RequestParam("loanAmt") String loanAmt,
+		@RequestParam("state") String state,
+		@RequestParam("numOfYears") String numOfYears
 	        public String loan(Model model) {
 			        model.addAttribute("message", new LoanCalculatorApp().loan(airVal, loanAmt, numOfYears, lender, state).toString());
 			        return "loan";
