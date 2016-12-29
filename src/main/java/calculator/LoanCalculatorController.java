@@ -19,7 +19,7 @@ public class LoanCalculatorController {
 		@RequestParam("numOfYears") String numOfYears, Model model) {
 			        model.addAttribute("message", new LoanCalculatorApp().loan(airVal, numOfYears, loanAmt, lender, state).toString());
 				
-			        return "loan";
+			        return "viewloan";
 		    }
 }
 
