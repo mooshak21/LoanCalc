@@ -79,6 +79,6 @@ public class Loan {
 	}
 
 	public String toString(){
-		return "Loan " + this.getAmount() + "is from " + this.getLender() + " at interest rate of " + this.getInterestRate());
+		return "Loan " + this.getAmount() + "is from " + this.getLender() + " at interest rate of " + this.getInterestRate();
 	}
 };
