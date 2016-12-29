@@ -9,7 +9,7 @@
 		   Lender: <input type="text" name="lender"><br>
 		   State: <input type="text" name="state"><br>
 		   Annual Interest Rate: <input type="text" name="airVal"><br>
-		   
+		   <input type="submit" name="submit"><br> 
 	   </form>
    <h2>${message}</h2>
    </body>
