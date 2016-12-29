@@ -22,7 +22,6 @@ public class LoanCalculatorApp {
 				                @RequestParam("loanAmt") String loanAmtVal,
 						                @RequestParam("state") String st,
 								                @RequestParam("numOfYears") String numYrs
-		@ResponseBody
     	) {
 			air = airVal;
 			numOfYears = numYrs;
