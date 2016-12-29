@@ -28,7 +28,7 @@ public class LoanCalculatorController {
 				params.put("st", state);
 				params.put("numYrs", numOfYears);
 
-				Loan loan = restTemplate.getForObject("https://ayushiloancalculatorapp.herokuapp.com/calculateloan", Loan.class, params);
+				Loan loan = restTemplate.getForObject("https://ayushiloancalculatorapp.herokuapp.com/calculateloan?airVal=" + airVal + "&lndr=" + lender + "&loanAmtVal=" + loanAmt + "&st=" + state + "&numYrs=" + numOfYears, Loan.class);
 				model.addAttribute("message", loan.toString());
 			        //model.addAttribute("message", new LoanCalculatorApp().calculateloan(airVal, numOfYears, loanAmt, lender, state).toString());
 				
