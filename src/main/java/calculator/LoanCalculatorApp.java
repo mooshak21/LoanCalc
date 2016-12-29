@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoanCalculatorApp {
 	private static String inputLeft, inputRight, calcEquals, inputOperator;
 	private static String air, numOfYears, loanAmount, lender, state;
-	@RequestMapping("/home")
+	@RequestMapping("/")
     	@ResponseBody
     	String home() {
 		return "home";
