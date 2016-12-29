@@ -1,8 +1,9 @@
 <html>
    <head>
-   <title>Hello Spring MVC</title>
+   <title>Loan</title>
    </head>
    <body>
    <h2>${message}</h2>
    </body>
 </html>
+
