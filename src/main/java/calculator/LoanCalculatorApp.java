@@ -16,9 +16,9 @@ public class LoanCalculatorApp {
 		return "home";
     	}
 
-	@RequestMapping(path="/loan", produces="application/json")
+	@RequestMapping(path="/calculateloan", produces="application/json")
     	@ResponseBody
-    	Loan loan(String airVal, String numYrs, String loanAmtVal, String lndr, String st) {
+    	Loan calculateloan(String airVal, String numYrs, String loanAmtVal, String lndr, String st) {
 			air = airVal;
 			numOfYears = numYrs;
 			loanAmount = loanAmtVal;
@@ -70,7 +70,7 @@ public class LoanCalculatorApp {
 	public static void main(String[] args) throws Exception {
 		inputLeft = args[0];
 		inputRight = args[1];
-		calcEquals = args[2];
+calcEquals = args[2];
 		inputOperator = args[3];
 		air = args[4];
 		numOfYears = args[5];

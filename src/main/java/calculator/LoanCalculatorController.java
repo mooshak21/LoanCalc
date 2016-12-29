@@ -17,7 +17,7 @@ public class LoanCalculatorController {
 		@RequestParam("loanAmt") String loanAmt,
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, Model model) {
-			        model.addAttribute("message", new LoanCalculatorApp().loan(airVal, numOfYears, loanAmt, lender, state).toString());
+			        model.addAttribute("message", new LoanCalculatorApp().calculateloan(airVal, numOfYears, loanAmt, lender, state).toString());
 				
 			        return "viewloan";
 		    }
