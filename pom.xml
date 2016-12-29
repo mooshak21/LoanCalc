@@ -69,7 +69,8 @@
       		<artifactId>spring-boot-maven-plugin</artifactId>
 	</plugin>-->
     	</plugins>
-    </build>
+    <finalName>LoanCalculator</finalName>
+</build>
 <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -116,7 +117,4 @@
 	</dependency>
 	 
 </dependencies>
-    <build>
-	    <finalName>LoanCalculator</finalName>
-    </build>
 </project>
