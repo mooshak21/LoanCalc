@@ -5,7 +5,7 @@
    <body>
 	   <form name="loanForm" action="/loan" method="GET">
 		   Loan Amount: <input type="text" name="loanAmt"><br>
-		   Number of Years: <input type="text" name="numberOfYears"><br>
+		   Number of Years: <input type="text" name="numOfYears"><br>
 		   Lender: <input type="text" name="lender"><br>
 		   State: <input type="text" name="state"><br>
 		   Annual Interest Rate: <input type="text" name="airVal"><br>
