@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
-@EnableAutoConfiguration
 public class LoanCalculatorApp {
 	private static String inputLeft, inputRight, calcEquals, inputOperator;
 	private static String air, numOfYears, loanAmount, lender, state;
 	@RequestMapping("/")
-    	@ResponseBody
     	String home() {
 		return "home";
     	}
