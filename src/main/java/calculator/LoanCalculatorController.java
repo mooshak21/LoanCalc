@@ -27,10 +27,11 @@ public class LoanCalculatorController{
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, Model model) {
 			RestTemplate restTemplate = new RestTemplate();
-			String loan = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, String.class);
-				GsonBuilder gsonb = new GsonBuilder();
+Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, String.class);
+				/*GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
-				Loan loanObject = gson.fromJson(loan, Loan.class);
+				Loan loanObject = gson.fromJson(loan, Loan.class);*/
+
 		/*		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 					SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
