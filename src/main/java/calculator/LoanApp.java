@@ -24,6 +24,17 @@ public class LoanApp implements Serializable {
 		loanId = System.currentTimeMillis();
 	}
 
+	public LoanApp(Loan loan){
+		                monthly = loan.getMonthly();
+				amount = loan.getAmount();
+				total = loan.getTotal();
+				lender = loan.getLender();
+				state = loan.getState();
+				interestRate = loan.getInterestRate();
+				apr = loan.getAPR();
+				numberOfYears = loan.getNumberOfYears();
+				loanId = System.currentTimeMillis();
+	}
 	public LoanApp(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
 		monthly = mnthly;
 		amount = amt;
