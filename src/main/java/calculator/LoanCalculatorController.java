@@ -48,5 +48,30 @@ public class LoanCalculatorController{
 	    	   public String home(){
 			   return "index";
 		   }
-}
+	@RequestMapping(path="/calculateloan", produces="application/json")
+    	Loan calculateloan(@RequestParam("airVal") String airVal,
+		                @RequestParam("lender") String lndr,
+				                @RequestParam("loanAmt") String loanAmtVal,
+						                @RequestParam("state") String st,
+								                @RequestParam("numOfYears") String numYrs
+    	) {
+			air = airVal;
+			numOfYears = numYrs;
+			loanAmount = loanAmtVal;
+			lender = lndr;
+			state = st;
 
+			double periodicInterestRate = Double.valueOf(air)/(12*100);
+			double addOne = (1 + periodicInterestRate);
+			double loanAmt = Double.valueOf(loanAmount);
+			double compoundingPeriods = Double.valueOf(numOfYears)*12;
+			
+			double monthly = 0;
+			double total = 0;
+			
+			monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1)));
+			total = (compoundingPeriods) * monthly;
+
+		return new Loan(monthly, loanAmt, total, lender, state, periodicInterestRate, Double.valueOf(air), Integer.valueOf(numOfYears));    	
+	}
+}
