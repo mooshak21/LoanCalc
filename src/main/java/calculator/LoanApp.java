@@ -21,7 +21,7 @@ public class LoanApp implements Serializable {
 		interestRate = 0.0;
 		apr = 0.0;
 		numberOfYears = 1;
-		loanId = System.currentTimeMillis();:
+		loanId = System.currentTimeMillis();
 	}
 
 	public LoanApp(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
