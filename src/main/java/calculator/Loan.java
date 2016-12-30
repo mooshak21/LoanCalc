@@ -11,6 +11,7 @@ public class Loan implements Serializable {
 	private double apr;
 	private int numberOfYears;
 	private long loanId;
+	private LoanApp loanApp;
 
 	public Loan(){
 		amount = 0.0;
@@ -21,7 +22,9 @@ public class Loan implements Serializable {
 		interestRate = 0.0;
 		apr = 0.0;
 		numberOfYears = 1;
-		loanId = System.currentTimeMillis();:
+		loanId = System.currentTimeMillis();
+		loanApp = null;
+
 	}
 
 	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
@@ -34,6 +37,13 @@ public class Loan implements Serializable {
 		apr = Apr;
 		numberOfYears = numYears;
 		loanId = System.currentTimeMillis();
+		loanApp = new LoanApp(mnthly, amt, tot, lndr, st, intRate, Apr, numYears);
+	}
+	public void setLoanApp(LoanApp lnApp){
+		loanApp = lnApp;
+	}
+	public LoanApp getLoanApp(){
+		return loanApp;
 	}
 	public void setMonthly (double mthly){
 		monthly = mthly;
@@ -90,6 +100,6 @@ public class Loan implements Serializable {
 		loanId = lnId;
 	}
 	public String toString(){
-		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%";
+		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%" + " and Loan App of " + this.getLoanApp() ? this.getLoanApp().toString() : "";
 	}
-};
+}

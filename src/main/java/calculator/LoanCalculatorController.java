@@ -36,6 +36,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 					SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 					hibernateTemplate.saveOrUpdate(loanObject);*/
+				loanObject.setLoanApp(new LoanApp());
 				model.addAttribute("loan", loanObject);
 			        return "createloan";
 		    }
