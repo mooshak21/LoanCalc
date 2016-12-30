@@ -17,7 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.BeanFactory;
 
 @Controller
-public class LoanCalculatorController {
+public class LoanCalculatorController{
 
 	    @RequestMapping(value="/getloan", method=RequestMethod.GET)
 	        public String getloan(
