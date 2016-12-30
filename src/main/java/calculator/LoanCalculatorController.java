@@ -36,7 +36,7 @@ public class LoanCalculatorController{
 					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 					hibernateTemplate.saveOrUpdate(loanObject);*/
 				model.addAttribute("loan", loanObject);
-			        return "viewloan";
+			        return "createloan";
 		    }
 	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
 		    public String createloan(Model model){
