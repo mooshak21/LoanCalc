@@ -31,10 +31,10 @@ public class LoanCalculatorController{
 				GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);
-				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		/*		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 					SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-					hibernateTemplate.saveOrUpdate(loanObject);
+					hibernateTemplate.saveOrUpdate(loanObject);*/
 				model.addAttribute("loan", loanObject);
 			        return "viewloan";
 		    }
