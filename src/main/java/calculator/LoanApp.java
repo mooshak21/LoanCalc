@@ -2,7 +2,7 @@ package calculator;
 
 import java.io.Serializable;
 
-public class Loan implements Serializable {
+public class LoanApp implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private double amount, total, monthly;
 	private String lender;
@@ -12,7 +12,7 @@ public class Loan implements Serializable {
 	private int numberOfYears;
 	private long loanId;
 
-	public Loan(){
+	public LoanApp(){
 		amount = 0.0;
 		total = 0.0;
 		monthly = 0.0;
@@ -24,7 +24,7 @@ public class Loan implements Serializable {
 		loanId = System.currentTimeMillis();:
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
+	public LoanApp(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
