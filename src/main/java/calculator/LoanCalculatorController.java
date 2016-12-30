@@ -19,8 +19,8 @@ import org.springframework.beans.factory.BeanFactory;
 @Controller
 public class LoanCalculatorController{
 
-	    @RequestMapping(value="/getloan", method=RequestMethod.GET)
-	        public String getloan(
+	    @RequestMapping(value="/loan", method=RequestMethod.GET)
+	        public String loan(
 		@RequestParam("airVal") String airVal,
 		@RequestParam("lender") String lender,
 		@RequestParam("loanAmt") String loanAmt,
