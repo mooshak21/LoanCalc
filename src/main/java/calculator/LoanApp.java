@@ -11,6 +11,7 @@ public class LoanApp implements Serializable {
 	private double apr;
 	private int numberOfYears;
 	private long loanId;
+	private Loan loan;
 
 	public LoanApp(){
 		amount = 0.0;
@@ -22,6 +23,7 @@ public class LoanApp implements Serializable {
 		apr = 0.0;
 		numberOfYears = 1;
 		loanId = System.currentTimeMillis();
+		loan = new Loan();
 	}
 
 	public LoanApp(Loan loan){
