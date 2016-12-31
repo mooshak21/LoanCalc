@@ -41,6 +41,7 @@ public class Loan implements Serializable {
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
+		loanApp.setLoan(this);
 	}
 	public LoanApp getLoanApp(){
 		return loanApp;

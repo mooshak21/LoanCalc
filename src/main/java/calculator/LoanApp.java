@@ -34,6 +34,7 @@ public class LoanApp implements Serializable {
 				apr = loan.getAPR();
 				numberOfYears = loan.getNumberOfYears();
 				loanId = System.currentTimeMillis();
+				loan.setLoanApp(this);
 	}
 	public LoanApp(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
 		monthly = mnthly;
@@ -46,6 +47,15 @@ public class LoanApp implements Serializable {
 		numberOfYears = numYears;
 		loanId = System.currentTimeMillis();
 	}
+	
+	public void setLoan(Loan ln){
+		loan = ln;
+	}
+
+	public Loan getLoan(){
+		return loan;
+	}
+
 	public void setMonthly (double mthly){
 		monthly = mthly;
 	}
