@@ -40,8 +40,7 @@ public class Loan implements Serializable {
 		numberOfYears = numYears;
 		loanId = System.currentTimeMillis();
 		loanApp = new LoanApp(mnthly, amt, tot, lndr, st, intRate, Apr, numYears);
-		principal = calculatePrincipal(monthly, numberOfYears, interestRate, apr);
-		interest = monthly - principal;
+		calculatePrincipalAndInterest(monthly, amount, numberOfYears, interestRate, apr);
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
@@ -104,7 +103,7 @@ public class Loan implements Serializable {
 	public void setLoanId(long lnId){
 		loanId = lnId;
 	}
-	public double calculatePrincipal(double loanAmout, int numOfYears, double interestRate, double air){
+	public void calculatePrincipalAndInterest(double loanAmout, int numOfYears, double interestRate, double air){
 		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
 					                        double addOne = (1 + periodicInterestRate);
 								                        double loanAmt = Double.valueOf(loanAmount);
@@ -116,7 +115,6 @@ public class Loan implements Serializable {
 																				                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1)));
 			principal = loanAmt / compoundingPeriods;
 			interest = monthly - principal;
-													return principal;
 	}
 
 	public void setPrincipal(double princ){
