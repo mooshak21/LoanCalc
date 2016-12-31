@@ -5,6 +5,8 @@
    <body>
 	   <table><tr><td>Monthly Payment:</td><td><h2>${loan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:</td><td><h2>${loan.interestRate}</h2></td></tr>
+		   <tr><td>Interest:</td><td><h2>${loan.interest}</h2></td></tr>
+		   <tr><td>Principal:</td><td>h2>${loan.principal}</h2></td></tr>
 		   <tr><td>Loan Amount:</td><td><h2>${loan.amount}</h2></td></tr>
 		   <tr><td>Lender:</td><td><h2>${loan.lender}</h2></td></tr>
 		   <tr><td>State:</td><td><h2>${loan.state}</h2></td></tr>

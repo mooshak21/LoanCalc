@@ -12,6 +12,7 @@ public class Loan implements Serializable {
 	private int numberOfYears;
 	private long loanId;
 	private LoanApp loanApp;
+	private double principal, interest;
 
 	public Loan(){
 		amount = 0.0;
@@ -24,7 +25,8 @@ public class Loan implements Serializable {
 		numberOfYears = 1;
 		loanId = System.currentTimeMillis();
 		loanApp = null;
-
+		principal = 0.0;
+		interest = 0.0;
 	}
 
 	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
@@ -38,6 +40,8 @@ public class Loan implements Serializable {
 		numberOfYears = numYears;
 		loanId = System.currentTimeMillis();
 		loanApp = new LoanApp(mnthly, amt, tot, lndr, st, intRate, Apr, numYears);
+		principal = calculatePrincipal(monthly, numberOfYears, interestRate, apr);
+		interest = monthly - principal;
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
@@ -100,7 +104,36 @@ public class Loan implements Serializable {
 	public void setLoanId(long lnId){
 		loanId = lnId;
 	}
+	public double calculatePrincipal(double loanAmout, int numOfYears, double interestRate, double air){
+		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
+					                        double addOne = (1 + periodicInterestRate);
+								                        double loanAmt = Double.valueOf(loanAmount);
+											                        double compoundingPeriods = Double.valueOf(numOfYears)*12;
+
+														                        double monthly = 0;
+																	                        double total = 0;
+
+																				                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1)));
+			principal = loanAmt / compoundingPeriods;
+			interest = monthly - principal;
+													return principal;
+	}
+
+	public void setPrincipal(double princ){
+		principal = princ;
+	}
+	public double getPrincipal(){
+		return principal;
+	}
+	public void setInterest(double intAmt){
+		interest = intAmt;
+	}
+	public double getInterest(){
+		return interest;
+	}
+
+
 	public String toString(){
-		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%" + " and Loan App of " + (this.getLoanApp() != null ? this.getLoanApp().toString() : "");
+		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " with principal of $ " + this.getPrincipal() + " and interest of $ " + this.getInterest() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%" + " and Loan App of " + (this.getLoanApp() != null ? this.getLoanApp().toString() : "");
 	}
 }
