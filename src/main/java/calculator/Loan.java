@@ -103,7 +103,7 @@ public class Loan implements Serializable {
 	public void setLoanId(long lnId){
 		loanId = lnId;
 	}
-	public void calculatePrincipalAndInterest(double loanAmout, int numOfYears, double interestRate, double air){
+	public void calculatePrincipalAndInterest(double loanAmount, int numOfYears, double interestRate, double air){
 		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
 					                        double addOne = (1 + periodicInterestRate);
 								                        double loanAmt = Double.valueOf(loanAmount);
