@@ -19,9 +19,9 @@
 		   <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr>
 
 	   </table>
-	   <c:if test="${not empty amortizeloan.loanEntries}">
+	   <c:if test="${not empty amortizeloan.entries}">
 	   <table>
-			<c:forEach items = "${amortizeloan.loanEntries}" var="entry">
+		   <c:forEach items = <%=amortizeloan.getEntries().values().toArray()%> var="entry">
 		   		<tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> 
 			</c:forEach>
 	   </table>
