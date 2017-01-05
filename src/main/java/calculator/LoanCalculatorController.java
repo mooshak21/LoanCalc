@@ -40,7 +40,13 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 				loanObject.setLoanApp(loanApp);
 				model.addAttribute("loan", loanObject);
 			        return "createloan";
-		    }
+		    
+			}
+	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
+		    public String createloan(Model model){
+			    model.addAttribute("message", "Create Loan");
+			    return "createloan";
+			}
 	    @RequestMapping(value="/amortizeloan", method=RequestMethod.GET)
 		    public String amortizeloan(Model model){
 			    	model.addAttribute("message","Amortize Loan");
