@@ -21,9 +21,12 @@
 	   </table>
 	   <c:if test="${not empty amortizeloan.entries}">
 	   <table>
-		   <c:forEach items = <%=amortizeloan.getEntries().values().toArray()%> var="entry">
+		   <%Iterator itr = amortizeloan.getEntries().values().iterator());
+			while(itr.hasNext()){
+				calculator.LoanEntry entry = itr.next();%>>
 		   		<tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> 
-			</c:forEach>
+			
+			<%}%>
 	   </table>
 	   </c:if>
 
