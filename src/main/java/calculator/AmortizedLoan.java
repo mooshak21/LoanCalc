@@ -35,7 +35,7 @@ public class AmortizedLoan extends Loan {
 		return super.toString();
 	}
 	public LoanEntry[] getLoanEntries(){
-		return entries.values.toArray();
+		return (LoanEntry[]) entries.values().toArray();
 	}
 
 }
