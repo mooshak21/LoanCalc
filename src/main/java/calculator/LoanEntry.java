@@ -1,5 +1,7 @@
 package calculator;
 
+import java.io.Serializable;
+
 public class LoanEntry implements Serializable{
 	public static final long serialVersionUId = 1L;
 	private double principal, interest;
