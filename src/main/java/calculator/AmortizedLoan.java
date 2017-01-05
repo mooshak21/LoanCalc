@@ -28,7 +28,7 @@ public class AmortizedLoan extends Loan {
 
 																				                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, totalNumYears*12))/(Math.pow(addOne,(totalNumYears*12)) - 1)));
 			setInterest((loanAmt * Math.pow((1+periodicInterestRate),numOfYears*12) - loanAmt)/(numOfYears*12));
-			setPrincipal((monthly - getInterest()) > 0 ? (monthly - getInterest()) : 0);	
+			setPrincipal((loanAmt * Math.pow((1+periodicInterestRate), numOfYears*12)/(numOfYears*12));	
 			return new LoanEntry(getPrincipal(), getInterest());
 	}
 
