@@ -11,7 +11,7 @@ public class AmortizedLoan extends Loan {
 
 	public AmortizedLoan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment){
 		super(mnthly, amt, tot, lndr, st, intRate, Apr, numYears, interestPayment);
-		for(int cmpPeriod = 0; cmpPeriod < numYears * 12; cmpPeriod++){
+		for(int cmpPeriod = 0; cmpPeriod < (numYears-1) * 12; cmpPeriod++){
 			entries.put(new Integer(cmpPeriod), calculateLoanEntry(amt, (numYears * 12 - cmpPeriod)/12, intRate, Apr));
 		}
 
