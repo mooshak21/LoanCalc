@@ -13,11 +13,11 @@ public class AmortizedLoan extends Loan {
 		super(mnthly, amt, tot, lndr, st, intRate, Apr, numYears, interestPayment);
 		int maxCmpPeriod = numYears*12;
 		for(int cmpPeriod = 1; cmpPeriod < maxCmpPeriod; cmpPeriod++){
-			entries.put(new Integer(cmpPeriod), calculateLoanEntry(amt, cmpPeriod % maxCmpPeriod, intRate, Apr));
+			entries.put(new Integer(cmpPeriod), calculateLoanEntry(amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr));
 		}
 
 	}
-	public LoanEntry calculateLoanEntry(double loanAmount, double numOfYears, double interestRate, double air){
+	public LoanEntry calculateLoanEntry(double loanAmount, int totalNumYears, double numOfYears, double interestRate, double air){
 		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
 					                        double addOne = (1 + periodicInterestRate);
 								                        double loanAmt = Double.valueOf(loanAmount);
@@ -26,7 +26,7 @@ public class AmortizedLoan extends Loan {
 														                        double monthly = 0;
 																	                        double total = 0;
 
-																				                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, numOfYears*12))/(Math.pow(addOne,(numOfYears*12)) - 1)));
+																				                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, totalNumYears*12))/(Math.pow(addOne,(totalNumYears*12)) - 1)));
 			setInterest((loanAmt * Math.pow((1+periodicInterestRate),numOfYears*12) - loanAmt)/(numOfYears*12));
 			setPrincipal(monthly - getInterest());	
 			return new LoanEntry(getPrincipal(), getInterest());
