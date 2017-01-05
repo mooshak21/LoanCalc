@@ -1,7 +1,6 @@
 package calculator;
 
-import java.io.Serializable;
-import java.lang.HashMap;
+import java.util.HashMap;
 
 public class AmortizedLoan extends Loan {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +27,7 @@ public class AmortizedLoan extends Loan {
 
 																				                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, compoundingPeriods))/(Math.pow(addOne,compoundingPeriods) - 1)));
 			setPrincipal(loanAmt / compoundingPeriods);
-			setInterest(monthly - principal);
+			setInterest(monthly - getPrincipal());
 			return new LoanEntry(getPrincipal(), getInterest());
 	}
 
