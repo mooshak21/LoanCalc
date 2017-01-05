@@ -34,8 +34,8 @@ public class AmortizedLoan extends Loan {
 	public String toString(){
 		return super.toString();
 	}
-	public HashMap<Integer, LoanEntry> getLoanEntries(){
-		return entries;
+	public LoanEntry[] getLoanEntries(){
+		return entries.values.toArray();
 	}
 
 }
