@@ -1,12 +1,13 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
    <head>
    <title>Loan</title>
    </head>
    <body>
+
 	   <table><tr><td>Monthly Payment:</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
 		   <tr><td>Interest:</td><td><h2>${amortizeloan.interest}</h2></td></tr>
@@ -18,10 +19,13 @@
 		   <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr>
 
 	   </table>
+	   <c:if test="${not empty amortizeloan.loanEntries}">
 	   <table>
-		   <c:forEach items = "${amortizeloan.loanEntries}" var="entry">
-		   <tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> </c:forEach>
+			<c:forEach items = "${amortizeloan.loanEntries}" var="entry">
+		   		<tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> 
+			</c:forEach>
 	   </table>
+	   </c:if>
 
    </body>
 </html>
