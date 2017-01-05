@@ -21,9 +21,9 @@
 	   </table>
 	   <c:if test="${not empty amortizeloan.entries}">
 	   <table>
-		   <%Iterator itr = amortizeloan.getEntries().values().iterator();
+		   <%java.util.Iterator itr = amortizeloan.getEntries().values().iterator();
 			while(itr.hasNext()){
-				calculator.LoanEntry entry = itr.next();%>>
+				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();%>>
 		   		<tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> 
 			
 			<%}%>
