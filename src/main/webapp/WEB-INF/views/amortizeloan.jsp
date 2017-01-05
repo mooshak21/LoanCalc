@@ -16,7 +16,7 @@
 	   </table>
 	   <table>
 		   <c:forEach items = "${amortizeloan.entries}" var="entry">
-		   <tr><td>${entry.principal}</td><td>${entry.interest}</td></tr>
+		   <tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> </c:forEach>
 	   </table>
 
    </body>
