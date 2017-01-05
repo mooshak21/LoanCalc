@@ -13,7 +13,7 @@ public class AmortizedLoan extends Loan {
 		super(mnthly, amt, tot, lndr, st, intRate, Apr, numYears, interestPayment);
 		int maxCmpPeriod = numYears*12;
 		for(int cmpPeriod = 1; cmpPeriod < maxCmpPeriod; cmpPeriod++){
-			entries.put(new Integer(cmpPeriod), calculateLoanEntry(amt, cmpPeriod/(maxCmpPeriod-cmpPeriod), intRate, Apr));
+			entries.put(new Integer(cmpPeriod), calculateLoanEntry(amt, cmpPeriod % maxCmpPeriod, intRate, Apr));
 		}
 
 	}
