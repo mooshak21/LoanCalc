@@ -15,7 +15,7 @@
 
 	   </table>
 	   <table>
-		   <c:forEach items = "${amortizeloan.entries}" var="entry">
+		   <c:forEach items = "${amortizeloan.loanEntries}" var="entry">
 		   <tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> </c:forEach>
 	   </table>
 
