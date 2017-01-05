@@ -23,8 +23,8 @@
 	   <table>
 		   <%java.util.Iterator itr = ((calculator.AmortizedLoan) request.getAttribute("amortizeloan")).getEntries().values().iterator();
 			while(itr.hasNext()){
-				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();%>>
-		   		<tr><td>${entry.principal}</td><td>${entry.interest}</td></tr> 
+				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();%>
+		   		<tr><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%>:w</td></tr> 
 			
 			<%}%>
 	   </table>
