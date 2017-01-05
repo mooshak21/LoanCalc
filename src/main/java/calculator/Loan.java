@@ -29,7 +29,7 @@ public class Loan implements Serializable {
 		interest = 0.0;
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
+	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment){
 		monthly = mnthly;
 		amount = amt;
 		total = tot;
@@ -40,7 +40,7 @@ public class Loan implements Serializable {
 		numberOfYears = numYears;
 		loanId = System.currentTimeMillis();
 		loanApp = new LoanApp(mnthly, amt, tot, lndr, st, intRate, Apr, numYears);
-		calculatePrincipalAndInterest(amount, numberOfYears, interestRate, apr);
+		//calculatePrincipalAndInterest(amount, numberOfYears, interestRate, apr);
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
