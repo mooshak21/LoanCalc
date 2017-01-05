@@ -41,6 +41,7 @@ public class Loan implements Serializable {
 		loanId = System.currentTimeMillis();
 		loanApp = new LoanApp(mnthly, amt, tot, lndr, st, intRate, Apr, numYears);
 		//calculatePrincipalAndInterest(amount, numberOfYears, interestRate, apr);
+		interest = interestPayment;
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
