@@ -6,6 +6,10 @@ public class LoanEntry implements Serializable{
 	public static final long serialVersionUId = 1L;
 	private double principal, interest;
 
+	public LoanEntry(){
+		principal = 0.0;
+		interest = 0.0;
+	}
 	public LoanEntry(double princ, double intrst){
 		principal = princ;
 		interest = intrst;
