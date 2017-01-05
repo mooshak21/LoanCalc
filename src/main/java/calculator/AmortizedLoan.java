@@ -42,5 +42,10 @@ public class AmortizedLoan extends Loan {
 	}
 	public void setLoanEntries(LoanEntry[] ent){
 	}
-
+	public HashMap<Integer, LoanEntry> getEntries(){
+		return entries;
+	}
+	public void setEntries(HashMap<Integer, LoanEntry> ents){
+		entries = ents;
+	}
 }
