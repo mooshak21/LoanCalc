@@ -20,11 +20,14 @@
 
 	   </table>
 	   <c:if test="${not empty amortizeloan.entries}">
-	   <table>
-		   <%java.util.Iterator itr = ((calculator.AmortizedLoan) request.getAttribute("amortizeloan")).getEntries().values().iterator();
+	   <table border="1"><th>Principal</th><th>Interest</th>
+		   <% calculator.AmortizedLoan al = (calculator.AmortizedLoan) request.getAttribute("amortizeloan");
+		    Integer currIdx = new Integer(0);	
+		   java.util.Iterator itr = al.getEntries().values().iterator();
 			while(itr.hasNext()){
+				
 				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();%>
-		   		<tr><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td></tr> 
+				<tr><td><%=al.get(++currIdx)%></td><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td></tr> 
 			
 			<%}%>
 	   </table>
