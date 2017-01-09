@@ -1,8 +1,8 @@
 package calculator;
 
 import java.io.Serializable;
-import java.lang.Calendar;
-import java.lang.GregorianCalendar;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class LoanEntry implements Serializable{
 	public static final long serialVersionUId = 1L;
