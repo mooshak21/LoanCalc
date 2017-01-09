@@ -17,20 +17,20 @@ public class AmortizedLoan extends Loan {
 		int maxCmpPeriod = numYears*12, cmpPeriod = 1;
 		Calendar dateLastEntry = null;
 		amortizedloanAmt = amt;
-		for(cmpPeriod = 1; cmpPeriod < maxCmpPeriod && amortizedloanAmt <= amt; cmpPeriod++){
+		for(cmpPeriod = 1; cmpPeriod < maxCmpPeriod && amortizedloanAmt >= 0; cmpPeriod++){
 			Calendar dateEntry = Calendar.getInstance();
 			dateEntry.set(dateEntry.get(Calendar.YEAR),dateEntry.get(Calendar.MONTH)+cmpPeriod-1, dateEntry.get(Calendar.DAY_OF_MONTH));
 			entries.put(new Integer(cmpPeriod), calculateLoanEntry(dateEntry, amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr));
-			if(cmpPeriod == maxCmpPeriod-1){
-				dateLastEntry = Calendar.getInstance();
-				dateLastEntry.setTimeInMillis(dateEntry.getTimeInMillis());
-			}
+			//if(cmpPeriod == maxCmpPeriod-1){
+			//	dateLastEntry = Calendar.getInstance();
+			//	dateLastEntry.setTimeInMillis(dateEntry.getTimeInMillis());
+			//}
 		}
-		Calendar dateEntry = dateLastEntry;
+		/*Calendar dateEntry = dateLastEntry;
 		dateEntry.set(dateEntry.get(Calendar.YEAR),dateEntry.get
 				(Calendar.MONTH)+1, dateEntry.get(Calendar.DAY_OF_MONTH));
 		entries.put(new Integer(cmpPeriod), calculateLoanEntry(dateEntry, amt, numYears, maxCmpPeriod, intRate, Apr));
-
+*/
 	}
 	public LoanEntry calculateLoanEntry(Calendar dateEntry, double loanAmount, int totalNumYears, double numOfYears, double interestRate, double air){
 		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
