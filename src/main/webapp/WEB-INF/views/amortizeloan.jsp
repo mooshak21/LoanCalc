@@ -28,7 +28,7 @@
 			while(itr.hasNext()){
 				
 				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();%>
-				<tr><td><%=++currIdx%></td><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td></tr> 
+				<tr><td><%=++currIdx%></td><td><%=entry.getDateEntry()%></td><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td></tr> 
 			
 			<%}%>
 	   </table>

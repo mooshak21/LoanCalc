@@ -1,6 +1,8 @@
 package calculator;
 
 import java.util.HashMap;
+import java.lang.Calendar;
+import java.lang.GregorianCalendar;
 
 public class AmortizedLoan extends Loan {
 	private static final long serialVersionUID = 1L;
@@ -12,12 +14,15 @@ public class AmortizedLoan extends Loan {
 	public AmortizedLoan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment){
 		super(mnthly, amt, tot, lndr, st, intRate, Apr, numYears, interestPayment);
 		int maxCmpPeriod = numYears*12;
+		Calendar dateEntry = GregorianCalendar.getInstance();
+
 		for(int cmpPeriod = 1; cmpPeriod < maxCmpPeriod; cmpPeriod++){
-			entries.put(new Integer(cmpPeriod), calculateLoanEntry(amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr));
+			dateEntry.setMonth(dateEntry.get(Calendar.get(Calendar.MONTH));
+			entries.put(new Integer(cmpPeriod), calculateLoanEntry(dateEntry, amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr));
 		}
 
 	}
-	public LoanEntry calculateLoanEntry(double loanAmount, int totalNumYears, double numOfYears, double interestRate, double air){
+	public LoanEntry calculateLoanEntry(Calendar dateEntry, double loanAmount, int totalNumYears, double numOfYears, double interestRate, double air){
 		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
 					                        double addOne = (1 + periodicInterestRate);
 								                        double loanAmt = Double.valueOf(loanAmount);
@@ -29,8 +34,8 @@ public class AmortizedLoan extends Loan {
 											                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, totalNumYears*12))/(Math.pow(addOne,(totalNumYears*12)) - 1)));
 			setInterest((loanAmt * Math.pow((1+periodicInterestRate),numOfYears*12) - loanAmt)/(numOfYears*12));
 			currloanAmt = loanAmt - getInterest();
-			setPrincipal(monthly - (currloanAmt * periodicInterestRate));	
-			return new LoanEntry(getPrincipal(), getInterest());
+			setPrincipal(monthly - (currloanAmt * periodicInterestRate));
+			return new LoanEntry(dateEntry, getPrincipal(), getInterest());
 	}
 
 	public String toString(){
