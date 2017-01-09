@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 public class AmortizedLoan extends Loan {
 	private static final long serialVersionUID = 1L;
 	private HashMap<Integer, LoanEntry> entries = new HashMap<Integer, LoanEntry>();
+	private double amortizedloanAmt = 0;
 	public AmortizedLoan(){
 		super();
 	}
@@ -15,6 +16,7 @@ public class AmortizedLoan extends Loan {
 		super(mnthly, amt, tot, lndr, st, intRate, Apr, numYears, interestPayment);
 		int maxCmpPeriod = numYears*12, cmpPeriod = 1;
 		Calendar dateLastEntry = null;
+		amortizedloanAmt = amt;
 		for(cmpPeriod = 1; cmpPeriod < maxCmpPeriod; cmpPeriod++){
 			Calendar dateEntry = Calendar.getInstance();
 			dateEntry.set(dateEntry.get(Calendar.YEAR),dateEntry.get(Calendar.MONTH)+cmpPeriod-1, dateEntry.get(Calendar.DAY_OF_MONTH));
@@ -39,14 +41,13 @@ public class AmortizedLoan extends Loan {
 				double monthly = 0;
 				double total = 0;
 				double currloanAmt = 0;
-				double entryloanAmt = 0;
 											                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, totalNumYears*12))/(Math.pow(addOne,(totalNumYears*12)) - 1)));
 			setInterest((loanAmt * Math.pow((1+periodicInterestRate),numOfYears*12) - loanAmt)/(numOfYears*12));
 			currloanAmt = loanAmt - getInterest();
 		
 			setPrincipal(monthly - (currloanAmt * periodicInterestRate));
-			entryloanAmt = loanAmt - getPrincipal();
-			return new LoanEntry(dateEntry, getPrincipal(), getInterest(), entryloanAmt, monthly);
+			amortizedloanAmt -= getPrincipal();
+			return new LoanEntry(dateEntry, getPrincipal(), getInterest(), amortizedloanAmt, monthly);
 	}
 
 	public String toString(){
