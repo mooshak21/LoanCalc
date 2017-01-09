@@ -20,7 +20,7 @@
 
 	   </table>
 	   <c:if test="${not empty amortizeloan.entries}">
-	   <table border="1"><th>Number</th><th>Principal</th><th>Interest</th>
+	   <table border="1"><th>Number</th><th>Date</th><th>Principal</th><th>Interest</th>
 
 		   <% calculator.AmortizedLoan al = (calculator.AmortizedLoan) request.getAttribute("amortizeloan");
 		    Integer currIdx = new Integer(0);	
