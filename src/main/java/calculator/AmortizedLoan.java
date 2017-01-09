@@ -31,7 +31,7 @@ public class AmortizedLoan extends Loan {
 			
 		}
 
-		entries.put(new Integer(cmpPeriod), calculateLoanEntry(dateLastEntry, amoritizedloanAmt, numYears, cmpPeriod, intRate, Apr));
+		entries.put(new Integer(cmpPeriod), calculateLoanEntry(dateLastEntry, amortizedloanAmt, numYears, cmpPeriod, intRate, Apr));
 	}
 	public LoanEntry calculateLoanEntry(Calendar dateEntry, double loanAmount, int totalNumYears, double numOfYears, double interestRate, double air){
 		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
