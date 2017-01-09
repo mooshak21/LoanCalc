@@ -17,7 +17,7 @@ public class AmortizedLoan extends Loan {
 		int maxCmpPeriod = numYears*12, cmpPeriod = 1;
 		Calendar dateLastEntry = null;
 		amortizedloanAmt = amt;
-		for(cmpPeriod = 1; cmpPeriod < maxCmpPeriod; cmpPeriod++){
+		for(cmpPeriod = 1; cmpPeriod < maxCmpPeriod && amortizedloanAmt <= amt; cmpPeriod++){
 			Calendar dateEntry = Calendar.getInstance();
 			dateEntry.set(dateEntry.get(Calendar.YEAR),dateEntry.get(Calendar.MONTH)+cmpPeriod-1, dateEntry.get(Calendar.DAY_OF_MONTH));
 			entries.put(new Integer(cmpPeriod), calculateLoanEntry(dateEntry, amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr));
