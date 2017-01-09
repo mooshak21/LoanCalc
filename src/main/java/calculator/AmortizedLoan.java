@@ -23,7 +23,7 @@ public class AmortizedLoan extends Loan {
 			LoanEntry loanEntry = calculateLoanEntry(dateEntry, amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr);
 
 			if(monthly <= loanEntry.getPrincipal())
-				entries.put(new Integer(cmpEntry), loanEntry);
+				entries.put(new Integer(cmpPeriod), loanEntry);
 	
 		}
 	}
