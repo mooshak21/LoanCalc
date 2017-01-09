@@ -8,7 +8,7 @@
    <body>
 
 	   <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
-		   Loan Amount: <input type="text" name="loanAmt" value="${loan.loanAmount}"><br>
+		   Loan Amount: <input type="text" name="loanAmt" value="${loan.amount}"><br>
 		   Number of Years: <input type="text" name="numOfYears" value="${loan.numberOfYears}"><br>
 		   Lender: <input type="text" name="lender" value="${loan.lender}"><br>
 		   State: <input type="text" name="state" value="${loan.state}"><br>
