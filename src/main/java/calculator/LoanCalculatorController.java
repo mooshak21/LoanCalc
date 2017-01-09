@@ -55,7 +55,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, Model model) {
 			    	model.addAttribute("message","Amortize Loan");
-			RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
 AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, AmortizedLoan.class);
 				model.addAttribute("amortizeloan", loanObject);			
 				return "amortizeloan";
