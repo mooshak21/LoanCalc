@@ -3,8 +3,10 @@
    <title>Loan</title>
    </head>
    <body>
-	   <a href="/createloan">Create Loan</a> 
-	   <a href="/amortizeloan">Amortize Lon</a> 
+	  <table>
+	   <tr><td><a href="/createloan">Create Loan</a></td></tr>
+	   <tr><td><a href="/amortizeloanask">Amortize Lon</a></td></tr>
+	  </table>
    </body>
 </html>
 
