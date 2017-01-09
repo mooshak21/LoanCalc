@@ -25,7 +25,7 @@ public class AmortizedLoan extends Loan {
 			if(loanEntry.getPrincipal() <= mnthly){
 				dateLastEntry = Calendar.getInstance();
 				dateLastEntry.setTimeInMillis(dateEntry.getTimeInMillis());
-				dateLastEntry.set(Calendar.MONTH, dateEntry.get(Calendar.MONTH)+1);
+				dateLastEntry.set(Calendar.MONTH, dateEntry.get(Calendar.MONTH)+1));
 				entries.put(new Integer(cmpPeriod), loanEntry);
 			}
 			
