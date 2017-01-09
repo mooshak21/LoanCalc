@@ -8,6 +8,16 @@
    </head>
    <body>
 
+	             <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.
+						  focus(); return false;}'>
+			     Loan Amount: <input type="text" name="loanAmt" value="${amortizeloan.amount}"><br>
+			     Number of Years: <input type="text" name="numOfYears" value="${amortizeloan.numberOfYears}"><br>
+			     Lendr: <input type="text" name="lender" value="${amortizeloan.lender}"><br>
+			     State: <input type="text" name="state" value="${amortizeloan.state}"><br>
+			     Annual Interest Rate: <input type="text" name="airVal" value="${amortizeloan.APR}"><br>
+														                     <input type="submit" name="submit"><br>
+																                </form>
+	   
 	   <table><tr><td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
 		   <tr><td>Last Interest:($)</td><td><h2>${amortizeloan.interest}</h2></td></tr>
