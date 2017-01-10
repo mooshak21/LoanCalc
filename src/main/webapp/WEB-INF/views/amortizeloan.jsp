@@ -15,8 +15,9 @@
 			     Lendr: <input type="text" name="lender" value="${amortizeloan.lender}"><br>
 			     State: <input type="text" name="state" value="${amortizeloan.state}"><br>
 			     Annual Interest Rate: <input type="text" name="airVal" value="${amortizeloan.APR}"><br>
-														                     <input type="submit" name="submit"><br>
-																                </form>
+			     Amortize on Month: <input type="date" name="amortizeOn" value="01/01/2017"><br>		
+        	             <input type="submit" name="submit"><br>
+	                </form>
 	   
 	   <table><tr><td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
