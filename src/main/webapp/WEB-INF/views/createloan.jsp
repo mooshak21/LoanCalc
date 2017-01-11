@@ -27,7 +27,7 @@
                       <tr><td>APR:</td><td><h2>${loan.APR}</h2></td></tr>
 		      <tr><td>Number of Years:</td><td><h2>${loan.numberOfYears}</h2></td></tr><tr><td>Loan App:</td><td><h2>${loan.loanApp.lender}</h2></td></tr>
 		      <tr><td>Interest:</td><td><h2>${loan.interest}</h2></td></tr>                   <tr><td>Principal:</td><td><h2>${loan.principal}</h2></td></tr>
-		      <tr><td><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=04/01/2017'>Amortize Loan</a></td></tr>
+		      <tr><td><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=01/01/2017'>Amortize Loan</a></td></tr>
    </c:if>
              </table></body>
 </html>
