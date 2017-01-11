@@ -75,4 +75,5 @@ class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 <prop key="hibernate.current_session_context_class">thread</prop>
 </props>
 </property>
+</bean>
 </beans>
