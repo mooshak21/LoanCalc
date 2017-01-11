@@ -14,6 +14,7 @@
 		   State: <input type="text" name="state" value="${loan.state}"><br>
 		   Annual Interest Rate: <input type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01"><br>
 		   <input type="submit" name="submit"><br> 
+		     <a href="/">Home</a><br>
 	   </form>
    <h2>${message}</h2>
    <c:if test="${not empty loan}">
