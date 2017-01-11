@@ -19,6 +19,8 @@
         	             <input type="submit" name="submit"><br>
 			     <a href="/home">Home</a><br>
 	             </form>
+	   <h2>${message}</h2>
+	   <c:if test="${not empty amortizeloan}">
 	   
 	   <table><tr><td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
@@ -31,6 +33,7 @@
 		   <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr>
 
 	   </table>
+	   </c:if>	
 	   <c:if test="${not empty amortizeloan.entries}">
 	   <table border="1"><th>Number</th><th>Date</th><th>Principal($)</th><th>Interest($)</th><th>Loan Amount($)</th><th>Monthly($)</th>
 
