@@ -110,7 +110,7 @@
 <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-orm-modules -->
 <dependency>
     <groupId>org.hibernate</groupId>
-    <artifactId>hibernate</artifactId>
+    <artifactId>hibernate-core</artifactId>
     <version>5.2.3.Final</version>
 </dependency>
 
