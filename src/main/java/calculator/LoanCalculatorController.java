@@ -72,7 +72,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 	    	   public String loanamortizeask(Model model){
 			   model.addAttribute("message", "Amortize Loan");
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
-			   String calTodayStr = calToday.get(java.util.Calendar.MONTH) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
 			   model.addAttribute("amortizeOn", calTodayStr);		
 			   return "amortizeloan";
 		   }
