@@ -60,7 +60,8 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + "&amortizeOn=" + amortizeOn, AmortizedLoan.class);
 				LoanApp loanApp = new LoanApp(loanObject);
 				loanObject.setLoanApp(loanApp);
-				model.addAttribute("amortizeloan", loanObject);			
+				model.addAttribute("amortizeloan", loanObject);
+				model.addAttribute("amortizeOn", amortizeOn);			
 				return "amortizeloan";
 		    }
 	    @RequestMapping(value="/")
@@ -69,7 +70,9 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		   }
 	    @RequestMapping(value="/loanamortizeask")
 	    	   public String loanamortizeask(Model model){
-			    model.addAttribute("message", "Amortize Loan");
+			   model.addAttribute("message", "Amortize Loan");
+			   java.util.Calendar calToday = java.util.Calendar.getInstance();
+			   model.addAttribute("amortizeOn", calToday.get(java.util.Calendar.MONTH) + "/" calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR));		
 			   return "amortizeloan";
 		   }
 }
