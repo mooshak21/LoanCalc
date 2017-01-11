@@ -110,7 +110,7 @@
 	<!-- Hibernate framework -->
 	<dependency>
 		<groupId>hibernate</groupId>
-		<artifactId>hibernate3</artifactId>
+		<artifactId>hibernate</artifactId>
 		<version>3.2.3.GA</version>
 	</dependency>
 
