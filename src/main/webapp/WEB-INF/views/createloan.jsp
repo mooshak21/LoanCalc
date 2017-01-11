@@ -15,8 +15,8 @@
 		   Annual Interest Rate: <input type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01"><br>
 		   <input type="submit" name="submit"><br> 
 	   </form>
-   <c:if test="${not empty loan}">
    <h2>${message}</h2>
+   <c:if test="${not empty loan}">
    <table><tr><td>Loan Id:<td><h2>${loan.loanId}</h2></td></tr><tr><td>Monthly Payment:</td><td><h2>${loan.monthly}</h2></td>
 		  </tr>
                       <tr><td>Interest Rate:</td><td><h2>${loan.interestRate}</h2></td></tr>
