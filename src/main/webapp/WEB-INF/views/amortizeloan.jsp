@@ -17,7 +17,7 @@
 			     Annual Interest Rate: <input type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step="0.01"><br>
 			     Amortize on Month: <input type="date" name="amortizeOn" value="01/01/2017"><br>		
         	             <input type="submit" name="submit"><br>
-			     <a href="/home">Home</a><br>
+			     <a href="/">Home</a><br>
 	             </form>
 	   <h2>${message}</h2>
 	   <c:if test="${not empty amortizeloan}">
