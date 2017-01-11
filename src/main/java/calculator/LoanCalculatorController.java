@@ -32,10 +32,11 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);*/
 
-		/*		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-					SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
-					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-					hibernateTemplate.saveOrUpdate(loanObject);*/
+				ApplicationContext appCtx = new ClassPathXmlApplicationContext("resources/spring/applicationContext.xml");
+				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
+				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+				hibernateTemplate.saveOrUpdate(loanObject);
+
 				LoanApp loanApp = new LoanApp(loanObject);
 				loanObject.setLoanApp(loanApp);
 				model.addAttribute("loan", loanObject);
