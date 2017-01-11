@@ -8,11 +8,11 @@
    <body>
 
 	   <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
-		   Loan Amount: <input type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999"><br>
+		   Loan Amount: <input type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999"><br>
 		   Number of Years: <input type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100"><br>
 		   Lender: <input type="text" name="lender" value="${loan.lender}"><br>
 		   State: <input type="text" name="state" value="${loan.state}"><br>
-		   Annual Interest Rate: <input type="number" name="airVal" value="${loan.APR}" min="0" max="100" step=".5"><br>
+		   Annual Interest Rate: <input type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01"><br>
 		   <input type="submit" name="submit"><br> 
 	   </form>
    <h2>${message}</h2>

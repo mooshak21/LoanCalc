@@ -10,11 +10,11 @@
 
 	             <form name="loanForm" action="/amortizeloan" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.
 						  focus(); return false;}'>
-			     Loan Amount: <input type="number" name="loanAmt" value="${amortizeloan.amount}"><br>
+			     Loan Amount: <input type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999"><br>
 			     Number of Years: <input type="number" name="numOfYears" value="${amortizeloan.numberOfYears}" min="1" max="50"><br>
 			     Lendr: <input type="text" name="lender" value="${amortizeloan.lender}"><br>
 			     State: <input type="text" name="state" value="${amortizeloan.state}"><br>
-			     Annual Interest Rate: <input type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step=".5"><br>
+			     Annual Interest Rate: <input type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step="0.01"><br>
 			     Amortize on Month: <input type="date" name="amortizeOn" value="01/01/2017"><br>		
         	             <input type="submit" name="submit"><br>
 	                </form>
