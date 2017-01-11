@@ -15,6 +15,7 @@
 		   Annual Interest Rate: <input type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01"><br>
 		   <input type="submit" name="submit"><br> 
 	   </form>
+   <c:if test="${not empty loan}">
    <h2>${message}</h2>
    <table><tr><td>Loan Id:<td><h2>${loan.loanId}</h2></td></tr><tr><td>Monthly Payment:</td><td><h2>${loan.monthly}</h2></td>
 		  </tr>
@@ -25,8 +26,8 @@
                       <tr><td>APR:</td><td><h2>${loan.APR}</h2></td></tr>
 		      <tr><td>Number of Years:</td><td><h2>${loan.numberOfYears}</h2></td></tr><tr><td>Loan App:</td><td><h2>${loan.loanApp.lender}</h2></td></tr>
 		      <tr><td>Interest:</td><td><h2>${loan.interest}</h2></td></tr>                   <tr><td>Principal:</td><td><h2>${loan.principal}</h2></td></tr>
-		      <c:if test="${not empty loan}">
-		      <tr><td><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}'>Amortize Loan</a></td></tr></c:if>
+		      <tr><td><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}'>Amortize Loan</a></td></tr>
+   </c:if>
              </table></body>
 </html>
 
