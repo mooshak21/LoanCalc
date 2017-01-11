@@ -62,7 +62,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				model.addAttribute("amortizeloan", loanObject);			
 				return "amortizeloan";
 		    }
-	    @RequestMapping(value="/home")
+	    @RequestMapping(value="/")
 	    	   public String home(){
 			   return "index";
 		   }
