@@ -21,7 +21,7 @@ public class AmortizedLoan extends Loan {
 			Calendar dateEntry = Calendar.getInstance();
 			try{
 				System.out.println(amortizeOnDate);
-				dateEntry.setTime(java.text.SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.US).parse(amortizeOnDate));
+				dateEntry.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(amortizeOnDate));
 			}catch(java.text.ParseException pe){ pe.printStackTrace(); }
 			dateEntry.set(dateEntry.get(Calendar.YEAR),dateEntry.get(Calendar.MONTH)+cmpPeriod-1, dateEntry.get(Calendar.DAY_OF_MONTH));
 			LoanEntry loanEntry = calculateLoanEntry(dateEntry, amt, numYears, cmpPeriod % maxCmpPeriod, intRate, Apr);
