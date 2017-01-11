@@ -67,7 +67,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   return "index";
 		   }
 	    @RequestMapping(value="/loanamortizeask")
-	    	   public String loanamortizeask(){
+	    	   public String loanamortizeask(Model model){
+			    model.addAttribute("message", "Amortize Loan");
 			   return "amortizeloan";
 		   }
 }
