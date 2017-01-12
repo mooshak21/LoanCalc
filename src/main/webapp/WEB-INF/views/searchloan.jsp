@@ -44,11 +44,13 @@
 		    java.util.Iterator itr = al.getEntries().values().iterator();
 			while(itr.hasNext()){
 				
-				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();%>
+				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();
+				if(entry != null){%>
 				<tr><td><%=++currIdx%></td><td><%=(entry.getDateEntry().get(java.util.Calendar.MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.DAY_OF_MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.YEAR))%></td><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td><td><%=entry.getLoanAmount()%></td><td><%=entry.getMonthly()%></td></tr> 
 			
 			<%}
-			}%>
+			}
+		}%>
 	   </table>
 	   </c:if>
 
