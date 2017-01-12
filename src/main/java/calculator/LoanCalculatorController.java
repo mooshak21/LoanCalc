@@ -89,7 +89,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-				Loan loanObject = new Loan();
+				AmortizedLoan loanObject = new Loan();
 				loanObject.setAmount(Double.valueOf(loanAmt));
 				loanObject.setAPR(Double.valueOf(airVal));
 				loanObject.setLender(lender);
