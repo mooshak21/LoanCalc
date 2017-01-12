@@ -87,12 +87,12 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
 			    	model.addAttribute("message","Amortize Loan");
 		RestTemplate restTemplate = new RestTemplate();
-AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + "&amortizeOn=" + amortizeOn, AmortizedLoan.class);
+Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/searchloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
 				LoanApp loanApp = new LoanApp(loanObject);
 				loanObject.setLoanApp(loanApp);
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
-				return "amortizeloan";
+				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
 	    	   public String loansearchask(Model model){
