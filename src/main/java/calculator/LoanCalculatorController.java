@@ -95,7 +95,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanObject.setAPR(Double.valueOf(airVal));
 				loanObject.setLender(lender);
 				loanObject.setState(state);
-				loanObject.setNumberOfYears(Integer.valueOf(numOfYears)
+				loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
 				List loans = hibernateTemplate.findByExample(loanObject);
 				if(loans != null && loans.size() == 1){
 					Loan searchloan = (Loan)loans.get(0);
