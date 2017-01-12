@@ -105,6 +105,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					loanObject = amortizeLoan;
 				}else {
 					loanObject = new AmortizedLoan();
+					LoanApp loanApp = new LoanApp(loanObject);
+					
 				}
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
