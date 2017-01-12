@@ -22,7 +22,8 @@
 	   <h2>${message}</h2>
 	   <c:if test="${not empty amortizeloan}">
 	   
-	   <table><tr><td>Loan Id:</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
+	   <table><tr><td>Loan Id:</td><td><h2>${amortizeloan.loanId}</h2></td></tr>
+		   
 		   <tr><td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
 		   <tr><td>Last Interest:($)</td><td><h2>${amortizeloan.interest}</h2></td></tr>
@@ -35,22 +36,22 @@
 
 	   </table>
 	   </c:if>	
-	   <c:if test="${not empty amortizeloan}">
+	   <c:if test="${not empty amortizeloan.entries}">
 	   <table border="1"><th>Number</th><th>Date</th><th>Principal($)</th><th>Interest($)</th><th>Loan Amount($)</th><th>Monthly($)</th>
 
-		   <% calculator.AmortizedLoan al = (calculator.AmortizedLoan) request.getAttribute("amortizeloan");
+		   <% /*calculator.AmortizedLoan al = (calculator.AmortizedLoan) request.getAttribute("amortizeloan");
 		    Integer currIdx = new Integer(0);	
 		    if(al != null){
 		    	java.util.Iterator itr = al.getEntries().values().iterator();
 			while(itr != null && itr.hasNext()){
 				
 				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();
-				if(entry != null){%>
-				<tr><td><%=++currIdx%></td><td><%=(entry.getDateEntry().get(java.util.Calendar.MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.DAY_OF_MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.YEAR))%></td><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td><td><%=entry.getLoanAmount()%></td><td><%=entry.getMonthly()%></td></tr> 
+				if(entry != null){*/%>
+				<tr><td><%//++currIdx%></td><td><%//(entry.getDateEntry().get(java.util.Calendar.MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.DAY_OF_MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.YEAR))%></td><td><%//entry.getPrincipal()%></td><td><%//entry.getInterest()%></td><td><%//entry.getLoanAmount()%></td><td><%//entry.getMonthly()%></td></tr> 
 			
-			<%}
+			<%/*}
 			}
-		}%>
+		}*/%>
 	   </table>
 	   </c:if>
 
