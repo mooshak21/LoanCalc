@@ -95,7 +95,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				return "amortizeloan";
 		    }
 		@RequestMapping(value="/loansearchask")
-	    	   public String loanamortizeask(Model model){
+	    	   public String loansearchask(Model model){
 			   model.addAttribute("message", "Search Loan");
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
 			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
