@@ -208,7 +208,7 @@
 																																									<dependency>
 																																										            <groupId>org.hibernate</groupId>
 																																											                <artifactId>hibernate-java8</artifactId>
-																																													<version>4.3.6.FINAL</version>
+																																													<version>5.0.0.CR2</version>
 																																													    </dependency>
 
 																																									<dependency>
