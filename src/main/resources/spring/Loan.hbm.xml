@@ -4,9 +4,9 @@
 
 <hibernate-mapping>
     <class name="calculator.Loan" table="loan">
-        <id name="loanId" type="java.lang.Long">
+        <id name="loanId" type="long">
             <column name="LOAN_ID" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <property name="amount" type="double">
             <column name="LOAN_AMT" length="20" not-null="true" unique="true" />
