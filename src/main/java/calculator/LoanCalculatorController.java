@@ -86,8 +86,6 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
 			    	model.addAttribute("message","Amortize Loan");
-//		RestTemplate restTemplate = new RestTemplate();
-//Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + //"&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
@@ -96,7 +94,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanObject.setLender(lender);
 				loanObject.setState(state);
 				loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
-				List loans = hibernateTemplate.findByExample(loanObject);
+				java.util.List loans = hibernateTemplate.findByExample(loanObject);
 				if(loans != null && loans.size() == 1){
 					Loan searchloan = (Loan)loans.get(0);
 					AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
