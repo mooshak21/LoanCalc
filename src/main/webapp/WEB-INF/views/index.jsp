@@ -9,6 +9,7 @@
 	  </header>
 	  <p>Loan Calculator is to calculate the loan payments in terms of interest and principal of monthly payment, and build an amortization schedule.</p>
 	  <table>
+	   <tr><td><a href="/loansearchask">Search Loan</a></td></tr>
 	   <tr><td><a href="/createloan">Create Loan</a></td></tr>
 	   <tr><td><a href="/loanamortizeask">Amortize Loan</a></td></tr>
 	  </table>
