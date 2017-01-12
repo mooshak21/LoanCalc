@@ -41,8 +41,8 @@
 		   <% calculator.AmortizedLoan al = (calculator.AmortizedLoan) request.getAttribute("amortizeloan");
 		    Integer currIdx = new Integer(0);	
 		    if(al != null){
-		    java.util.Iterator itr = al.getEntries().values().iterator();
-			while(itr.hasNext()){
+		    	java.util.Iterator itr = al.getEntries().values().iterator();
+			while(itr != null && itr.hasNext()){
 				
 				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();
 				if(entry != null){%>
