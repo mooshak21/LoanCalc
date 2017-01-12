@@ -241,6 +241,11 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901-1.jdbc4</version>
-        </dependency>
+    </dependency>
+    <dependency>
+	        <groupId>javassist</groupId>
+		    <artifactId>javassist</artifactId>
+		        <version>3.12.1.GA</version>
+		</dependency>
 </dependencies>
 </project>
