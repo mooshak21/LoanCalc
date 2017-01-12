@@ -39,14 +39,14 @@ public class LoanApp implements Serializable {
 				loan.setLoanApp(this);
 	}
 	public LoanApp(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears){
-		monthly = mnthly;
-		amount = amt;
-		total = tot;
+		monthly = new Double(mnthly);
+		amount = new Double(amt);
+		total = new Double(tot);
 		lender = lndr;
 		state = st;
-		interestRate = intRate;
-		apr = Apr;
-		numberOfYears = numYears;
+		interestRate = new Double(intRate);
+		apr = new Double(Apr);
+		numberOfYears = new Integer(numYears);
 		loanId = System.currentTimeMillis();
 	}
 	
@@ -58,22 +58,22 @@ public class LoanApp implements Serializable {
 		return loan;
 	}
 
-	public void setMonthly (double mthly){
+	public void setMonthly (Double mthly){
 		monthly = mthly;
 	}
-	public double getMonthly(){
+	public Double getMonthly(){
 		return monthly;
 	}
-	public void setAmount (double amt){
+	public void setAmount (Double amt){
 		amount = amt;
 	}
-	public double getAmount(){
+	public Double getAmount(){
 		return amount;
 	}
-	public void setTotal (double tot){
+	public void setTotal (Double tot){
 		total = tot;
 	}
-	public double getTotal(){
+	public Double getTotal(){
 		return total;
 	}
 	public void setLender(String lndr){
@@ -88,31 +88,31 @@ public class LoanApp implements Serializable {
 	public String getState(){
 		return state;
 	}
-	public void setInterestRate(double intRate){
+	public void setInterestRate(Double intRate){
 		interestRate = intRate;
 	}
-	public double getInterestRate(){
+	public Double getInterestRate(){
 		return interestRate;
 	}
-	public void setAPR(double Apr){
+	public void setAPR(Double Apr){
 		apr = Apr;
 	}
-	public double getAPR(){
+	public Double getAPR(){
 		return apr;
 	}
-	public void setNumberOfYears (int num){
+	public void setNumberOfYears (Integer num){
 		numberOfYears = num;
 	}
-	public int getNumberOfYears(){
+	public Integer getNumberOfYears(){
 		return numberOfYears;
 	}
-	public long getLoanId(){
+	public Long getLoanId(){
 		return loanId;
 	}
-	public void setLoanId(long lnId){
+	public void setLoanId(Long lnId){
 		loanId = lnId;
 	}
 	public String toString(){
 		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%";
 	}
-};
+}

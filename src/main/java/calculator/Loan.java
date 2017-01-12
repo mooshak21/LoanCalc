@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class Loan implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private double amount, total, monthly;
+	private Double amount, total, monthly;
 	private String lender;
 	private String state;
-	private double interestRate;
-	private double apr;
-	private int numberOfYears;
-	private long loanId;
+	private Double interestRate;
+	private Double apr;
+	private Integer numberOfYears;
+	private Long loanId;
 	private LoanApp loanApp;
-	private double principal, interest;
+	private Double principal, interest;
 
 	public Loan(){
 		amount = 0.0;
@@ -30,18 +30,18 @@ public class Loan implements Serializable {
 	}
 
 	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment){
-		monthly = mnthly;
-		amount = amt;
-		total = tot;
+		monthly = new Double(mnthly);
+		amount = new Double(amt);
+		total = new Double(tot);
 		lender = lndr;
 		state = st;
-		interestRate = intRate;
-		apr = Apr;
-		numberOfYears = numYears;
+		interestRate = new Double(intRate);
+		apr = new Double(Apr);
+		numberOfYears = new Integer(numYears);
 		loanId = System.currentTimeMillis();
 		loanApp = new LoanApp(mnthly, amt, tot, lndr, st, intRate, Apr, numYears);
-		interest = interestPayment;
-		principal = monthly - interest;
+		interest = new Double(interestPayment);
+		principal = new Double(monthly - interest);
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
@@ -50,22 +50,22 @@ public class Loan implements Serializable {
 	public LoanApp getLoanApp(){
 		return loanApp;
 	}
-	public void setMonthly (double mthly){
+	public void setMonthly (Double mthly){
 		monthly = mthly;
 	}
-	public double getMonthly(){
+	public Double getMonthly(){
 		return monthly;
 	}
-	public void setAmount (double amt){
+	public void setAmount (Double amt){
 		amount = amt;
 	}
-	public double getAmount(){
+	public Double getAmount(){
 		return amount;
 	}
-	public void setTotal (double tot){
+	public void setTotal (Double tot){
 		total = tot;
 	}
-	public double getTotal(){
+	public Double getTotal(){
 		return total;
 	}
 	public void setLender(String lndr){
@@ -80,28 +80,28 @@ public class Loan implements Serializable {
 	public String getState(){
 		return state;
 	}
-	public void setInterestRate(double intRate){
+	public void setInterestRate(Double intRate){
 		interestRate = intRate;
 	}
-	public double getInterestRate(){
+	public Double getInterestRate(){
 		return interestRate;
 	}
-	public void setAPR(double Apr){
+	public void setAPR(Double Apr){
 		apr = Apr;
 	}
-	public double getAPR(){
+	public Double getAPR(){
 		return apr;
 	}
-	public void setNumberOfYears (int num){
+	public void setNumberOfYears (Integer num){
 		numberOfYears = num;
 	}
-	public int getNumberOfYears(){
+	public Integer getNumberOfYears(){
 		return numberOfYears;
 	}
-	public long getLoanId(){
+	public Long getLoanId(){
 		return loanId;
 	}
-	public void setLoanId(long lnId){
+	public void setLoanId(Long lnId){
 		loanId = lnId;
 	}
 	public void calculatePrincipalAndInterest(double loanAmount, int numOfYears, double interestRate, double air){
@@ -118,16 +118,16 @@ public class Loan implements Serializable {
 			interest = monthly - principal;
 	}
 
-	public void setPrincipal(double princ){
+	public void setPrincipal(Double princ){
 		principal = princ;
 	}
-	public double getPrincipal(){
+	public Double getPrincipal(){
 		return principal;
 	}
-	public void setInterest(double intAmt){
+	public void setInterest(Double intAmt){
 		interest = intAmt;
 	}
-	public double getInterest(){
+	public Double getInterest(){
 		return interest;
 	}
 

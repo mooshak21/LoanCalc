@@ -4,26 +4,26 @@
 
 <hibernate-mapping>
     <class name="calculator.LoanApp" table="loanapp">
-        <id name="loanId" type="long">
+        <id name="loanId" type="java.lang.Long">
             <column name="LOAN_ID" />
             <generator class="assigned" />
         </id>
-        <property name="amount" type="double">
+        <property name="amount" type="java.lang.Double">
             <column name="LOAN_AMT" length="20" not-null="true" unique="true" />
         </property>
-        <property name="APR" type="double">
+        <property name="APR" type="java.lang.Double">
             <column name="APR" length="20" not-null="true" unique="true" />
         </property>
-        <property name="interestRate" type="double">
+        <property name="interestRate" type="java.lang.Double">
             <column name="INT_RATE" length="20" not-null="true" unique="true" />
         </property>
-        <property name="monthly" type="double">
+        <property name="monthly" type="java.lang.Double">
             <column name="MTHLY_PAYMT" length="20" not-null="true" unique="true" />
         </property>
-        <property name="lender" type="string">
+        <property name="lender" type="java.lang.String">
             <column name="LENDER" length="10" not-null="true" unique="true" />
         </property>
-        <property name="state" type="string">
+        <property name="state" type="java.lang.String">
             <column name="ST" length="10" not-null="true" unique="true" />
         </property>
     </class>
