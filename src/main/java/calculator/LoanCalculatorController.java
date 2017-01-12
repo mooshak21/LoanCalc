@@ -95,7 +95,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanObject.setLender(lender);
 				loanObject.setState(state);
 				loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
-				java.util.List loans = hibernateTemplate.find("select ln from Loan ln where ln.apr=? and ln.amount=? and ln.lender=? and ln.state=? and ln.numberOfYears=?", loanObject.getAPR(), loanObject.getAmount(), loanObject.getLender(), loanObject.getState(), loanObject.getNumberOfYears());
+				java.util.List loans = hibernateTemplate.find("select ln from Loan ln where ln.APR=? and ln.amount=? and ln.lender=? and ln.state=? and ln.numberOfYears=?", loanObject.getAPR(), loanObject.getAmount(), loanObject.getLender(), loanObject.getState(), loanObject.getNumberOfYears());
 				if(loans != null && loans.size() == 1){
 					Loan searchloan = (Loan)loans.get(0);
 					AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
