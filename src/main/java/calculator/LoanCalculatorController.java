@@ -79,9 +79,9 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		   }
 	    @RequestMapping(value="/searchloan", method=RequestMethod.POST)
 		    public String searchloan(	
-		@RequestParam(name="airVal" required=false ) String airVal,
-		@RequestParam(name="lender" required=false) String lender,
-		@RequestParam(name="loanAmt" required=true) String loanAmt,
+		@RequestParam("airVal" required=false) String airVal,
+		@RequestParam("lender" required=false) String lender,
+		@RequestParam("loanAmt" required=true) String loanAmt,
 		@RequestParam(name="state" required=false) String state,
 		@RequestParam(name="numOfYears" required=false) String numOfYears, 
 		@RequestParam(name="amortizeOn" required=true) String amortizeOn, Model model) {
