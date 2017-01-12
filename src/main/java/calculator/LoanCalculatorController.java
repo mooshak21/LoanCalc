@@ -86,12 +86,27 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
 			    	model.addAttribute("message","Amortize Loan");
-		RestTemplate restTemplate = new RestTemplate();
-Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
-				LoanApp loanApp = new LoanApp(loanObject);
-				loanObject.setLoanApp(loanApp);
+//		RestTemplate restTemplate = new RestTemplate();
+//Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + //"&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
+				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
+				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+				Loan loanObject = new Loan();
+				loanObject.setAPR(Double.valueOf(airVal));
+				loanObject.setLender(lender);
+				loanObject.setState(state);
+				loanObject.setNumberOfYears(Integer.valueOf(numOfYears)
+				List loans = hibernateTemplate.findByExample(loanObject);
+				if(loans != null && loans.size() == 1){
+					loanObject = (Loan)loans.get(0);
+					LoanApp loanApp = new LoanApp(loanObject);
+					loanObject.setLoanApp(loanApp);
+				}else {
+					loanObject = new Loan();
+				}
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
+
 				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
