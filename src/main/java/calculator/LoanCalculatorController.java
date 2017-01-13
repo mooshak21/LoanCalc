@@ -183,9 +183,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
 				}
 					
-			   	java.util.Calendar calToday = java.util.Calendar.getInstance();
-			   	String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
-			   	model.addAttribute("payoffOn", calTodayStr);		
+			   	model.addAttribute("payoffOn", payoffOn);		
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
 				
