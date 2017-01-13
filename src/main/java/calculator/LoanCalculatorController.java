@@ -38,6 +38,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 					try{
 						hibernateTemplate.saveOrUpdate(loanObject);
 					}catch(DataAccessException dae){
+						dae.printStackTrace();
 						model.addAttribute("message", "Create Loan Failed!");
 					        return "createloan";
 					}
@@ -156,16 +157,20 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				if(firstVal){
 					queryVals = new Object[queryValList.size()];
 					queryVals = queryValList.toArray(queryVals);
-
-					java.util.List loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
+					try{
+						java.util.List loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
+					}catch(DataAccessException dae){
+						dae.printStackTrace();
+					    	model.addAttribute("message","Search Loan Failed!");
+					}
 					if(loans != null & loans.size() > 0){
 						Loan searchloan = (Loan)loans.get(0);
 						if(searchloan != null){
-							AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
-							LoanApp loanApp = new LoanApp(amortizeLoan);
-							amortizeLoan.setLoanApp(loanApp);
-							loanObject = amortizeLoan;
-						}
+								AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+								LoanApp loanApp = new LoanApp(amortizeLoan);
+								amortizeLoan.setLoanApp(loanApp);
+								loanObject = amortizeLoan;
+							}
 					}else {
 						loanObject = null;
 					}
