@@ -15,6 +15,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.dao.DataAccessException;
 
 @Controller
 public class LoanCalculatorController{
