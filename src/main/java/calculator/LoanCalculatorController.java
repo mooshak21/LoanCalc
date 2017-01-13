@@ -104,9 +104,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					System.out.println("Loan Entries Count is " + ((amortizeLoan.getEntries() != null) ? amortizeLoan.getEntries().size() : 0));
 					loanObject = amortizeLoan;
 				}else {
-					loanObject = new AmortizedLoan();
-					LoanApp loanApp = new LoanApp(loanObject);
-					
+					loanObject = null;
 				}
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
