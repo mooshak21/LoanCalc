@@ -91,49 +91,75 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				StringBuffer querySB = new StringBuffer();
 				java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 				Object[] queryVals = null;
+				boolean firstVal = false;
 				if(loanAmt != null && !loanAmt.equals("")){
 					querySB.append("ln.amount=?");
+					firstVal = true;
 					queryValList.add(Double.valueOf(loanAmt));	
 					loanObject.setAmount(Double.valueOf(loanAmt));
 				}
 				if(airVal != null && !airVal.equals("")){
-					querySB.append(" and ln.APR=?");
+					if(firstVal)
+						querySB.append(" and ln.APR=?");
+					else{
+						querySB.append(" ln.APR=?");
+						firstVal = true;
+					}
 					queryValList.add(Double.valueOf(airVal));
 					loanObject.setAPR(Double.valueOf(airVal));
 				}
 				if(lender != null && !lender.equals("")){
-					querySB.append(" and ln.lender=?");
+					if(firstVal)
+						querySB.append(" and ln.lender=?");
+					else{
+						querySB.append(" ln.lender=?");
+						firstVal = true;	
+					}
+						
 					queryValList.add(lender);	
 					loanObject.setLender(lender);
 				}
 				if(state != null && !state.equals("")){
-					querySB.append(" and ln.state=?");
+					if(firstVal)
+						querySB.append(" and ln.state=?");
+					else{
+						querySB.append(" ln.state=?");
+						firstVal = true;
+					}
 					queryValList.add(state);		
 					loanObject.setState(state);					
 				}
 				if(numOfYears != null && !numOfYears.equals("")){
-					querySB.append(" and ln.numberOfYears=?");
+					if(firstVal)
+						querySB.append(" and ln.numberOfYears=?");
+					else{
+						querySB.append(" ln.numberOfYears=?");
+						firstVal = true;
+					}
 					queryValList.add(Integer.valueOf(numOfYears));	
 					loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
 				}
+				if(firstVal){
+					queryVals = new Object[queryValList.size()];
+					queryVals = queryValList.toArray(queryVals);
 
-				queryVals = new Object[queryValList.size()];
-				queryVals = queryValList.toArray(queryVals);
-
-				java.util.List loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
-				if(loans != null & loans.size() > 0){
-					Loan searchloan = (Loan)loans.get(0);
-					if(searchloan != null){
-						AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
-						LoanApp loanApp = new LoanApp(amortizeLoan);
-						amortizeLoan.setLoanApp(loanApp);
-					    	model.addAttribute("message","Search Loan: Loan Found!");
-						loanObject = amortizeLoan;
+					java.util.List loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
+					if(loans != null & loans.size() > 0){
+						Loan searchloan = (Loan)loans.get(0);
+						if(searchloan != null){
+							AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+							LoanApp loanApp = new LoanApp(amortizeLoan);
+							amortizeLoan.setLoanApp(loanApp);
+							loanObject = amortizeLoan;
+						}
+					}else {
+						loanObject = null;
 					}
-				}else {
-				    	model.addAttribute("message","Search Loan: Loan Not Found!");
-					loanObject = null;
+					model.addAttribute("message","Search Loan: " + loans.size() + " Loans Found!);
+				}else{
+					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!);
 				}
+					
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
 				
