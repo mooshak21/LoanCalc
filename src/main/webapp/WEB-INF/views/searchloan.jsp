@@ -32,7 +32,7 @@
 		   <tr><td>Lender:</td><td><h2>${amortizeloan.lender}</h2></td></tr>
 		   <tr><td>State:</td><td><h2>${amortizeloan.state}</h2></td></tr>
 		   <tr><td>APR:(%)</td><td><h2>${amortizeloan.APR}</h2></td></tr>
-		   <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr><tr><td>Payoff Amount:($)</td><td><h2>${payoffAmt}</h2></td><td>As of Payoff Date on:</td><td><h2>${payoffOn}</h2></td></tr>
+		   <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr><tr><td>Payoff Amount:($)</td><td><h2>${payoffAmount}</h2></td><td>As of Payoff Date on:</td><td><h2>${payoffOn}</h2></td></tr>
 
 	   </table>
 	   </c:if>	
