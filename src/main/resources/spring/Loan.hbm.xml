@@ -9,22 +9,26 @@
             <generator class="assigned" />
         </id>
         <property name="amount" type="java.lang.Double">
-            <column name="LOAN_AMT" length="20" not-null="true" unique="true" />
+            <column name="LOAN_AMT" length="20" not-null="true" />
         </property>
         <property name="APR" type="java.lang.Double">
-            <column name="APR" length="20" not-null="true" unique="true" />
+            <column name="APR" length="20" not-null="true" />
         </property>
         <property name="interestRate" type="java.lang.Double">
-            <column name="INT_RATE" length="20" not-null="true" unique="true" />
+            <column name="INT_RATE" length="20" not-null="true" />
         </property>
         <property name="monthly" type="java.lang.Double">
-            <column name="MTHLY_PAYMT" length="20" not-null="true" unique="true" />
+            <column name="MTHLY_PAYMT" length="20" not-null="true" />
         </property>
         <property name="lender" type="java.lang.String">
-            <column name="LENDER" length="10" not-null="true" unique="true" />
+            <column name="LENDER" length="10" not-null="true" />
         </property>
         <property name="state" type="java.lang.String">
-            <column name="ST" length="10" not-null="true" unique="true" />
-        </property>
+            <column name="ST" length="10" not-null="true" />
+	</property>
+    	<property name="numberOfYears" type="java.lang.Integer">
+		<column name="NUM_OF_YRS" length="10" not-null="true"/>
+	</property>
+
     </class>
 </hibernate-mapping>

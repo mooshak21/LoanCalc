@@ -25,6 +25,9 @@
         </property>
         <property name="state" type="java.lang.String">
             <column name="ST" length="10" not-null="true" unique="true" />
-        </property>
+    </property>
+    <property name="numberOfYears" type="java.lang.Integer">
+            <column name="NUM_OF_YRS" length="10" not-null="true"/>
+    </property>
     </class>
 </hibernate-mapping>
