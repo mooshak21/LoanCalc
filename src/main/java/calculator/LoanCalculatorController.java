@@ -197,7 +197,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
 			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
 			   model.addAttribute("amortizeOn", calTodayStr);		
-
+			   model.addAttribute("payoffOn", calTodayStr);
 			   return "searchloan";
 		   }
 		@RequestMapping(value="/loanpayoffask")
