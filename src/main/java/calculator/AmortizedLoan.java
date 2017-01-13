@@ -83,7 +83,7 @@ public class AmortizedLoan extends Loan {
 				return payoffLoanAmt;
 			else return amt;
 		}else{
-			return -1;
+			return -1.0;
 		}
 
 	} 
