@@ -79,8 +79,9 @@ public class AmortizedLoan extends Loan {
 		Double payoffLoanAmt = amt;
 		for(LoanEntry entry : entries.values()) {
 			Calendar dtEntry = entry.getDateEntry();
+			payoffLoanAmt += entry.getInterest();
 			if(dtEntry.equals(dateLastEntry))
-				payoffLoanAmt += entry.getInterest();
+				break;
 		}
 		if(payoffLoanAmt > 0)
 			return payoffLoanAmt;
