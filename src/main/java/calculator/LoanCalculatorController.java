@@ -155,9 +155,9 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					}else {
 						loanObject = null;
 					}
-					model.addAttribute("message","Search Loan: " + loans.size() + " Loans Found!);
+					model.addAttribute("message","Search Loan: " + loans.size() + " Loans Found!");
 				}else{
-					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!);
+					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
 				}
 					
 				model.addAttribute("amortizeloan", loanObject);
