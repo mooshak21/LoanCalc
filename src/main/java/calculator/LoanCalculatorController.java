@@ -85,7 +85,6 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
-			    	model.addAttribute("message","Amortize Loan");
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
@@ -102,13 +101,15 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					LoanApp loanApp = new LoanApp(amortizeLoan);
 					amortizeLoan.setLoanApp(loanApp);
 					System.out.println("Loan Entries Count is " + ((amortizeLoan.getEntries() != null) ? amortizeLoan.getEntries().size() : 0));
+				    	model.addAttribute("message","Search Loan: Loan Found!");
 					loanObject = amortizeLoan;
 				}else {
+				    	model.addAttribute("message","Search Loan: Loan Not Found!");
 					loanObject = null;
 				}
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
-
+				
 				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
