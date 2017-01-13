@@ -18,8 +18,6 @@ import org.springframework.beans.factory.BeanFactory;
 
 @Controller
 public class LoanCalculatorController{
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 	    @RequestMapping(value="/loan", method=RequestMethod.POST)
 	        public String loan(
 		@RequestParam("airVal") String airVal,
@@ -32,6 +30,8 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 				/*GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);*/
+				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				hibernateTemplate.saveOrUpdate(loanObject);
 
@@ -83,6 +83,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
+				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				AmortizedLoan loanObject = new AmortizedLoan();
 				loanObject.setAmount(Double.valueOf(loanAmt));
