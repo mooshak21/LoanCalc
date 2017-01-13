@@ -97,11 +97,11 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				Object[] queryVals = null;
 				if(loanAmt != null && !loanAmt.equals("")){
 					querySB.append("ln.amount=?");
-					queryValList.add(loanAmt);	
+					queryValList.add(Double.valueOf(loanAmt));	
 				}
 				if(airVal != null && !airVal.equals("")){
 					querySB.append(" and ln.APR=?");
-					queryValList.add(airVal);
+					queryValList.add(Double.valueOf(airVal));
 				}
 				if(lender != null && !lender.equals("")){
 					querySB.append(" and ln.lender=?");
@@ -113,7 +113,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				}
 				if(numOfYears != null && !numOfYears.equals("")){
 					querySB.append(" and ln.numberOfYears=?");
-					queryValList.add(numOfYears);	
+					queryValList.add(Integer.valueOf(numOfYears));	
 				}
 
 				queryVals = new Object[queryValList.size()];
