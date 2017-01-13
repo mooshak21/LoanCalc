@@ -117,7 +117,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				queryVals = new Object[queryValList.size()];
 				queryVals = queryValList.toArray(queryVals);
 
-				java.util.List<Loan> loans = hibernateTemplate.find("select ln from Loan ln where " + querSB.toString(), queryVals);
+				java.util.List<Loan> loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
 				if(loans != null & loans.size() > 0){
 					Loan searchloan = (Loan)loans.get(0);
 					if(searchloan != null){
