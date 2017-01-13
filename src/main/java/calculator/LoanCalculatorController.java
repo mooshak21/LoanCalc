@@ -87,33 +87,34 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				AmortizedLoan loanObject = new AmortizedLoan();
-				loanObject.setAmount(Double.valueOf(loanAmt));
-				loanObject.setAPR(Double.valueOf(airVal));
-				loanObject.setLender(lender);
-				loanObject.setState(state);
-				loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
+				
 				StringBuffer querySB = new StringBuffer();
 				java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 				Object[] queryVals = null;
 				if(loanAmt != null && !loanAmt.equals("")){
 					querySB.append("ln.amount=?");
 					queryValList.add(Double.valueOf(loanAmt));	
+					loanObject.setAmount(Double.valueOf(loanAmt));
 				}
 				if(airVal != null && !airVal.equals("")){
 					querySB.append(" and ln.APR=?");
 					queryValList.add(Double.valueOf(airVal));
+					loanObject.setAPR(Double.valueOf(airVal));
 				}
 				if(lender != null && !lender.equals("")){
 					querySB.append(" and ln.lender=?");
 					queryValList.add(lender);	
+					loanObject.setLender(lender);
 				}
 				if(state != null && !state.equals("")){
 					querySB.append(" and ln.state=?");
 					queryValList.add(state);		
+					loanObject.setState(state);					
 				}
 				if(numOfYears != null && !numOfYears.equals("")){
 					querySB.append(" and ln.numberOfYears=?");
 					queryValList.add(Integer.valueOf(numOfYears));	
+					loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
 				}
 
 				queryVals = new Object[queryValList.size()];
