@@ -157,8 +157,9 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				if(firstVal){
 					queryVals = new Object[queryValList.size()];
 					queryVals = queryValList.toArray(queryVals);
+					java.util.List loans = null;
 					try{
-						java.util.List loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
+						loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
 					}catch(DataAccessException dae){
 						dae.printStackTrace();
 					    	model.addAttribute("message","Search Loan Failed!");
@@ -174,7 +175,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					}else {
 						loanObject = null;
 					}
-					model.addAttribute("message","Search Loan: " + loans.size() + " Loans Found!");
+					model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
 				}else{
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
 				}
