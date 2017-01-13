@@ -26,28 +26,38 @@ public class LoanCalculatorController{
 		@RequestParam("loanAmt") String loanAmt,
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, Model model) {
-			RestTemplate restTemplate = new RestTemplate();
+				boolean allVal = false;
+				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
+				   && lender != null && !lender.equals("") && state != null && !state.equals("")
+				   && numOfYears != null && !numOfYears.equals("")){
+					allVal = true;
+				}
+				if(allVal){
+					RestTemplate restTemplate = new RestTemplate();
 Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
-				/*GsonBuilder gsonb = new GsonBuilder();
-				Gson gson = gsonb.create();
-				Loan loanObject = gson.fromJson(loan, Loan.class);*/
-				if(loanObject != null){
-					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-					SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
-					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-					try{
-						hibernateTemplate.saveOrUpdate(loanObject);
-					}catch(DataAccessException dae){
-						dae.printStackTrace();
+					/*GsonBuilder gsonb = new GsonBuilder();
+					Gson gson = gsonb.create();
+					Loan loanObject = gson.fromJson(loan, Loan.class);*/
+					if(loanObject != null){
+						ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+						SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
+						HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+						try{
+							hibernateTemplate.saveOrUpdate(loanObject);
+						}catch(DataAccessException dae){
+							dae.printStackTrace();
+							model.addAttribute("message", "Create Loan Failed!");
+						        return "createloan";
+						}
+						LoanApp loanApp = new LoanApp(loanObject);
+						loanObject.setLoanApp(loanApp);
+						model.addAttribute("message", "Create Loan");
+						model.addAttribute("loan", loanObject);
+					}else{
 						model.addAttribute("message", "Create Loan Failed!");
-					        return "createloan";
 					}
-					LoanApp loanApp = new LoanApp(loanObject);
-					loanObject.setLoanApp(loanApp);
-					model.addAttribute("message", "Create Loan");
-					model.addAttribute("loan", loanObject);
 				}else{
-					model.addAttribute("message", "Create Loan Failed!");
+						model.addAttribute("message", "Create Loan : Required Parameters not entered!");
 				}
 		        	return "createloan";
 			}
@@ -64,17 +74,26 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
-			RestTemplate restTemplate = new RestTemplate();
+				boolean allVal = false;
+				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
+				   && lender != null && !lender.equals("") && state != null && !state.equals("")
+				   && numOfYears != null && !numOfYears.equals("") && amortizeOn != null && !amortizeOn.equals("")){
+					allVal = true;
+				}
+				if(allVal){
+					RestTemplate restTemplate = new RestTemplate();
 AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + "&amortizeOn=" + amortizeOn, AmortizedLoan.class);
-				if(loanObject != null){
-					LoanApp loanApp = new LoanApp(loanObject);
-					loanObject.setLoanApp(loanApp);
-					model.addAttribute("amortizeloan", loanObject);
-				    	model.addAttribute("message","Amortize Loan");
+					if(loanObject != null){
+						LoanApp loanApp = new LoanApp(loanObject);
+						loanObject.setLoanApp(loanApp);
+						model.addAttribute("amortizeloan", loanObject);
+					    	model.addAttribute("message","Amortize Loan");
+					}else{
+					    	model.addAttribute("message","Amortize Loan Failed!");
+					}				
 				}else{
-				    	model.addAttribute("message","Amortize Loan Failed!");
-				}				
-
+					model.addAttribute("message", "Amortize Loan : Required Parameters not entered!");
+				}
 				model.addAttribute("amortizeOn", amortizeOn);			
 				return "amortizeloan";
 		    }
