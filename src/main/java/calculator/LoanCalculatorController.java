@@ -30,16 +30,24 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 				/*GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);*/
-				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
-				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-				hibernateTemplate.saveOrUpdate(loanObject);
-
-				LoanApp loanApp = new LoanApp(loanObject);
-				loanObject.setLoanApp(loanApp);
-				model.addAttribute("loan", loanObject);
-			        return "createloan";
-		    
+				if(loanObject != null){
+					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+					SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
+					HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+					try{
+						hibernateTemplate.saveOrUpdate(loanObject);
+					}catch(DataAccessException dae){
+						model.addAttribute("message", "Create Loan Failed!");
+					        return "createloan";
+					}
+					LoanApp loanApp = new LoanApp(loanObject);
+					loanObject.setLoanApp(loanApp);
+					model.addAttribute("message", "Create Loan");
+					model.addAttribute("loan", loanObject);
+				}else{
+					model.addAttribute("message", "Create Loan Failed!");
+				}
+		        	return "createloan";
 			}
 	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
 		    public String createloan(Model model){
@@ -54,12 +62,17 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
-			    	model.addAttribute("message","Amortize Loan");
-		RestTemplate restTemplate = new RestTemplate();
+			RestTemplate restTemplate = new RestTemplate();
 AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + "&amortizeOn=" + amortizeOn, AmortizedLoan.class);
-				LoanApp loanApp = new LoanApp(loanObject);
-				loanObject.setLoanApp(loanApp);
-				model.addAttribute("amortizeloan", loanObject);
+				if(loanObject != null){
+					LoanApp loanApp = new LoanApp(loanObject);
+					loanObject.setLoanApp(loanApp);
+					model.addAttribute("amortizeloan", loanObject);
+				    	model.addAttribute("message","Amortize Loan");
+				}else{
+				    	model.addAttribute("message","Amortize Loan Failed!");
+				}				
+
 				model.addAttribute("amortizeOn", amortizeOn);			
 				return "amortizeloan";
 		    }
