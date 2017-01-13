@@ -97,7 +97,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("loanAmt") String loanAmt,
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
-		@RequestParam("amortizeOn") String amortizeOn, Model model) {
+		@RequestParam("amortizeOn") String amortizeOn, 
+		@RequestParam("payoffOn") String payoffOn, Model model) {
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
@@ -170,6 +171,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 								AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
 								LoanApp loanApp = new LoanApp(amortizeLoan);
 								amortizeLoan.setLoanApp(loanApp);
+								Double payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
+								model.addAttribute("payoffAmount", payoffAmt);
 								loanObject = amortizeLoan;
 							}
 					}else {
@@ -180,6 +183,9 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
 				}
 					
+			   	java.util.Calendar calToday = java.util.Calendar.getInstance();
+			   	String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			   	model.addAttribute("payoffOn", calTodayStr);		
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
 				
@@ -191,6 +197,18 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
 			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
 			   model.addAttribute("amortizeOn", calTodayStr);		
+
 			   return "searchloan";
 		   }
+		@RequestMapping(value="/loanpayoffask")
+	    	   public String loanpayoffask(Model model){
+			   model.addAttribute("message", "Payoff Loan");
+			   java.util.Calendar calToday = java.util.Calendar.getInstance();
+			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
+			   model.addAttribute("payoffOn", calTodayStr);		
+			   model.addAttribute("amortizeOn", calTodayStr);		
+
+			   return "searchloan";
+		   }
+		
 }

@@ -71,4 +71,16 @@ public class AmortizedLoan extends Loan {
 	public void setEntries(HashMap<Integer, LoanEntry> ents){
 		entries = ents;
 	}
+	public Double getPayoffAmount(double amt, String payoffOn){
+		Calendar dateLastEntry = Calendar.getInstance();
+		try{
+			dateLastEntry.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(payoffOn));
+		}catch(java.text.ParseException pe){ pe.printStackTrace(); }
+		LoanEntry entry = entries.get(dateLastEntry);
+		Double payoffLoanAmt = amt + entry.getInterest();
+		if(payoffLoanAmt > 0)
+			return payoffLoanAmt;
+		else return amt;
+	} 
+
 }
