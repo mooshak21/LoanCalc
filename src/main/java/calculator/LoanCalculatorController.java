@@ -101,7 +101,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
 					LoanApp loanApp = new LoanApp(amortizeLoan);
 					amortizeLoan.setLoanApp(loanApp);
-					System.out.println("Loan Entries Count is " + (amortizeLoan.getEntries() != null) ? amortizeLoan.getEntries().size() : 0);
+					System.out.println("Loan Entries Count is " + ((amortizeLoan.getEntries() != null) ? amortizeLoan.getEntries().size() : 0));
 					loanObject = amortizeLoan;
 				}else {
 					loanObject = new AmortizedLoan();
