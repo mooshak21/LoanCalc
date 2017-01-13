@@ -18,7 +18,8 @@ import org.springframework.beans.factory.BeanFactory;
 
 @Controller
 public class LoanCalculatorController{
-
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 	    @RequestMapping(value="/loan", method=RequestMethod.POST)
 	        public String loan(
 		@RequestParam("airVal") String airVal,
@@ -31,9 +32,6 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 				/*GsonBuilder gsonb = new GsonBuilder();
 				Gson gson = gsonb.create();
 				Loan loanObject = gson.fromJson(loan, Loan.class);*/
-
-				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				hibernateTemplate.saveOrUpdate(loanObject);
 
@@ -85,8 +83,6 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
-				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				AmortizedLoan loanObject = new AmortizedLoan();
 				loanObject.setAmount(Double.valueOf(loanAmt));
@@ -94,15 +90,43 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanObject.setLender(lender);
 				loanObject.setState(state);
 				loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
-				java.util.List loans = hibernateTemplate.find("select ln from Loan ln where ln.APR=? and ln.amount=? and ln.lender=? and ln.state=?", loanObject.getAPR(), loanObject.getAmount(), loanObject.getLender(), loanObject.getState());
+				StringBuffer querySB = new StringBuffer();
+				java.util.List<String> queryValList = new java.util.ArrayList<String>();
+				Object[] queryVals = null;
+				if(loanAmt != null && !loanAmt.equals("")){
+					querySB.append("ln.amount=?");
+					queryValList.add(loanAmt);	
+				}
+				if(airVal != null && !airVal.equals("")){
+					querySB.append(" and ln.APR=?");
+					queryValList.add(airVal);
+				}
+				if(lender != null && !lender.equals("")){
+					querySB.append(" and ln.lender=?");
+					queryValList.add(lender);	
+				}
+				if(state != null && !state.equals("")){
+					querySB.append(" and ln.state=?");
+					queryValList.add(state);		
+				}
+				if(numOfYears != null && !numOfYears.equals("")){
+					querySB.append(" and ln.numberOfYears=?");
+					queryValList.add(numOfYears);	
+				}
+
+				queryVals = new Object[queryValList.size()];
+				queryVals = queryValList.toArray(queryVals);
+
+				java.util.List<Loan> loans = hibernateTemplate.find("select ln from Loan ln where " + querSB.toString(), queryVals);
 				if(loans != null & loans.size() > 0){
 					Loan searchloan = (Loan)loans.get(0);
-					AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
-					LoanApp loanApp = new LoanApp(amortizeLoan);
-					amortizeLoan.setLoanApp(loanApp);
-					System.out.println("Loan Entries Count is " + ((amortizeLoan.getEntries() != null) ? amortizeLoan.getEntries().size() : 0));
-				    	model.addAttribute("message","Search Loan: Loan Found!");
-					loanObject = amortizeLoan;
+					if(searchloan != null){
+						AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+						LoanApp loanApp = new LoanApp(amortizeLoan);
+						amortizeLoan.setLoanApp(loanApp);
+					    	model.addAttribute("message","Search Loan: Loan Found!");
+						loanObject = amortizeLoan;
+					}
 				}else {
 				    	model.addAttribute("message","Search Loan: Loan Not Found!");
 					loanObject = null;
