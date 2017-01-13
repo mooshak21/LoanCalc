@@ -93,7 +93,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanObject.setState(state);
 				loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
 				StringBuffer querySB = new StringBuffer();
-				java.util.List<String> queryValList = new java.util.ArrayList<String>();
+				java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 				Object[] queryVals = null;
 				if(loanAmt != null && !loanAmt.equals("")){
 					querySB.append("ln.amount=?");
