@@ -77,10 +77,15 @@ public class AmortizedLoan extends Loan {
 			dateLastEntry.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(payoffOn));
 		}catch(java.text.ParseException pe){ pe.printStackTrace(); }
 		LoanEntry entry = entries.get(dateLastEntry);
-		Double payoffLoanAmt = amt + entry.getInterest();
-		if(payoffLoanAmt > 0)
-			return payoffLoanAmt;
-		else return amt;
+		if(entry != null){
+			Double payoffLoanAmt = amt + entry.getInterest();
+			if(payoffLoanAmt > 0)
+				return payoffLoanAmt;
+			else return amt;
+		}else{
+			return -1;
+		}
+
 	} 
 
 }
