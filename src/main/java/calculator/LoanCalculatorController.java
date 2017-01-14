@@ -47,7 +47,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 						}catch(DataAccessException dae){
 							dae.printStackTrace();
 							model.addAttribute("message", "Create Loan Failed!");
-						        return "createloan";
+						        return "createloanweb";
 						}
 						LoanApp loanApp = new LoanApp(loanObject);
 						loanObject.setLoanApp(loanApp);
@@ -59,12 +59,12 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 				}else{
 						model.addAttribute("message", "Create Loan : Required Parameters not entered!");
 				}
-		        	return "createloan";
+		        	return "createloanweb";
 			}
 	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
 		    public String createloan(Model model){
 			    model.addAttribute("message", "Create Loan");
-			    return "createloan";
+			    return "createloanweb";
 			}
 	    @RequestMapping(value="/amortizeloan", method=RequestMethod.GET)
 		    public String amortizeloan(	
@@ -95,7 +95,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					model.addAttribute("message", "Amortize Loan : Required Parameters not entered!");
 				}
 				model.addAttribute("amortizeOn", amortizeOn);			
-				return "amortizeloan";
+				return "amortizeloanweb";
 		    }
 	    @RequestMapping(value="/")
 	    	   public String home(){
@@ -107,7 +107,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
 			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
 			   model.addAttribute("amortizeOn", calTodayStr);		
-			   return "amortizeloan";
+			   return "amortizeloanweb";
 		   }
 	    @RequestMapping(value="/searchloan", method=RequestMethod.POST)
 		    public String searchloan(	
@@ -206,7 +206,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);			
 				
-				return "searchloan";
+				return "searchloanweb";
 		    }
 		@RequestMapping(value="/loansearchask")
 	    	   public String loansearchask(Model model){
@@ -215,7 +215,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
 			   model.addAttribute("amortizeOn", calTodayStr);		
 			   model.addAttribute("payoffOn", calTodayStr);
-			   return "searchloan";
+			   return "searchloanweb";
 		   }
 		@RequestMapping(value="/loanpayoffask")
 	    	   public String loanpayoffask(Model model){
@@ -225,7 +225,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   model.addAttribute("payoffOn", calTodayStr);		
 			   model.addAttribute("amortizeOn", calTodayStr);		
 
-			   return "searchloan";
+			   return "searchloanweb";
 		   }
 		
 }
