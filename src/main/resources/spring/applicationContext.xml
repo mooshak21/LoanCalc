@@ -77,24 +77,21 @@ class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 </props>
 </property>
 </bean>
-<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-  <property name="definitions">
-    <list>
-      <value>/WEB-INF/defs/general.xml</value>
-      <value>/WEB-INF/defs/widgets.xml</value>
-      <value>/WEB-INF/defs/administrator.xml</value>
-      <value>/WEB-INF/defs/customer.xml</value>
-      <value>/WEB-INF/defs/templates.xml</value>
-    </list>
-  </property>
-</bean>
-<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-  <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
-</bean>
-<!-- resolving preparer names as Spring bean definition names -->
-  <property name="preparerFactoryClass"
-       value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"/>
-<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-  <property name="basename" value="views"/>
-</bean>
+ <bean
+	         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		         <property name="prefix" value="/WEB-INF/views/" />
+			         <property name="suffix" value=".jsp" />
+				     </bean>
+				      
+				         <!-- Tiles configuration -->
+					  
+					     <bean id="tilesConfigurer"
+						             class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+							             <property name="definitions">
+									                 <list>
+												                 <value>/WEB-INF/tiles/tiles.xml</value>
+														             </list>
+															             </property>
+																         </bean>
+
 </beans>
