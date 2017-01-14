@@ -77,4 +77,14 @@ class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 </props>
 </property>
 </bean>
+<bean
+	    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	        <property name="prefix">
+			        <value>/WEB-INF/views/</value>
+				    </property>
+				        <property name="suffix">
+						        <value>.jsp</value>
+							    </property>
+						    </bean>
+
 </beans>
