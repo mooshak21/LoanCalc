@@ -28,10 +28,5 @@
 		org.springframework.web.context.ContextLoaderListener
 	</listener-class>
 </listener>
-<listener>
-	            <listener-class>
-			                  org.apache.tiles.listener.TilesListener
-					              </listener-class>
-						              </listener>
- </web-app>
+</web-app>
 
