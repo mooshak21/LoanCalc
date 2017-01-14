@@ -3,12 +3,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<html>
-   <head>
-   <title>Loan</title>
-   </head>
-   <body>
-
+<tiles:insertDefinition name="loanapp.homepage">
+<tiles:putAttribute name="body">
 	             <form name="loanForm" action="/amortizeloan" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.
 						  focus(); return false;}'>
 			     Loan Amount: <input type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999"><br>
@@ -49,7 +45,5 @@
 			<%}%>
 	   </table>
 	   </c:if>
-
-   </body>
-</html>
-
+</tiles:putAttribute>
+</tiles:insertDefinition>
