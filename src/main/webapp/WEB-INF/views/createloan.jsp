@@ -3,8 +3,6 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<tiles:insertDefinition name="loanapp.homepage">
-	<tiles:putAttribute name="body">
 	   <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
 		   Loan Amount: <input type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999"><br>
 		   Number of Years: <input type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100"><br>
@@ -28,5 +26,3 @@
 		      <tr><td><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=01/01/2017'>Amortize Loan</a></td></tr>
    </c:if>
              </table>
-</tiles:putAttribute>
-</tiles:insertDefinition>
