@@ -12,14 +12,14 @@
   </definition>
  <definition name="searchloan" extends="loanapp.homepage">
    <put-attribute name="title" cascade="true" value="Search Loan"/>
-   <put-attribute name="body" value="/WEB-INF/views/searchloan.jsp"/>
+   <put-attribute name="body" value="/WEB-INF/views/searchloanweb.jsp"/>
  </definition>
  <definition name="amortizeloan" extends="loanapp.homepage">
   <put-attribute name="title" cascade="true" value="Amortize Loan"/>
-  <put-attribute name="body" value="/WEB-INF/views/amortizeloan.jsp"/>
+  <put-attribute name="body" value="/WEB-INF/views/amortizeloanweb.jsp"/>
  </definition>
  <definition name="createloan" extends="loanapp.homepage">
    <put-attribute name="title" cascade="true" value="Create Loan"/>
-   <put-attribute name="body" value="/WEB-INF/views/createloan.jsp"/>
+   <put-attribute name="body" value="/WEB-INF/views/createloanweb.jsp"/>
  </definition>
 </tiles-definitions>
