@@ -34,7 +34,7 @@
 	   <c:if test="${not empty amortizeloan.entries}">
 	   <table border="1"><th>Date</th><th>Principal($)</th><th>Interest($)</th><th>Loan Amount($)</th><th>Monthly($)</th>
 		   <c:forEach var="entry" items="${amortizeloan.entries}">
-			<tr><td>${entry.dateEntry}</td><td>${entry.principal}</td><td>${entry.interest}%></td><td>${entry.loanAmount}</td><td>${entry.monthly}</td></tr> 
+		   <tr><td><%=entry.getDateEntry()%></td><td>${entry.principal}</td><td>${entry.interest}%></td><td>${entry.loanAmount}</td><td>${entry.monthly}</td></tr> 
 			
 		   </c:forEach>
 	   </table>
