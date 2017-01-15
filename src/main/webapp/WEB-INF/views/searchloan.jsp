@@ -32,20 +32,10 @@
 	   </table>
 	   </c:if>	
 	   <c:if test="${not empty amortizeloan.entries}">
-	   <table border="1"><th>Number</th><th>Date</th><th>Principal($)</th><th>Interest($)</th><th>Loan Amount($)</th><th>Monthly($)</th>
-
-		   <% calculator.AmortizedLoan al = (calculator.AmortizedLoan) request.getAttribute("amortizeloan");
-		    Integer currIdx = new Integer(0);	
-		    if(al != null){
-		    	java.util.Iterator itr = al.getEntries().values().iterator();
-			while(itr != null && itr.hasNext()){
-				
-				calculator.LoanEntry entry = (calculator.LoanEntry) itr.next();
-				if(entry != null){%>
-				<tr><td><%=++currIdx%></td><td><%=(entry.getDateEntry().get(java.util.Calendar.MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.DAY_OF_MONTH) + "/" + entry.getDateEntry().get(java.util.Calendar.YEAR))%></td><td><%=entry.getPrincipal()%></td><td><%=entry.getInterest()%></td><td><%=entry.getLoanAmount()%></td><td><%=entry.getMonthly()%></td></tr> 
+	   <table border="1"><th>Date</th><th>Principal($)</th><th>Interest($)</th><th>Loan Amount($)</th><th>Monthly($)</th>
+		   <c:forEach var="entry" items="${amortizeloan.entries}">
+			<tr><td>${entry.dateEntry}</td><td>${entry.principal}</td><td>${entry.interest}%></td><td>${entry.loanAmount}</td><td>${entry.monthly}</td></tr> 
 			
-			<%}
-			}
-		}%>
+		   </c:forEach>
 	   </table>
 	   </c:if>
