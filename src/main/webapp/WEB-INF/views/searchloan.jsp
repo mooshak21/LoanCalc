@@ -31,7 +31,7 @@
 
 	   </table>
 	   </c:if>	
-	   <c:if test="${not empty amortizeloan.entries}">
+	   <c:if test="${not empty amortizeloan.loanEntries}">
 	   <table border="1"><th>Date</th><th>Principal($)</th><th>Interest($)</th><th>Loan Amount($)</th><th>Monthly($)</th>
 		   <c:forEach var="entry" items="${amortizeloan.loanEntries}">
 	 
