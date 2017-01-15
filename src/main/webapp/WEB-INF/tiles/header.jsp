@@ -1,5 +1,3 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<tiles:insertDefinition name="loanapp.homepage" />
 	  <header>
 	    <h1>What Does Loan Calculator Do?</h1>
 	    <p>Loan Calculator Functions:</p>
