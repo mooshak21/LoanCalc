@@ -252,7 +252,21 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanEntries.add(entry);
 			}
 		   	al.setLoanEntries(loanEntries);
+		   	java.util.Calendar calToday = java.util.Calendar.getInstance();
+			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			model.addAttribute("payoffOn", calTodayStr);		
+			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
-			return "searchloan";
+			return "viewloan";
 		   }		
+	    @RequestMapping(value="/loanviewask")
+	    	   public String loanviewask(Model model){
+			   model.addAttribute("message", "View Loan");
+			   java.util.Calendar calToday = java.util.Calendar.getInstance();
+			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			   model.addAttribute("payoffOn", calTodayStr);		
+			   model.addAttribute("amortizeOn", calTodayStr);		
+			   return "viewloan";
+		   }
+
 }
