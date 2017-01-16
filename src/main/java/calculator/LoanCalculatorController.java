@@ -269,7 +269,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			else{
 			  pageid=(pageid-1)*total+1;
 			}
-			AmortizedLoan al = (AmortizedLoan)((List)request.getSession().getAttribute("loans")).get(pageid-1);
+			Loan al = (Loan)((List)request.getSession().getAttribute("loans")).get(pageid-1);
 		   	java.util.Calendar calToday = java.util.Calendar.getInstance();
 			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
 			model.addAttribute("payoffOn", calTodayStr);		
