@@ -19,8 +19,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.dao.DataAccessException;
-import javax.servlet.HttpServletRequest;
-import javax.servlet.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoanCalculatorController{
