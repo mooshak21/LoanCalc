@@ -19,7 +19,7 @@
 	   	<table><tr><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
 				int pages = total, pgIdx;
 				for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
-				<td><a href='/viewloans/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}%>
+				<td><a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}%>
 		   <td>Loan Id:</td><td><h2>${amortizeloan.loanId}</h2></td></tr>
 		   <td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
