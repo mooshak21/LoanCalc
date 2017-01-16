@@ -40,12 +40,10 @@
 		   </c:forEach>
 	   </table>
 	   </c:if>
-	   <c:if test="${not empty amoritizeloan}">
 	   	<table><tr><% int total = ((calculator.AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 
 				int pages = total / 12, pgIdx;
 				for(pgIdx = 1; pgIdx < pages; pgIdx++)%>
 				<td><a href="/viewloans?pageIdx="<%=pgIdx%></a><%=pgIdx%></td>
 			</tr>
 		</table>
-	   </c:if>
 	   
