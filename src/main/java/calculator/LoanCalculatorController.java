@@ -251,6 +251,6 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				LoanEntry entry = entries.get(idx);						
 				pageEntries[idx-1] = entry;
 			}
-			al.setLoanEntries(pageEntries);			
+			al.setLoanEntries(new ArrayList<LoanEntry>(pageEntries));			
 		   }		
 }
