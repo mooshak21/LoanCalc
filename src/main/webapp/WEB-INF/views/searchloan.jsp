@@ -40,4 +40,12 @@
 		   </c:forEach>
 	   </table>
 	   </c:if>
+	   <c:if test="${not empty amoritizeloan.entries}">
+	   	<table><tr><% int total = amortizeloan.getEntries().size(); 
+				int pages = total / 12;
+				for(int pgIdx = 1; pgIdx < pages; pgIdx++)%>
+					<td><%=pgIdx%></td>
+			</tr>
+		</table>
+	   </c:if>
 	   
