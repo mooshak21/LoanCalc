@@ -236,7 +236,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   return "searchloan";
 		   }
 		@RequestMapping(value="/viewloans/{pageid}", method=RequestMethod.GET)	
-		   public ModelAndView viewloans(@PathVariable int pageid, 
+		   public String viewloans(@PathVariable int pageid, 
 				           HttpServletRequest request, 
 					           HttpServletResponse response){
 			int total = 12;
