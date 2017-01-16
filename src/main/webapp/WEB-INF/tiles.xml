@@ -26,8 +26,12 @@
 	 <put-attribute name="title" value="Home Page"/>
 	 <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
  </definition>
- <definition name="viewloan" extends="loanapp.homepage">
+ <definition name="viewloans" extends="loanapp.homepage">
 	 <put-attribute name="title" value="View Loans"/>
-	 <put-attribute name="body" value="/WEB-INF/views/searchloan.jsp"/>
+	 <put-attribute name="body" value="/WEB-INF/views/viewloans.jsp"/>
+ </definition>
+ <definition name="viewloan" extends="loanapp.homepage">
+        <put-attribute name="title" value="View Loans"/>
+        <put-attribute name="body" value="/WEB-INF/views/viewloan.jsp"/>
  </definition>
 </tiles-definitions>

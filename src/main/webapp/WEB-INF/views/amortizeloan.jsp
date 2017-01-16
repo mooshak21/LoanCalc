@@ -42,7 +42,7 @@
 	   	<table><tr><% int total = ((calculator.AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 
 				int pages = total / 12, pgIdx;
 				for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
-				<td><a href='/viewloans/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}%>
+				<td><a href='/viewloanentries/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}%>
 			</tr>
 		</table>
 	   </c:if>

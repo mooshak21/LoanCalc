@@ -206,6 +206,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 						loanObject = null;
 					}
 					model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
+					request.getSession().setAttribute("loans", loans);
 				}else{
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
 				}
@@ -235,8 +236,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 
 			   return "searchloan";
 		   }
-		@RequestMapping(value="/viewloans/{pageid}")	
-		   public String viewloans(@PathVariable int pageid,Model model, 
+		@RequestMapping(value="/viewloanentries/{pageid}")	
+		   public String viewloanentries(@PathVariable int pageid,Model model, 
 				           HttpServletRequest request, 
 					           HttpServletResponse response){
 			int total = 12;
@@ -259,14 +260,27 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			model.addAttribute("amortizeloan", al);
 			return "viewloan";
 		   }		
+		@RequestMapping(value="/viewloan/{pageid}")	
+		   public String viewloan(@PathVariable int pageid,Model model, 
+				           HttpServletRequest request, 
+					           HttpServletResponse response){
+			int total = 1;
+			if(pageid == 1){}
+			else{
+			  pageid=(pageid-1)*total+1;
+			}
+			AmortizedLoan al = (AmortizedLoan)((List)request.getSession().getAttribute("loans")).get(pageid);
+		   	java.util.Calendar calToday = java.util.Calendar.getInstance();
+			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			model.addAttribute("payoffOn", calTodayStr);		
+			model.addAttribute("amortizeOn", calTodayStr);		
+			model.addAttribute("amortizeloan", al);
+			return "viewloan";
+		   }
 	    @RequestMapping(value="/loanviewask")
 	    	   public String loanviewask(Model model){
-			   model.addAttribute("message", "View Loan");
-			   java.util.Calendar calToday = java.util.Calendar.getInstance();
-			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
-			   model.addAttribute("payoffOn", calTodayStr);		
-			   model.addAttribute("amortizeOn", calTodayStr);		
-			   return "viewloan";
+			   model.addAttribute("message", "View Loans");
+			   return "viewloans";
 		   }
 
 }
