@@ -122,7 +122,9 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, 
-		@RequestParam("payoffOn") String payoffOn, Model model) {
+		@RequestParam("payoffOn") String payoffOn, Model model, 
+		        HttpServletRequest request, 
+			        HttpServletResponse response) {
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
