@@ -60,10 +60,10 @@ public class AmortizedLoan extends Loan {
 	public String toString(){
 		return super.toString();
 	}
-	public List<LoanEntry> getLoanEntries(){
+	public ArrayList<LoanEntry> getLoanEntries(){
 		return loanEntries;
 	}
-	public void setLoanEntries(List<LoanEntry> ent){
+	public void setLoanEntries(ArrayList<LoanEntry> ent){
 		loanEntries = ent;
 	}
 	public HashMap<Integer, LoanEntry> getEntries(){
