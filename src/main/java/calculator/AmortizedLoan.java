@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 public class AmortizedLoan extends Loan {
 	private static final long serialVersionUID = 1L;
 	private HashMap<Integer, LoanEntry> entries = new HashMap<Integer, LoanEntry>();
+	private ArrayList<LoanEntry> loanEntries = new ArrayList<LoanEntry>();
 	private double amortizedloanAmt = 0;
 	public AmortizedLoan(){
 		super();
@@ -57,13 +58,11 @@ public class AmortizedLoan extends Loan {
 	public String toString(){
 		return super.toString();
 	}
-	public LoanEntry[] getLoanEntries(){
-		System.out.println("Entry count is " + entries.size());
-		LoanEntry[] ents = new LoanEntry[entries.size()];
-		entries.values().toArray(ents);
-		return (LoanEntry[]) ents;
+	public List<LoanEntry> getLoanEntries(){
+		return loanEntries;
 	}
-	public void setLoanEntries(LoanEntry[] ent){
+	public void setLoanEntries(List<LoanEntry> ent){
+		loanEntries = ent;
 	}
 	public HashMap<Integer, LoanEntry> getEntries(){
 		return entries;

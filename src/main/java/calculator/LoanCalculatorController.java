@@ -122,7 +122,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				AmortizedLoan loanObject = new AmortizedLoan();
-				
+				int total = 0;
 				StringBuffer querySB = new StringBuffer();
 				java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 				Object[] queryVals = null;
@@ -185,6 +185,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					    	model.addAttribute("message","Search Loan Failed!");
 					}
 					if(loans != null & loans.size() > 0){
+						total = loans.size();
 						Loan searchloan = (Loan)loans.get(0);
 						if(searchloan != null){
 								AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
@@ -204,8 +205,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					
 			   	model.addAttribute("payoffOn", payoffOn);		
 				model.addAttribute("amortizeloan", loanObject);
-				model.addAttribute("amortizeOn", amortizeOn);			
-				
+				request.getSession().setAttribute("amortizeloan", loanObject);			
+				model.addAttribute("amortizeOn", amortizeOn);
 				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
@@ -227,5 +228,20 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 
 			   return "searchloan";
 		   }
-		
+		@RequestMapping(value="/viewloans/{pageid}")	
+		   public ModelAndView viewloans((@PathVariable int pageid){
+			int total = 12;
+			if(pageid == 1){}
+			else{
+			  pageid=(pageid-1)*total+1;
+			}
+			AmortizedLoan al = (AmortizedLoan)request.getSession().getAttribute("amortizeloan");
+			LoanEntry pageEntries = new LoanEntry[total];			
+			HashMap<Integer, LoanEntry> entries = al.getEntries();
+			for(int idx = pageid; idx < 12; idx++){
+				LoanEntry entry = entries.get(idx);						
+				pageEntries[idx-1] = entry;
+			}
+			al.setLoanEntries(pageEntries);			
+		   }		
 }
