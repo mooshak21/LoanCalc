@@ -41,7 +41,7 @@
 	   </table>
 	   </c:if>
 	   <c:if test="${not empty amoritizeloan.entries}">
-	   	<table><tr><% int total = amortizeloan.getEntries().size(); 
+	   	<table><tr><% int total = ((AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 
 				int pages = total / 12;
 				for(int pgIdx = 1; pgIdx < pages; pgIdx++)%>
 				<td><a href="/viewloans?pageIdx="<%=pgIdx%></a><%=pgIdx%></td>
