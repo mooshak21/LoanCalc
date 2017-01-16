@@ -245,7 +245,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			  pageid=(pageid-1)*total+1;
 			}
 			AmortizedLoan al = (AmortizedLoan)request.getSession().getAttribute("amortizeloan");
-			LoanEntry pageEntries = new LoanEntry[total];			
+			LoanEntry[] pageEntries = new LoanEntry[total];			
 			HashMap<Integer, LoanEntry> entries = al.getEntries();
 			for(int idx = pageid; idx < 12; idx++){
 				LoanEntry entry = entries.get(idx);						
