@@ -254,5 +254,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				loanEntries.add(entry);
 			}
 		   	al.setLoanEntries(loanEntries);
+
+			return "searchloan";
 		   }		
 }
