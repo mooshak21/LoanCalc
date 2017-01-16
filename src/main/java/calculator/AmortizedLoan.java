@@ -3,6 +3,8 @@ package calculator;
 import java.util.HashMap;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AmortizedLoan extends Loan {
 	private static final long serialVersionUID = 1L;
