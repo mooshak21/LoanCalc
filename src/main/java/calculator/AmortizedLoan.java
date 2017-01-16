@@ -33,6 +33,7 @@ public class AmortizedLoan extends Loan {
 				dateLastEntry.setTimeInMillis(dateEntry.getTimeInMillis());
 				dateLastEntry.set(Calendar.MONTH, dateEntry.get(Calendar.MONTH)+1);
 				entries.put(new Integer(cmpPeriod), loanEntry);
+				loanEntries.add(loanEntry);
 			}
 			
 		}
