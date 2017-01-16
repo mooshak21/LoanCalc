@@ -44,7 +44,7 @@
 	   	<table><tr><% int total = amortizeloan.getEntries().size(); 
 				int pages = total / 12;
 				for(int pgIdx = 1; pgIdx < pages; pgIdx++)%>
-					<td><%=pgIdx%></td>
+				<td><a href="/viewloans?pageIdx="<%=pgIdx%></a><%=pgIdx%></td>
 			</tr>
 		</table>
 	   </c:if>
