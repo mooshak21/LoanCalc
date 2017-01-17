@@ -20,11 +20,9 @@
   </definition>
  <definition name="searchloan" extends="loanapp.searchpage">
    <put-attribute name="title" value="Search Loan"/>
-<!--   <put-attribute name="body" value="/WEB-INF/views/searchloan.jsp"/>-->
  </definition>
  <definition name="amortizeloan" extends="loanapp.searchpage">
   <put-attribute name="title" value="Amortize Loan"/>
-<!--  <put-attribute name="body" value="/WEB-INF/views/amortizeloan.jsp"/>-->
  </definition>
  <definition name="createloan" extends="loanapp.homepage">
    <put-attribute name="title" value="Create Loan"/>
