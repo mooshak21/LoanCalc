@@ -19,7 +19,7 @@
         </td>
        </tr>	
        <tr>
-	<td>
+	<td colspan="2">
 	  <tiles:insertAttribute name="detail" />
 	</td>
       </tr>
