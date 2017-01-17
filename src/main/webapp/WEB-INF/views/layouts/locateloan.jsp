@@ -17,9 +17,7 @@
         <td>
 	  <tiles:insertAttribute name="master" />	
         </td>
-       </tr>	
-       <tr>
-	<td colspan="2">
+	<td>
 	  <tiles:insertAttribute name="detail" />
 	</td>
       </tr>
