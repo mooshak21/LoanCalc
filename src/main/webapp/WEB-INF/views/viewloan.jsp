@@ -20,8 +20,8 @@
 				int pages = total, pgIdx;
 				for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
 					<td><a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td>
-				<%}%><br>
-		   <td>Loan Id:</td><td><h2>${amortizeloan.loanId}</h2></td></tr>
+				<%}%></tr>
+		   <tr><td>Loan Id:</td><td><h2>${amortizeloan.loanId}</h2></td></tr>
 		   <td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
 		   <tr><td>Last Interest:($)</td><td><h2>${amortizeloan.interest}</h2></td></tr>
