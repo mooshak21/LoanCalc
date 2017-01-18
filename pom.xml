@@ -7,7 +7,6 @@
     <version>1.0-SNAPSHOT</version>
     <artifactId>LoanCalculator</artifactId>
     <packaging>war</packaging>
-    <properties><spring.version>4.3.5.RELEASE</spring.version></properties>
     <build>
         <plugins>
             <plugin>
@@ -112,7 +111,7 @@
 <dependency>
     <groupId>org.hibernate</groupId>
     <artifactId>hibernate-core</artifactId>
-    <version>5.2.6.Final</version>
+    <version>5.2.3.Final</version>
 </dependency>
 
 
@@ -175,57 +174,79 @@
 													               <version>1.5.6</version>
 														               </dependency>
 															               <dependency>
+																	                   <groupId>commons-dbcp</groupId>
+																			               <artifactId>commons-dbcp</artifactId>
+																				                   <version>1.4</version>
+																						               <exclusions>
+																								                       <exclusion>
+																											                           <groupId>commons-logging</groupId>
+																														                       <artifactId>commons-logging</artifactId>
+																																                       </exclusion>
+																																		                       <exclusion>
+																																					                           <groupId>xml-apis</groupId>
+																																								                       <artifactId>xml-apis</artifactId>
+																																										                       </exclusion>
+																																												                   </exclusions>
+																																														           </dependency>
+																					    <dependency>
+																			                <groupId>org.springframework</groupId>
+																					            <artifactId>spring-tx</artifactId>
+																						    <version>${spring.version}</version>
+																								        </dependency>
+																									        <dependency>
+																											            <groupId>org.springframework</groupId>
+																												                <artifactId>spring-orm</artifactId>
+																														<version>${spring.version}</version>
+																															            </dependency>
+																																     
+																																            <!-- Hibernate -->
+																																	            <dependency>
+																																			                <groupId>org.hibernate</groupId>
+																																					            <artifactId>hibernate-core</artifactId>
+																																						                <version>3.6.6.Final</version>
+																																								        </dependency>
+																																									<dependency>
+																																										            <groupId>org.hibernate</groupId>
+																																											                <artifactId>hibernate-java8</artifactId>
+																																													<version>5.0.0.CR2</version>
+																																												</dependency>
+																																												<dependency>
+																																													                <groupId>dom4j</groupId>
+																																															                <artifactId>dom4j</artifactId>
+																																																	                <version>1.6.1</version>
+																																																			        </dependency>
+																																																				        <dependency>
+																																																						                <groupId>commons-logging</groupId>
+																																																								                <artifactId>commons-logging</artifactId>
+																																																										                <version>1.1.1</version>
+																																																												        </dependency>
+																																																													        <dependency>
+																																																															                <groupId>commons-collections</groupId>
+																																																																	                <artifactId>commons-collections</artifactId>
+																																																																			                <version>3.2.1</version>
+																																																																					        </dependency>
+																																																																						        <dependency>
+																																																																								                <groupId>cglib</groupId>
+																																																																										                <artifactId>cglib</artifactId>
+																																																																												                <version>2.2</version>
+																																																																														        </dependency>
+																																																																															        <!-- Hibernate library dependency end -->
+																																																																																        <dependency>
+																																																																																		                <groupId>javax.transaction</groupId>
+																																																																																				                <artifactId>jta</artifactId>
+																																																																																						                <version>1.1</version>
+																																																																																								        </dependency>
+
+																																									<dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901-1.jdbc4</version>
     </dependency>
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-orm</artifactId>
-    <version>${spring.version}</version>
-</dependency>
-        <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
     <dependency>
 	        <groupId>javassist</groupId>
 		    <artifactId>javassist</artifactId>
 		        <version>3.12.1.GA</version>
 		</dependency>
-<!-- For POI -->
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-	<artifactId>poi</artifactId>
-        <version>3.15</version>
-	</dependency>
-<dependency>
-    <groupId>org.apache.xmlbeans</groupId>
-    <artifactId>xmlbeans</artifactId>
-    <version>2.6.0</version>
-</dependency>
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-	<artifactId>poi-ooxml-schemas</artifactId>
-        <version>3.15</version>
-	</dependency>
-    <dependency>
-        <groupId>org.apache.poi</groupId>
-	<artifactId>poi-ooxml</artifactId>
-        <version>3.15</version>
-	</dependency>
-
 <!-- For Tiles -->
 <dependency>
     <groupId>org.apache.tiles</groupId>
@@ -254,5 +275,25 @@
  <classifier>with-deps</classifier>
 </dependency>
 </dependencies>
-
+<!-- For POI -->
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+	<artifactId>poi</artifactId>
+        <version>3.15</version>
+	</dependency>
+<dependency>
+    <groupId>org.apache.xmlbeans</groupId>
+    <artifactId>xmlbeans</artifactId>
+    <version>2.6.0</version>
+</dependency>
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+	<artifactId>poi-ooxml-schemas</artifactId>
+        <version>3.15</version>
+	</dependency>
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+	<artifactId>poi-ooxml</artifactId>
+        <version>3.15</version>
+	</dependency>
 </project>
