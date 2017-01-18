@@ -261,7 +261,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			return "viewloan";
 		   }		
 		@RequestMapping(value="/viewloan/{pageid}")	
-		   public String viewloan(@PathVariable int pageid,Model model, 
+		   public String viewloan(@PathVariable int pageid, Model model, 
 				           HttpServletRequest request, 
 					           HttpServletResponse response){
 			int total = 1;
@@ -288,31 +288,19 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   model.addAttribute("message", "View Loans");
 			   return "viewloans";
 		   }
-	    @RequestMapping(value="/viewloanexcel")
-		   public String loanviewexcel(Model model, HttpServletRequest request, HttpServletResponse response){
+	    @RequestMapping(value="/viewloanexcel/{pageid}")
+		   public String loanviewexcel(@PathVariable int pageid, Model model, HttpServletRequest request, HttpServletResponse response){
+			int total = 1;
+			if(pageid == 1){}
+			else{
+			  pageid=(pageid-1)*total+1;
+			}
 			model.addAttribute("message", "View Loan in EXCEL");
-/*			XSSFWorkbook workbook = new XSSFWorkbook("excel_with_embeded.xlsx");
-			HSSFWorkbook embeddedWorkbook = null;
-			XSSFWorkbook embeddedWorkbook = null;
-			for (PackagePart pPart : workbook.getAllEmbedds()) {
-			      String contentType = pPart.getContentType();
-			      // Excel Workbook - either binary or OpenXML
-			      if (contentType.equals("application/vnd.ms-excel")) {
-			          embeddedWorkbook = new HSSFWorkbook(pPart.getInputStream());
-				  break;	
-			      }// Excel Workbook - OpenXML file format
-			      else if (contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
-			          OPCPackage docPackage = OPCPackage.open(pPart.getInputStream());
-			          embeddedWorkbook = new XSSFWorkbook(docPackage);
-				  break;	
-			      }		
-			}*/
-
 			List loans = (List)request.getSession().getAttribute("loans");
 			if(loans != null && loans.size() > 0){
 				response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 				response.setHeader("Content-Disposition", "attachment; filename=loan.xls");
-				Loan loan = (Loan)loans.get(0);
+				Loan loan = (Loan)loans.get(pageid-1);
 				try{
 					response.getWriter().write(loan.toString());
 				}catch(java.io.IOException ioe){ ioe.printStackTrace(); }
