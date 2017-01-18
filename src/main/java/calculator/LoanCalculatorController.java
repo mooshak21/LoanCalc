@@ -288,5 +288,35 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   model.addAttribute("message", "View Loans");
 			   return "viewloans";
 		   }
+	    @RequestMapping(value="/loanviewexcel")
+		   public String loanviewexcel(Model model, HttpServletRequest request, HttpServletResponse response){
+			model.addAttribute("message", "View Loan in EXCEL");
+/*			XSSFWorkbook workbook = new XSSFWorkbook("excel_with_embeded.xlsx");
+			HSSFWorkbook embeddedWorkbook = null;
+			XSSFWorkbook embeddedWorkbook = null;
+			for (PackagePart pPart : workbook.getAllEmbedds()) {
+			      String contentType = pPart.getContentType();
+			      // Excel Workbook - either binary or OpenXML
+			      if (contentType.equals("application/vnd.ms-excel")) {
+			          embeddedWorkbook = new HSSFWorkbook(pPart.getInputStream());
+				  break;	
+			      }// Excel Workbook - OpenXML file format
+			      else if (contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+			          OPCPackage docPackage = OPCPackage.open(pPart.getInputStream());
+			          embeddedWorkbook = new XSSFWorkbook(docPackage);
+				  break;	
+			      }		
+			}*/
 
+			List loans = (List)request.getSession().getAttribute("loans");
+			if(loans != null && loans.size() > 0){
+				response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+				response.setHeader("Content-Disposition", "attachment; filename=loan.xls");
+				Loan loan = loans.get(0);
+				response.getWriter().write(loan.toString());
+				model.addAttribute("amortizeloan", loan);
+			}
+			return "viewloan";
+		   }
+	
 }
