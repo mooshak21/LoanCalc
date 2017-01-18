@@ -312,7 +312,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			if(loans != null && loans.size() > 0){
 				response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 				response.setHeader("Content-Disposition", "attachment; filename=loan.xls");
-				Loan loan = loans.get(0);
+				Loan loan = (Loan)loans.get(0);
 				response.getWriter().write(loan.toString());
 				model.addAttribute("amortizeloan", loan);
 			}
