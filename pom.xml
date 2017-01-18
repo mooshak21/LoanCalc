@@ -274,7 +274,6 @@
  <version>3.2</version>
  <classifier>with-deps</classifier>
 </dependency>
-</dependencies>
 <!-- For POI -->
     <dependency>
         <groupId>org.apache.poi</groupId>
@@ -296,4 +295,6 @@
 	<artifactId>poi-ooxml</artifactId>
         <version>3.15</version>
 	</dependency>
+
+</dependencies>
 </project>
