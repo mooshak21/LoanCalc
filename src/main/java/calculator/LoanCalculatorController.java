@@ -288,7 +288,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   model.addAttribute("message", "View Loans");
 			   return "viewloans";
 		   }
-	    @RequestMapping(value="/loanviewexcel")
+	    @RequestMapping(value="/viewloanexcel")
 		   public String loanviewexcel(Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
 /*			XSSFWorkbook workbook = new XSSFWorkbook("excel_with_embeded.xlsx");
