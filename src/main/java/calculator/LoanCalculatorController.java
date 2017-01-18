@@ -288,23 +288,22 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 			   model.addAttribute("message", "View Loans");
 			   return "viewloans";
 		   }
-	    @RequestMapping(value="/viewloanexcel/{pageid}")
-		   public String loanviewexcel(@PathVariable int pageid, Model model, HttpServletRequest request, HttpServletResponse response){
-			int total = 1;
-			if(pageid == 1){}
-			else{
-			  pageid=(pageid-1)*total+1;
-			}
+	    @RequestMapping(value="/viewloanexcel/{loanid}")
+		   public String loanviewexcel(@PathVariable long loanid, Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
 			List loans = (List)request.getSession().getAttribute("loans");
 			if(loans != null && loans.size() > 0){
 				response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 				response.setHeader("Content-Disposition", "attachment; filename=loan.xls");
-				Loan loan = (Loan)loans.get(pageid-1);
-				try{
-					response.getWriter().write(loan.toString());
-				}catch(java.io.IOException ioe){ ioe.printStackTrace(); }
-				model.addAttribute("amortizeloan", loan);
+				for(Loan loan : loans){
+					if(loan.getLoanId() == loanid){
+						try{
+							response.getWriter().write(loan.toString());
+						}catch(java.io.IOException ioe){ ioe.printStackTrace(); }
+						model.addAttribute("amortizeloan", loan);
+						break;
+					}
+				}
 			}
 			return "viewloan";
 		   }

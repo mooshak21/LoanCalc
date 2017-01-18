@@ -8,7 +8,7 @@
 				for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
 					<a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%>
 				<%}%></td></tr>
-			<tr><td>Loan Id:</td><td><a href='/viewloanexcel/<%=(pgIdx+1)%>'>${amortizeloan.loanId}</a></td></tr>
+			<tr><td>Loan Id:</td><td><a href='/viewloanexcel/${amortizeloan.loanId}'>${amortizeloan.loanId}</a></td></tr>
 		   <td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
 		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
 		   <tr><td>Last Interest:($)</td><td><h2>${amortizeloan.interest}</h2></td></tr>
