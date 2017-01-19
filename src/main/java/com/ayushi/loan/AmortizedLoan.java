@@ -1,4 +1,4 @@
-package calculator;
+package com.ayushi.loan;
 
 import java.util.HashMap;
 import java.util.Calendar;
@@ -41,15 +41,16 @@ public class AmortizedLoan extends Loan {
 		entries.put(new Integer(cmpPeriod), new LoanEntry(dateLastEntry, amortizedloanAmt,0,0,mnthly));
 	}
 	public LoanEntry calculateLoanEntry(Calendar dateEntry, double loanAmount, int totalNumYears, double numOfYears, double interestRate, double air){
-		                        double periodicInterestRate = Double.valueOf(air)/(12*100);
-					                        double addOne = (1 + periodicInterestRate);
-								                        double loanAmt = Double.valueOf(loanAmount);
-											                        double compoundingPeriods = Double.valueOf(numOfYears)*12;
+                        double periodicInterestRate = Double.valueOf(air)/(12*100);
+                        double addOne = (1 + periodicInterestRate);
+                        double loanAmt = Double.valueOf(loanAmount);
+                        double compoundingPeriods = Double.valueOf(numOfYears)*12;
 
-				double monthly = 0;
-				double total = 0;
-				double currloanAmt = 0;
-											                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, totalNumYears*12))/(Math.pow(addOne,(totalNumYears*12)) - 1)));
+			double monthly = 0;
+			double total = 0;
+			double currloanAmt = 0;
+
+                        monthly = loanAmt * (((periodicInterestRate * Math.pow(addOne, totalNumYears*12))/(Math.pow(addOne,(totalNumYears*12)) - 1)));
 			setInterest((amortizedloanAmt * Math.pow((1+periodicInterestRate),numOfYears*12) - amortizedloanAmt)/(numOfYears*12));
 			currloanAmt = amortizedloanAmt - getInterest();
 		

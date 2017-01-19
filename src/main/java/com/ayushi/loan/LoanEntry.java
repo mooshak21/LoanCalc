@@ -1,4 +1,4 @@
-package calculator;
+package com.ayushi.loan;
 
 import java.io.Serializable;
 import java.util.Calendar;

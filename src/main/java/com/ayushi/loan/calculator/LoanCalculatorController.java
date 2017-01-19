@@ -1,4 +1,4 @@
-package calculator;
+package com.ayushi.loan.calculator;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.dao.DataAccessException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.ayushi.loan.*;
 
 @Controller
 public class LoanCalculatorController{
