@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="calculator.Loan" table="loan">
+    <class name="com.ayushi.loan.Loan" table="loan">
         <id name="loanId" type="java.lang.Long">
             <column name="LOAN_ID" />
             <generator class="assigned" />
