@@ -30,7 +30,7 @@ public class LoanService implements LendingService {
 	public void removeLoan(Loan loan) throws LoanAccessException {
 		loanDao.remove(loan);
 	}
-	public List<Loan> findLoan(String query, Object[] objVals) throws LoanAccessException {
-		return (List<Loan>) loanDao.find(query, objVals);
+	public List<Serializable> findLoan(String query, Object[] objVals) throws LoanAccessException {
+		return (List<Serializable>) loanDao.find(query, objVals);
 	}
 }
