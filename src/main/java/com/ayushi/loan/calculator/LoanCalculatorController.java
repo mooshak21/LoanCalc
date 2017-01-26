@@ -65,7 +65,6 @@ public class LoanCalculatorController{
 					if(loanObject != null){
 						LoanService loanService = (LoanService)appCtx.getBean("loanService");
 						try{
-							//hibernateTemplate.saveOrUpdate(loanObject);
 							loanService.createLoan(loanObject);
 						}catch(LoanAccessException lae){
 							lae.printStackTrace();
@@ -159,8 +158,6 @@ public class LoanCalculatorController{
 		        HttpServletRequest request, 
 			        HttpServletResponse response) {
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-				//SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
-				//HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				AmortizedLoan loanObject = new AmortizedLoan();
 				int total = 0;
 				StringBuffer querySB = new StringBuffer();
@@ -218,8 +215,6 @@ public class LoanCalculatorController{
 					queryVals = new Object[queryValList.size()];
 					queryVals = queryValList.toArray(queryVals);
 					java.util.List<Serializable> loans = null;
-					//try{
-						//loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
 						LoanService loanService = (LoanService)appCtx.getBean("loanService");
 						try{
 							loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
