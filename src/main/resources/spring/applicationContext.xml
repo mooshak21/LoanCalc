@@ -85,7 +85,9 @@ class="com.ayushi.loan.service.LoanService">
 class="com.ayushi.loan.dao.LoanDao">
 <property name="sessionFactory" ref="sessionFactory" />
 </bean>
-
+<bean id="loanWebService"
+class="com.ayushi.loan.service.LoanWebService">
+</bean>
 
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix">

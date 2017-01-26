@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ayushi.loan.*;
 import com.ayushi.loan.service.LoanService;
+import com.ayushi.loan.service.LoanWebService;
 import com.ayushi.loan.exception.LoanAccessException;
 import java.io.Serializable;
 
@@ -36,19 +37,35 @@ public class LoanCalculatorController{
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, Model model) {
 				boolean allVal = false;
+				Loan loanQryObject = new Loan();
 				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("")){
 					allVal = true;
+					loanQryObject.setAmount(Double.valueOf(loanAmt));
+					loanQryObject.setLender(lender);
+					loanQryObject.setState(state);
+					loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
+					loanQryObject.setAPR(Double.valueOf(airVal));
 				}
 				if(allVal){
-					RestTemplate restTemplate = new RestTemplate();
-Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
+					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+					LoanWebService loanWebService = (LoanWebService)appCtx.getBean("loanWebService");
+					try{
+						loanService.calculateLoan(loanQryObject);
+					}catch(LoanAccessException lae){
+						lae.printStackTrace();
+						model.addAttribute("message", "Calculate Loan Failed!");
+					        return "createloan";
+					}
+	
+//					RestTemplate restTemplate = new RestTemplate();
+//Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + //"&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
+				
 					/*GsonBuilder gsonb = new GsonBuilder();
 					Gson gson = gsonb.create();
 					Loan loanObject = gson.fromJson(loan, Loan.class);*/
 					if(loanObject != null){
-						ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 						//SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 						//HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 						LoanService loanService = (LoanService)appCtx.getBean("loanService");
@@ -86,14 +103,31 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
 				boolean allVal = false;
+				Loan loanQryObject = new Loan();
 				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("") && amortizeOn != null && !amortizeOn.equals("")){
 					allVal = true;
+					loanQryObject.setAmount(Double.valueOf(loanAmt));
+					loanQryObject.setLender(lender);
+					loanQryObject.setState(state);
+					loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
+					loanQryObject.setAPR(Double.valueOf(airVal));
 				}
 				if(allVal){
-					RestTemplate restTemplate = new RestTemplate();
-AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + "&amortizeOn=" + amortizeOn, AmortizedLoan.class);
+					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+					LoanWebService loanWebService = (LoanWebService)appCtx.getBean("loanWebService");
+					AmortizedLoan loanObject = null;
+					try{
+						loanObject = loanService.amortizeLoan(loanQryObject, amortizeOn);
+					}catch(LoanAccessException lae){
+						lae.printStackTrace();
+						model.addAttribute("message", "Amortize Loan Failed!");
+					        return "amortizeloan";
+					}
+
+//					RestTemplate restTemplate = new RestTemplate();
+//AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + airVal + "&lender=" + //lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + "&amortizeOn=" + amortizeOn, AmortizedLoan.class);
 					if(loanObject != null){
 						LoanApp loanApp = new LoanApp(loanObject);
 						loanObject.setLoanApp(loanApp);
