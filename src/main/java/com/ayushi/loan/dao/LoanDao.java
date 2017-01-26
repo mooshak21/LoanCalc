@@ -1,7 +1,7 @@
 package com.ayushi.loan.dao;
 
 import java.io.Serializable;
-import org.springframework.orm.hibernate.HibernateTemplate;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import net.sf.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
 import com.ayushi.loan.Loan;
