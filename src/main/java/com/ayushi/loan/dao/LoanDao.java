@@ -8,7 +8,7 @@ import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 
-public class LoanDao implements LendingDao extends HibernateDaoSupport {
+public class LoanDao extends HibernateDaoSupport implements LendingDao {
 	private SessionFactory sessionFactory;	
 	
 	public LoanDao (SessionFactory sessFactory){
@@ -27,7 +27,7 @@ public class LoanDao implements LendingDao extends HibernateDaoSupport {
 		}catch(DataAccessException dae){
 			throw new LoanAccessException(dae);
 		}
-}
+	}
 	public void update(Object o) throws LoanAccessException{
 		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
 		try{

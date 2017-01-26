@@ -29,6 +29,6 @@ public class LoanService implements LendingService {
 		loanDao.remove(loan);
 	}
 	public List<Loan> findLoan(String query) throws LoanAccessException {
-		return (List<Loan) loanDao.find(query);
+		return (List<Loan>) loanDao.find(query);
 	}
 }
