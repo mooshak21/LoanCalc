@@ -77,14 +77,22 @@ class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 </props>
 </property>
 </bean>
-<bean
-	    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	        <property name="prefix">
-			        <value>/WEB-INF/views/</value>
-				    </property>
-				        <property name="suffix">
-						        <value>.jsp</value>
-							    </property>
-						    </bean>
+<bean id="loanService"
+class="com.ayushi.loan.service.LoanService">
+<property name="loanDao" ref="loanDao" />
+</bean>
+<bean id="loanDao"
+class="com.ayushi.loan.dao.LoanDao">
+<property name="sessionFactory" ref="sessionFactory" />
+</bean>
 
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix">
+		<value>/WEB-INF/views/</value>
+	</property>
+	<property name="suffix">
+	        <value>.jsp</value>
+	</property>
+</bean>
 </beans>
