@@ -52,10 +52,10 @@ public class LoanDao implements LendingDao {
 			throw new LoanAccessException(dae);
 		}
 	}
-	public Object find(Object o) throws LoanAccessException{
+	public Object find(Class entityClass, Serializable o) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			return ht.get(o);
+			return ht.get(entityClass, o);
 		}catch(DataAccessException dae){
 			throw new LoanAccessException(dae);
 		}
