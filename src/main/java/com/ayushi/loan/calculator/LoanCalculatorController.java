@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ayushi.loan.*;
 import com.ayushi.loan.service.LoanService;
 import com.ayushi.loan.exception.LoanAccessException;
+import java.io.Serializable;
 
 @Controller
 public class LoanCalculatorController{
@@ -53,7 +54,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 						LoanService loanService = (LoanService)appCtx.getBean("loanService");
 						try{
 							//hibernateTemplate.saveOrUpdate(loanObject);
-							loanService.insert(loanObject);
+							loanService.insertLoan(loanObject);
 						}catch(LoanAccessException lae){
 							lae.printStackTrace();
 							model.addAttribute("message", "Create Loan Failed!");
