@@ -1,0 +1,34 @@
+package com.ayushi.loan.service;
+
+import com.ayushi.loan.dao.LoanDao;
+import com.ayushi.loan.service.LendingService;
+import com.ayushi.loan.exception.LoanAccessException;
+
+public class LoanService implements LendingService {
+	private LoanDao loanDao;
+
+	public LoanService(LoanDao loanDao){
+		this.loanDao = loanDao;
+	}
+	public void setLoanDao(LoanDao loanDao){
+		this.loanDao = loanDao;
+	}
+	public LoanDao getLoanDao(){
+		return loanDao;
+	}
+	public void createLoan(Loan loan) throws LoanAccessException {
+		loanDao.insert(loan);
+	}
+	public Loan retrieveLoan(Loan loan) throws LoanAccessException {
+		return loanDao.find(loan);
+	}
+	public void modifyLoan(Loan loan) throws LoanAccessException {
+		loanDao.update(loan);
+	}
+	public void removeLoan(Loan loan) throws LoanAccessException {
+		loanDao.remove(loan);
+	}
+	public List<Loan> findLoan(String query) throws LoanAccessException {
+		return (List<Loan) loanDao.find(query);
+	}
+}
