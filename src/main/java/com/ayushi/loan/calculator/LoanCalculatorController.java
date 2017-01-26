@@ -99,7 +99,6 @@ public class LoanCalculatorController{
 		@RequestParam("amortizeOn") String amortizeOn, Model model) {
 				boolean allVal = false;
 				Loan loanQryObject = new Loan();
-				Loan loanObject = null;
 				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("") && amortizeOn != null && !amortizeOn.equals("")){
