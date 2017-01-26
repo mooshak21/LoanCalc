@@ -4,9 +4,10 @@ import java.io.Serializable;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 import org.springframework.orm.hibernate.HibernateTemplate;
 import net.sf.hibernate.SessionFactory;
-import com.ayushi.loan.exception.LoanAccessException;
+import org.springframework.dao.DataAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
+import com.ayushi.loan.exception.LoanAccessException;
 
 public class LoanDao extends HibernateDaoSupport implements LendingDao {
 	private SessionFactory sessionFactory;	
