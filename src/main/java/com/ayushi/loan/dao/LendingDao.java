@@ -1,6 +1,7 @@
 package com.ayushi.loan.dao;
 
 import com.ayushi.loan.exception.LoanAccessException;
+import java.util.List;
 
 public interface LendingDao {
 	public void update(Object o) throws LoanAccessException;

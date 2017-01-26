@@ -1,7 +1,6 @@
 package com.ayushi.loan.dao;
 
 import java.io.Serializable;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 import org.springframework.orm.hibernate.HibernateTemplate;
 import net.sf.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
@@ -9,7 +8,7 @@ import com.ayushi.loan.Loan;
 import java.util.List;
 import com.ayushi.loan.exception.LoanAccessException;
 
-public class LoanDao extends HibernateDaoSupport implements LendingDao {
+public class LoanDao implements LendingDao {
 	private SessionFactory sessionFactory;	
 	
 	public LoanDao (SessionFactory sessFactory){
@@ -22,7 +21,7 @@ public class LoanDao extends HibernateDaoSupport implements LendingDao {
 		return sessionFactory;
 	}
 	public void insert(Object o) throws LoanAccessException{
-		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
+		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.saveOrUpdate(o);
 		}catch(DataAccessException dae){
@@ -30,7 +29,7 @@ public class LoanDao extends HibernateDaoSupport implements LendingDao {
 		}
 	}
 	public void update(Object o) throws LoanAccessException{
-		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
+		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.saveOrUpdate(o);
 		}catch(DataAccessException dae){
@@ -38,7 +37,7 @@ public class LoanDao extends HibernateDaoSupport implements LendingDao {
 		}
 	}
 	public void remove(Object o) throws LoanAccessException {
-		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
+		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.delete(o);
 		}catch(DataAccessException dae){
@@ -46,7 +45,7 @@ public class LoanDao extends HibernateDaoSupport implements LendingDao {
 		}
 	}
 	public List<Loan> find(String query, Object[] objVals) throws LoanAccessException{
-		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
+		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			return (List<Loan>)ht.find(query, objVals);
 		}catch(DataAccessException dae){
@@ -54,7 +53,7 @@ public class LoanDao extends HibernateDaoSupport implements LendingDao {
 		}
 	}
 	public Object find(Object o) throws LoanAccessException{
-		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
+		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			return ht.get(o);
 		}catch(DataAccessException dae){
