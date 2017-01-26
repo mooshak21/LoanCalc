@@ -44,10 +44,10 @@ public class LoanDao extends HibernateDaoSupport implements LendingDao {
 			throw new LoanAccessException(dae);
 		}
 	}
-	public List<Loan> find(String query) throws LoanAccessException{
+	public List<Loan> find(String query, Object[] objVals) throws LoanAccessException{
 		HibernateTemplate ht = this.createHibernateTemplate(sessionFactory);
 		try{
-			return (List<Loan>)ht.find(query);
+			return (List<Loan>)ht.find(query, objVals);
 		}catch(DataAccessException dae){
 			throw new LoanAccessException(dae);
 		}

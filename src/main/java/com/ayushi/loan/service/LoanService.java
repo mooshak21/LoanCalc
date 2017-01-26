@@ -4,6 +4,7 @@ import com.ayushi.loan.dao.LoanDao;
 import com.ayushi.loan.service.LendingService;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
+import java.util.List;
 
 public class LoanService implements LendingService {
 	private LoanDao loanDao;
@@ -29,7 +30,7 @@ public class LoanService implements LendingService {
 	public void removeLoan(Loan loan) throws LoanAccessException {
 		loanDao.remove(loan);
 	}
-	public List<Loan> findLoan(String query) throws LoanAccessException {
-		return (List<Loan>) loanDao.find(query);
+	public List<Loan> findLoan(String query, Object[] objVals) throws LoanAccessException {
+		return (List<Loan>) loanDao.find(query, objVals);
 	}
 }
