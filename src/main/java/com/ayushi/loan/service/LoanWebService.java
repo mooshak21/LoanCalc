@@ -33,13 +33,13 @@ public class LoanWebService implements LendingWebService {
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
-			AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizedOn=" + amoritizedOn, AmortizedLoan.class);
+			AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizedOn=" + amortizedOn, AmortizedLoan.class);
 			return loanObject;
 		}else{
 			return null;
 		}
 	}
-	public AmortizedLoan payoffLoan(Loan loan) throws LoanAccessException{
+	public AmortizedLoan payoffLoan(Loan loan, String amortizedOn, String payoffOn) throws LoanAccessException{
 		return null;
 	}
 }
