@@ -23,7 +23,7 @@ public class LoanService implements LendingService {
 		loanDao.insert(loan);
 	}
 	public Loan retrieveLoan(Loan loan) throws LoanAccessException {
-		return loanDao.find(Loan.class, loan);
+		return (Loan)loanDao.find(Loan.class, loan);
 	}
 	public void modifyLoan(Loan loan) throws LoanAccessException {
 		loanDao.update(loan);
