@@ -3,6 +3,7 @@ package com.ayushi.loan.service;
 import com.ayushi.loan.dao.LoanDao;
 import com.ayushi.loan.service.LendingService;
 import com.ayushi.loan.exception.LoanAccessException;
+import com.ayushi.loan.Loan;
 
 public class LoanService implements LendingService {
 	private LoanDao loanDao;
