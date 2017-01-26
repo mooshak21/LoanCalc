@@ -54,7 +54,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 						LoanService loanService = (LoanService)appCtx.getBean("loanService");
 						try{
 							//hibernateTemplate.saveOrUpdate(loanObject);
-							loanService.insertLoan(loanObject);
+							loanService.createLoan(loanObject);
 						}catch(LoanAccessException lae){
 							lae.printStackTrace();
 							model.addAttribute("message", "Create Loan Failed!");
