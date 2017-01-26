@@ -22,6 +22,8 @@ import org.springframework.dao.DataAccessException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ayushi.loan.*;
+import com.ayushi.loan.service.LoanService;
+import com.ayushi.loan.exception.LoanAccessException;
 
 @Controller
 public class LoanCalculatorController{
@@ -46,12 +48,14 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 					Loan loanObject = gson.fromJson(loan, Loan.class);*/
 					if(loanObject != null){
 						ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-						SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
-						HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+						//SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
+						//HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+						LoanService loanService = appCtx.getBean("loanService");
 						try{
-							hibernateTemplate.saveOrUpdate(loanObject);
-						}catch(DataAccessException dae){
-							dae.printStackTrace();
+							//hibernateTemplate.saveOrUpdate(loanObject);
+							loanService.insert(loanObject);
+						}catch(LoanAccessException lae){
+							lae.printStackTrace();
 							model.addAttribute("message", "Create Loan Failed!");
 						        return "createloan";
 						}
@@ -127,8 +131,8 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 		        HttpServletRequest request, 
 			        HttpServletResponse response) {
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-				SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
-				HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
+				//SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
+				//HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
 				AmortizedLoan loanObject = new AmortizedLoan();
 				int total = 0;
 				StringBuffer querySB = new StringBuffer();
@@ -185,11 +189,14 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 				if(firstVal){
 					queryVals = new Object[queryValList.size()];
 					queryVals = queryValList.toArray(queryVals);
-					java.util.List loans = null;
+					java.util.List<Serializable> loans = null;
 					try{
-						loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
-					}catch(DataAccessException dae){
-						dae.printStackTrace();
+						//loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
+						LoanService loanService = appCtx.getBean("loanService");
+						try{
+							loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
+						}catch(LoanAccessException lae){
+							lae.printStackTrace();
 					    	model.addAttribute("message","Search Loan Failed!");
 					}
 					if(loans != null & loans.size() > 0){
