@@ -50,7 +50,7 @@ Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.h
 						ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 						//SessionFactory sessionFactory = (SessionFactory)appCtx.getBean("sessionFactory");
 						//HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-						LoanService loanService = appCtx.getBean("loanService");
+						LoanService loanService = (LoanService)appCtx.getBean("loanService");
 						try{
 							//hibernateTemplate.saveOrUpdate(loanObject);
 							loanService.insert(loanObject);
@@ -192,7 +192,7 @@ AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculat
 					java.util.List<Serializable> loans = null;
 					//try{
 						//loans = hibernateTemplate.find("select ln from Loan ln where " + querySB.toString(), queryVals);
-						LoanService loanService = appCtx.getBean("loanService");
+						LoanService loanService = (LoanService)appCtx.getBean("loanService");
 						try{
 							loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
 						}catch(LoanAccessException lae){
