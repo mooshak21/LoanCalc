@@ -301,9 +301,9 @@ public class LoanCalculatorController{
 			  pageid=(pageid-1)*total+1;
 			}
 			List loans = (List)request.getSession().getAttribute("loans");
-			Loan al = null;
+			AmortizedLoan al = null;
 			if(loans != null){
-				al = (Loan)loans.get(pageid-1);
+				al = (AmortizedLoan)loans.get(pageid-1);
 			}
 
 			java.util.Calendar calToday = java.util.Calendar.getInstance();
@@ -322,11 +322,11 @@ public class LoanCalculatorController{
 	    @RequestMapping(value="/viewloanexcel/{loanid}")
 		   public String loanviewexcel(@PathVariable long loanid, Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
-			List<Loan> loans = (List<Loan>)request.getSession().getAttribute("loans");
+			List<AmortizedLoan> loans = (List<AmortizedLoan>)request.getSession().getAttribute("loans");
 			if(loans != null && loans.size() > 0){
 				response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 				response.setHeader("Content-Disposition", "attachment; filename=loan.xls");
-				for(Loan loan : loans){
+				for(AmortizedLoan loan : loans){
 					if(loan.getLoanId() == loanid){
 						try{
 							response.getWriter().write(loan.toString());
