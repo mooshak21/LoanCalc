@@ -5,6 +5,7 @@ import com.ayushi.loan.service.LendingService;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
+import java.io.Serializable;
 
 public class LoanService implements LendingService {
 	private LoanDao loanDao;
