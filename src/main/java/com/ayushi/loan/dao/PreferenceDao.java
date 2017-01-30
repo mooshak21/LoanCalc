@@ -8,7 +8,7 @@ import com.ayushi.loan.Loan;
 import java.util.List;
 import com.ayushi.loan.exception.PreferenceAccessException;
 
-public class PreferenceDao implements LendingDao {
+public class PreferenceDao {
 	private SessionFactory sessionFactory;	
 	
 	public PreferenceDao (SessionFactory sessFactory){

@@ -28,6 +28,13 @@ import com.ayushi.loan.service.LoanWebService;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import java.io.Serializable;
+import com.ayushi.loan.preferences.CheckPreference;
+import com.ayushi.loan.preferences.Preference;
+import com.ayushi.loan.preferences.LocationPreference;
+import com.ayushi.loan.preferences.WebServicePreference;
+import com.ayushi.loan.preferences.RiskTolerancePreference;
+import com.ayushi.loan.preferences.TimeHorizonPreference;
+
 
 @Controller
 public class LoanCalculatorController{
