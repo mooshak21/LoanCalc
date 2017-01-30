@@ -340,8 +340,8 @@ public class LoanCalculatorController{
 			}
 			return "viewloan";
 		   }
-	    @RequestMapping(value="/preferenceviewask")
-	    	   public String loanpreferenceask(Model model){
+	    @RequestMapping(value="/loanpreferenceviewask")
+	    	   public String loanpreferenceviewask(Model model){
 			   model.addAttribute("message", "Edit Preferences");
 			   return "viewpreferences";
 		   }
