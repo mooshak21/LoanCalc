@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ayushi.loan.*;
 import com.ayushi.loan.service.LoanService;
+import com.ayushi.loan.service.PreferenceService;
 import com.ayushi.loan.service.LoanWebService;
 import com.ayushi.loan.exception.LoanAccessException;
+import com.ayushi.loan.exception.PreferenceAccessException;
 import java.io.Serializable;
 
 @Controller
@@ -338,5 +340,93 @@ public class LoanCalculatorController{
 			}
 			return "viewloan";
 		   }
-	
+	    @RequestMapping(value="/preferenceviewask")
+	    	   public String loanpreferenceask(Model model){
+			   model.addAttribute("message", "Edit Preferences");
+			   return "viewpreferences";
+		   }
+	    @RequestMapping(value="/vieweditpreferences", method=RequestMethod.GET)
+		    public String vieweditpreferences(	
+		@RequestParam("airVal") String airVal,
+		@RequestParam("lender") String lender,
+		@RequestParam("loanAmt") String loanAmt,
+		@RequestParam("state") String state,
+		@RequestParam("numOfYears") String numOfYears, 
+		@RequestParam("locationPreference") String locationPreference,
+		@RequestParam("webServicePreference") String webServicePreference, 
+		@RequestParam("riskTolerancePreference") String riskTolerancePreference, 
+		@RequestParam("timeHorizonPreference") String timeHorizonPreference,Model model) {
+				boolean allVal = false;
+				Loan loanQryObject = new Loan();
+				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
+				   && lender != null && !lender.equals("") && state != null && !state.equals("")
+				   && numOfYears != null && !numOfYears.equals("") && amortizeOn != null && !amortizeOn.equals("")){
+					allVal = true;
+					loanQryObject.setAmount(Double.valueOf(loanAmt));
+					loanQryObject.setLender(lender);
+					loanQryObject.setState(state);
+					loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
+					loanQryObject.setAPR(Double.valueOf(airVal));
+				}
+				if(allVal){
+					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+					PreferenceService prefService = (PreferenceService)appCtx.getBean("preferenceService");
+					List<CheckPreference> prefList = new ArrayList<CheckPreference>();
+					if(locationPreference != null && !locationPreference.equals("")){
+						LocationPreference locPref = new LocationPreference();
+						locPref.setId(1);
+						locPref.setName("State");
+						locPref.setValue(locationPreference);
+						locPref.setFlag(true);
+						locPref.setActive("Y");
+						prefList.add(locPref);
+					}
+					if(webServicePreference != null && !webServicePreference.equals("")){
+						WebServicePreference wsPref = new WebServicePreference();
+						wsPref.setId(2);
+						wsPref.setName("Web Service");
+						wsPref.setValue(webService);
+						wsPref.setFlag(true);
+						wsPref.setActive("Y");
+						prefList.add(wsPref);
+					}
+					if(riskTolerancePreference != null && !riskTolerancePreference.equals("")){
+						RiskTolerancePreference rtPref = new RiskTolerancePreference();
+						rtPref.setId(3);
+						rtPref.setName("Interest Rate");
+						rtPref.setValue(riskTolerancePreference);
+						rtPref.setFlag(true);
+						rtPref.setActive("Y");
+						prefList.add(rtPref);
+					}
+					if(timeHorizonPreference != null && !timeHorizonPreference.equals("")){
+						TimeHorizonPreference thPref = new TimeHorizonPreference();
+						thPref.setId(4);
+						thPref.setName("Time Period");
+						thPref.setValue(timeHorizonPreference);
+						thPref.setFlag(true);
+						thPref.setActive("Y");
+						prefList.add(thPref);
+					}
+					List<Integer> preferenceIds = null;
+					try{
+						preferenceIds = prefService.processPreferences(prefList, 
+											    pref -> pref.getFlag() && pref.getActive().equals("Y"));
+					}catch(PreferenceAccessException pae){
+						pae.printStackTrace();
+						model.addAttribute("message", "Preference Service Failed!");
+					        return "viewpreferences";
+					}
+
+					if(preferenceIds != null && preferenceIds.size() > 0){
+						prefService.addPreferences(loanQryObject, preferenceIds);	
+					    	model.addAttribute("message","Preference Service Successful!");
+					}else{
+					    	model.addAttribute("message","Preference Service Failed!");
+					}				
+				}else{
+					model.addAttribute("message", "Preference Service : Required Parameters not entered!");
+				}
+				return "viewpreferences";
+		    }
 }
