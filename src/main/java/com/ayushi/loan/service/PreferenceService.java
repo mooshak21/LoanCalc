@@ -5,6 +5,8 @@ import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 import java.io.Serializable;
+import com.ayushi.loan.preferences.CheckPreference;
+import java.util.function.Predicate;
 
 public class PreferenceService implements PreferenceAttributeService {
 	private PreferenceDao preferenceDao;

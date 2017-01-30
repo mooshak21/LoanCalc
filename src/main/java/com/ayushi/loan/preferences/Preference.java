@@ -3,14 +3,14 @@ package com.ayushi.loan.preferences;
 import java.io.Serializable;
 
 public class Preference extends Serializable implements CheckPreference {
-	private long serializableId = 0L;
-	private Integer id;
-	private String type;
-	private String name;
-	private String value;
-	private String description;
-	private String active;
-	private Boolean flag;
+	protected long serializableId = 0L;
+	protected Integer id;
+	protected String type;
+	protected String name;
+	protected String value;
+	protected String description;
+	protected String active;
+	protected Boolean flag;
 
 	public Preference(Integer id, String type, String nm, String val, String desc, String actv, Boolean flg){
 		this.id = id;
