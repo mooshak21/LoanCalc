@@ -3,6 +3,8 @@ package com.ayushi.loan.preferences;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Predicate;
+import com.ayushi.loan.preferences.CheckPreference;
 
 public class Preferences<CheckPreference> implements Serializable {
 	private List<CheckPreference> preferences = new ArrayList<CheckPrefence>();

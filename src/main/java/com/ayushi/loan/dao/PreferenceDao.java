@@ -20,10 +20,11 @@ public class PreferenceDao {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
-	public void insert(Object o) throws PreferenceAccessException{
+	public void insert(Loan loan, List<Integer> prefIds) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			ht.saveOrUpdate(o);
+			ht.saveOrUpdate(loan);
+			ht.saveOrUpdate(prefIds);
 		}catch(DataAccessException dae){
 			throw new PreferenceAccessException(dae);
 		}
