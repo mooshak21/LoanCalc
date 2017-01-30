@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import com.ayushi.loan.preferences.CheckPreference;
 
-public class Preferences<CheckPreference> implements Serializable {
-	private List<CheckPreference> preferences = new ArrayList<CheckPrefence>();
+public class Preferences implements Serializable {
+	private List<CheckPreference> preferences = new ArrayList<CheckPreference>();
 	
 	public Preferences(){
 	}

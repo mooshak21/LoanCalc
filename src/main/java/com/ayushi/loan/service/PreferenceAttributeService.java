@@ -7,6 +7,7 @@ import java.io.Serializable;
 import com.ayushi.loan.preferences.CheckPreference;
 import java.util.function.Predicate;
 import com.ayushi.loan.preferences.Preference;
+import com.ayushi.loan.preferences.Preferences;
 
 public interface PreferenceAttributeService {
 	public void createPreference(Preference preference) throws PreferenceAccessException;
