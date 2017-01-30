@@ -4,6 +4,6 @@
 	   <tr><td><a href="/loanamortizeask">Amortize Loan</a></td></tr>
 	   <tr><td><a href="/loanpayoffask">Payoff Loan</a></td></tr>
 	   <tr><td><a href="/loanviewask">View Loans</a></td></tr>
-	   <tr><td><a href="/viewpreferencesask">View/Edit Preferences</a></td></tr>
+	   <tr><td><a href="/loanpreferenceviewask">View/Edit Preferences</a></td></tr>
 	  </table>
 
