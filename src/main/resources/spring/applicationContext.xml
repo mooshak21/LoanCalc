@@ -88,6 +88,14 @@ class="com.ayushi.loan.dao.LoanDao">
 <bean id="loanWebService"
 class="com.ayushi.loan.service.LoanWebService">
 </bean>
+<bean id="preferenceDao"
+class="com.ayushi.loan.dao.PreferenceDao">
+<property name="sessionFactory" ref="sessionFactory" />
+</bean>
+<bean id="preferenceService"
+class="com.ayushi.loan.service.PreferenceService">
+<property name="preferenceDao" ref="preferenceDao" />
+</bean>
 
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix">
