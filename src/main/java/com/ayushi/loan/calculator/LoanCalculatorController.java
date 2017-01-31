@@ -27,6 +27,7 @@ import com.ayushi.loan.service.PreferenceService;
 import com.ayushi.loan.service.LoanWebService;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.exception.PreferenceAccessException;
+import com.ayushi.loan.exception.PreferenceProcessException;
 import java.io.Serializable;
 import com.ayushi.loan.preferences.CheckPreference;
 import com.ayushi.loan.preferences.Preference;
