@@ -419,6 +419,7 @@ public class LoanCalculatorController{
 					List<Integer> preferenceIds = null;
 					Preferences prefs = new Preferences();
 					prefs.setPreferences(prefList);
+					StringBuffer sbPref = new StringBuffer();
 					try{
 						preferenceIds = prefService.processPreferences(prefs, 
 											    pref -> pref.getFlag() && pref.getActive().equals("Y"));
