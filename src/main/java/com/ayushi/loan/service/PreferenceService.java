@@ -2,6 +2,7 @@ package com.ayushi.loan.service;
 
 import com.ayushi.loan.dao.PreferenceDao;
 import com.ayushi.loan.exception.PreferenceAccessException;
+import com.ayushi.loan.exception.PreferenceProcessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 import java.io.Serializable;
