@@ -423,25 +423,19 @@ public class LoanCalculatorController{
 					try{
 						preferenceIds = prefService.processPreferences(prefs, 
 											    pref -> pref.getFlag() && pref.getActive().equals("Y"));
-					}catch(PreferenceAccessException pae){
+						if(preferenceIds != null && preferenceIds.size() > 0){
+							prefService.addPreferences(loanQryObject, preferenceIds);	
+							for(Integer prefId : preferenceIds)
+								sbPref.append (prefId);
+						    	model.addAttribute("message","Preference Service Successful! " + sbPref.toString());
+						}else{
+						    	model.addAttribute("message","Preference Service Failed!");
+						}				
+					}catch(PreferenceAccessException | PreferenceProcessException pae){
 						pae.printStackTrace();
 						model.addAttribute("message", "Preference Service Failed!");
 					        return "viewpreferences";
 					}
-
-					if(preferenceIds != null && preferenceIds.size() > 0){
-						//try{
-							//prefService.addPreferences(loanQryObject, preferenceIds);	
-							for(Integer prefId : preferenceIds)
-								sbPref.append (prefId);
-						    	model.addAttribute("message","Preference Service Successful! " + sbPref.toString());
-						//}catch(PreferenceAccessException pae){
-						//	pae.printStackTrace();
-						 //   	model.addAttribute("message","Preference Service Failed!");
-						//}
-					}else{
-					    	model.addAttribute("message","Preference Service Failed!");
-					}				
 				}else{
 					model.addAttribute("message", "Preference Service : Required Parameters not entered!");
 				}
