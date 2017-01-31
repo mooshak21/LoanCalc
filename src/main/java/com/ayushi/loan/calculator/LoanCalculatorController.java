@@ -379,7 +379,7 @@ public class LoanCalculatorController{
 				if(allVal){
 					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 					PreferenceService prefService = (PreferenceService)appCtx.getBean("preferenceService");
-					List<CheckPreference> prefList = new ArrayList<CheckPreference>();
+					List<Preference> prefList = new ArrayList<Preference>();
 					if(locationPreference != null && !locationPreference.equals("")){
 						LocationPreference locPref = new LocationPreference();
 						locPref.setId(1);
