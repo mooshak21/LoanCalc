@@ -3,7 +3,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-	   <form name="loanForm" action="/vieweditpreferences" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
+	   <form name="loanForm" action="/vieweditpreferences" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
 		   Loan Amount: <input type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999"><br>
 		   Number of Years: <input type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100"><br>
 		   Lender: <input type="text" name="lender" value="${loan.lender}"><br>
