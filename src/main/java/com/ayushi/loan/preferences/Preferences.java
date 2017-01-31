@@ -25,7 +25,7 @@ public class Preferences implements Serializable {
 	}
 	public static List<Integer> processPreferencesWithPredicate(List<CheckPreference> prefs, Predicate<Preference> tester) {
 		List<Integer> prefIds = new ArrayList<Integer>(prefs.size());
-		for (CheckPreference p : prefs) {
+		for (Preference p : prefs) {
 	        	if (tester.test(p)) {
 	        	    prefIds.add(p.process());
 		        }
