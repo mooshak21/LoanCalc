@@ -40,7 +40,7 @@ public class PreferenceService implements PreferenceAttributeService {
 	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException {
 		preferenceDao.insert(loan, prefIds);
 	}
-	public List<Integer> processPreferences(Preferences preferences, Predicate<CheckPreference> tester){
+	public List<Integer> processPreferences(Preferences preferences, Predicate<Preference> tester){
 		return Preferences.processPreferencesWithPredicate(preferences.getPreferences(), tester);
 	}
 }
