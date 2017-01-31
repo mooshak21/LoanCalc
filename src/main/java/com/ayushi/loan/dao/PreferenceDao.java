@@ -20,6 +20,15 @@ public class PreferenceDao {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
+	public void insert(Object o) throws PreferenceAccessException{
+		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
+		try{
+			ht.saveOrUpdate(o);
+		}catch(DataAccessException dae){
+			throw new PreferenceAccessException(dae);
+		}
+
+	}
 	public void insert(Loan loan, List<Integer> prefIds) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
