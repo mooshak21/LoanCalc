@@ -39,7 +39,7 @@ public class PreferenceService implements PreferenceAttributeService {
 		return (List<Serializable>) preferenceDao.find(query, objVals);
 	}
 	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException {
-		preferenceDao.insert(loan, prefIds);
+		//preferenceDao.insert(loan, prefIds);
 	}
 	public List<Integer> processPreferences(Preferences preferences, Predicate<Preference> tester) throws PreferenceProcessException{
 		return Preferences.processPreferencesWithPredicate(preferences.getPreferences(), tester);
