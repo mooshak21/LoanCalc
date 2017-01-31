@@ -367,7 +367,7 @@ public class LoanCalculatorController{
 				Loan loanQryObject = new Loan();
 				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
-				   && numOfYears != null && !numOfYears.equals("") && amortizeOn != null && !amortizeOn.equals("")){
+				   && numOfYears != null && !numOfYears.equals("")){
 					allVal = true;
 					loanQryObject.setAmount(Double.valueOf(loanAmt));
 					loanQryObject.setLender(lender);
@@ -392,7 +392,7 @@ public class LoanCalculatorController{
 						WebServicePreference wsPref = new WebServicePreference();
 						wsPref.setId(2);
 						wsPref.setName("Web Service");
-						wsPref.setValue(webService);
+						wsPref.setValue(webServicePreference);
 						wsPref.setFlag(true);
 						wsPref.setActive("Y");
 						prefList.add(wsPref);
@@ -416,8 +416,10 @@ public class LoanCalculatorController{
 						prefList.add(thPref);
 					}
 					List<Integer> preferenceIds = null;
+					Preferences prefs = new Preferences();
+					prefs.setPreferences(prefList);
 					try{
-						preferenceIds = prefService.processPreferences(prefList, 
+						preferenceIds = prefService.processPreferences(prefs, 
 											    pref -> pref.getFlag() && pref.getActive().equals("Y"));
 					}catch(PreferenceAccessException pae){
 						pae.printStackTrace();
