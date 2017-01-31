@@ -9,6 +9,10 @@
 		   Lender: <input type="text" name="lender" value="${loan.lender}"><br>
 		   State: <input type="text" name="state" value="${loan.state}"><br>
 		   Annual Interest Rate: <input type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01"><br>
+		   Location Preference: <input type="text" name="locationPreference" value="state"><br>
+		   Web Service Preference: <input type="text" name="webServicePreference" value="REST"><br>
+		   Risk Tolerance Preference: <input type="number" name="riskTolerancePreference" value="1" min="0" max="100" step="1"><br>
+		   Time Horizon Preference: <input type="number" name="timeHorizonPreference" value="1" min="0" max="100" step="0.01"><br>
 		   <input type="submit" name="submit"><br> 
 		     <a href="/">Home</a><br>
 	   </form>
