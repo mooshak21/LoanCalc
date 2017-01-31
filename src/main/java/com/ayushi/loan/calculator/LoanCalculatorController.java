@@ -430,15 +430,15 @@ public class LoanCalculatorController{
 					}
 
 					if(preferenceIds != null && preferenceIds.size() > 0){
-						try{
+						//try{
 							//prefService.addPreferences(loanQryObject, preferenceIds);	
 							for(Integer prefId : preferenceIds)
 								sbPref.append (prefId);
 						    	model.addAttribute("message","Preference Service Successful! " + sbPref.toString());
-						}catch(PreferenceAccessException pae){
-							pae.printStackTrace();
-						    	model.addAttribute("message","Preference Service Failed!");
-						}
+						//}catch(PreferenceAccessException pae){
+						//	pae.printStackTrace();
+						 //   	model.addAttribute("message","Preference Service Failed!");
+						//}
 					}else{
 					    	model.addAttribute("message","Preference Service Failed!");
 					}				
