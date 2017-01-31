@@ -1,6 +1,7 @@
 package com.ayushi.loan.preferences;
 
 import java.io.Serializable;
+import com.ayushi.loan.preferences.CheckPreference;
 
 public class Preference extends Serializable implements CheckPreference {
 	protected long serializableId = 0L;
