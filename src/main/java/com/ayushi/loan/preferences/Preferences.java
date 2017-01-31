@@ -23,7 +23,7 @@ public class Preferences implements Serializable {
 	public void setPreference(CheckPreference pref, int index){
 		preferences.add(index, pref);
 	}
-	public static List<Integer> processPreferencesWithPredicate(List<CheckPreference> prefs, Predicate<Preference> tester) {
+	public static List<Integer> processPreferencesWithPredicate(List<Preference> prefs, Predicate<Preference> tester) {
 		List<Integer> prefIds = new ArrayList<Integer>(prefs.size());
 		for (Preference p : prefs) {
 	        	if (tester.test(p)) {
