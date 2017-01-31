@@ -435,6 +435,7 @@ public class LoanCalculatorController{
 						}catch(PreferenceAccessException pae){
 							pae.printStackTrace();
 						    	model.addAttribute("message","Preference Service Failed!");
+						}
 					}else{
 					    	model.addAttribute("message","Preference Service Failed!");
 					}				
