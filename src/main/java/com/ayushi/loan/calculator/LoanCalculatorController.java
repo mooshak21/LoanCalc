@@ -429,8 +429,12 @@ public class LoanCalculatorController{
 					}
 
 					if(preferenceIds != null && preferenceIds.size() > 0){
-						prefService.addPreferences(loanQryObject, preferenceIds);	
-					    	model.addAttribute("message","Preference Service Successful!");
+						try{
+							prefService.addPreferences(loanQryObject, preferenceIds);	
+						    	model.addAttribute("message","Preference Service Successful!");
+						}catch(PreferenceAccessException pae){
+							pae.printStackTrace();
+						    	model.addAttribute("message","Preference Service Failed!");
 					}else{
 					    	model.addAttribute("message","Preference Service Failed!");
 					}				
