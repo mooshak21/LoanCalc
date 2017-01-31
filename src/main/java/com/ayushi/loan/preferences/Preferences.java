@@ -4,23 +4,23 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import com.ayushi.loan.preferences.CheckPreference;
+import com.ayushi.loan.preferences.Preference;
 
 public class Preferences implements Serializable {
-	private List<CheckPreference> preferences = new ArrayList<CheckPreference>();
+	private List<Preference> preferences = new ArrayList<Preference>();
 	
 	public Preferences(){
 	}
-	public void setPreferences(List<CheckPreference> prefs){
+	public void setPreferences(List<Preference> prefs){
 		preferences = prefs;
 	}
-	public List<CheckPreference> getPreferences(){
+	public List<Preference> getPreferences(){
 		return preferences;
 	}
-	public CheckPreference getPreference(int index){
+	public Preference getPreference(int index){
 		return preferences.get(index);
 	}
-	public void setPreference(CheckPreference pref, int index){
+	public void setPreference(Preference pref, int index){
 		preferences.add(index, pref);
 	}
 	public static List<Integer> processPreferencesWithPredicate(List<Preference> prefs, Predicate<Preference> tester) {
