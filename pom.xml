@@ -7,6 +7,19 @@
     <version>1.0-SNAPSHOT</version>
     <artifactId>LoanCalculator</artifactId>
     <packaging>war</packaging>
+   
+   <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.3.RELEASE</version>
+    </parent>
+    
+    <properties>
+        <spring.version>4.3.5.RELEASE</spring.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+   
     <build>
         <plugins>
             <plugin>
@@ -18,72 +31,75 @@
                         <id>copy-dependencies</id>
                         <phase>package</phase>
                         <goals><goal>copy-dependencies</goal></goals>
-		</execution>
-		               <execution>
-				                         <phase>package</phase>
-							                   <goals><goal>copy</goal></goals>
-									                     <configuration>
-												                         <artifactItems>
-																                       <artifactItem>
-																			                               <groupId>org.eclipse.jetty</groupId>
-																						                               <artifactId>jetty-runner</artifactId>
-																									                               <version>9.2.7.v20150116</version>
-																												                               <destFileName>jetty-runner.jar</destFileName>
-																															                             </artifactItem>
-																																		                         </artifactItems>
-																																					                   </configuration>
-																																							                   </execution>
+                    </execution>
+		    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.jetty</groupId>
+                                    <artifactId>jetty-runner</artifactId>
+                                    <version>9.2.7.v20150116</version>
+                                    <destFileName>jetty-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
                 </executions>
 	    </plugin>
-	    <plugin>
-		      <artifactId>maven-war-plugin</artifactId>
-		        <version>2.6</version>
-			  <configuration>
-				      <failOnMissingWebXml>false</failOnMissingWebXml>
-			</configuration>
-				</plugin>
-
-	            <plugin>
-			                    <groupId>org.mortbay.jetty</groupId>
-					                    <artifactId>jetty-maven-plugin</artifactId>
-							                    <version>8.1.4.v20120524</version>
-									                    <configuration>
-												                        <webAppConfig>
-																                        <contextPath>/${project.name}</contextPath>
-																			                    </webAppConfig>
-																					                    </configuration>
-																							                </plugin>
+	    
+            <plugin>
+		<artifactId>maven-war-plugin</artifactId>
+		<version>2.6</version>
+		<configuration>
+		     <failOnMissingWebXml>false</failOnMissingWebXml>
+		</configuration>
+            </plugin>
+	    
+            <plugin>
+	        <groupId>org.mortbay.jetty</groupId>
+	        <artifactId>jetty-maven-plugin</artifactId>
+	        <version>8.1.4.v20120524</version>
+	        <configuration>
+	            <webAppConfig>
+	                <contextPath>/${project.name}</contextPath>
+	            </webAppConfig>
+	        </configuration>
+	    </plugin>
     	</plugins>
     <finalName>LoanCalculator</finalName>
 </build>
-<parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.3.RELEASE</version>
-</parent>
+
     <dependencies>
-	    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    	<dependency>
+	<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    	
+        <dependency>
 		<groupId>org.jfxtras</groupId>
 		<artifactId>jfxtras-agenda</artifactId>
 		<version>8.0-r1</version>
 	</dependency>
-	<dependency>
+	
+        <dependency>
 		<groupId>org.wildfly.swarm</groupId>
 		<artifactId>javafx</artifactId>
 		<version>2016.10.0</version>
 	</dependency>
-	<dependency>
+	
+        <dependency>
 		<groupId>com.oracle</groupId>
 		<artifactId>javafx</artifactId>
 		<version>2.2.3</version>
 		<scope>system</scope>
 		<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
 	</dependency>
-	<dependency>
+	
+        <dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-core</artifactId>
 		<version>${spring.version}</version>
@@ -297,9 +313,5 @@
 	</dependency>
 
 </dependencies>
-<properties>
-	            <spring.version>4.3.5.RELEASE</spring.version>
-		                <maven.compiler.source>1.8</maven.compiler.source>
-				            <maven.compiler.target>1.8</maven.compiler.target>
-					        </properties>
+
 </project>

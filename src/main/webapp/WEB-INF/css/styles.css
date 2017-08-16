@@ -1,0 +1,63 @@
+ /* xs < 768 */
+    @media screen and (max-width: 767px) {
+        body {
+            font-size: 0.9em;
+        }
+    }
+
+    /* sm */
+    @media screen and (min-width: 768px) {
+        body {
+            font-size: 1em;
+        }
+    }
+
+    /* md */
+    @media screen and (min-width: 992px) {
+        body {
+            font-size: 1.2em;
+        }
+    }
+
+    /* lg */
+/*        @media screen and (min-width: 1200px) {
+        body {
+            font-size: 1.3em;
+        }
+    }*/
+
+    .loanHeader{
+        background-color: #d7dde4;
+    }
+    .loanMenu{
+        background-color: #4f5f6f;
+       
+    }
+    .loanBody{
+        background-color: #f7f7f9;
+    }
+    .loanFooter{
+        background-color: #d7dde4;
+    }
+
+    .cardBody{
+        padding: 0 !important;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .menuItem{
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 14px;
+        height: 51px;
+        margin: 5px -15px 5px -15px;
+    }
+
+    #menuHome{
+        color: white; 
+        background-color: #78bd2e;
+        margin-left: -15px !important;
+        margin-right: -15px !important;
+        padding-top: 0px !important;
+        
+    }
