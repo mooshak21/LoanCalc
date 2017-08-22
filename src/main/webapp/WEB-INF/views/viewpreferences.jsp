@@ -4,10 +4,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-   <div class="row justify-content-md-center align-items-center">
-        <div class="card col-12 col-md-8 cardBody">
+   <div class="row justify-content-center">
+        <div class="card col-10 col-md-8 cardBody">
             <div class="card-header">
-              <h2>${message}</h2>
+              <h5>${message}</h5>
             </div>
             <div class="card-block">
                 <form name="loanForm" action="/vieweditpreferences" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
@@ -65,22 +65,23 @@
     </div>
 	
    <c:if test="${not empty loan}">
-       <div class="row">
-            <div class="card">
+       <div class="row justify-content-center">
+            <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
-                      <tr><td>Loan Id:<td><h2>${loan.loanId}</h2></td></tr><tr><td>Monthly Payment:</td><td><h2>${loan.monthly}</h2></td></tr>
-                      <tr><td>Interest Rate:</td><td><h2>${loan.interestRate}</h2></td></tr>
-                      <tr><td>Loan Amount:</td><td><h2>${loan.amount}</h2></td></tr>
-                      <tr><td>Lender:</td><td><h2>${loan.lender}</h2></td></tr>
-                      <tr><td>State:</td><td><h2>${loan.state}</h2></td></tr>
-                      <tr><td>APR:</td><td><h2>${loan.APR}</h2></td></tr>
-		      <tr><td>Number of Years:</td><td><h2>${loan.numberOfYears}</h2></td></tr><tr><td>Loan App:</td><td><h2>${loan.loanApp.lender}</h2></td></tr>
-		      <tr><td>Interest:</td><td><h2>${loan.interest}</h2></td></tr>                   <tr><td>Principal:</td><td><h2>${loan.principal}</h2></td></tr>
-		      <tr><td><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=01/01/2017'>Amortize Loan</a></td></tr>
+                      <tr><td style="width: 40%">Loan Id:<td><h4>${loan.loanId}</h4></td></tr><tr><td>Monthly Payment:</td><td><h4>${loan.monthly}</h4></td></tr>
+                      <tr><td style="width: 40%">Interest Rate:</td><td><h4>${loan.interestRate}</h4></td></tr>
+                      <tr><td style="width: 40%">Loan Amount:</td><td><h4>${loan.amount}</h4></td></tr>
+                      <tr><td style="width: 40%">Lender:</td><td><h4>${loan.lender}</h4></td></tr>
+                      <tr><td style="width: 40%">State:</td><td><h4>${loan.state}</h4></td></tr>
+                      <tr><td style="width: 40%">APR:</td><td><h4>${loan.APR}</h4></td></tr>
+		      <tr><td style="width: 40%">Number of Years:</td><td><h4>${loan.numberOfYears}</h4></td></tr>
+                      <tr><td style="width: 40%">Loan App:</td><td><h4>${loan.loanApp.lender}</h4></td></tr>
+		      <tr><td style="width: 40%">Interest:</td><td><h4>${loan.interest}</h4></td></tr>                   
+                      <tr><td style="width: 40%">Principal:</td><td><h4>${loan.principal}</h4></td></tr>
+                      <tr><td style="width: 40%" colspan="2"><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=01/01/2017'>Amortize Loan</a></td></tr>
                     </table>
                 </div>
             </div>
         </div>
-   <table>
-   </c:if>
+   </c:if> 

@@ -21,32 +21,33 @@
         <put-attribute name="detail" value="/WEB-INF/tiles/detail.jsp" />	
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
      </definition>
-
-     <definition name="searchloan" extends="loanapp.searchpage">
-        <put-attribute name="title" value="Search Loan"/>
-    </definition>
-
-    <definition name="amortizeloan" extends="loanapp.searchpage">
-          <put-attribute name="title" value="Amortize Loan"/>
+     
+     <definition name="index" extends="loanapp.homepage">
+            <put-attribute name="title" value="Home Page"/>
+            <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
      </definition>
-
-    <definition name="createloan" extends="loanapp.homepage">
+    
+<!--     Extends homPage -->
+     <definition name="createloan" extends="loanapp.homepage">
         <put-attribute name="title" value="Create Loan"/>
         <put-attribute name="body" value="/WEB-INF/views/createloan.jsp"/>
      </definition>
-
-     <definition name="viewpreferences" extends="loanapp.homepage">
+     
+      <definition name="viewpreferences" extends="loanapp.homepage">
        <put-attribute name="title" value="View/Edit Preferences"/>
        <put-attribute name="body" value="/WEB-INF/views/viewpreferences.jsp"/>
      </definition>
 
-     <definition name="index" extends="loanapp.homepage">
-            <put-attribute name="title" value="Home Page"/>
-            <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
-            <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
-            <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
-            <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
-     </definition>
+<!--     Extends searchPage-->
+    <definition name="searchloan" extends="loanapp.searchpage">
+        <put-attribute name="title" value="Search Loan"/>
+        <put-attribute name="detail" value="/WEB-INF/views/searchloan.jsp"/>
+    </definition>
+
+    <definition name="amortizeloan" extends="loanapp.searchpage">
+          <put-attribute name="title" value="Amortize Loan"/>
+          <put-attribute name="detail" value="/WEB-INF/views/amortizeloan.jsp"/>
+    </definition>
 
      <definition name="viewloans" extends="loanapp.searchpage">
              <put-attribute name="title" value="View Loans"/>

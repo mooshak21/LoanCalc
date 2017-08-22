@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<!DOCTYPE html>
 <html>
   <head>
     <title><tiles:getAsString name="title"/></title>
@@ -16,27 +16,40 @@
   </head>
   <body>
       
-       <div class="container">
-            <div class="row">
+       <div class="container" style="height: 100%">
+            <div class="row" style="height: auto">
                   <div class="col loanHeader">
                      <tiles:insertAttribute name="header" />
                      <h1>${pageContext.request.contextPath}</h1>
                   </div>
             </div>
-            <div class="row">
-                  <div class="col-12 col-sm-3 loanMenu">
+                                   
+             <div class="row hidden-sm-up" style="min-height: 80%">
+                  <div class="col-12 loanMenu" style="height: 15%">
                      <tiles:insertAttribute name="menu" />
                   </div>
-                  <div class="col-12 col-sm-9 loanBody">
-                              <tiles:insertAttribute name="master" />	
-                              <tiles:insertAttribute name="detail" />
+                   <div class="col-12 loanBody">
+                     <tiles:insertAttribute name="master" />	
+                     <tiles:insertAttribute name="detail" /> 
                   </div>
             </div>
-            <div class="row">
+           
+            <div class="row hidden-xs-down" style="min-height: 80%">
+                  <div class="col-sm-3 loanMenu">
+                     <tiles:insertAttribute name="menu" />
+                  </div>
+                  <div class="col-sm-9 loanBody">
+                      <tiles:insertAttribute name="master" />	
+                      <tiles:insertAttribute name="detail" /> 
+                  </div>
+            </div>
+            
+            <div class="row" style="height: auto">
                   <div class="col loanFooter">
                      <tiles:insertAttribute name="footer" />
                   </div>
             </div>
+           
         </div>
 
   </body>

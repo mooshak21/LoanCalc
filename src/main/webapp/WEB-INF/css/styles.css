@@ -1,8 +1,9 @@
  /* xs < 768 */
     @media screen and (max-width: 767px) {
         body {
-            font-size: 0.9em;
+            font-size: 0.75em;
         }
+
     }
 
     /* sm */
@@ -10,6 +11,8 @@
         body {
             font-size: 1em;
         }
+        
+        
     }
 
     /* md */
@@ -17,6 +20,8 @@
         body {
             font-size: 1.2em;
         }
+       
+       
     }
 
     /* lg */
@@ -26,26 +31,45 @@
         }
     }*/
 
+     html, body {
+        height: 100%;
+    }
+    
+       
     .loanHeader{
         background-color: #d7dde4;
+        margin-top: 5px;
+        padding-bottom: 2px;
     }
-    .loanMenu{
-        background-color: #4f5f6f;
-       
-    }
+
     .loanBody{
         background-color: #f7f7f9;
     }
+    
     .loanFooter{
         background-color: #d7dde4;
+        margin-top: 5px;
     }
-
+    
+    .loanMenu{
+        background-color: #4f5f6f !important;
+    }
+   
     .cardBody{
         padding: 0 !important;
         margin-top: 15px;
         margin-bottom: 15px;
+        overflow: hidden;
+        overflow-x: auto;
+        white-space: nowrap;
     }
-
+    
+    #cardIndex{
+        padding: 0 !important;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+   
     .menuItem{
         color: rgba(255, 255, 255, 0.5);
         font-size: 14px;
@@ -58,6 +82,22 @@
         background-color: #78bd2e;
         margin-left: -15px !important;
         margin-right: -15px !important;
-        padding-top: 0px !important;
-        
+        margin-top: 0 px !important;
+        font-size: 14px;
+        height: 51px;
     }
+    
+    .menuItemXs{
+        color: rgba(255, 255, 255, 0.5) !important;
+        font-size: 14px;
+    }
+    
+       
+    td{
+        text-align: center;
+        vertical-align: central;
+    }
+    
+   
+    
+   

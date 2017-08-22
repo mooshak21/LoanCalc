@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html  lang="en">
   <head>
-    <title><tiles:getAsString name="title"/></title>
+      <title><tiles:getAsString name="title"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -17,27 +17,38 @@
   </head>
   
   <body>
-        <div class="container">
+      <div class="container" style="height: 100%">
            
-            <div class="row">
+            <div class="row" style="height: auto">
                   <div class="col loanHeader">
                      <tiles:insertAttribute name="header" />
-                      <h1>${pageContext.request.contextPath}</h1>
                   </div>
             </div>
-            <div class="row">
-                  <div class="col-12 col-sm-3 loanMenu">
+          
+            <div class="row hidden-sm-up" style="min-height: 80%">
+                  <div class="col-12 loanMenu" style="height: 15%">
                      <tiles:insertAttribute name="menu" />
                   </div>
-                  <div class="col-12 col-sm-9 loanBody">
+                   <div class="col-12 loanBody">
                      <tiles:insertAttribute name="body" />
                   </div>
             </div>
-            <div class="row">
+           
+            <div class="row hidden-xs-down" style="min-height: 80%">
+                  <div class="col-sm-3 loanMenu">
+                     <tiles:insertAttribute name="menu" />
+                  </div>
+                  <div class="col-sm-9 loanBody">
+                     <tiles:insertAttribute name="body" />
+                  </div>
+            </div>
+           
+            <div class="row" style="height: auto">
                   <div class="col loanFooter">
                      <tiles:insertAttribute name="footer" />
                   </div>
             </div>
+            
         </div>
   </body>
 </html>

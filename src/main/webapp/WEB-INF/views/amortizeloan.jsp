@@ -3,11 +3,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-     <div class="row justify-content-md-center">
-         <div class="col-12 col-md-8">
-         <div class="card cardBody">
+     <div class="row justify-content-center">
+         <div class="card col-10 col-md-8 cardBody">
             <div class="card-header">
-              <h2>${message}</h2>
+              <h5>${message}</h5>
             </div>
             <div class="card-block">
                 <form name="loanForm" action="/amortizeloan" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.
@@ -41,45 +40,36 @@
                         <label for="amortize">Amortize on Date: </label>
                         <input class="form-control" type="text" name="amortizeOn" value="${amortizeOn}" id="amortize">	
                     </div>
-
+                   
                     <button type="submit" class="btn btn-default">Submit</button>
-<!--                    Loan Amount: <input type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999"><br>
-                    Number of Years: <input type="number" name="numOfYears" value="${amortizeloan.numberOfYears}" min="1" max="100"><br>
-                    Lender: <input type="text" name="lender" value="${amortizeloan.lender}"><br>
-                    State: <input type="text" name="state" value="${amortizeloan.state}"><br>
-                    Annual Interest Rate: <input type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step="0.01"><br>
-                    Amortize on Month: <input type="text" name="amortizeOn" value="${amortizeOn}"><br>		
-                    <input type="submit" name="submit"><br>-->
-                    <a href="/">Home</a><br>
-            </form>
+                </form>
             </div>
-        </div>
         </div>
     </div>        
 	  
-    <c:if test="${not empty amortizeloan}">
-         <div class="row">
-            <div class="card">
+   <c:if test="${not empty amortizeloan}">
+         <div class="row justify-content-center">
+            <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
-                        <tr><td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
-                        <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
-                        <tr><td>Last Interest:($)</td><td><h2>${amortizeloan.interest}</h2></td></tr>
-                        <tr><td>Last Principal:($)</td><td><h2>${amortizeloan.principal}</h2></td></tr>
-                        <tr><td>Loan Amount:($)</td><td><h2>${amortizeloan.amount}</h2></td></tr>
-                        <tr><td>Lender:</td><td><h2>${amortizeloan.lender}</h2></td></tr>
-                        <tr><td>State:</td><td><h2>${amortizeloan.state}</h2></td></tr>
-                        <tr><td>APR:(%)</td><td><h2>${amortizeloan.APR}</h2></td></tr>
-                        <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr>
+                        <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4>${amortizeloan.monthly}</h4></td></tr>
+                        <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4>${amortizeloan.interestRate}</h4></td></tr>
+                        <tr><td style="width: 40%">Last Interest:($)</td><td><h4>${amortizeloan.interest}</h4></td></tr>
+                        <tr><td style="width: 40%">Last Principal:($)</td><td><h4>${amortizeloan.principal}</h4></td></tr>
+                        <tr><td style="width: 40%">Loan Amount:($)</td><td><h4>${amortizeloan.amount}</h4></td></tr>
+                        <tr><td style="width: 40%">Lender:</td><td><h4>${amortizeloan.lender}</h4></td></tr>
+                        <tr><td style="width: 40%">State:</td><td><h4>${amortizeloan.state}</h4></td></tr>
+                        <tr><td style="width: 40%">APR:(%)</td><td><h4>${amortizeloan.APR}</h4></td></tr>
+                        <tr><td style="width: 40%">Number of Years:</td><td><h4>${amortizeloan.numberOfYears}</h4></td></tr>
                      </table>
                 </div>
             </div>
          </div>
-    </c:if>	
+   </c:if>	
                     
-    <c:if test="${not empty amortizeloan.loanEntries}">
-         <div class="row">
-            <div class="card">
+   <c:if test="${not empty amortizeloan.loanEntries}"> 
+         <div class="row justify-content-center">
+            <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
                          <thead class="thead-default">
@@ -106,11 +96,11 @@
                 </div>
             </div>
          </div>
-   </c:if>
+   </c:if> 
                     
     <c:if test="${not empty amortizeloan}">
-         <div class="row">
-            <div class="card">
+         <div class="row justify-content-center">
+            <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
                         <tr><% int total = ((com.ayushi.loan.AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 

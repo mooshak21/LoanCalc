@@ -3,10 +3,11 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-            <div class="row justify-content-md-center align-items-center">
-                <div class="card col-12 col-md-8 cardBody">
+           
+            <div class="row justify-content-center">
+                <div class="card col-10 col-md-8 cardBody">
                     <div class="card-header">
-                      Search Loan
+                        <h5>${message}</h5>
                     </div>
                     <div class="card-block">
                         <form name="loanForm" action="/searchloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
@@ -50,137 +51,115 @@
                     </div>
                 </div>
             </div>
-<!--	   <form name="loanForm" action="/searchloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
-		   Loan Amount: <input type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999"><br>
-			     Number of Years: <input type="number" name="numOfYears" value="${amortizeloan.numberOfYears}" min="1" max="100"><br>
-			     Lender: <input type="text" name="lender" value="${amortizeloan.lender}"><br>
-			     State: <input type="text" name="state" value="${amortizeloan.state}"><br>
-			     Annual Interest Rate: <input type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step="0.01"><br>
-			     Amortize on Date : <input type="text" name="amortizeOn" value="${amortizeOn}" required="true"><br>		
-			      Payoff on Date: <input type="text" name="payoffOn" value="${payoffOn}"><br>
-        	             <input type="submit" name="submit"><br>
-			     <a href="/">Home</a><br>
-	    </form>-->
-<!--	   <h2>${message}</h2>-->
-           <div class="row">
-	   <c:if test="${not empty amortizeloan}">
-             <div class="card">
-                <div class="card-header">
-                  <h2>${message}</h2>
-                </div>
-                <div class="card-block">
-                    <table class="table table-hover table-bordered">
-                        <tr>
-                            <td>Loan Id:</td>
-                            <td><h2>${amortizeloan.loanId}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Monthly Payment:($)</td>
-                            <td><h2>${amortizeloan.monthly}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Interest Rate:(%)</td>
-                            <td><h2>${amortizeloan.interestRate}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Last Interest:($)</td>
-                            <td><h2>${amortizeloan.interest}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Last Principal:($)</td>
-                            <td><h2>${amortizeloan.principal}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Loan Amount:($)</td>
-                            <td><h2>${amortizeloan.amount}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Lender:</td>
-                            <td><h2>${amortizeloan.lender}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>State:</td>
-                            <td><h2>${amortizeloan.state}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>APR:(%)</td>
-                            <td><h2>${amortizeloan.APR}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Number of Years:</td>
-                            <td><h2>${amortizeloan.numberOfYears}</h2></td>
-                        </tr>
-                        <tr>
-                            <td>Payoff Amount:($)</td>
-                            <td><h2>${payoffAmount}</h2></td>
-                            <td>As of Payoff Date on:</td>
-                            <td><h2>${payoffOn}</h2></td>
-                        </tr>
-                   </table>
-                </div>
-              </div>
-	   
-<!--	   <table><tr><td>Loan Id:</td><td><h2>${amortizeloan.loanId}</h2></td></tr>
-		   
-		   <tr><td>Monthly Payment:($)</td><td><h2>${amortizeloan.monthly}</h2></td></tr>
-		   <tr><td>Interest Rate:(%)</td><td><h2>${amortizeloan.interestRate}</h2></td></tr>
-		   <tr><td>Last Interest:($)</td><td><h2>${amortizeloan.interest}</h2></td></tr>
-		   <tr><td>Last Principal:($)</td><td><h2>${amortizeloan.principal}</h2></td></tr>
-		   <tr><td>Loan Amount:($)</td><td><h2>${amortizeloan.amount}</h2></td></tr>
-		   <tr><td>Lender:</td><td><h2>${amortizeloan.lender}</h2></td></tr>
-		   <tr><td>State:</td><td><h2>${amortizeloan.state}</h2></td></tr>
-		   <tr><td>APR:(%)</td><td><h2>${amortizeloan.APR}</h2></td></tr>
-		   <tr><td>Number of Years:</td><td><h2>${amortizeloan.numberOfYears}</h2></td></tr><tr><td>Payoff Amount:($)</td><td><h2>${payoffAmount}</h2></td><td>As of Payoff Date on:</td><td><h2>${payoffOn}</h2></td></tr>
 
-	   </table>-->
-	   </c:if>
-           </div>
-           <div class="row">
-	   <c:if test="${not empty amortizeloan.loanEntries}">
-               <div class="card">
-                    <div class="card-block">
-                         <table class="table table-hover table-bordered">
-                             <thead class="thead-default">
-                                 <tr>
-                                    <th>Date</th>
-                                    <th>Principal($)</th>
-                                    <th>Interest($)</th>
-                                    <th>Loan Amount($)</th>
-                                    <th>Monthly($)</th>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                                <c:forEach var="entry" items="${amortizeloan.loanEntries}">
-                                    <tr>
-                                        <td>${entry.dateEntry.time}</td>
-                                        <td>${entry.principal}</td>
-                                        <td>${entry.interest}</td>
-                                        <td>${entry.loanAmount}</td>
-                                        <td>${entry.monthly}</td>
-                                    </tr> 
-                                </c:forEach>
-                             </tbody>
-                        </table>
+           
+	   <c:if test="${not empty amortizeloan}"> 
+               <div class="row justify-content-center">
+                <div class="card col-10 col-md-8 cardBody">
+                   <div class="card-header">
+                     <h2>${message}</h2>
+                   </div>
+                   <div class="card-block">
+                       <table class="table table-hover table-bordered">
+                           <tr>
+                               <td style="width: 40%">Loan Id:</td>
+                               <td><h4>${amortizeloan.loanId}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Monthly Payment:($)</td>
+                               <td><h4>${amortizeloan.monthly}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Interest Rate:(%)</td>
+                               <td><h4>${amortizeloan.interestRate}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Last Interest:($)</td>
+                               <td><h4>${amortizeloan.interest}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Last Principal:($)</td>
+                               <td><h4>${amortizeloan.principal}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Loan Amount:($)</td>
+                               <td><h4>${amortizeloan.amount}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Lender:</td>
+                               <td><h4>${amortizeloan.lender}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">State:</td>
+                               <td><h4>${amortizeloan.state}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">APR:(%)</td>
+                               <td><h4>${amortizeloan.APR}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Number of Years:</td>
+                               <td><h4>${amortizeloan.numberOfYears}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">Payoff Amount:($)</td>
+                               <td><h4>${payoffAmount}</h4></td>
+                           </tr>
+                           <tr>
+                               <td style="width: 40%">As of Payoff Date on:</td>
+                               <td><h4>${payoffOn}</h4></td>
+                           </tr>
+                      </table>
+                   </div>
+                 </div>
+             </div>
+	</c:if> 
+          
+           
+	<c:if test="${not empty amortizeloan.loanEntries}">
+               <div class="row justify-content-center">
+                    <div class="card col-10 col-md-8 cardBody">
+                         <div class="card-block">
+                              <table class="table table-hover table-bordered">
+                                  <thead class="thead-default">
+                                      <tr>
+                                         <th>Date</th>
+                                         <th>Principal($)</th>
+                                         <th>Interest($)</th>
+                                         <th>Loan Amount($)</th>
+                                         <th>Monthly($)</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                     <c:forEach var="entry" items="${amortizeloan.loanEntries}">
+                                         <tr>
+                                             <td>${entry.dateEntry.time}</td>
+                                             <td>${entry.principal}</td>
+                                             <td>${entry.interest}</td>
+                                             <td>${entry.loanAmount}</td>
+                                             <td>${entry.monthly}</td>
+                                         </tr> 
+                                     </c:forEach>
+                                  </tbody>
+                             </table>
+                         </div>
                     </div>
                </div>
-	   
-	   </c:if>
-           </div>
+          </c:if>
            
-           <div class="row">
 	   <c:if test="${not empty amortizeloan}">
-                <div class="card">
-                    <div class="card-block">
-                        <table>
-                            <tr>
-                                <% int total = ((calculator.AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 
-				int pages = total / 12, pgIdx;
-				for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
-				<td><a href='/viewloanentries/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}%>
-                            </tr>
-                        </table>
+                <div class="row justify-content-center">
+                    <div class="card col-10 col-md-8 cardBody">
+                        <div class="card-block">
+                            <table>
+                                <tr>
+                                    <% int total = ((com.ayushi.loan.AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 
+                                    int pages = total / 12, pgIdx;
+                                    for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
+                                    <td><a href='/viewloanentries/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}%>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-	   	
-	   </c:if>
-           </div>
+	   </c:if> 
