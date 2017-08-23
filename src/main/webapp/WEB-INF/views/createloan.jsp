@@ -56,7 +56,7 @@
                         <tr><td style="width: 40%">Loan App:</td><td><h4>${loan.loanApp.lender}</h4></td></tr>
                         <tr><td style="width: 40%">Interest:</td><td><h4>${loan.interest}</h4></td></tr>                  
                         <tr><td style="width: 40%">Principal:</td><td><h4>${loan.principal}</h4></td></tr>
-                        <tr><td style="width: 40%" colspan="2"><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=\"01/01/2017\"'>Amortize Loan</a></td></tr>
+                        <tr><td style="width: 40%" colspan="2"><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=01/01/2017'>Amortize Loan</a></td></tr>
                     </table>
                 </div>
             </div>
