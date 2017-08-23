@@ -1,9 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 	  
-        <c:if test="${not empty amortizeloan}"> 
+       <c:if test="${not empty amortizeloan}"> 
                 <div class="row justify-content-center">
                     <div class="card col-10 col-md-8 cardBody">
                         <div class="card-block">
@@ -62,10 +63,11 @@
                 </div>
 	</c:if>	
 	  
-        <c:if test="${not empty amortizeloan.loanEntries}"> 
+        <c:if test="${not empty amortizeloan.loanEntries}">
                 <div class="row justify-content-center">
-                     <div class="card col-10 col-md-8 cardBody">
+                     <div class="card col-10 cardBody">
                         <div class="card-block">
+                            <fmt:setLocale value="en_US" scope="application"/>
                             <table class="table table-hover table-bordered">
                                 <thead class="thead-default">
                                     <tr>
@@ -79,11 +81,11 @@
                                 <tbody>
                                     <c:forEach var="entry" items="${amortizeloan.loanEntries}">
                                         <tr>
-                                            <td>${entry.dateEntry.time}</td>
-                                            <td>${entry.principal}</td>
-                                            <td>${entry.interest}</td>
-                                            <td>${entry.loanAmount}</td>
-                                            <td>${entry.monthly}</td>
+                                            <td><fmt:formatDate value="${entry.dateEntry.time}" pattern="yyyy/MM/dd"/></td>
+                                            <td><fmt:formatNumber value="${entry.principal}" pattern="###,###,###.00"/></td>
+                                            <td><fmt:formatNumber value="${entry.interest}" pattern="###,###,###.00"/></td>
+                                            <td><fmt:formatNumber value="${entry.loanAmount}" pattern="###,###,###.00"/></td>
+                                            <td><fmt:formatNumber value="${entry.monthly}" pattern="###,###,###.00"/></td>
                                         </tr> 
                                     </c:forEach>
                                 </tbody>
@@ -91,11 +93,11 @@
                          </div>
                      </div>
                  </div>
-	  </c:if> 
+	   </c:if> 
 
             <c:if test="${not empty amortizeloan}">
                 <div class="row justify-content-center">
-                    <div class="card col-10 col-md-8 cardBody">
+                    <div class="card col-10 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
                                 <tr><% int total = ((com.ayushi.loan.AmortizedLoan)request.getSession().getAttribute("amortizeloan")).getEntries().size(); 
@@ -108,4 +110,4 @@
                      </div>
                  </div>
         
-	    </c:if>
+	    </c:if> 

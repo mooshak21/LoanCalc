@@ -29,7 +29,7 @@
 
            <c:if test="${not empty amortizeloan.loanEntries}">
                <div class="row justify-content-center ">
-                    <div class="card col-10 col-md-8 cardBody">
+                    <div class="card col-10 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
                                 <thead class="thead-default">
@@ -43,7 +43,13 @@
                                 </thead>
                                 <tbody>
                                     <c:forEach var="entry" items="${amortizeloan.loanEntries}">
-                                        <tr><td>${entry.dateEntry.time}</td><td>${entry.principal}</td><td>${entry.interest}</td><td>${entry.loanAmount}</td><td>${entry.monthly}</td></tr> 
+                                        <tr>
+                                            <td><fmt:formatDate value="${entry.dateEntry.time}" pattern="yyyy/MM/dd"/></td>
+                                            <td><fmt:formatNumber value="${entry.principal}" pattern="###,###,###.00"/></td>
+                                            <td><fmt:formatNumber value="${entry.interest}" pattern="###,###,###.00"/></td>
+                                            <td><fmt:formatNumber value="${entry.loanAmount}" pattern="###,###,###.00"/></td>
+                                            <td><fmt:formatNumber value="${entry.monthly}" pattern="###,###,###.00"/></td>
+                                        </tr> 
                                     </c:forEach>
                                 </tbody>
                             </table>
