@@ -334,11 +334,11 @@ public class LoanCalculatorController{
 	    @RequestMapping(value="/viewloanexcel/{loanid}")
 		   public String loanviewexcel(@PathVariable long loanid, Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
-			List<AmortizedLoan> loans = (List<AmortizedLoan>)request.getSession().getAttribute("loans");
+			List<Loan> loans = (List<Loan>)request.getSession().getAttribute("loans");
 			if(loans != null && loans.size() > 0){
 				response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 				response.setHeader("Content-Disposition", "attachment; filename=loan.xls");
-				for(AmortizedLoan loan : loans){
+				for(Loan loan : loans){
 					if(loan.getLoanId() == loanid){
 						try{
 							response.getWriter().write(loan.toString());
