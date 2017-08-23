@@ -314,7 +314,8 @@ public class LoanCalculatorController{
 			List loans = (List)request.getSession().getAttribute("loans");
 			AmortizedLoan al = null;
 			if(loans != null){
-				al = (AmortizedLoan)loans.get(pageid-1);
+				if(loans.get(pageid-1) instanceof AmortizedLoan)
+					al = (AmortizedLoan)loans.get(pageid-1);
 			}
 
 			java.util.Calendar calToday = java.util.Calendar.getInstance();
