@@ -49,14 +49,16 @@
                                     <td style="width: 40%">Number of Years:</td>
                                     <td>${amortizeloan.numberOfYears}</td>
                                 </tr>
-                                <tr>
-                                    <td style="width: 40%">Payoff Amount:($)</td>
-                                    <td>${payoffAmount}</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 40%">As of Payoff Date on:</td>
-                                    <td>${payoffOn}</td>
-                                </tr>   
+				<c:if test="${not empty payoffAmount}">
+                                	<tr>
+                                    		<td style="width: 40%">Payoff Amount:($)</td>
+                                    		<td>${payoffAmount}</td>
+                                	</tr>
+                                	<tr>
+                                    		<td style="width: 40%">As of Payoff Date on:</td>
+                                   		<td>${payoffOn}</td>
+                                	</tr>
+				</c:if>
                             </table>
                         </div>
                     </div>
