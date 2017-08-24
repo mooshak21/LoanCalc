@@ -102,15 +102,14 @@
                     <div class="card col-10 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
-                                <tr><% int total = 0;
+				    <tr><% int total = 0;
 					com.ayushi.loan.AmortizedLoan al = (com.ayushi.loan.AmortizedLoan) request.getSession().getAttribute("amortizeloan");
 					if(al != null){
 						total = ((al.getEntries() != null) ? al.getEntries().size() : 0); 
-                                            	System.out.println("Entries Count: " + total);
 						int pages = total / 12, pgIdx;
                                             	for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
                                             		<td><a href='/viewloanentries/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%></td><%}
-						}%>
+					}%>
                                 </tr>
                             </table>
                          </div>
