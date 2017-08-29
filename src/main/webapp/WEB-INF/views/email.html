@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+            }
+           
+            th{
+                text-align: center;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div style='background-color: #d7dde4; border-bottom-color: #78bd2e; border-bottom-width: 5px; border-bottom-style: solid;
+             position: relative; width: 75%; margin-left: auto; margin-right: auto; height:10%;
+             padding-left: 30px; display: flex; align-items: center;'>
+            <h1 style="font: bold">Loan Calculator</h1>
+        </div>
+        
+        <div  style="width: 75%; margin-left: auto; margin-right: auto;
+                        padding-top: 15px; background-color: #f7f7f9">
+            <table style="width: 75%; margin-left: auto; margin-right: auto;">
+                
+                <tr>
+                    <td style="text-align:right">Monthly Payment:($)</td>
+                    <td style="padding-left: 5px">${amortizeloan.monthly}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">Interest Rate:(%)</td>
+                    <td style="padding-left: 5px">${amortizeloan.interestRate}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">Last Interest:($)</td>
+                    <td style="padding-left: 5px">${amortizeloan.interest}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">Last Principal:($)</td>
+                    <td style="padding-left: 5px">${amortizeloan.principal}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">Loan Amount:($)</td>
+                    <td style="padding-left: 5px">${amortizeloan.amount}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">Lender:</td>
+                    <td style="padding-left: 5px">${amortizeloan.lender}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">State:</td>
+                    <td style="padding-left: 5px">${amortizeloan.state}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">APR:(%)</td>
+                    <td style="padding-left: 5px">${amortizeloan.APR}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">Number of Years:</td>
+                    <td style="padding-left: 5px">${amortizeloan.numberOfYears}</td>
+                </tr>
+                
+                <tr>
+                    <td style="text-align:right">Payoff Amount:($)</td>
+                    <td style="padding-left: 5px">${payoffAmount}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right">As of Payoff Date on:</td>
+                    <td style="padding-left: 5px">${payoffOn}</td>
+                </tr>
+              
+            </table>
+            
+            <table style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 10px; 
+                           border-style: solid; border-width: 1px">
+                <thead style="background-color: #d7dde4">
+                    <tr>
+                       <th>Date</th>
+                       <th>Principal($)</th>
+                       <th>Interest($)</th>
+                       <th>Loan Amount($)</th>
+                       <th>Monthly($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="entry" items="${amortizeloan.loanEntries}">
+                        <tr>
+                            <td style="text-align: center"><fmt:formatDate value="${entry.dateEntry.time}" pattern="yyyy/MM/dd"/></td>
+                            <td style="text-align: center"><fmt:formatNumber value="${entry.principal}" pattern="###,###,###.00"/></td>
+                            <td style="text-align: center"><fmt:formatNumber value="${entry.interest}" pattern="###,###,###.00"/></td>
+                            <td style="text-align: center"><fmt:formatNumber value="${entry.loanAmount}" pattern="###,###,###.00"/></td>
+                            <td style="text-align: center"><fmt:formatNumber value="${entry.monthly}" pattern="###,###,###.00"/></td>
+                        </tr> 
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

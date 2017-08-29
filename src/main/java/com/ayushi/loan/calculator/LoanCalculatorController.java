@@ -36,6 +36,7 @@ import com.ayushi.loan.preferences.LocationPreference;
 import com.ayushi.loan.preferences.WebServicePreference;
 import com.ayushi.loan.preferences.RiskTolerancePreference;
 import com.ayushi.loan.preferences.TimeHorizonPreference;
+import com.ayushi.loan.service.LoanEmailGeneratorService;
 
 
 @Controller
@@ -257,6 +258,12 @@ public class LoanCalculatorController{
 				model.addAttribute("amortizeloan", loanObject);
 				request.getSession().setAttribute("amortizeloan", loanObject);			
 				model.addAttribute("amortizeOn", amortizeOn);
+                                
+                                
+                                LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
+                                emailService.sendMail("gdosoftware@gmail.com", emailService.buildMessage(loanObject));
+                                
+                                
 				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
