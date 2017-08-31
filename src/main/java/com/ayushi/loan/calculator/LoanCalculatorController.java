@@ -22,6 +22,7 @@ import org.springframework.dao.DataAccessException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ayushi.loan.*;
+import com.ayushi.loan.exception.EmailServiceException;
 import com.ayushi.loan.service.LoanService;
 import com.ayushi.loan.service.PreferenceService;
 import com.ayushi.loan.service.LoanWebService;
@@ -37,11 +38,23 @@ import com.ayushi.loan.preferences.WebServicePreference;
 import com.ayushi.loan.preferences.RiskTolerancePreference;
 import com.ayushi.loan.preferences.TimeHorizonPreference;
 import com.ayushi.loan.service.LoanEmailGeneratorService;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.hpsf.Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 
 
 @Controller
 public class LoanCalculatorController{
-	    @RequestMapping(value="/loan", method=RequestMethod.POST)
+    
+    
+    
+	    
+    @RequestMapping(value="/loan", method=RequestMethod.POST)
 	        public String loan(
 		@RequestParam("airVal") String airVal,
 		@RequestParam("lender") String lender,
@@ -176,6 +189,7 @@ public class LoanCalculatorController{
 				java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 				Object[] queryVals = null;
 				boolean firstVal = false;
+                                Double payoffAmt=null;
 				if(loanAmt != null && !loanAmt.equals("")){
 					querySB.append("ln.amount=?");
 					firstVal = true;
@@ -241,7 +255,7 @@ public class LoanCalculatorController{
 								AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
 								LoanApp loanApp = new LoanApp(amortizeLoan);
 								amortizeLoan.setLoanApp(loanApp);
-								Double payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
+								payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
 								model.addAttribute("payoffAmount", payoffAmt);
 								loanObject = amortizeLoan;
 							}
@@ -259,11 +273,19 @@ public class LoanCalculatorController{
 				request.getSession().setAttribute("amortizeloan", loanObject);			
 				model.addAttribute("amortizeOn", amortizeOn);
                                 
-                                
-                                LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
-                                emailService.sendMail("gdosoftware@gmail.com", emailService.buildMessage(loanObject));
-                                
-                                
+                                // hard coded email
+//                                LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
+//                                try {
+//                                    Properties prop = new Properties();
+//                                    prop.load(LoanCalculatorController.class.getClassLoader().getResourceAsStream("spring/email.properties"));
+//                                    String message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
+//                                    String subject = prop.getProperty("email.subject") + loanObject.getLoanId();
+//                                    
+//                                    emailService.sendMail("jain_gagan@yahoo.com", subject, message);
+//                                   //   emailService.sendMail("gdosoftware@gmail.com", subject, message);
+//                                } catch(IOException ioEx){}
+//                                  catch(EmailServiceException emEx){};  
+               
 				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
@@ -450,4 +472,7 @@ public class LoanCalculatorController{
 				}
 				return "viewpreferences";
 		    }
+
+    
+                    
 }

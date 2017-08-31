@@ -6,12 +6,13 @@
 package com.ayushi.loan.service;
 
 import com.ayushi.loan.AmortizedLoan;
+import com.ayushi.loan.exception.EmailServiceException;
 
 /**
  *
  * @author Daniel Gago
  */
 public interface LoanEmailGeneratorService {
-    public String buildMessage(AmortizedLoan amortizedLoan);
-    public boolean sendMail(String emailTo, String message);
+    public String buildMessage(AmortizedLoan amortizedLoan, Double payOffAmount, String payOffOn);
+    public void sendMail(String emailTo, String subject, String message) throws EmailServiceException;
 }

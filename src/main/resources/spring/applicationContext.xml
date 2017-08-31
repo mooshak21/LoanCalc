@@ -83,7 +83,13 @@
     <bean id="emailService"
         class="com.ayushi.loan.service.LoanEmailGeneratorServiceImpl">
         <property name="emailFrom" value="${email.from}" />
-        <property name="subject" value="${email.subject}" />
+        <property name="headerTitle" value="${email.header.title}" />
+        <property name="headerSubTitle" value="${email.header.subtitle}" />
+        <property name="footerTitle" value="${email.footer.title}" />
+        <property name="footerSubTitle" value="${email.footer.subtitle}" />
+        <property name="colorDark" value="${email.color.dark}" />
+        <property name="colorlight" value="${email.color.light}" />
+        <property name="secretApiKey" value="${email.sendgrid.secretapikey}" />
     </bean>
     
     <bean id="loanService"
