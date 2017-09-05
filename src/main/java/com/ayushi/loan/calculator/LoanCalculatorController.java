@@ -161,34 +161,38 @@ public class LoanCalculatorController{
 			   return "index";
 		   }
                    
-            @RequestMapping(value="/sendmail", method = RequestMethod.POST)
-	    	   public String sendMail(@RequestParam("email") String email,
-                                          @ModelAttribute("amortizeloan") AmortizedLoan loanObject,
-                                          @ModelAttribute("payoffAmt") Double payoffAmt,
-                                          @ModelAttribute("payoffOn") String payoffOn,
-                                          @ModelAttribute("userEmail") String userEmail,
-                                          Model model, HttpServletResponse response, HttpServletRequest request){
+            @RequestMapping(value="/sendmail")
+	    	   public String sendMail(@RequestParam(value = "email", defaultValue = "") String email,
+                                           Model model, HttpServletResponse response, HttpServletRequest request){
                        
-                       if(!email.equals(userEmail)){
+                       
+                       AmortizedLoan loanObject = (AmortizedLoan) model.asMap().get("amortizeloan");
+                       Double payoffAmt = (Double) model.asMap().get("payoffAmt");
+                       String payoffOn = (String) model.asMap().get("payoffOn");
+                       String userEmail = (String) model.asMap().get("userEmail");
+                       
+                       if(email != null && !email.equals(userEmail)){
                            response.addCookie(new Cookie("userEmail", email));
                            model.addAttribute("userEmail", email);
                        }
                        
                        Properties prop = getProperties("spring/email.properties");
                                             
-                       if(!email.isEmpty()){
-                           ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-                            LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
-                               
-                            String message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
-                            String subject = prop.getProperty("email.subject") + loanObject.getLoanId();
-                                                           
-                           try {
-                               emailService.sendMail(email, subject, message);
-                               model.addAttribute("emailMsg",  prop.getProperty("email.success"));
-                           } catch (EmailServiceException ex) {
-                               Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
-                               model.addAttribute("emailErr","we couldn't send you the email. Please try later!");
+                       if(email != null && !email.isEmpty()){
+                           if(loanObject != null){
+                                ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+                                 LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
+
+                                 String message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
+                                 String subject = prop.getProperty("email.subject") + loanObject.getLoanId();
+
+                                try {
+                                    emailService.sendMail(email, subject, message);
+                                    model.addAttribute("emailMsg",  prop.getProperty("email.success"));
+                                } catch (EmailServiceException ex) {
+                                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                                    model.addAttribute("emailErr","we couldn't send you the email. Please try later!");
+                                }
                            }
                        }else{
                             model.addAttribute("emailErr",  prop.getProperty("email.error"));
