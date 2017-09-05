@@ -56,6 +56,11 @@
                        <label for="thPreference">Time Horizon Preference: </label>
                        <input class="form-control" type="number" name="timeHorizonPreference" value="1" min="0" max="100" step="0.01" id="thPreference">
                    </div>
+                   
+                   <div class="form-group">
+                       <label for="email">Email: </label>
+                       <input class="form-control" type="email" name="email" value="${userEmail}" id="email">
+                   </div>
 
 
                    <button type="submit" class="btn btn-default">Submit</button>

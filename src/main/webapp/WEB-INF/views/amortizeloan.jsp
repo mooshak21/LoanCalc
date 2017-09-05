@@ -48,6 +48,9 @@
     </div>        
 	  
    <c:if test="${not empty amortizeloan}">
+       
+        <jsp:include page="/WEB-INF/views/emailForm.jsp"/>
+       
          <div class="row justify-content-center">
             <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">

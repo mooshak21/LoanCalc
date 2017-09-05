@@ -5,20 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.*;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.hibernate.SessionFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.dao.DataAccessException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.ayushi.loan.*;
@@ -30,7 +22,6 @@ import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.exception.PreferenceProcessException;
 import java.io.Serializable;
-import com.ayushi.loan.preferences.CheckPreference;
 import com.ayushi.loan.preferences.Preference;
 import com.ayushi.loan.preferences.Preferences;
 import com.ayushi.loan.preferences.LocationPreference;
@@ -42,13 +33,14 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.poi.hpsf.Util;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
+import javax.servlet.http.Cookie;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
+@SessionAttributes({"message","amortizeloan","payoffOn","payoffAmt", "userEmail"})
 public class LoanCalculatorController{
     
     
@@ -108,12 +100,14 @@ public class LoanCalculatorController{
 				}
 		        	return "createloan";
 			}
-	    @RequestMapping(value="/createloan", method=RequestMethod.GET)
+	    
+            @RequestMapping(value="/createloan", method=RequestMethod.GET)
 		    public String createloan(Model model){
 			    model.addAttribute("message", "Create Loan");
 			    return "createloan";
 			}
-	    @RequestMapping(value="/amortizeloan", method=RequestMethod.GET)
+	   
+            @RequestMapping(value="/amortizeloan", method=RequestMethod.GET)
 		    public String amortizeloan(	
 		@RequestParam("airVal") String airVal,
 		@RequestParam("lender") String lender,
@@ -159,11 +153,52 @@ public class LoanCalculatorController{
 				model.addAttribute("amortizeOn", amortizeOn);			
 				return "amortizeloan";
 		    }
-	    @RequestMapping(value="/")
-	    	   public String home(){
+	   
+            @RequestMapping(value="/")
+	    	   public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                                       Model model){
+                           model.addAttribute("userEmail", emailCookie);
 			   return "index";
 		   }
-	    @RequestMapping(value="/loanamortizeask")
+                   
+            @RequestMapping(value="/sendmail", method = RequestMethod.POST)
+	    	   public String sendMail(@RequestParam("email") String email,
+                                          @ModelAttribute("amortizeloan") AmortizedLoan loanObject,
+                                          @ModelAttribute("payoffAmt") Double payoffAmt,
+                                          @ModelAttribute("payoffOn") String payoffOn,
+                                          @ModelAttribute("userEmail") String userEmail,
+                                          Model model, HttpServletResponse response, HttpServletRequest request){
+                       
+                       if(!email.equals(userEmail)){
+                           response.addCookie(new Cookie("userEmail", email));
+                           model.addAttribute("userEmail", email);
+                       }
+                       
+                       Properties prop = getProperties("spring/email.properties");
+                                            
+                       if(!email.isEmpty()){
+                           ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+                            LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
+                               
+                            String message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
+                            String subject = prop.getProperty("email.subject") + loanObject.getLoanId();
+                                                           
+                           try {
+                               emailService.sendMail(email, subject, message);
+                               model.addAttribute("emailMsg",  prop.getProperty("email.success"));
+                           } catch (EmailServiceException ex) {
+                               Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                               model.addAttribute("emailErr","we couldn't send you the email. Please try later!");
+                           }
+                       }else{
+                            model.addAttribute("emailErr",  prop.getProperty("email.error"));
+                       }
+                    
+                    return "searchloan";
+               
+                   }       
+	    
+            @RequestMapping(value="/loanamortizeask")
 	    	   public String loanamortizeask(Model model){
 			   model.addAttribute("message", "Amortize Loan");
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
@@ -171,7 +206,8 @@ public class LoanCalculatorController{
 			   model.addAttribute("amortizeOn", calTodayStr);		
 			   return "amortizeloan";
 		   }
-	    @RequestMapping(value="/searchloan", method=RequestMethod.POST)
+	    
+            @RequestMapping(value="/searchloan", method=RequestMethod.POST)
 		    public String searchloan(	
 		@RequestParam("airVal") String airVal,
 		@RequestParam("lender") String lender,
@@ -179,9 +215,9 @@ public class LoanCalculatorController{
 		@RequestParam("state") String state,
 		@RequestParam("numOfYears") String numOfYears, 
 		@RequestParam("amortizeOn") String amortizeOn, 
-		@RequestParam("payoffOn") String payoffOn, Model model, 
-		        HttpServletRequest request, 
-			        HttpServletResponse response) {
+		@RequestParam("payoffOn") String payoffOn, 
+                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                Model model, HttpServletRequest request) {
 				ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 				AmortizedLoan loanObject = new AmortizedLoan();
 				int total = 0;
@@ -190,6 +226,7 @@ public class LoanCalculatorController{
 				Object[] queryVals = null;
 				boolean firstVal = false;
                                 Double payoffAmt=null;
+                                
 				if(loanAmt != null && !loanAmt.equals("")){
 					querySB.append("ln.amount=?");
 					firstVal = true;
@@ -269,27 +306,16 @@ public class LoanCalculatorController{
 				}
 					
 			   	model.addAttribute("payoffOn", payoffOn);		
+                                model.addAttribute("payoffAmt", payoffAmt);		
 				model.addAttribute("amortizeloan", loanObject);
-				request.getSession().setAttribute("amortizeloan", loanObject);			
 				model.addAttribute("amortizeOn", amortizeOn);
-                                
-                                // hard coded email
-//                                LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
-//                                try {
-//                                    Properties prop = new Properties();
-//                                    prop.load(LoanCalculatorController.class.getClassLoader().getResourceAsStream("spring/email.properties"));
-//                                    String message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
-//                                    String subject = prop.getProperty("email.subject") + loanObject.getLoanId();
-//                                    
-//                                    emailService.sendMail("jain_gagan@yahoo.com", subject, message);
-//                                   //   emailService.sendMail("gdosoftware@gmail.com", subject, message);
-//                                } catch(IOException ioEx){}
-//                                  catch(EmailServiceException emEx){};  
-               
+                                model.addAttribute("userEmail", emailCookie);
+                  
+                    
 				return "searchloan";
 		    }
 		@RequestMapping(value="/loansearchask")
-	    	   public String loansearchask(Model model){
+	    	   public String loansearchask( Model model){
 			   model.addAttribute("message", "Search Loan");
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
 			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
@@ -394,7 +420,9 @@ public class LoanCalculatorController{
 		@RequestParam("locationPreference") String locationPreference,
 		@RequestParam("webServicePreference") String webServicePreference, 
 		@RequestParam("riskTolerancePreference") String riskTolerancePreference, 
-		@RequestParam("timeHorizonPreference") String timeHorizonPreference,Model model) {
+		@RequestParam("timeHorizonPreference") String timeHorizonPreference,
+                @RequestParam("email") String email, 
+                HttpServletRequest request, HttpServletResponse response, Model model) {
 				boolean allVal = false;
 				Loan loanQryObject = new Loan();
 				if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
@@ -407,6 +435,13 @@ public class LoanCalculatorController{
 					loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
 					loanQryObject.setAPR(Double.valueOf(airVal));
 				}
+                                
+                                if(email != null && !email.equals("")){
+                                    //request.getSession().setAttribute("userEmail", email);
+                                    model.addAttribute("userEmail", email);
+                                    response.addCookie(new Cookie("userEmail", email));
+                                }
+                                
 				if(allVal){
 					ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 					PreferenceService prefService = (PreferenceService)appCtx.getBean("preferenceService");
@@ -447,7 +482,10 @@ public class LoanCalculatorController{
 						thPref.setActive("Y");
 						prefList.add(thPref);
 					}
-					List<Integer> preferenceIds = null;
+                                       
+                                        
+					
+                                        List<Integer> preferenceIds = null;
 					Preferences prefs = new Preferences();
 					prefs.setPreferences(prefList);
 					StringBuffer sbPref = new StringBuffer();
@@ -472,6 +510,18 @@ public class LoanCalculatorController{
 				}
 				return "viewpreferences";
 		    }
+                    
+                    private Properties getProperties(String fileProp){
+                        Properties prop = new Properties();
+                        try {
+                            prop.load(LoanCalculatorController.class.getClassLoader().getResourceAsStream(fileProp));
+                        } catch (IOException ex) {
+                            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                       }
+                        return prop;
+                     
+                    }
+                            
 
     
                     
