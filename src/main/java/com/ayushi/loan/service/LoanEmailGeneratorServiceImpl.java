@@ -6,6 +6,7 @@
 package com.ayushi.loan.service;
 
 import com.ayushi.loan.AmortizedLoan;
+import com.ayushi.loan.Loan;
 import com.ayushi.loan.LoanEntry;
 import com.ayushi.loan.exception.EmailServiceException;
 import com.sendgrid.Content;
@@ -45,14 +46,14 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
 
         message.append("<html>\n");
 
-        //header
+        //---------------------------------------   header   ----------------------------------------------
         message.append("<div style='background-color: #d7dde4; border-bottom-color: #78bd2e; border-bottom-width: 5px; border-bottom-style: solid; position: relative; width: 520px; margin-left: auto; margin-right: auto; padding-left: 30px; padding-top:1px '>\n");
         message.append("<h1 style='font: bold'>").append(headerTitle).append("</h1>\n");
         message.append("<p><font size='2'>").append(headerSubTitle).append("</font></p>\n");
         message.append("</div>\n");
         
         
-        //  Loan Detail table
+        //-------------------------------------  Loan Detail table  ------------------------------------------------
         message.append("<div  style='width: 480px; margin-left: auto; margin-right: auto;padding-top: 15px'>\n");
         message.append("<font size='1'>");
         message.append("<table style='width: 480px; margin-left: auto; margin-right: auto; border-style: solid; border-width: 1px'>\n");
@@ -109,10 +110,12 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
             message.append("</tr>\n");
         }
 
-        // Loan Entry Table
         message.append("</table>\n");
         message.append("</font>");
         message.append("</div>\n");
+
+        
+         //------------------------------------- Loan Entry Table----------------------------------------------------------------
         
         message.append("<div  style='width: 480px; margin-left: auto; margin-right: auto;padding-top: 15px'>\n");
         message.append("<font size='2'>");
@@ -127,13 +130,13 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
         message.append("</tr>\n");
         message.append("</thead>\n");
         message.append("<tbody>\n");
-       
+
         int lineNumber=0;
         String color;
         for(Integer key : amortizedLoan.getEntries().keySet()){
             LoanEntry le = amortizedLoan.getEntries().get(key);
             if(lineNumber%2 == 0) color=colorDark; else color=colorlight;
-            
+
             message.append("<tr>\n");
             message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(sdf.format(le.getDateEntry().getTime())).append("</td>\n");
             message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getPrincipal())).append("</td>\n");
@@ -141,16 +144,19 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
             message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getLoanAmount())).append("</td>\n");
             message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getMonthly())).append("</td>\n");
             message.append("</tr>\n");       
-            
+
             lineNumber++;
         }
-        
+
         message.append("</tbody>\n");
         message.append("</table>\n");
         message.append("</font>");
         message.append("</div>\n");
+            
+       
         
-        //Footer
+        
+        //------------------------------------------------Footer------------------------------------------------------
         message.append("<div style='background-color: #d7dde4; width: 580px; margin-left: auto; margin-right: auto; margin-top: 5px; padding: 2px 0 2px 30px'>\n");
         message.append("<bold><font size='4'>").append(footerTitle).append("</font></bold>\n");
         message.append("<p><font size='2'>").append(footerSubTitle).append("</font></p>");
@@ -158,6 +164,91 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
         message.append("</html>");
       
         return message.toString();
+    }
+    
+    @Override
+    public String buildMessage(Loan loan){
+        StringBuilder message = new StringBuilder();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        DecimalFormat df = new DecimalFormat( "#,###,###,###.00" );
+        df.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.US));
+
+        message.append("<html>\n");
+        //---------------------------------------   header   ----------------------------------------------
+        message.append("<div style='background-color: #d7dde4; border-bottom-color: #78bd2e; border-bottom-width: 5px; border-bottom-style: solid; position: relative; width: 520px; margin-left: auto; margin-right: auto; padding-left: 30px; padding-top:1px '>\n");
+        message.append("<h1 style='font: bold'>").append(headerTitle).append("</h1>\n");
+        message.append("<p><font size='2'>").append(headerSubTitle).append("</font></p>\n");
+        message.append("</div>\n");
+       
+        //-------------------------------------  Loan Detail table  ------------------------------------------------
+        message.append("<div  style='width: 480px; margin-left: auto; margin-right: auto;padding-top: 15px'>\n");
+        message.append("<font size='1'>");
+        message.append("<table style='width: 480px; margin-left: auto; margin-right: auto; border-style: solid; border-width: 1px'>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Loan Id: </td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(loan.getLoanId()).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Monthly Payment:($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(loan.getMonthly())).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Interest Rate:(%)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(loan.getInterestRate() * 100 *12)).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Last Interest:($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(loan.getInterest())).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Last Principal:($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(loan.getPrincipal())).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Loan Amount:($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(loan.getAmount())).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Lender:</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(loan.getLender()).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>State:</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(loan.getState()).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>APR:(%)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(loan.getAPR())).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Number of Years:</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(loan.getNumberOfYears()).append("</font></td>\n");
+        message.append("</tr>\n");
+        
+        message.append("</table>\n");
+        message.append("</font>");
+        message.append("</div>\n");
+
+         //------------------------------------------------Footer------------------------------------------------------
+        message.append("<div style='background-color: #d7dde4; width: 580px; margin-left: auto; margin-right: auto; margin-top: 5px; padding: 2px 0 2px 30px'>\n");
+        message.append("<bold><font size='4'>").append(footerTitle).append("</font></bold>\n");
+        message.append("<p><font size='2'>").append(footerSubTitle).append("</font></p>");
+        message.append("</div>\n");
+        message.append("</html>");
+      
+        return message.toString();
+       
     }
 
     @Override

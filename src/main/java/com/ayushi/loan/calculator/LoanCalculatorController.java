@@ -37,15 +37,36 @@ import javax.servlet.http.Cookie;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@SessionAttributes({"message","amortizeloan","payoffOn","payoffAmt", "userEmail"})
+@SessionAttributes({"message","loan","amortizeloan","payoffOn","payoffAmt", "userEmail"})
 public class LoanCalculatorController{
     
     
+      @RequestMapping(value="/")
+	    	   public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                                       Model model){
+                           model.addAttribute("userEmail", emailCookie);
+			   return "index";
+		   }
+                   
+           
+    //--------------------------------------------------------------------------------------------
     
-	    
+    
+    @RequestMapping(value="/createloan", method=RequestMethod.GET)
+		    public String createloan(Model model){
+			    model.addAttribute("message", "Create Loan");
+			    return "createloan";
+			}
+                    
+    @RequestMapping(value="/loan", method=RequestMethod.GET)
+	        public String loan(){
+                    return "createloan";
+                }
+                
     @RequestMapping(value="/loan", method=RequestMethod.POST)
 	        public String loan(
 		@RequestParam("airVal") String airVal,
@@ -101,11 +122,19 @@ public class LoanCalculatorController{
 		        	return "createloan";
 			}
 	    
-            @RequestMapping(value="/createloan", method=RequestMethod.GET)
-		    public String createloan(Model model){
-			    model.addAttribute("message", "Create Loan");
-			    return "createloan";
-			}
+   //--------------------------------------------------------------------------------------------       
+                    
+                    
+              @RequestMapping(value="/loanamortizeask")
+	    	   public String loanamortizeask(Model model){
+			   model.addAttribute("message", "Amortize Loan");
+			   java.util.Calendar calToday = java.util.Calendar.getInstance();
+			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			   model.addAttribute("amortizeOn", calTodayStr);
+                                                 
+                           return "amortizeloan";
+		   }
+                   
 	   
             @RequestMapping(value="/amortizeloan", method=RequestMethod.GET)
 		    public String amortizeloan(	
@@ -154,61 +183,35 @@ public class LoanCalculatorController{
 				return "amortizeloan";
 		    }
 	   
-            @RequestMapping(value="/")
-	    	   public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                                       Model model){
-                           model.addAttribute("userEmail", emailCookie);
-			   return "index";
+          
+                   
+             @RequestMapping(value="/searchloan", method=RequestMethod.GET)
+             public String searchLoan(Model model, RedirectAttributes redirectAttributes){
+                 
+                 return "searchloan"; 
+             }
+                    
+//-------------------------------------------------------------------------------------------------------------------------------------	         
+                   
+            @RequestMapping(value="/loansearchask")
+	    	   public String loansearchask( Model model){
+			   model.addAttribute("message", "Search Loan");
+			   java.util.Calendar calToday = java.util.Calendar.getInstance();
+			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
+			   model.addAttribute("amortizeOn", calTodayStr);		
+			   model.addAttribute("payoffOn", calTodayStr);
+			   return "searchloan";
 		   }
                    
-            @RequestMapping(value="/sendmail")
-	    	   public String sendMail(@RequestParam(value = "email", defaultValue = "") String email,
-                                           Model model, HttpServletResponse response, HttpServletRequest request){
-                       
-                       
-                       AmortizedLoan loanObject = (AmortizedLoan) model.asMap().get("amortizeloan");
-                       Double payoffAmt = (Double) model.asMap().get("payoffAmt");
-                       String payoffOn = (String) model.asMap().get("payoffOn");
-                       String userEmail = (String) model.asMap().get("userEmail");
-                       
-                       if(email != null && !email.equals(userEmail)){
-                           response.addCookie(new Cookie("userEmail", email));
-                           model.addAttribute("userEmail", email);
-                       }
-                       
-                       Properties prop = getProperties("spring/email.properties");
-                                            
-                       if(email != null && !email.isEmpty()){
-                           if(loanObject != null){
-                                ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-                                 LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
-
-                                 String message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
-                                 String subject = prop.getProperty("email.subject") + loanObject.getLoanId();
-
-                                try {
-                                    emailService.sendMail(email, subject, message);
-                                    model.addAttribute("emailMsg",  prop.getProperty("email.success"));
-                                } catch (EmailServiceException ex) {
-                                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
-                                    model.addAttribute("emailErr","we couldn't send you the email. Please try later!");
-                                }
-                           }
-                       }else{
-                            model.addAttribute("emailErr",  prop.getProperty("email.error"));
-                       }
-                    
-                    return "searchloan";
-               
-                   }       
-	    
-            @RequestMapping(value="/loanamortizeask")
-	    	   public String loanamortizeask(Model model){
-			   model.addAttribute("message", "Amortize Loan");
+            @RequestMapping(value="/loanpayoffask")
+	    	   public String loanpayoffask(Model model){
+			   model.addAttribute("message", "Payoff Loan");
 			   java.util.Calendar calToday = java.util.Calendar.getInstance();
-			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
+			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
+			   model.addAttribute("payoffOn", calTodayStr);		
 			   model.addAttribute("amortizeOn", calTodayStr);		
-			   return "amortizeloan";
+
+			   return "searchloan";
 		   }
 	    
             @RequestMapping(value="/searchloan", method=RequestMethod.POST)
@@ -314,33 +317,85 @@ public class LoanCalculatorController{
 				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);
                                 model.addAttribute("userEmail", emailCookie);
-                  
+
                     
 				return "searchloan";
 		    }
-		@RequestMapping(value="/loansearchask")
-	    	   public String loansearchask( Model model){
-			   model.addAttribute("message", "Search Loan");
-			   java.util.Calendar calToday = java.util.Calendar.getInstance();
-			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
-			   model.addAttribute("amortizeOn", calTodayStr);		
-			   model.addAttribute("payoffOn", calTodayStr);
-			   return "searchloan";
+		
+		
+     //--------------------------------------------------------------------------------------------------------------              
+                   
+                    @RequestMapping(value="/sendmail")
+	    	   public String sendMail(@RequestParam(value = "email", defaultValue = "") String email,
+                                          @RequestParam(value = "dataType") String dataType,
+                                           RedirectAttributes redirectAttributes,
+                                           Model model, HttpServletResponse response, HttpServletRequest request){
+                       
+                       
+                       AmortizedLoan loanObject = (AmortizedLoan) model.asMap().get("amortizeloan");
+                       Loan loan = (Loan) model.asMap().get("loan");
+                       Double payoffAmt = (Double) model.asMap().get("payoffAmt");
+                       String payoffOn = (String) model.asMap().get("payoffOn");
+                       String userEmail = (String) model.asMap().get("userEmail");
+                       
+                       if(email != null && !email.equals(userEmail)){
+                           response.addCookie(new Cookie("userEmail", email));
+                           model.addAttribute("userEmail", email);
+                       }
+                       
+                       Properties prop = getProperties("spring/email.properties");
+                                            
+                       if(email != null && !email.isEmpty()){
+                           
+                           ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+                           LoanEmailGeneratorService emailService = (LoanEmailGeneratorService)appCtx.getBean("emailService");
+                           String message = null;
+                           String subject = null;
+                           
+                           if(loanObject != null && dataType.equals("amortizedLoan")){
+                                 message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
+                                 subject = prop.getProperty("email.subject") + loanObject.getLoanId();
+                           }
+                           
+                           if(loan != null && dataType.equals("Loan")){
+                                 message = emailService.buildMessage(loan);
+                                 subject = prop.getProperty("email.subject") + loan.getLoanId();
+                           }
+                           
+                           if(message != null && subject != null){
+                               try {
+                                    emailService.sendMail(email, subject, message);
+                                    redirectAttributes.addFlashAttribute("emailMsg",  prop.getProperty("email.success"));
+                                } catch (EmailServiceException ex) {
+                                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                                    redirectAttributes.addFlashAttribute("emailErr","we couldn't send you the email. Please try later!");
+                                }
+                           }
+                               
+                           
+                       }else{
+                            redirectAttributes.addFlashAttribute("emailErr",  prop.getProperty("email.error"));
+                       }
+                    
+                    String referer = request.getHeader("Referer");
+                    return "redirect:"+ referer;
+               
+                   }    
+                   
+                   
+    //------------------------------------------------------------------------------------------------------------------------------               
+            
+             @RequestMapping(value="/loanviewask")
+	    	   public String loanviewask(Model model){
+			   model.addAttribute("message", "View Loans");
+			   return "viewloans";
 		   }
-		@RequestMapping(value="/loanpayoffask")
-	    	   public String loanpayoffask(Model model){
-			   model.addAttribute("message", "Payoff Loan");
-			   java.util.Calendar calToday = java.util.Calendar.getInstance();
-			   String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" 			+ calToday.get(java.util.Calendar.YEAR);	
-			   model.addAttribute("payoffOn", calTodayStr);		
-			   model.addAttribute("amortizeOn", calTodayStr);		
-
-			   return "searchloan";
-		   }
-		@RequestMapping(value="/viewloanentries/{pageid}")	
+                   
+                   
+            @RequestMapping(value="/viewloanentries/{pageid}")	
 		   public String viewloanentries(@PathVariable int pageid,Model model, 
-				           HttpServletRequest request, 
-					           HttpServletResponse response){
+				                 HttpServletRequest request, 
+					         HttpServletResponse response){
 			int total = 12;
 			if(pageid == 1){}
 			else{
@@ -360,7 +415,10 @@ public class LoanCalculatorController{
 			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
 			return "viewloan";
-		   }		
+		   }
+                                  
+                   
+                   
 		@RequestMapping(value="/viewloan/{pageid}")	
 		   public String viewloan(@PathVariable int pageid, Model model, 
 				           HttpServletRequest request, 
@@ -385,11 +443,7 @@ public class LoanCalculatorController{
 				model.addAttribute("amortizeloan", al);
 			return "viewloan";
 		   }
-	    @RequestMapping(value="/loanviewask")
-	    	   public String loanviewask(Model model){
-			   model.addAttribute("message", "View Loans");
-			   return "viewloans";
-		   }
+	  
 	    @RequestMapping(value="/viewloanexcel/{loanid}")
 		   public String loanviewexcel(@PathVariable long loanid, Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
@@ -409,11 +463,14 @@ public class LoanCalculatorController{
 			}
 			return "viewloan";
 		   }
+                   
+ //----------------------------------------------------------------------------------------------------------------------                  
 	    @RequestMapping(value="/loanpreferenceviewask")
 	    	   public String loanpreferenceviewask(Model model){
 			   model.addAttribute("message", "Edit Preferences");
 			   return "viewpreferences";
 		   }
+                   
 	    @RequestMapping(value="/vieweditpreferences", method=RequestMethod.GET)
 		    public String vieweditpreferences(	
 		@RequestParam("airVal") String airVal,
@@ -514,7 +571,7 @@ public class LoanCalculatorController{
 				}
 				return "viewpreferences";
 		    }
-                    
+ //---------------------------------------------------------------------------------------                   
                     private Properties getProperties(String fileProp){
                         Properties prop = new Properties();
                         try {

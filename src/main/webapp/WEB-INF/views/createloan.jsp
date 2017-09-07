@@ -42,6 +42,11 @@
    
    
    <c:if test="${not empty loan}"> 
+       
+        <jsp:include page="/WEB-INF/views/emailForm.jsp">
+            <jsp:param name="dataType" value="Loan"/>
+        </jsp:include>
+       
         <div class="row justify-content-center">
             <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">

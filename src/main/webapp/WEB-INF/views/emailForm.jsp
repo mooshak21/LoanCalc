@@ -5,7 +5,7 @@
             <div class="card-block">
                 <c:if test="${emailMsg eq null}">
                     <form name="emailForm" action="/sendmail" method="POST" id='emailForm'>
-                        
+                        <input type="hidden" value="${param.dataType}" name="dataType"/>
                         <c:if test="${emailErr eq null}">
                             <div class="form-group">
                                 <div class="input-group justify-content-center">
