@@ -1,5 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 
+<c:if test="${userEmail eq mull}">
+    <c:set var="userEmail" value="tertertert"/>
+</c:if> 
 <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
             <div class="card-block">
