@@ -462,11 +462,12 @@ Model model, HttpServletRequest request, HttpServletResponse response){
 							response.getWriter().write(loan.toString());
 						}catch(java.io.IOException ioe){ ioe.printStackTrace(); }
 						model.addAttribute("amortizeloan", loan);
+						redirectAttributes.addFlashAttribute("amortizeloan", loan);
 						break;
 					}
 				}
 			}
-			redirectAttributes.addFlashAttribute("amortizeloan", loan);
+			
 			return "viewloan";
 		   }
                    
