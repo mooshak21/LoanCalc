@@ -307,7 +307,7 @@ public class LoanCalculatorController{
 						loanObject = null;
 					}
 					model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
-					request.getSession().setAttribute("loans", loans);
+					if(loans != null) request.getSession().setAttribute("loans", loans);
 				}else{
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
 				}
