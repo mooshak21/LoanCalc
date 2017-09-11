@@ -415,7 +415,7 @@ public class LoanCalculatorController{
 			model.addAttribute("payoffOn", calTodayStr);		
 			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
-			redirectAttributes.addFlashAttributes("amortizeloan", al);
+			redirectAttributes.addFlashAttribute("amortizeloan", al);
 			return "viewloan";
 		   }
                                   
@@ -444,7 +444,7 @@ public class LoanCalculatorController{
 			model.addAttribute("amortizeOn", calTodayStr);		
 			if(al != null)
 				model.addAttribute("amortizeloan", al);
-			redirectAttributes.addFlashAttributes("amortizeloan", al);
+			redirectAttributes.addFlashAttribute("amortizeloan", al);
 			return "viewloan";
 		   }
 	  
@@ -466,7 +466,7 @@ Model model, HttpServletRequest request, HttpServletResponse response){
 					}
 				}
 			}
-			redirectAttributes.addFlashAttributes("amortizeloan", loan);
+			redirectAttributes.addFlashAttribute("amortizeloan", loan);
 			return "viewloan";
 		   }
                    
