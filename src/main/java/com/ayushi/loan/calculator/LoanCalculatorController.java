@@ -306,8 +306,9 @@ public class LoanCalculatorController{
 					}else {
 						loanObject = null;
 						model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
-						return "searchloan";	
+						return "searchloan";
 					}
+					model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
 					request.getSession().setAttribute("loans", loans);
 					model.addAttribute("amortizeloan", loanObject);
 				   	model.addAttribute("payoffOn", payoffOn);		
