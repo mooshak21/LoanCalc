@@ -5,7 +5,7 @@
 	<c:if test="${not empty loans}">
             
                 <jsp:include page="/WEB-INF/views/emailForm.jsp">
-                    <jsp:param name="dataType" value="Loan"/>
+                    <jsp:param name="dataType" value="amortizedLoan"/>
                 </jsp:include>
             
                 <div class="row justify-content-center align-items-center">
