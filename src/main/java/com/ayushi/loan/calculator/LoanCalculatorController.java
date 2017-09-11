@@ -308,13 +308,14 @@ public class LoanCalculatorController{
 					}
 					model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
 					if(loans != null) request.getSession().setAttribute("loans", loans);
+				 model.addAttribute("amortizeloan", loanObject);
 				}else{
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
+				return "loansearchask";	
 				}
 					
 			   	model.addAttribute("payoffOn", payoffOn);		
                                 model.addAttribute("payoffAmt", payoffAmt);		
-				model.addAttribute("amortizeloan", loanObject);
 				model.addAttribute("amortizeOn", amortizeOn);
                                 model.addAttribute("userEmail", emailCookie);
 
