@@ -302,25 +302,24 @@ public class LoanCalculatorController{
 								payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
 								model.addAttribute("payoffAmount", payoffAmt);
 								loanObject = amortizeLoan;
-							}
+						}
 					}else {
 						loanObject = null;
+						model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
+						return "loansearchask";	
 					}
-					model.addAttribute("message","Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
-					if(loans != null) request.getSession().setAttribute("loans", loans);
-				 model.addAttribute("amortizeloan", loanObject);
+					request.getSession().setAttribute("loans", loans);
+					model.addAttribute("amortizeloan", loanObject);
+				   	model.addAttribute("payoffOn", payoffOn);		
+        	                        model.addAttribute("payoffAmt", payoffAmt);		
+					model.addAttribute("amortizeOn", amortizeOn);
+                        	        model.addAttribute("userEmail", emailCookie);
+                
+					return "searchloan";
 				}else{
 					model.addAttribute("message","Search Loan: " + " Loan Parameters Not Selected!");
-				return "loansearchask";	
+					return "loansearchask";	
 				}
-					
-			   	model.addAttribute("payoffOn", payoffOn);		
-                                model.addAttribute("payoffAmt", payoffAmt);		
-				model.addAttribute("amortizeOn", amortizeOn);
-                                model.addAttribute("userEmail", emailCookie);
-
-                    
-				return "searchloan";
 		    }
 		
 		
