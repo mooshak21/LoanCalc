@@ -26,6 +26,9 @@
                     </div>
                 </div>
 	   </c:if>	
+        <jsp:include page="/WEB-INF/views/emailForm.jsp">
+            <jsp:param name="dataType" value="Loan"/>
+        </jsp:include>
 
            <c:if test="${not empty amortizeloan.loanEntries}">
                <div class="row justify-content-center ">
