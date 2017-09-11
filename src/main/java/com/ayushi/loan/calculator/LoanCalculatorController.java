@@ -394,7 +394,7 @@ public class LoanCalculatorController{
                    
                    
             @RequestMapping(value="/viewloanentries/{pageid}")	
-		   public String viewloanentries(@PathVariable int pageid,Model model, 
+		   public String viewloanentries(@PathVariable int pageid, RedirectAttributes redirectAttributes, Model model, 
 				                 HttpServletRequest request, 
 					         HttpServletResponse response){
 			int total = 12;
@@ -415,13 +415,15 @@ public class LoanCalculatorController{
 			model.addAttribute("payoffOn", calTodayStr);		
 			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
+			redirectAttributes.addFlashAttributes("amortizeloan", al);
 			return "viewloan";
 		   }
                                   
                    
                    
 		@RequestMapping(value="/viewloan/{pageid}")	
-		   public String viewloan(@PathVariable int pageid, Model model, 
+		   public String viewloan(@PathVariable int pageid, 
+                                           RedirectAttributes redirectAttributes, Model model, 
 				           HttpServletRequest request, 
 					           HttpServletResponse response){
 			int total = 1;
@@ -442,11 +444,13 @@ public class LoanCalculatorController{
 			model.addAttribute("amortizeOn", calTodayStr);		
 			if(al != null)
 				model.addAttribute("amortizeloan", al);
+			redirectAttributes.addFlashAttributes("amortizeloan", al);
 			return "viewloan";
 		   }
 	  
 	    @RequestMapping(value="/viewloanexcel/{loanid}")
-		   public String loanviewexcel(@PathVariable long loanid, Model model, HttpServletRequest request, HttpServletResponse response){
+		   public String loanviewexcel(@PathVariable long loanid, RedirectAttributes redirectAttributes, 
+Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
 			List<Loan> loans = (List<Loan>)request.getSession().getAttribute("loans");
 			if(loans != null && loans.size() > 0){
@@ -462,6 +466,7 @@ public class LoanCalculatorController{
 					}
 				}
 			}
+			redirectAttributes.addFlashAttributes("amortizeloan", loan);
 			return "viewloan";
 		   }
                    
