@@ -416,7 +416,7 @@ public class LoanCalculatorController{
 			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
 			redirectAttributes.addFlashAttribute("amortizeloan", al);
-			return "viewloan";
+			return "viewloans";
 		   }
                                   
                    
