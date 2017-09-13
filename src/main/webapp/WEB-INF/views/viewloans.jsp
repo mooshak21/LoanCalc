@@ -2,6 +2,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<c:if test="${not empty loans}">
         	<jsp:include page="/WEB-INF/views/emailForm.jsp">
             		<jsp:param name="dataType" value="amortizedLoan"/>
@@ -10,11 +11,11 @@
                     <div class="card col-10 col-md-8 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
-                                <tr><td><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
+                                <tr><td colspan="2"><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
                                             int pages = total, pgIdx;
                                             for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
                                             <a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%><%}%></td></tr>
-                               <tr><td style="width: 40%">Loan Id:</td><td><h4>${amortizeloan.loanId}</h4></td></tr>
+                               <tr><td style="width: 40%">Loan Id:</td><td>${amortizeloan.loanId}</td></tr>
                                <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4>${amortizeloan.monthly}</h4></td></tr>
                                <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4>${amortizeloan.interestRate}</h4></td></tr>
                                <tr><td style="width: 40%">Last Interest:($)</td><td><h4>${amortizeloan.interest}</h4></td></tr>
@@ -56,7 +57,19 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
+                           
+                             <c:if test="${amortizeloan.entries ne null}" >
+                                <table class="table table-hover table-bordered">
+                                    <tr>
+                                    <c:forEach begin="1" end="${amortizeloan.entries.size() / 12}" step="1" varStatus="status">
+                                          <td><a href='/viewloanentries/${status.index}'</a>${status.index}</td>  
+                                    </c:forEach>
+                                    </tr>
+                                </table>
+                            </c:if>
+                       
                         </div>
                     </div>
                 </div>
 	   </c:if> 
+         

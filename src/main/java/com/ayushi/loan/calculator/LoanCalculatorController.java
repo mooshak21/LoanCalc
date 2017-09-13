@@ -41,7 +41,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@SessionAttributes({"message","loan","amortizeloan","payoffOn","payoffAmt", "userEmail"})
+@SessionAttributes({"message","loan","amortizeloan","payoffOn","payoffAmt", "amortizeOn","userEmail"})
 public class LoanCalculatorController{
     
     
@@ -425,7 +425,7 @@ public class LoanCalculatorController{
 		   public String viewloan(@PathVariable int pageid, 
                                            RedirectAttributes redirectAttributes, Model model, 
 				           HttpServletRequest request, 
-					           HttpServletResponse response){
+					   HttpServletResponse response){
 			int total = 1;
 			if(pageid == 1){}
 			else{
@@ -433,9 +433,11 @@ public class LoanCalculatorController{
 			}
 			List loans = (List)request.getSession().getAttribute("loans");
 			AmortizedLoan al = null;
+                        String amortizeOn = (String) model.asMap().get("amortizeOn");
 			if(loans != null){
-				if(loans.get(pageid-1) instanceof AmortizedLoan)
-					al = (AmortizedLoan)loans.get(pageid-1);
+				Loan loan = (Loan)loans.get(pageid-1);
+                                al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
+                                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
 			}
 
 			java.util.Calendar calToday = java.util.Calendar.getInstance();

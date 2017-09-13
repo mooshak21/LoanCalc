@@ -14,6 +14,15 @@
                     <div class="card col-10 col-md-8 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
+                                 <tr>
+                                     <td colspan="2"><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
+                                            int pages = total, pgIdx;
+                                            for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
+                                                    <a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%>
+                                            <%}%>
+                                     </td>
+                                </tr>
+                                
                                 <tr>
                                     <td style="width: 40%">Loan Id:</td>
                                     <td>${amortizeloan.loanId}</td>
