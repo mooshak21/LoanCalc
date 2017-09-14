@@ -2,7 +2,7 @@ package com.ayushi.loan;
 
 import java.io.Serializable;
 
-public class Loan implements Serializable {
+public class Loan implements Serializable, Comparable<Loan> {
 	private static final long serialVersionUID = 1L;
 	private Double amount, total, monthly;
 	private String lender;
@@ -135,4 +135,13 @@ public class Loan implements Serializable {
 	public String toString(){
 		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " with principal of $ " + this.getPrincipal() + " and interest of $ " + this.getInterest() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%" + " and Loan App of " + (this.getLoanApp() != null ? this.getLoanApp().toString() : "");
 	}
+
+    @Override
+    public int compareTo(Loan o) {
+        if (this.loanId > o.getLoanId()){
+            return 1;
+        }else {
+            return -1;
+        }
+    }
 }

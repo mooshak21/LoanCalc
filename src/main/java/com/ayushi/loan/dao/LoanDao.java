@@ -7,6 +7,9 @@ import org.springframework.dao.DataAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 import com.ayushi.loan.exception.LoanAccessException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class LoanDao implements LendingDao {
 	private SessionFactory sessionFactory;	
@@ -47,7 +50,10 @@ public class LoanDao implements LendingDao {
 	public List<Serializable> find(String query, Object[] objVals) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			return (List<Serializable>)ht.find(query, objVals);
+			  List list =  ht.find(query, objVals);
+                          Collections.sort(list);
+                              
+                        return list;
 		}catch(DataAccessException dae){
 			throw new LoanAccessException(dae);
 		}

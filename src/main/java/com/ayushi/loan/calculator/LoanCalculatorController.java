@@ -394,7 +394,7 @@ public class LoanCalculatorController{
                    
                    
             @RequestMapping(value="/viewloanentries/{pageid}")	
-		   public String viewloanentries(@PathVariable int pageid, RedirectAttributes redirectAttributes, Model model, 
+		   public String viewloanentries(@PathVariable int pageid,  Model model, 
 				                 HttpServletRequest request, 
 					         HttpServletResponse response){
 			int total = 12;
@@ -415,15 +415,14 @@ public class LoanCalculatorController{
 			model.addAttribute("payoffOn", calTodayStr);		
 			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
-			redirectAttributes.addFlashAttribute("amortizeloan", al);
+                        model.addAttribute("amortizeloan", al);
 			return "viewloans";
 		   }
                                   
                    
                    
 		@RequestMapping(value="/viewloan/{pageid}")	
-		   public String viewloan(@PathVariable int pageid, 
-                                           RedirectAttributes redirectAttributes, Model model, 
+		   public String viewloan(@PathVariable int pageid, Model model, 
 				           HttpServletRequest request, 
 					   HttpServletResponse response){
 			int total = 1;
@@ -438,6 +437,7 @@ public class LoanCalculatorController{
 				Loan loan = (Loan)loans.get(pageid-1);
                                 al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
                                         loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
+                                al.setLoanId(loan.getLoanId());
 			}
 
 			java.util.Calendar calToday = java.util.Calendar.getInstance();
@@ -446,13 +446,13 @@ public class LoanCalculatorController{
 			model.addAttribute("amortizeOn", calTodayStr);		
 			if(al != null)
 				model.addAttribute("amortizeloan", al);
-			redirectAttributes.addFlashAttribute("amortizeloan", al);
+			model.addAttribute("amortizeloan", al);
 			return "viewloan";
 		   }
 	  
 	    @RequestMapping(value="/viewloanexcel/{loanid}")
 		   public String loanviewexcel(@PathVariable long loanid, RedirectAttributes redirectAttributes, 
-Model model, HttpServletRequest request, HttpServletResponse response){
+                                                Model model, HttpServletRequest request, HttpServletResponse response){
 			model.addAttribute("message", "View Loan in EXCEL");
 			List<Loan> loans = (List<Loan>)request.getSession().getAttribute("loans");
 			if(loans != null && loans.size() > 0){
@@ -464,7 +464,6 @@ Model model, HttpServletRequest request, HttpServletResponse response){
 							response.getWriter().write(loan.toString());
 						}catch(java.io.IOException ioe){ ioe.printStackTrace(); }
 						model.addAttribute("amortizeloan", loan);
-						redirectAttributes.addFlashAttribute("amortizeloan", loan);
 						break;
 					}
 				}
@@ -507,7 +506,6 @@ Model model, HttpServletRequest request, HttpServletResponse response){
 				}
                                 
                                 if(email != null && !email.equals("")){
-                                    //request.getSession().setAttribute("userEmail", email);
                                     model.addAttribute("userEmail", email);
                                     response.addCookie(new Cookie("userEmail", email));
                                 }
