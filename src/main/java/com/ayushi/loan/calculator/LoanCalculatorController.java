@@ -415,7 +415,6 @@ public class LoanCalculatorController{
 			model.addAttribute("payoffOn", calTodayStr);		
 			model.addAttribute("amortizeOn", calTodayStr);		
 			model.addAttribute("amortizeloan", al);
-                        model.addAttribute("amortizeloan", al);
 			return "viewloans";
 		   }
                                   
@@ -430,23 +429,28 @@ public class LoanCalculatorController{
 			else{
 			  pageid=(pageid-1)*total+1;
 			}
+                        java.util.Calendar calToday = java.util.Calendar.getInstance();
+			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
 			List loans = (List)request.getSession().getAttribute("loans");
 			AmortizedLoan al = null;
                         String amortizeOn = (String) model.asMap().get("amortizeOn");
+                        String payoffOn = (String) model.asMap().get("payoffOn");
+                        if(payoffOn.isEmpty()){
+                            payoffOn = calTodayStr;
+                        }
 			if(loans != null){
 				Loan loan = (Loan)loans.get(pageid-1);
                                 al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
                                         loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
+				model.addAttribute("payoffAmt", al.getPayoffAmount(loan.getAmount(), payoffOn));
+                                model.addAttribute("amortizeloan", al);
                                 al.setLoanId(loan.getLoanId());
 			}
 
-			java.util.Calendar calToday = java.util.Calendar.getInstance();
-			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
-			model.addAttribute("payoffOn", calTodayStr);		
-			model.addAttribute("amortizeOn", calTodayStr);		
-			if(al != null)
-				model.addAttribute("amortizeloan", al);
-			model.addAttribute("amortizeloan", al);
+			
+//			model.addAttribute("payoffOn", calTodayStr);		
+//			model.addAttribute("amortizeOn", calTodayStr);		
+
 			return "viewloan";
 		   }
 	  
