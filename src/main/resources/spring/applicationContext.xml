@@ -61,6 +61,7 @@
     
     <bean class="java.net.URI" id="dbUrl">
       <constructor-arg value="${DATABASE_URL}"/>
+<!--        <constructor-arg value="postgres://postgres:admin@localhost:5433/Loan"/>-->
     </bean>
     
     <bean id="sessionFactory"
