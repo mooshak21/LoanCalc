@@ -14,52 +14,52 @@
                    
                    <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
-                        <input class="form-control" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
+                        <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
                    </div>
 
                    <div class="form-group">
                        <label for="numberOfYears">Number of Years:</label>
-                       <input class="form-control" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears">
+                       <input class="form-control resetMe" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears">
                    </div>
 
                    <div class="form-group">
                        <label for="lender">Lender:</label>
-                       <input class="form-control" type="text" name="lender" value="${loan.lender}" id="lender">
+                       <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender">
                    </div>
 
                    <div class="form-group">
                        <label for="state">State: </label>
-                        <input class="form-control" type="text" name="state" value="${loan.state}" id="state">
+                        <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state">
                    </div>
 
                    <div class="form-group">
                        <label for="interestRate">Annual Interest Rate: </label>
-                       <input class="form-control" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
+                       <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
                    </div>
 
                    <div class="form-group">
                        <label for="locationPreference">Location Preference: </label>
-                        <input class="form-control" type="text" name="locationPreference" value="state" id="locationPreference">
+                        <input class="form-control resetMe" type="text" name="locationPreference" value="state" id="locationPreference">
                    </div>
 
                    <div class="form-group">
                        <label for="wsPreference">Web Service Preference: </label>
-                       <input class="form-control" type="text" name="webServicePreference" value="REST" id="wsPreference">
+                       <input class="form-control resetMe" type="text" name="webServicePreference" value="REST" id="wsPreference">
                    </div>
 
                     <div class="form-group">
                        <label for="rtPreference">Risk Tolerance Preference: </label>
-                       <input class="form-control" type="number" name="riskTolerancePreference" value="1" min="0" max="100" step="1" id="rtPreference">
+                       <input class="form-control resetMe" type="number" name="riskTolerancePreference" value="1" min="0" max="100" step="1" id="rtPreference">
                    </div>
 
                    <div class="form-group">
                        <label for="thPreference">Time Horizon Preference: </label>
-                       <input class="form-control" type="number" name="timeHorizonPreference" value="1" min="0" max="100" step="0.01" id="thPreference">
+                       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="1" min="0" max="100" step="0.01" id="thPreference">
                    </div>
                    
                    <div class="form-group">
                        <label for="email">Email: </label>
-                       <input class="form-control" type="email" name="email" value="${userEmail}" id="email">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email">
                    </div>
 
                    <div class="form-group">
@@ -93,3 +93,12 @@
             </div>
         </div>
    </c:if> 
+
+                   <script>
+function resetForm() {
+    $( document ).ready(function() {
+        $(".resetMe").val("");
+    });
+    
+}
+</script>

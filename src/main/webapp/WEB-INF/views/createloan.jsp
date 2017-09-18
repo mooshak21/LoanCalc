@@ -12,27 +12,27 @@
                  <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
                      <div class="form-group">
                         <label for="loanAmount">Loan Amount:</label>
-                         <input class="form-control" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
+                         <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
                     </div>
 
                     <div class="form-group">
                         <label for="numberOfYears">Number of Years:</label>
-                        <input class="form-control" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears">
+                        <input class="form-control resetMe" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears">
                     </div>
 
                     <div class="form-group">
                         <label for="lender">Lender:</label>
-                        <input class="form-control" type="text" name="lender" value="${loan.lender}" id="lender">
+                        <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender">
                     </div>
 
                     <div class="form-group">
                         <label for="state">State: </label>
-                         <input class="form-control" type="text" name="state" value="${loan.state}" id="state">
+                         <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state">
                     </div>
 
                     <div class="form-group">
                         <label for="interestRate">Annual Interest Rate: </label>
-                        <input class="form-control" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
+                        <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
                     </div>
                    
                     <div class="form-group">
@@ -73,3 +73,11 @@
         </div>
    </c:if> 
              
+<script>
+function resetForm() {
+    $( document ).ready(function() {
+        $(".resetMe").val("");
+    });
+    
+}
+</script>
