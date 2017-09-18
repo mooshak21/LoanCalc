@@ -62,8 +62,11 @@
                        <input class="form-control" type="email" name="email" value="${userEmail}" id="email">
                    </div>
 
-
-                   <button type="submit" class="btn btn-default">Submit</button>
+                   <div class="form-group">
+                        <button type="submit" class="btn btn-default float-left">Submit</button>
+                        <input type="reset" class="btn btn-default float-right" value="Reset"/>
+                    </div>
+                   
                 </form>
             </div>
         </div>

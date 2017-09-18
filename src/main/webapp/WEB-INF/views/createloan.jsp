@@ -34,8 +34,13 @@
                         <label for="interestRate">Annual Interest Rate: </label>
                         <input class="form-control" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                   
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default float-left">Submit</button>
+                        <input type="reset" class="btn btn-default float-right" value="Reset"/>
+                    </div>
+                
+                 </form>
             </div>
         </div>
     </div>
