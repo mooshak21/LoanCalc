@@ -292,7 +292,7 @@ public class LoanCalculatorController{
 							lae.printStackTrace();
 					    	model.addAttribute("message","Search Loan Failed!");
 					}
-					if(loans != null & loans.size() > 0){
+					if(loans != null && loans.size() > 0){
 						total = loans.size();
 						Loan searchloan = (Loan)loans.get(0);
 						if(searchloan != null){
