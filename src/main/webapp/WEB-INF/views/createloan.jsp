@@ -35,7 +35,7 @@
                         <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
                     </div>
                    
-                     <input type="submit" class="btn btn-default float-left" value="submit"/>
+                     <input type="submit" class="btn btn-default float-left" value="Submit"/>
                      <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
                 
                  </form>

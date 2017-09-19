@@ -41,7 +41,7 @@
                         <input class="form-control resetMe" type="text" name="amortizeOn" value="${amortizeOn}" id="amortize">	
                     </div>
                    
-                    <input type="submit" class="btn btn-default float-left" value="submit"/>
+                    <input type="submit" class="btn btn-default float-left" value="Submit"/>
                     <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
                     
                 </form>
