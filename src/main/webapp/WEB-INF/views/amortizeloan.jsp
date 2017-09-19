@@ -9,7 +9,7 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loanForm" action="/amortizeloan" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.
+                <form name="loanForm" id="loanform" action="/amortizeloan" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.
                                          focus(); return false;}'>
                     <div class="form-group">
                         <label for="loanAmount">Loan Amount:</label>
@@ -41,10 +41,9 @@
                         <input class="form-control resetMe" type="text" name="amortizeOn" value="${amortizeOn}" id="amortize">	
                     </div>
                    
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default float-left">Submit</button>
-                        <input type="reset" class="btn btn-default float-right" value="Reset"/>
-                    </div>
+                    <input type="submit" class="btn btn-default float-left" value="submit"/>
+                    <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
+                    
                 </form>
             </div>
         </div>

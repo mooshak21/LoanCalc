@@ -9,7 +9,7 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                 <form name="loanForm" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
+                 <form name="loanForm" id="loanform" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
                      <div class="form-group">
                         <label for="loanAmount">Loan Amount:</label>
                          <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
@@ -35,10 +35,8 @@
                         <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
                     </div>
                    
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default float-left">Submit</button>
-                        <input type="reset" class="btn btn-default float-right" value="Reset"/>
-                    </div>
+                     <input type="submit" class="btn btn-default float-left" value="submit"/>
+                     <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
                 
                  </form>
             </div>

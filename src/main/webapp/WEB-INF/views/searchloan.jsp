@@ -10,7 +10,7 @@
                         <h5>${message}</h5>
                     </div>
                     <div class="card-block">
-                        <form name="loanForm" action="/searchloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
+                        <form name="loanForm" id="loanform" action="/searchloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
                             <div class="form-group row">
                                 <label for="loanAmount">Loan Amount:</label>
                                   <input class="form-control resetMe" type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999" id="loanAmount">
@@ -46,10 +46,9 @@
                                   <input class="form-control resetMe" type="text" name="payoffOn" value="${payoffOn}" id="payoff">
                             </div>
                             
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default float-left">Submit</button>
-                                <input type="reset" class="btn btn-default float-right" value="Reset"/>
-                            </div>
+                             <input type="submit" class="btn btn-default float-left" value="submit"/>
+                            <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
+                            
                         </form>    
                     </div>
                 </div>
@@ -167,11 +166,11 @@
                 </div>
 	   </c:if> 
 
-                            <script>
-function resetForm() {
-    $( document ).ready(function() {
-        $(".resetMe").val("");
-    });
-    
-}
+<script>
+    function resetForm() {
+        $( document ).ready(function() {
+            $(".resetMe").val("");
+        });
+
+    }
 </script>
