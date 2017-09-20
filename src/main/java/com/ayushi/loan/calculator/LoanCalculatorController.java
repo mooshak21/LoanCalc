@@ -442,8 +442,8 @@ public class LoanCalculatorController{
                         }
 			if(loans != null){
 				Loan loan = (Loan)loans.get(pageid-1);
-				if(al != null){
-	                                al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
+	                        if(amortizeOn != null){
+					al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
                                         loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
 					model.addAttribute("payoffAmt", al.getPayoffAmount(loan.getAmount(), payoffOn));
                 	                model.addAttribute("amortizeloan", al);
