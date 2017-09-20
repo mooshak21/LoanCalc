@@ -404,17 +404,19 @@ public class LoanCalculatorController{
 			}
 			AmortizedLoan al = (AmortizedLoan)request.getSession().getAttribute("amortizeloan");
 			ArrayList<LoanEntry> loanEntries = new ArrayList<LoanEntry>(12);
-			HashMap<Integer, LoanEntry> entries = al.getEntries();
-			for(int idx = pageid; idx < pageid+total; idx++){
-				LoanEntry entry = entries.get(idx);						
-				loanEntries.add(entry);
+			if(al != null){
+				HashMap<Integer, LoanEntry> entries = al.getEntries();
+				for(int idx = pageid; idx < pageid+total; idx++){
+					LoanEntry entry = entries.get(idx);						
+					loanEntries.add(entry);
+				}
+		   		al.setLoanEntries(loanEntries);
+				model.addAttribute("amortizeloan", al);
 			}
-		   	al.setLoanEntries(loanEntries);
-		   	java.util.Calendar calToday = java.util.Calendar.getInstance();
+			java.util.Calendar calToday = java.util.Calendar.getInstance();
 			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) +1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);	
 			model.addAttribute("payoffOn", calTodayStr);		
 			model.addAttribute("amortizeOn", calTodayStr);		
-			model.addAttribute("amortizeloan", al);
 			return "viewloans";
 		   }
                                   
@@ -440,13 +442,14 @@ public class LoanCalculatorController{
                         }
 			if(loans != null){
 				Loan loan = (Loan)loans.get(pageid-1);
-                                al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
+				if(al != null){
+	                                al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(), 
                                         loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
-				model.addAttribute("payoffAmt", al.getPayoffAmount(loan.getAmount(), payoffOn));
-                                model.addAttribute("amortizeloan", al);
-                                al.setLoanId(loan.getLoanId());
+					model.addAttribute("payoffAmt", al.getPayoffAmount(loan.getAmount(), payoffOn));
+                	                model.addAttribute("amortizeloan", al);
+                        	        al.setLoanId(loan.getLoanId());
+				}
 			}
-
 			
 //			model.addAttribute("payoffOn", calTodayStr);		
 //			model.addAttribute("amortizeOn", calTodayStr);		
