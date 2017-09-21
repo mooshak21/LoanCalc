@@ -437,7 +437,7 @@ public class LoanCalculatorController{
 			AmortizedLoan al = null;
                         String amortizeOn = (String) model.asMap().get("amortizeOn");
                         String payoffOn = (String) model.asMap().get("payoffOn");
-                        if(payoffOn.isEmpty()){
+                        if(payoffOn == null || payoffOn.isEmpty()){
                             payoffOn = calTodayStr;
                         }
 			if(loans != null){
