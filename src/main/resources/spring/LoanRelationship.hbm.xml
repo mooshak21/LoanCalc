@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ayushi.loan.LoanRelationship" table="loan_relationship">
+        <id name="loanRelId" type="java.lang.Long">
+            <column name="LOAN_REL_ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="loanAgg" class="com.ayushi.loan.LoanAgg" fetch="select">
+            <column name="LOAN_AGG_ID" not-null="true" />
+        </many-to-one>
+        <property name="loanId" type="java.lang.Long">
+            <column name="LOAN_ID" not-null="true" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" length="100" not-null="true" />
+        </property>
+        <property name="type" type="java.lang.String">
+            <column name="TYPE" length="50" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" length="50" />
+        </property>
+        <property name="createdDate" type="java.util.Calendar">
+            <column name="CREATED_DATE"/>
+	    </property>
+    	<property name="createdUserId" type="java.lang.Long">
+		<column name="CREATED_USER_ID"/>
+	    </property>
+        <property name="updatedDate" type="java.util.Calendar">
+            <column name="UPDATED_DATE"/>
+        </property>
+        <property name="updatedUserId" type="java.lang.Long">
+            <column name="UPDATED_USER_ID"/>
+        </property>
+        <property name="active" type="java.lang.Boolean">
+            <column name="ACTIVE_YN" default="true"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

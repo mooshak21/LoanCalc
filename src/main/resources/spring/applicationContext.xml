@@ -70,6 +70,8 @@
             <list>
                 <value>spring/Loan.hbm.xml </value>
                 <value>spring/LoanApp.hbm.xml </value>
+                <value>spring/LoanAgg.hbm.xml </value>
+                <value>spring/LoanRelationship.hbm.xml </value>
             </list>
         </property>
              <property name="hibernateProperties">
@@ -114,6 +116,24 @@
     <bean id="preferenceService"
         class="com.ayushi.loan.service.PreferenceService">
         <property name="preferenceDao" ref="preferenceDao" />
+    </bean>
+    <bean id="loanAggDao"
+          class="com.ayushi.loan.dao.LoanAggDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="loanAggService"
+          class="com.ayushi.loan.service.LoanAggServiceImpl">
+        <property name="loanAggDao" ref="loanAggDao" />
+    </bean>
+    <bean id="loanRelationshipDao"
+          class="com.ayushi.loan.dao.LoanRelationshipDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="loanRelationshipService"
+          class="com.ayushi.loan.service.LoanRelationshipServiceImpl">
+        <property name="loanRelationshipDao" ref="loanRelationshipDao" />
     </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
