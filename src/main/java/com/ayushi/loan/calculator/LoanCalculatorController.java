@@ -716,13 +716,15 @@ public class LoanCalculatorController{
 			}
 			model.addAttribute("loanEntries1", uniqueLoans);
 			model.addAttribute("loanEntries2", duplicateLoans);
-			model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
-			model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
-			model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
-			model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
-			model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
-			model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-			model.addAttribute("startDate", formatter.format(loanagg.get(0).getStartDate().getTime()));
+			if(aggregationSummary!=null) {
+				model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
+				model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
+				model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
+				model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
+				model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
+				model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
+				model.addAttribute("startDate", formatter.format(loanagg.get(0).getStartDate().getTime()));
+			}
 			if (loanagg.size() > 0) {
 				model.addAttribute("loanAggId", loanagg.get(0).getLoanAggId());
 				model.addAttribute("name", loanagg.get(0).getName());
@@ -985,13 +987,15 @@ public class LoanCalculatorController{
 			model.addAttribute("startDate", startDate);
 			model.addAttribute("email", loanAgg.getEmail());
 		}
-		model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
-		model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
-		model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
-		model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
-		model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
-		model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-		model.addAttribute("startDate", startDate);
+		if(aggregationSummary!=null) {
+			model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
+			model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
+			model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
+			model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
+			model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
+			model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
+			model.addAttribute("startDate", startDate);
+		}
 		return "aggregateloan";
 	}
 
