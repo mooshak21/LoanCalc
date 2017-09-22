@@ -716,6 +716,7 @@ public class LoanCalculatorController{
 			}
 			model.addAttribute("loanEntries1", uniqueLoans);
 			model.addAttribute("loanEntries2", duplicateLoans);
+
 				model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
 				model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
 				model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
@@ -870,9 +871,7 @@ public class LoanCalculatorController{
 
 		if (StringUtils.isEmpty(loanAggId)) {
 			try {
-				LoanAgg loanAgg1 = (LoanAgg)loanAggService.createLoanAgg(loanAgg);
-				if ( loanAgg1 != null ) {
-					loanAggId = loanAgg1.getLoanAggId().toString();
+				loanAggId = ((Long)loanAggService.createLoanAgg(loanAgg)).toString();
 					if (StringUtils.isNotEmpty(loanIds)) {
 						loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
 						String[] loanId = loanIds.split(",");
@@ -886,7 +885,7 @@ public class LoanCalculatorController{
 							loanRelationshipService.createLoanRelation(loanRelationship);
 						}
 					}
-				}
+
 			} catch (LoanAccessException lae) {
 				lae.printStackTrace();
 				return "aggregateloan";
