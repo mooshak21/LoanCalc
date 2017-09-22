@@ -866,6 +866,31 @@ public class LoanCalculatorController{
 		Object[] queryVals = null;
 		List<Object> queryValList = new ArrayList<Object>();
 		AggregationSummary aggregationSummary = new AggregationSummary();
+
+		if (StringUtils.isEmpty(loanAggId)) {
+			try {
+				LoanAgg loanAgg1 = (LoanAgg)loanAggService.createLoanAgg(loanAgg);
+				if ( loanAgg1 != null ) {
+					loanAggId = loanAgg1.getLoanAggId().toString();
+					if (StringUtils.isNotEmpty(loanIds)) {
+						loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
+						String[] loanId = loanIds.split(",");
+						for (int i = 0; i < loanId.length; i++) {
+							LoanRelationship loanRelationship = new LoanRelationship();
+							loanRelationship.setLoanAgg(loanAgg);
+							loanRelationship.setName(name);
+							loanRelationship.setType(type);
+							loanRelationship.setEmail(email);
+							loanRelationship.setLoanId(Long.parseLong(loanId[i]));
+							loanRelationshipService.createLoanRelation(loanRelationship);
+						}
+					}
+				}
+			} catch (LoanAccessException lae) {
+				lae.printStackTrace();
+				return "aggregateloan";
+			}
+		}
 		if (StringUtils.isNotEmpty(loanAggId)) {
 			try {
 				querySB.append("la.loanAggId=?");
@@ -916,7 +941,7 @@ public class LoanCalculatorController{
 					} catch (LoanAccessException lae) {
 						lae.printStackTrace();
 						model.addAttribute("message", "Calculate Loan Failed!");
-						return "createloan";
+						return "aggregateloan";
 					}
 					loanAggService.modifyLoanAgg(loanAgg);
 				} else {
@@ -949,25 +974,6 @@ public class LoanCalculatorController{
 			}
 
 
-		} else {
-			try {
-				loanAggService.createLoanAgg(loanAgg);
-				if (loanIds != null) {
-					loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
-					String[] loanId = loanIds.split(",");
-					for (int i = 0; i < loanId.length; i++) {
-						LoanRelationship loanRelationship = new LoanRelationship();
-						loanRelationship.setLoanAgg(loanAgg);
-						loanRelationship.setName(name);
-						loanRelationship.setType(type);
-						loanRelationship.setEmail(email);
-						loanRelationship.setLoanId(Long.parseLong(loanId[i]));
-						loanRelationshipService.createLoanRelation(loanRelationship);
-					}
-				}
-			} catch (LoanAccessException lae) {
-				lae.printStackTrace();
-			}
 		}
 		model.addAttribute("loanEntries1", loans2);
 		model.addAttribute("loanEntries2", loans1);

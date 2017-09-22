@@ -34,10 +34,10 @@ public class LoanAggDao implements LendingDao {
         }
     }
 
-    public void insert(Object o) throws LoanAccessException{
+    public Serializable insert(Object o) throws LoanAccessException{
         HibernateTemplate ht = new HibernateTemplate(sessionFactory);
         try{
-            ht.save(o);
+            return ht.save(o);
         }catch(DataAccessException dae){
             throw new LoanAccessException(dae);
         }

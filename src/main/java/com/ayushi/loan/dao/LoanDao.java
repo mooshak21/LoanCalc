@@ -4,12 +4,11 @@ import java.io.Serializable;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
-import com.ayushi.loan.Loan;
+
 import java.util.List;
 import com.ayushi.loan.exception.LoanAccessException;
-import java.util.ArrayList;
+
 import java.util.Collections;
-import java.util.Iterator;
 
 public class LoanDao implements LendingDao {
 	private SessionFactory sessionFactory;	
@@ -23,14 +22,15 @@ public class LoanDao implements LendingDao {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
-	public void insert(Object o) throws LoanAccessException{
+	public Serializable insert(Object o) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.saveOrUpdate(o);
 		}catch(DataAccessException dae){
 			throw new LoanAccessException(dae);
 		}
-	}
+        return null;
+    }
 	public void update(Object o) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{

@@ -1,9 +1,7 @@
 package com.ayushi.loan.service;
 
-import com.ayushi.loan.Loan;
 import com.ayushi.loan.LoanAgg;
 import com.ayushi.loan.dao.LoanAggDao;
-import com.ayushi.loan.dao.LoanDao;
 import com.ayushi.loan.exception.LoanAccessException;
 
 import java.io.Serializable;
@@ -24,8 +22,8 @@ public class LoanAggServiceImpl implements LoanAggService {
 	}
 
 	@Override
-	public void createLoanAgg(LoanAgg loanAgg) throws LoanAccessException {
-		loanAggDao.insert(loanAgg);
+	public Serializable createLoanAgg(LoanAgg loanAgg) throws LoanAccessException {
+		return loanAggDao.insert(loanAgg);
 	}
 
 	@Override
