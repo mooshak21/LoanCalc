@@ -65,7 +65,7 @@
 	        <version>8.1.4.v20120524</version>
 	        <configuration>
 	            <webAppConfig>
-	                <contextPath>/</contextPath>
+	                <contextPath>/${project.name}</contextPath>
 	            </webAppConfig>
 	        </configuration>
 	    </plugin>

@@ -67,7 +67,7 @@ public class LoanWebService implements LendingWebService {
 	public AggregationSummary aggregationSummary(List<Loan> loan, Calendar startDate) throws LoanAccessException, ParseException {
 		if(loan != null && startDate!=null){
 			RestTemplate restTemplate = new RestTemplate();
-			AggregationSummary aggregationSummary = restTemplate.getForObject("http://localhost:8081/aggregationSummary?loan=" + 						loan + "&startDate=" + startDate, AggregationSummary.class);
+			AggregationSummary aggregationSummary = restTemplate.getForObject("http://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?loan=" + 						loan + "&startDate=" + startDate, AggregationSummary.class);
 			return aggregationSummary;
 		}else{
 			return null;
