@@ -1,6 +1,7 @@
 package com.ayushi.loan.calculator;
 
 import com.ayushi.loan.service.*;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -846,7 +847,7 @@ public class LoanCalculatorController{
 		List<Loan> loans2 = new ArrayList<Loan>();
 		LoanAgg loanAgg = new LoanAgg();
 		System.out.println(loanIds);
-		if (loanAggId != null) {
+		if (StringUtils.isNotEmpty(loanAggId)) {
 			loanAgg.setLoanAggId(Long.valueOf(loanAggId));
 		}
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -865,7 +866,7 @@ public class LoanCalculatorController{
 		Object[] queryVals = null;
 		List<Object> queryValList = new ArrayList<Object>();
 		AggregationSummary aggregationSummary = new AggregationSummary();
-		if (loanAggId != null) {
+		if (StringUtils.isNotEmpty(loanAggId)) {
 			try {
 				querySB.append("la.loanAggId=?");
 				queryValList.add(Long.valueOf(loanAggId));
@@ -882,7 +883,7 @@ public class LoanCalculatorController{
 						}
 					}
 				}
-				if (loanIds != null) {
+				if (StringUtils.isNotEmpty(loanIds)) {
 					loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
 					String[] loanId = loanIds.split(",");
 
@@ -922,7 +923,7 @@ public class LoanCalculatorController{
 					loanAggService.removeLoanAgg(loanAgg);
 				}
 
-				if (loansId != null) {
+				if (StringUtils.isNotEmpty(loansId)) {
 					loansId = loansId.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
 					String[] loanId = loansId.split(",");
 					try {

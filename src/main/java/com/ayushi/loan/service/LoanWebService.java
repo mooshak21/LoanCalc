@@ -4,6 +4,12 @@ import com.ayushi.loan.AggregationSummary;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
 import com.ayushi.loan.AmortizedLoan;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.DateFormat;
@@ -66,9 +72,29 @@ public class LoanWebService implements LendingWebService {
 
 	public AggregationSummary aggregationSummary(List<Loan> loan, Calendar startDate) throws LoanAccessException, ParseException {
 		if(loan != null && startDate!=null){
+		/*	Gson gson = new Gson();
+			// convert your list to json
+			String jsonCartList = gson.toJson(loan);*/
+			DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+			String str=formatter.format(startDate.getTime());
 			RestTemplate restTemplate = new RestTemplate();
-			AggregationSummary aggregationSummary = restTemplate.getForObject("http://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?loan=" + 						loan + "&startDate=" + startDate, AggregationSummary.class);
-			return aggregationSummary;
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<Object> requestEntity = new HttpEntity<Object>(headers);
+			//restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+			ObjectMapper mapper = new ObjectMapper();
+
+			AggregationSummary aggregationSummary = null;
+			try {
+				org.apache.commons.codec.net.URLCodec codec = new org.apache.commons.codec.net.URLCodec();
+
+				//aggregationSummary = restTemplate.exchange("http://localhost:9999/aggregationSummary?startDate=" + str + "&loan="+ codec.encode(mapper.writeValueAsString(loan)), HttpMethod.GET, requestEntity, new ParameterizedTypeReference<AggregationSummary>() {});
+				aggregationSummary = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?startDate=" + str + "&loan="+ codec.encode(mapper.writeValueAsString(loan)), AggregationSummary.class);
+				return aggregationSummary;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		}else{
 			return null;
 		}

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:if test="${empty name}">
+<c:if test="${loanEntries1 == null  && loanEntries2 == null }">
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
             <div class="card-header">
@@ -49,7 +49,7 @@
         </div>
     </div>
 </c:if>
-<c:if test="${not empty name}">
+<c:if test="${loanEntries1 != null  || loanEntries2 != null }">
     <form name="loanAggregateForm" id="form1" action="/updateaggregate" method="POST"
           onsubmit='if(loanAggregateForm.name.value == ""  && loanAggregateForm.type.value == "" && loanAggregateForm.email.value == "" && loanAggregateForm.startDate.value == "" && loanAggregateForm.term.value == ""){ alert("Please enter at least Name, Loan Type, Email, Start Date, Loan Term"); loanAggregateForm.name.focus(); return false;}'>
     <div class="row justify-content-center">
@@ -134,7 +134,6 @@
     </style>
     <div class="row">
         <div class="col-sm-5 table-responsive">
-            <c:if test="${not empty loanEntries1}">
                 <table class="table table-bordered" id="table1">
                     <thead class="thead-default">
                         <tr>
@@ -153,20 +152,16 @@
                     </c:forEach>
                     </tbody>
                 </table>
-            </c:if>
         </div>
         <div class="col-sm-2" style="padding-top: 50px;">
-            <c:if test="${not empty loanEntries2}">
                 <p class="text-center">
                     <input class="btn btn-sm btn-primary" type="button" id="aggregate" value="aggregate" onclick="aggregate1()">
                 </p>
                 <p class="text-center">
                     <input class="btn btn-sm btn-primary" type="button" id="deaggregate" value="deaggregate" onclick="deaggregate1()">
                 </p>
-            </c:if>
         </div>
         <div class="col-sm-5 table-responsive">
-                    <c:if test="${not empty loanEntries2}">
                         <table id="table2" class="table table-bordered">
                             <thead class="thead-default">
                             <tr>
@@ -185,7 +180,6 @@
                             </c:forEach>
                             </tbody>
                         </table>
-                    </c:if>
         </div>
     </div>
 

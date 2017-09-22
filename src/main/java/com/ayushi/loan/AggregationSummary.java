@@ -14,9 +14,6 @@ public class AggregationSummary implements Serializable {
     private int maximumNumOfYear;
     private Calendar startDate;
     private Calendar payoffDate;
-    private long loanId;
-    private Loan loan;
-    private LoanRelationship loanRelationship;
 
     public AggregationSummary(){
         totalAmount = 0.0;
@@ -27,20 +24,19 @@ public class AggregationSummary implements Serializable {
         maximumNumOfYear = 1;
         startDate = GregorianCalendar.getInstance();
         payoffDate = GregorianCalendar.getInstance();
-        loanId = System.currentTimeMillis();
-        loan = new Loan();
-        loanRelationship = new LoanRelationship();
     }
 
 
-    public AggregationSummary(double totalAmount, double monthlyAmount, double amountPaid,double remainingPercent, double remainingAmount, int maximumNumOfYear, Calendar startDate){
+    public AggregationSummary(double totalAmount, double monthlyAmount, double amountPaid,double remainingPercent, double remainingAmount, int maximumNumOfYear, Calendar startDate, Calendar payoffDate){
         totalAmount = new Double(totalAmount);
         monthlyAmount = new Double(monthlyAmount);
         amountPaid = new Double(amountPaid);
         remainingPercent = new Double(remainingPercent);
         remainingAmount = new Double(remainingAmount);
         maximumNumOfYear = new Integer(maximumNumOfYear);
-        loanId = System.currentTimeMillis();
+        startDate = startDate;
+        payoffDate = payoffDate;
+
     }
 
     public static long getSerialVersionUID() {
@@ -101,22 +97,6 @@ public class AggregationSummary implements Serializable {
 
     public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
-    }
-
-    public long getLoanId() {
-        return loanId;
-    }
-
-    public void setLoanId(long loanId) {
-        this.loanId = loanId;
-    }
-
-    public Loan getLoan() {
-        return loan;
-    }
-
-    public void setLoan(Loan loan) {
-        this.loan = loan;
     }
 
     public Calendar getPayoffDate() {
