@@ -65,58 +65,12 @@ public class LoanWebService implements LendingWebService {
 	}
 
 	public AggregationSummary aggregationSummary(List<Loan> loan, Calendar startDate) throws LoanAccessException, ParseException {
-		AggregationSummary aggregationSummary = new AggregationSummary();
-		Double totalAmount = 0.0;
-		Double monthlyAmount = 0.0;
-		Double amountPaid = 0.0;
-		Double remainingAmount = 0.0;
-		Double remainingPercent = 0.0;
-		int maximumNumOfYear = 0;
-		Calendar payoffDate = Calendar.getInstance();
-		Calendar todayDate = Calendar.getInstance();
-		java.util.Calendar calToday = java.util.Calendar.getInstance();
-		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		todayDate.setTime(formatter.parse(calTodayStr));
-		long end = todayDate.getTimeInMillis();
-		long start = startDate.getTimeInMillis();
-
-		Long numberOfDays = TimeUnit.MILLISECONDS.toDays(Math.abs(end - start));
-		if (startDate.after(todayDate) || startDate.equals(todayDate)) {
-			for (int i = 0; i < loan.size(); i++) {
-				totalAmount += loan.get(i).getAmount();
-				if (maximumNumOfYear < loan.get(i).getNumberOfYears()) {
-					maximumNumOfYear = loan.get(i).getNumberOfYears();
-				}
-			}
-			remainingAmount = totalAmount;
-			remainingPercent = (remainingAmount / totalAmount) * 100;
-		} else if (startDate.before(todayDate)) {
-			for (int i = 0; i < loan.size(); i++) {
-				if ((loan.get(i).getNumberOfYears() * 365) > numberOfDays) {
-					totalAmount += loan.get(i).getAmount();
-					monthlyAmount += loan.get(i).getMonthly();
-				}
-				if (maximumNumOfYear < loan.get(i).getNumberOfYears()) {
-					maximumNumOfYear = loan.get(i).getNumberOfYears();
-				}
-			}
-			amountPaid = (monthlyAmount / 30) * numberOfDays;
-			remainingAmount = totalAmount - amountPaid;
-			remainingPercent = (remainingAmount / totalAmount) * 100;
+		if(loan != null && startDate!=null){
+			RestTemplate restTemplate = new RestTemplate();
+			AggregationSummary aggregationSummary = restTemplate.getForObject("http://localhost:8081/aggregationSummary?loan=" + 						loan + "&startDate=" + startDate, AggregationSummary.class);
+			return aggregationSummary;
+		}else{
+			return null;
 		}
-		Calendar c = Calendar.getInstance();
-		c.setTime(startDate.getTime());
-		c.add(Calendar.YEAR, maximumNumOfYear);
-		payoffDate = c;
-		aggregationSummary.setTotalAmount(totalAmount);
-		aggregationSummary.setAmountPaid(amountPaid);
-		aggregationSummary.setMonthlyAmount(monthlyAmount);
-		aggregationSummary.setRemainingAmount(remainingAmount);
-		aggregationSummary.setRemainingPercent(remainingPercent);
-		aggregationSummary.setStartDate(startDate);
-		aggregationSummary.setPayoffDate(payoffDate);
-		aggregationSummary.setMaximumNumOfYear(maximumNumOfYear);
-		return aggregationSummary;
 	}
 }

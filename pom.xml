@@ -7,19 +7,19 @@
     <version>1.0-SNAPSHOT</version>
     <artifactId>LoanCalculator</artifactId>
     <packaging>war</packaging>
-   
+
    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.3.RELEASE</version>
     </parent>
-    
+
     <properties>
         <spring.version>4.3.5.RELEASE</spring.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-   
+
     <build>
         <plugins>
             <plugin>
@@ -50,7 +50,7 @@
                     </execution>
                 </executions>
 	    </plugin>
-	    
+
             <plugin>
 		<artifactId>maven-war-plugin</artifactId>
 		<version>2.6</version>
@@ -58,39 +58,52 @@
 		     <failOnMissingWebXml>false</failOnMissingWebXml>
 		</configuration>
             </plugin>
-	    
+
             <plugin>
 	        <groupId>org.mortbay.jetty</groupId>
 	        <artifactId>jetty-maven-plugin</artifactId>
 	        <version>8.1.4.v20120524</version>
 	        <configuration>
 	            <webAppConfig>
-	                <contextPath>/${project.name}</contextPath>
+	                <contextPath>/</contextPath>
 	            </webAppConfig>
 	        </configuration>
 	    </plugin>
     	</plugins>
     <finalName>LoanCalculator</finalName>
 </build>
-
-    <dependencies>
+	<distributionManagement>
+		<!-- use the following if you're not using a snapshot version. -->
+		<repository>
+			<id>localSnap</id>
+			<name>RepositoryProxyRel</name>
+			<url></url>
+		</repository>
+		<!-- use the following if you ARE using a snapshot version. -->
+		<snapshotRepository>
+			<id>MylocalSnap</id>
+			<name>RepositoryProxySnap</name>
+			<url></url>
+		</snapshotRepository>
+	</distributionManagement>
+	<dependencies>
 	<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-    	
+
         <dependency>
 		<groupId>org.jfxtras</groupId>
 		<artifactId>jfxtras-agenda</artifactId>
 		<version>8.0-r1</version>
 	</dependency>
-	
+
         <dependency>
 		<groupId>org.wildfly.swarm</groupId>
 		<artifactId>javafx</artifactId>
 		<version>2016.10.0</version>
 	</dependency>
-       
+
         <dependency>
 		<groupId>com.oracle</groupId>
 		<artifactId>javafx</artifactId>
@@ -98,19 +111,19 @@
 		<scope>system</scope>
 		<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
 	</dependency>
-	
+
         <dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-core</artifactId>
 		<version>${spring.version}</version>
 	</dependency>
-	 
+
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-web</artifactId>
 		<version>${spring.version}</version>
 	</dependency>
-	 
+
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-webmvc</artifactId>
@@ -155,7 +168,7 @@
 		<artifactId>antlr</artifactId>
 		<version>2.7.7</version>
 	</dependency>
-	
+
         <!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
         <dependency>
             <groupId>com.sendgrid</groupId>
@@ -163,7 +176,7 @@
             <version>3.0.9</version>
         </dependency>
 
-        
+
         <dependency>
 		    <groupId>org.springframework</groupId>
 		        <artifactId>spring-orm</artifactId>
@@ -223,7 +236,7 @@
 																												                <artifactId>spring-orm</artifactId>
 																														<version>${spring.version}</version>
 																															            </dependency>
-																																     
+
 																																            <!-- Hibernate -->
 																																	            <dependency>
 																																			                <groupId>org.hibernate</groupId>
