@@ -27,8 +27,9 @@ public class LoanRelationshipServiceImpl implements LoanRelationshipService {
     }
 
     @Override
-    public void createLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException {
-        loanRelationshipDao.insert(loanRelationship);
+    public Serializable createLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException {
+        return loanRelationshipDao.insert(loanRelationship);
+
     }
 
     @Override

@@ -72,11 +72,11 @@
 
                     <div class="form-group row">
                         <label for="type">Loan Type</label>
-                        <select class="form-control" name="type" id="type">
+                        <select class="form-control" name="type" id="type" >
                             <option value="">Choose a Loan Type</option>
-                            <option value="Student Loan">Student Loan</option>
-                            <option value="Auto Loan">Auto Loan</option>
-                            <option value="Home Loan">Home Loan</option>
+                            <option value="Student Loan"  ${type == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
+                            <option value="Auto Loan"  ${type == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
+                            <option value="Home Loan" ${type == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
                         </select>
                     </div>
 
@@ -93,7 +93,7 @@
 
                     <div class="form-group row">
                         <label for="term">Loan Term</label>
-                        <input class="form-control" type="number" name="term" value="${term}" min="0" max="100" step="1"
+                        <input class="form-control" type="number" name="term" value="${maximumNumOfYears}" min="0" max="100" step="1"
                                id="term" readonly="readonly">
                     </div>
 

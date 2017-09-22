@@ -872,7 +872,7 @@ public class LoanCalculatorController{
 		if (StringUtils.isEmpty(loanAggId)) {
 			try {
 				loanAggId = ((Long)loanAggService.createLoanAgg(loanAgg)).toString();
-					if (StringUtils.isNotEmpty(loanIds)) {
+					if (!"[]".equals(loanIds)) {
 						loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
 						String[] loanId = loanIds.split(",");
 						for (int i = 0; i < loanId.length; i++) {
@@ -908,7 +908,7 @@ public class LoanCalculatorController{
 						}
 					}
 				}
-				if (StringUtils.isNotEmpty(loanIds)) {
+				if (!"[]".equals(loanIds)) {
 					loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
 					String[] loanId = loanIds.split(",");
 
@@ -948,7 +948,7 @@ public class LoanCalculatorController{
 					loanAggService.removeLoanAgg(loanAgg);
 				}
 
-				if (StringUtils.isNotEmpty(loansId)) {
+				if (!"[]".equals(loansId)) {
 					loansId = loansId.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
 					String[] loanId = loansId.split(",");
 					try {

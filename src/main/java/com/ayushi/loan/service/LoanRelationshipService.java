@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface LoanRelationshipService {
-	public void createLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException;
+	public Serializable createLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException;
 	public LoanRelationship retrieveLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException;
 	public void modifyLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException;
 	public void removeLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException;

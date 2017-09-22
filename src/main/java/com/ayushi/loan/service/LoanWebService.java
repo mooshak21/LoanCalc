@@ -89,8 +89,7 @@ public class LoanWebService implements LendingWebService {
 				org.apache.commons.codec.net.URLCodec codec = new org.apache.commons.codec.net.URLCodec();
 
 				//aggregationSummary = restTemplate.exchange("http://localhost:9999/aggregationSummary?startDate=" + str + "&loan="+ codec.encode(mapper.writeValueAsString(loan)), HttpMethod.GET, requestEntity, new ParameterizedTypeReference<AggregationSummary>() {});
-				aggregationSummary = restTemplate.postForObject("https://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?startDate=" + str,
-						codec.encode(mapper.writeValueAsString(loan)), AggregationSummary.class);
+				aggregationSummary = restTemplate.postForObject("https://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?startDate=" + str, codec.encode(mapper.writeValueAsString(loan)), AggregationSummary.class);
 				return aggregationSummary;
 			} catch (Exception e) {
 				e.printStackTrace();

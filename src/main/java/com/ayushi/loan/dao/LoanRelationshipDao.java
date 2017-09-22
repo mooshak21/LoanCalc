@@ -37,11 +37,10 @@ public class LoanRelationshipDao implements LendingDao {
     public Serializable insert(Object o) throws LoanAccessException{
         HibernateTemplate ht = new HibernateTemplate(sessionFactory);
         try{
-            ht.saveOrUpdate(o);
+            return ht.save(o);
         }catch(DataAccessException dae){
             throw new LoanAccessException(dae);
         }
-        return null;
     }
 
     public void remove(Object o) throws LoanAccessException {
