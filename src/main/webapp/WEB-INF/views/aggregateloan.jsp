@@ -51,7 +51,7 @@
 </c:if>
 <c:if test="${loanEntries1 != null  || loanEntries2 != null }">
     <form name="loanAggregateForm" id="form1" action="/updateaggregate" method="POST"
-          onsubmit='if(loanAggregateForm.name.value == ""  && loanAggregateForm.type.value == "" && loanAggregateForm.email.value == "" && loanAggregateForm.startDate.value == "" && loanAggregateForm.term.value == ""){ alert("Please enter at least Name, Loan Type, Email, Start Date, Loan Term"); loanAggregateForm.name.focus(); return false;}'>
+          onsubmit='if(loanAggregateForm.name.value == "" || loanAggregateForm.type.value == "" || loanAggregateForm.email.value == "" || loanAggregateForm.startDate.value == "" || loanAggregateForm.term.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
 
@@ -62,17 +62,17 @@
 
                     <div class="form-group row" style="display: none;">
                         <label for="loanAggId">Loan Agg Id</label>
-                        <input class="form-control" type="text" name="loanAggId" value="${loanAggId}" id="loanAggId">
+                        <input class="form-control" type="text" name="loanAggId" value="${loanAggId}"  id="loanAggId">
                     </div>
 
                     <div class="form-group row">
                         <label for="name">Loan Name</label>
-                        <input class="form-control" type="text" name="name" value="${name}" id="name">
+                        <input class="form-control" type="text" name="name" value="${name}" required="true" id="name">
                     </div>
 
                     <div class="form-group row">
                         <label for="type">Loan Type</label>
-                        <select class="form-control" name="type" id="type" >
+                        <select class="form-control" name="type" required="true" id="type" >
                             <option value="">Choose a Loan Type</option>
                             <option value="Student Loan"  ${type == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
                             <option value="Auto Loan"  ${type == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
@@ -82,7 +82,7 @@
 
                     <div class="form-group row">
                         <label for="email">Loanee Email Address</label>
-                        <input class="form-control" type="text" name="email" value="${email}" id="email">
+                        <input class="form-control" type="text" name="email" value="${email}" required="true" id="email">
                     </div>
 
                     <div class="form-group row">

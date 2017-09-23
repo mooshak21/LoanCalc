@@ -717,6 +717,7 @@ public class LoanCalculatorController{
 						return "aggregateloan";
 					}
 				}
+				String message = null;
 				model.addAttribute("loanEntries1", uniqueLoans);
 				model.addAttribute("loanEntries2", duplicateLoans);
 
