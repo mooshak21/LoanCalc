@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c942a277-6019-4801-b140-6afd2c511277" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggmaster.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring/database.properties" afterPath="$PROJECT_DIR$/src/main/resources/spring/database.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/layouts/aggregateloan.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/layouts/aggregateloan.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,18 +26,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoanCalculatorController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoanCalculatorController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
-              <caret line="985" column="9" lean-forward="false" selection-start-line="985" selection-start-column="9" selection-end-line="985" selection-end-column="9" />
+            <state relative-caret-position="285">
+              <caret line="758" column="8" lean-forward="false" selection-start-line="758" selection-start-column="8" selection-end-line="758" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#37913#37919#0" expanded="true" />
-                <element signature="e#38009#38015#0" expanded="true" />
-                <element signature="e#38867#38875#0" expanded="true" />
-                <element signature="e#38922#38930#0" expanded="true" />
-                <element signature="e#42570#42578#0" expanded="true" />
+                <element signature="e#37914#37920#0" expanded="true" />
+                <element signature="e#38010#38016#0" expanded="true" />
+                <element signature="e#38868#38876#0" expanded="true" />
+                <element signature="e#38923#38931#0" expanded="true" />
+                <element signature="e#42571#42579#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="database.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/spring/database.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -175,13 +169,13 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggmaster.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/layouts/aggregateloan.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/spring/database.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ayushi/loan/service/LoanWebService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
       </list>
     </option>
   </component>
@@ -1154,12 +1148,12 @@
       <updated>1505984629361</updated>
       <workItem from="1505984630853" duration="10471000" />
       <workItem from="1506052068476" duration="28582000" />
-      <workItem from="1506139272720" duration="11918000" />
+      <workItem from="1506139272720" duration="12276000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50971000" />
+    <option name="totallyTimeSpent" value="51329000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -1256,31 +1250,31 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java</url>
-          <line>956</line>
+          <line>957</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java</url>
-          <line>990</line>
+          <line>991</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java</url>
-          <line>929</line>
+          <line>930</line>
           <properties />
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java</url>
-          <line>896</line>
+          <line>897</line>
           <properties />
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java</url>
-          <line>859</line>
+          <line>860</line>
           <properties />
           <option name="timeStamp" value="56" />
         </line-breakpoint>
@@ -1300,11 +1294,11 @@
           <caret line="972" column="0" lean-forward="false" selection-start-line="972" selection-start-column="0" selection-end-line="972" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#37913#37919#0" expanded="true" />
-            <element signature="e#38009#38015#0" expanded="true" />
-            <element signature="e#38867#38875#0" expanded="true" />
-            <element signature="e#38922#38930#0" expanded="true" />
-            <element signature="e#42570#42578#0" expanded="true" />
+            <element signature="e#37914#37920#0" expanded="true" />
+            <element signature="e#38010#38016#0" expanded="true" />
+            <element signature="e#38868#38876#0" expanded="true" />
+            <element signature="e#38923#38931#0" expanded="true" />
+            <element signature="e#42571#42579#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1716,21 +1710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="985" column="9" lean-forward="false" selection-start-line="985" selection-start-column="9" selection-end-line="985" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#37913#37919#0" expanded="true" />
-            <element signature="e#38009#38015#0" expanded="true" />
-            <element signature="e#38867#38875#0" expanded="true" />
-            <element signature="e#38922#38930#0" expanded="true" />
-            <element signature="e#42570#42578#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1760,6 +1739,21 @@
         <state relative-caret-position="102">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="758" column="8" lean-forward="false" selection-start-line="758" selection-start-column="8" selection-end-line="758" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#37914#37920#0" expanded="true" />
+            <element signature="e#38010#38016#0" expanded="true" />
+            <element signature="e#38868#38876#0" expanded="true" />
+            <element signature="e#38923#38931#0" expanded="true" />
+            <element signature="e#42571#42579#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

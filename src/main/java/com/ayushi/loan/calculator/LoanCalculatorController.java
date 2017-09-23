@@ -756,11 +756,12 @@ public class LoanCalculatorController{
 				model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
 				model.addAttribute("startDate", calTodayStr);
 			}
-			return "aggregateloan";
 		}else{
 			model.addAttribute("message", "No Record Found");
 			return "aggregateloan";
 		}
+			return "aggregateloan";
+
 	}
 
 	@RequestMapping(value = "/aggregateloanask")
