@@ -18,7 +18,7 @@
 
                     <div class="form-group row" style="display: none;">
                         <label for="loanAggId">Loan Agg Id</label>
-                        <input class="form-control" type="text" name="loanAggId" value="${loanAggId}" required="true" id="loanAggId">
+                        <input class="form-control" type="text" name="loanAggId" value="${loanAggId}" id="loanAggId">
                     </div>
 
                     <div class="form-group row">
