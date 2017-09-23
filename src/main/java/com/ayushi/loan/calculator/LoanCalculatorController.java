@@ -605,7 +605,7 @@ public class LoanCalculatorController{
 			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			Model model, HttpServletRequest request) throws ParseException {
 		java.util.List<Serializable> loans = searchLoanForAggregation(loanAmt, lender, state, numOfYears, airVal);
-		if(loans!=null) {
+		if(loans.size()>0 ){
 			java.util.List<Serializable> loanRelationship = null;
 			java.util.List<Serializable> loanAgg = null;
 			List<LoanAgg> loanagg = new ArrayList<LoanAgg>();
@@ -985,10 +985,11 @@ public class LoanCalculatorController{
 
 		}
 
-		loanAgg = (LoanAgg)loanAggDetails.get(0);
+
 		model.addAttribute("loanEntries1", loans2);
 		model.addAttribute("loanEntries2", loans1);
-		if (loanAgg!=null && loanAggRemovedCounter==0) {
+		if (loanAggDetails!=null && loanAggRemovedCounter==0 && loanAggDetails.get(0) != null) {
+			loanAgg = (LoanAgg)loanAggDetails.get(0);
 			model.addAttribute("loanAggId", loanAgg.getLoanAggId());
 			model.addAttribute("name", loanAgg.getName());
 			model.addAttribute("type", loanAgg.getType());

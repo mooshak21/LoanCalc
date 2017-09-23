@@ -6,8 +6,8 @@
 
 
 <c:if test="${loanEntries1 != null  || loanEntries2 != null }">
-    <form name="loanAggregateForm" id="loanAggregateForm" action="/updateaggregate" method="POST"
-          onsubmit='if(loanAggregateForm.name.value == ""  && loanAggregateForm.type.value == "" && loanAggregateForm.email.value == "" && loanAggregateForm.startDate.value == "" && loanAggregateForm.term.value == ""){ alert("Please enter at least Name, Loan Type, Email, Start Date, Loan Term"); loanAggregateForm.name.focus(); return false;}'>
+    <form name="loanAggregateForm1" id="loanAggregateForm1" action="/updateaggregate" method="POST"
+          onsubmit='if(loanAggregateForm1.name1.value == ""  && loanAggregateForm1.type1.value == "" && loanAggregateForm1.email1.value == "" && loanAggregateForm1.startDate1.value == "" && loanAggregateForm1.term1.value == ""){ alert("Please enter at least Name, Loan Type, Email, Start Date, Loan Term"); loanAggregateForm.name.focus(); return false;}'>
         <div class="row justify-content-center">
             <div class="card col-10 col-md-8 cardBody">
 
@@ -56,23 +56,22 @@
                     <input class="form-control" name="loanIds" type="hidden" id="loanIds">
                     <input class="form-control" name="loansId" type="hidden" id="loansId">
 
-
                     <button type="submit" class="btn btn-default">Save Aggregation</button>
                     <input type="button" value="Clear" class="btn btn-default" onClick="clearFields()">
                     <button onclick="location.href='/aggregateloanask'" type="button" class="btn btn-default">Search</button>
 
                     <script>
                         function clearFields() {
-                            var elmLength = document.getElementById('loanAggregateForm').elements.length;
+                            var elmLength = document.getElementById('loanAggregateForm1').elements.length;
                             for (i = 0; i < elmLength; i++) {
-                                var typ = document.getElementById('loanAggregateForm').elements[i].type;
+                                var typ = document.getElementById('loanAggregateForm1').elements[i].type;
                                 if (typ == "text") {
-                                    document.getElementById('loanAggregateForm').elements[i].value = "";
+                                    document.getElementById('loanAggregateForm1').elements[i].value = "";
                                 }
                                 else if (typ == "date") {
-                                    document.getElementById('loanAggregateForm').elements[i].value = "";
+                                    document.getElementById('loanAggregateForm1').elements[i].value = "";
                                 } else if (typ == "number") {
-                                    document.getElementById('loanAggregateForm').elements[i].value = "";
+                                    document.getElementById('loanAggregateForm1').elements[i].value = "";
                                 }
                             }
                             return false;
@@ -91,7 +90,7 @@
         </style>
         <div class="row">
             <div class="col-sm-5 table-responsive">
-                <table class="table table-bordered" id="table1">
+                <table class="table table-bordered" id="mtable1">
                     <thead class="thead-default">
                     <tr>
                         <th>Sel</th>
@@ -112,14 +111,14 @@
             </div>
             <div class="col-sm-2" style="padding-top: 50px;">
                 <p class="text-center">
-                    <input class="btn btn-sm btn-primary" type="button" id="aggregate" value="aggregate" onclick="aggregate1()">
+                    <input class="btn btn-sm btn-primary" type="button" id="maggregate" value="aggregate" onclick="maggregate1()">
                 </p>
                 <p class="text-center">
-                    <input class="btn btn-sm btn-primary" type="button" id="deaggregate" value="deaggregate" onclick="deaggregate1()">
+                    <input class="btn btn-sm btn-primary" type="button" id="mdeaggregate" value="deaggregate" onclick="mdeaggregate1()">
                 </p>
             </div>
             <div class="col-sm-5 table-responsive">
-                <table id="table2" class="table table-bordered">
+                <table id="mtable2" class="table table-bordered">
                     <thead class="thead-default">
                     <tr>
                         <th>Sel</th>
@@ -164,55 +163,41 @@
 </c:if>
 
 <script type="text/javascript">
-    setLoanVal();
-    function setLoanVal(){
+    setLoanVal1();
+    function setLoanVal1(){
         var loan = [];
         var loans = [];
-        $("#table2 input:checkbox").each(function(obj){
+        $("#mtable2 input:checkbox").each(function(obj){
             loan.push($(this).val());
         })
-        $("#loanAggregateForm #loanIds").val(JSON.stringify(loan));
         $("#loanAggregateForm1 #loanIds").val(JSON.stringify(loan));
-        $("#table1 input:checkbox").each(function(obj){
+        $("#loanAggregateForm #loanIds").val(JSON.stringify(loan));
+        $("#mtable1 input:checkbox").each(function(obj){
             loans.push($(this).val());
         })
-        $("#loanAggregateForm #loansId").val(JSON.stringify(loans));
         $("#loanAggregateForm1 #loansId").val(JSON.stringify(loans));
+        $("#loanAggregateForm #loansId").val(JSON.stringify(loans));
     }
 
-    function aggregate1() {
-        var row = $('#table1 tbody tr td input.checkbox:checked').closest('tr').clone();
+    function maggregate1() {
+        var row = $('#mtable1 tbody tr td input.checkbox:checked').closest('tr').clone();
         console.log("==>", row);
-        $('#table2 tbody').append(row);
-        $('#table1 tbody tr td input.checkbox:checked').closest('tr').remove();
-        setLoanVal();
+        $('#mtable2 tbody').append(row);
+        $('#mtable1 tbody tr td input.checkbox:checked').closest('tr').remove();
+        setLoanVal1();
     }
 
-    function deaggregate1() {
-        var row = $('#table2 tbody tr td input.checkbox:checked').closest('tr').clone();
+    function mdeaggregate1() {
+        var row = $('#mtable2 tbody tr td input.checkbox:checked').closest('tr').clone();
         console.log("rows:", row);
 
 //            var row = $('#table2 tbody tr td input.checkbox:checked').parent().clone();
-        $('#table1 tbody').append(row);
-        $('#table2 tbody tr td input.checkbox:checked').closest('tr').remove();
-        setLoanVal();
+        $('#mtable1 tbody').append(row);
+        $('#mtable2 tbody tr td input.checkbox:checked').closest('tr').remove();
+        setLoanVal1();
 
     }
-    function clearFields() {
-        var elmLength = document.getElementById('form').elements.length;
-        for (i = 0; i < elmLength; i++) {
-            var typ = document.getElementById('form').elements[i].type;
-            if (typ == "text") {
-                document.getElementById('form').elements[i].value = "";
-            }
-            else if (typ == "date") {
-                document.getElementById('form').elements[i].value = "";
-            } else if (typ == "number") {
-                document.getElementById('form').elements[i].value = "";
-            }
-        }
-        return false;
-    }
+
     // tell the embed parent frame the height of the content
     if (window.parent && window.parent.parent) {
         window.parent.parent.postMessage(["resultsFrame", {

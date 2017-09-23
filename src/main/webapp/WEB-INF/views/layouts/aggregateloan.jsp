@@ -29,8 +29,8 @@
                    <tiles:insertAttribute name="menu" />
                </div>
                <div class="col-12 loanBody">
-                   <tiles:insertAttribute name="master" />
-                   <tiles:insertAttribute name="detail" />
+                   <tiles:insertAttribute name="mmaster" />
+                   <tiles:insertAttribute name="mdetail" />
                </div>
            </div>
 
