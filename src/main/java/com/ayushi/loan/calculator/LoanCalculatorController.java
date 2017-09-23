@@ -718,6 +718,7 @@ public class LoanCalculatorController{
 					}
 				}
 				String message = null;
+
 				model.addAttribute("loanEntries1", uniqueLoans);
 				model.addAttribute("loanEntries2", duplicateLoans);
 
@@ -757,6 +758,7 @@ public class LoanCalculatorController{
 				model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
 				model.addAttribute("startDate", calTodayStr);
 			}
+			model.addAttribute("message", "");
 		}else{
 			model.addAttribute("message", "No Record Found");
 			return "aggregateloan";
