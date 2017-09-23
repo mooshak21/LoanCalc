@@ -51,7 +51,7 @@
 </c:if>
 <c:if test="${loanEntries1 != null  || loanEntries2 != null }">
     <form name="loanAggregateForm" id="form1" action="/updateaggregate" method="POST"
-          onsubmit='if(loanAggregateForm.name.value == "" || loanAggregateForm.type.value == "" || loanAggregateForm.email.value == "" || loanAggregateForm.startDate.value == "" || loanAggregateForm.term.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
+          onsubmit='if(loanAggregateForm.name.value == "" && loanAggregateForm.type.value == "" && loanAggregateForm.email.value == "" && loanAggregateForm.startDate.value == "" && loanAggregateForm.term.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
 

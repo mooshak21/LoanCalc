@@ -7,7 +7,7 @@
 
 <c:if test="${loanEntries1 != null  || loanEntries2 != null }">
     <form name="loanAggregateForm1" id="loanAggregateForm1" action="/updateaggregate" method="POST"
-          onsubmit='if(loanAggregateForm1.name1.value == ""  || loanAggregateForm1.type1.value == "" || loanAggregateForm1.email1.value == "" || loanAggregateForm1.startDate1.value == "" || loanAggregateForm1.term1.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
+          onsubmit='if(loanAggregateForm1.name1.value == ""  && loanAggregateForm1.type1.value == "" && loanAggregateForm1.email1.value == "" && loanAggregateForm1.startDate1.value == "" && loanAggregateForm1.term1.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
         <div class="row justify-content-center">
             <div class="card col-10 col-md-8 cardBody">
 

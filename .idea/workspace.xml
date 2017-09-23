@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c942a277-6019-4801-b140-6afd2c511277" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/aggregateloan.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/aggregateloan.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoanCalculatorController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoanCalculatorController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="744" column="41" lean-forward="true" selection-start-line="744" selection-start-column="41" selection-end-line="744" selection-end-column="41" />
+            <state relative-caret-position="2904">
+              <caret line="754" column="107" lean-forward="true" selection-start-line="754" selection-start-column="107" selection-end-line="754" selection-end-column="107" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -50,8 +52,8 @@
       <file leaf-file-name="aggdetail.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="40" column="109" lean-forward="false" selection-start-line="40" selection-start-column="109" selection-end-line="40" selection-end-column="109" />
+            <state relative-caret-position="153">
+              <caret line="9" column="182" lean-forward="false" selection-start-line="9" selection-start-column="182" selection-end-line="9" selection-end-column="182" />
               <folding />
             </state>
           </provider>
@@ -60,18 +62,18 @@
       <file leaf-file-name="aggregateloan.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/aggregateloan.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="84" column="109" lean-forward="true" selection-start-line="84" selection-start-column="94" selection-end-line="84" selection-end-column="109" />
+            <state relative-caret-position="234">
+              <caret line="53" column="180" lean-forward="false" selection-start-line="53" selection-start-column="180" selection-end-line="53" selection-end-column="180" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maggdetail.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="maggdetail.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="51">
+              <caret line="9" column="189" lean-forward="false" selection-start-line="9" selection-start-column="189" selection-end-line="9" selection-end-column="189" />
               <folding />
             </state>
           </provider>
@@ -162,10 +164,10 @@
         <option value="$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ayushi/loan/service/LoanWebService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/aggregateloan.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
       </list>
     </option>
   </component>
@@ -1139,12 +1141,12 @@
       <workItem from="1505984630853" duration="10471000" />
       <workItem from="1506052068476" duration="28582000" />
       <workItem from="1506139272720" duration="13057000" />
-      <workItem from="1506152808154" duration="1245000" />
+      <workItem from="1506152808154" duration="1600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53355000" />
+    <option name="totallyTimeSpent" value="53710000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -1635,18 +1637,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/service/LoanWebService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="92" column="42" lean-forward="false" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2904">
+          <caret line="754" column="107" lean-forward="true" selection-start-line="754" selection-start-column="107" selection-end-line="754" selection-end-column="107" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/aggregateloan.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="84" column="109" lean-forward="true" selection-start-line="84" selection-start-column="94" selection-end-line="84" selection-end-column="109" />
+        <state relative-caret-position="234">
+          <caret line="53" column="180" lean-forward="false" selection-start-line="53" selection-start-column="180" selection-end-line="53" selection-end-column="180" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/aggdetail.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="40" column="109" lean-forward="false" selection-start-line="40" selection-start-column="109" selection-end-line="40" selection-end-column="109" />
+        <state relative-caret-position="153">
+          <caret line="9" column="182" lean-forward="false" selection-start-line="9" selection-start-column="182" selection-end-line="9" selection-end-column="182" />
           <folding />
         </state>
       </provider>
@@ -1661,27 +1681,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/maggdetail.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="9" column="189" lean-forward="false" selection-start-line="9" selection-start-column="189" selection-end-line="9" selection-end-column="189" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/service/LoanWebService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="92" column="42" lean-forward="false" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="744" column="41" lean-forward="true" selection-start-line="744" selection-start-column="41" selection-end-line="744" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
