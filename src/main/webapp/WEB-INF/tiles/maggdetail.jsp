@@ -7,7 +7,7 @@
 
 <c:if test="${loanEntries1 != null  || loanEntries2 != null }">
     <form name="loanAggregateForm1" id="loanAggregateForm1" action="/updateaggregate" method="POST"
-          onsubmit='if(loanAggregateForm1.name1.value == ""  && loanAggregateForm1.type1.value == "" && loanAggregateForm1.email1.value == "" && loanAggregateForm1.startDate1.value == "" && loanAggregateForm1.term1.value == ""){ alert("Please enter at least Name, Loan Type, Email, Start Date, Loan Term"); loanAggregateForm.name.focus(); return false;}'>
+          onsubmit='if(loanAggregateForm1.name1.value == ""  || loanAggregateForm1.type1.value == "" || loanAggregateForm1.email1.value == "" || loanAggregateForm1.startDate1.value == "" || loanAggregateForm1.term1.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
         <div class="row justify-content-center">
             <div class="card col-10 col-md-8 cardBody">
 
@@ -23,12 +23,12 @@
 
                     <div class="form-group row">
                         <label for="name">Loan Name</label>
-                        <input class="form-control" type="text" name="name" value="${name}" id="name">
+                        <input class="form-control" type="text" name="name" required="true" value="${name}" id="name">
                     </div>
 
                     <div class="form-group row">
                         <label for="type">Loan Type</label>
-                        <select class="form-control" name="type" id="type" >
+                        <select class="form-control" name="type" required="true" id="type" >
                             <option value="">Choose a Loan Type</option>
                             <option value="Student Loan"  ${type == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
                             <option value="Auto Loan"  ${type == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
@@ -38,7 +38,7 @@
 
                     <div class="form-group row">
                         <label for="email">Loanee Email Address</label>
-                        <input class="form-control" type="text" name="email" value="${email}" id="email">
+                        <input class="form-control" type="text" name="email" required="true" value="${email}" id="email">
                     </div>
 
                     <div class="form-group row">
