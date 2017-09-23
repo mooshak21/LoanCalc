@@ -21,7 +21,7 @@ public class AggregationSummary implements Serializable {
         amountPaid = 0.0;
         remainingPercent  = 0.0;
         remainingAmount = 0.0;
-        maximumNumOfYear = 1;
+        maximumNumOfYear = 0;
         startDate = GregorianCalendar.getInstance();
         payoffDate = GregorianCalendar.getInstance();
     }

@@ -25,7 +25,8 @@
         <put-attribute name="title" value="Search Loan homepage" />
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
-        <put-attribute name="detail" value="/WEB-INF/tiles/detail.jsp" />
+        <put-attribute name="master" value="/WEB-INF/tiles/aggmaster.jsp" />
+        <put-attribute name="detail" value="/WEB-INF/tiles/aggdetail.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     
@@ -64,6 +65,5 @@
 
     <definition name="aggregateloan" extends ="loanapp.aggregatepage">
         <put-attribute name="title" value="Loan Aggregation"/>
-        <put-attribute name="detail" value="/WEB-INF/views/aggregateloan.jsp"/>
     </definition>
 </tiles-definitions>

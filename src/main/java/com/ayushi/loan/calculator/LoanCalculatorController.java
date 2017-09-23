@@ -610,6 +610,8 @@ public class LoanCalculatorController{
 		List<LoanAgg> loanagg = new ArrayList<LoanAgg>();
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		String startDate = null;
+		java.util.Calendar calToday = java.util.Calendar.getInstance();
+		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
 		AggregationSummary aggregationSummary = new AggregationSummary();
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
@@ -745,6 +747,13 @@ public class LoanCalculatorController{
 				model.addAttribute("startDate", loanagg.get(0).getStartDate());
 				model.addAttribute("email", loanagg.get(0).getEmail());
 			}
+			model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
+			model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
+			model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
+			model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
+			model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
+			model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
+			model.addAttribute("startDate",calTodayStr);
 		}
 		return "aggregateloan";
 	}
@@ -847,45 +856,40 @@ public class LoanCalculatorController{
 		List<Loan> loans1 = new ArrayList<Loan>();
 		java.util.List<Serializable> loansForAgg = null;
 		List<Loan> loans2 = new ArrayList<Loan>();
-		LoanAgg loanAgg = new LoanAgg();
-		System.out.println(loanIds);
-		if (StringUtils.isNotEmpty(loanAggId)) {
-			loanAgg.setLoanAggId(Long.valueOf(loanAggId));
-		}
+		LoanAgg loanAgg= null;
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Calendar cal = null;
 		cal = Calendar.getInstance();
 		cal.setTime(formatter.parse(startDate));
-		loanAgg.setName(name);
-		loanAgg.setType(type);
-		loanAgg.setEmail(email);
-
-		loanAgg.setStartDate(cal);
-		loanAgg.setTerm(term);
+		//System.out.println(loanIds);
+		if (StringUtils.isNotEmpty(loanAggId)) {
+			loanAgg = new LoanAgg();
+			loanAgg.setLoanAggId(Long.valueOf(loanAggId));
+			loanAgg.setName(name);
+			loanAgg.setType(type);
+			loanAgg.setEmail(email);
+			loanAgg.setStartDate(cal);
+			loanAgg.setTerm(term);
+		}
 		LoanAggService loanAggService = (LoanAggService) appCtx.getBean("loanAggService");
 		LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
 		StringBuffer querySB = new StringBuffer();
 		Object[] queryVals = null;
+		Object[] queryValsForRemove = null;
+		List<Object> queryValListForRemove = new ArrayList<Object>();
 		List<Object> queryValList = new ArrayList<Object>();
 		AggregationSummary aggregationSummary = new AggregationSummary();
+		int loanAggRemovedCounter =0;
 
-		if (StringUtils.isEmpty(loanAggId)) {
+		if (StringUtils.isEmpty(loanAggId) && !"[]".equals(loanIds)) {
 			try {
+				loanAgg = new LoanAgg();
+				loanAgg.setName(name);
+				loanAgg.setType(type);
+				loanAgg.setEmail(email);
+				loanAgg.setStartDate(cal);
+				loanAgg.setTerm(term);
 				loanAggId = ((Long)loanAggService.createLoanAgg(loanAgg)).toString();
-					if (!"[]".equals(loanIds)) {
-						loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
-						String[] loanId = loanIds.split(",");
-						for (int i = 0; i < loanId.length; i++) {
-							LoanRelationship loanRelationship = new LoanRelationship();
-							loanRelationship.setLoanAgg(loanAgg);
-							loanRelationship.setName(name);
-							loanRelationship.setType(type);
-							loanRelationship.setEmail(email);
-							loanRelationship.setLoanId(Long.parseLong(loanId[i]));
-							loanRelationshipService.createLoanRelation(loanRelationship);
-						}
-					}
-
 			} catch (LoanAccessException lae) {
 				lae.printStackTrace();
 				return "aggregateloan";
@@ -930,7 +934,7 @@ public class LoanCalculatorController{
 						querySBForLoan.append("la.loanId=?");
 						queryValListForLoan.add(Long.valueOf(Long.parseLong(loanId[counter])));
 						queryValsForLoan = new Object[queryValListForLoan.size()];
-						queryValsForLoan = queryValListForLoan.toArray(queryVals);
+						queryValsForLoan = queryValListForLoan.toArray(queryValsForLoan);
 						loans = loanService.findLoan("select la from Loan la where " + querySBForLoan.toString(), queryValsForLoan);
 						loans1.add((Loan) loans.get(0));
 					}
@@ -946,28 +950,7 @@ public class LoanCalculatorController{
 					loanAggService.modifyLoanAgg(loanAgg);
 				} else {
 					loanAggService.removeLoanAgg(loanAgg);
-				}
-
-				if (!"[]".equals(loansId)) {
-					loansId = loansId.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
-					String[] loanId = loansId.split(",");
-					try {
-						for (int counter = 0; counter < loanId.length; counter++) {
-							StringBuffer querySBForLoanAgg = new StringBuffer();
-							Object[] queryValsForLoanAgg = null;
-							List<Object> queryValListForLoan = new ArrayList<Object>();
-							querySBForLoanAgg.append("la.loanId=?");
-							queryValListForLoan.add(Long.valueOf(Long.valueOf(Long.parseLong(loanId[counter]))));
-							queryValsForLoanAgg = new Object[queryValListForLoan.size()];
-							queryValsForLoanAgg = queryValListForLoan.toArray(queryVals);
-							loansForAgg = loanAggService.findLoanAgg("select la from Loan la where " + querySBForLoanAgg.toString(), queryValsForLoanAgg);
-							loans2.add((Loan) loansForAgg.get(0));
-						}
-
-					} catch (LoanAccessException lae) {
-						lae.printStackTrace();
-					}
-
+					loanAggRemovedCounter =1;
 				}
 			} catch (LoanAccessException lae) {
 				lae.printStackTrace();
@@ -975,9 +958,32 @@ public class LoanCalculatorController{
 
 
 		}
+		if (!"[]".equals(loansId)) {
+			loansId = loansId.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
+			String[] loanId = loansId.split(",");
+			try {
+				for (int counter = 0; counter < loanId.length; counter++) {
+					StringBuffer querySBForLoanAgg = new StringBuffer();
+					Object[] queryValsForLoanAgg = null;
+					List<Object> queryValListForLoan = new ArrayList<Object>();
+					querySBForLoanAgg.append("la.loanId=?");
+					queryValListForLoan.add(Long.valueOf(Long.valueOf(Long.parseLong(loanId[counter]))));
+					queryValsForLoanAgg = new Object[queryValListForLoan.size()];
+					queryValsForLoanAgg = queryValListForLoan.toArray(queryValsForLoanAgg);
+					loansForAgg = loanAggService.findLoanAgg("select la from Loan la where " + querySBForLoanAgg.toString(), queryValsForLoanAgg);
+					loans2.add((Loan) loansForAgg.get(0));
+				}
+
+			} catch (LoanAccessException lae) {
+				lae.printStackTrace();
+			}
+
+		}
+
+		loanAgg = (LoanAgg)loanAggDetails.get(0);
 		model.addAttribute("loanEntries1", loans2);
 		model.addAttribute("loanEntries2", loans1);
-		if (loanAgg.getLoanAggId() != null) {
+		if (loanAgg!=null && loanAggRemovedCounter==0) {
 			model.addAttribute("loanAggId", loanAgg.getLoanAggId());
 			model.addAttribute("name", loanAgg.getName());
 			model.addAttribute("type", loanAgg.getType());

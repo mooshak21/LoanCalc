@@ -24,11 +24,22 @@
                   </div>
             </div>
 
+           <div class="row hidden-sm-up" style="min-height: 80%">
+               <div class="col-12 loanMenu" style="height: 15%">
+                   <tiles:insertAttribute name="menu" />
+               </div>
+               <div class="col-12 loanBody">
+                   <tiles:insertAttribute name="master" />
+                   <tiles:insertAttribute name="detail" />
+               </div>
+           </div>
+
             <div class="row hidden-xs-down" style="min-height: 80%">
                   <div class="col-sm-3 loanMenu">
                      <tiles:insertAttribute name="menu" />
                   </div>
                   <div class="col-sm-9 loanBody">
+                      <tiles:insertAttribute name="master" />
                       <tiles:insertAttribute name="detail" />
                   </div>
             </div>

@@ -8,9 +8,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- */
 public class LoanRelationshipDao implements LendingDao {
 
     private SessionFactory sessionFactory;
@@ -37,10 +34,11 @@ public class LoanRelationshipDao implements LendingDao {
     public Serializable insert(Object o) throws LoanAccessException{
         HibernateTemplate ht = new HibernateTemplate(sessionFactory);
         try{
-            return ht.save(o);
+            ht.save(o);
         }catch(DataAccessException dae){
             throw new LoanAccessException(dae);
         }
+        return null;
     }
 
     public void remove(Object o) throws LoanAccessException {

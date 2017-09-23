@@ -1,6 +1,5 @@
 package com.ayushi.loan.service;
 
-import com.ayushi.loan.Loan;
 import com.ayushi.loan.LoanRelationship;
 import com.ayushi.loan.dao.LoanRelationshipDao;
 import com.ayushi.loan.exception.LoanAccessException;
@@ -8,9 +7,6 @@ import com.ayushi.loan.exception.LoanAccessException;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- */
 public class LoanRelationshipServiceImpl implements LoanRelationshipService {
 
     private LoanRelationshipDao loanRelationshipDao;
@@ -28,7 +24,8 @@ public class LoanRelationshipServiceImpl implements LoanRelationshipService {
 
     @Override
     public Serializable createLoanRelation(LoanRelationship loanRelationship) throws LoanAccessException {
-        return loanRelationshipDao.insert(loanRelationship);
+         loanRelationshipDao.insert(loanRelationship);
+         return null;
 
     }
 
