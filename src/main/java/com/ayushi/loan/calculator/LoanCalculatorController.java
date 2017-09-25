@@ -374,8 +374,6 @@ public class LoanCalculatorController{
                                     redirectAttributes.addFlashAttribute("emailErr","we couldn't send you the email. Please try later!");
                                 }
                            }
-                               
-                           
                        }else{
                             redirectAttributes.addFlashAttribute("emailErr",  prop.getProperty("email.error"));
                        }
@@ -593,7 +591,6 @@ public class LoanCalculatorController{
                             Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
                        }
                         return prop;
-                     
                     }
 
 	@RequestMapping(value = "/aggregateloan", method = RequestMethod.POST)
@@ -699,7 +696,6 @@ public class LoanCalculatorController{
 					queryVals = queryValList.toArray(queryVals);
 					loanAgg = loanAggService.findLoanAgg("select la from LoanAgg la where " + querySB.toString(), queryVals);
 
-
 				} catch (LoanAccessException lae) {
 					lae.printStackTrace();
 				}
@@ -766,7 +762,6 @@ public class LoanCalculatorController{
 			return "aggregateloan";
 		}
 			return "aggregateloan";
-
 	}
 
 	@RequestMapping(value = "/aggregateloanask")
@@ -785,7 +780,6 @@ public class LoanCalculatorController{
 		Object[] queryVals = null;
 		boolean firstVal = false;
 		Double payoffAmt = null;
-
 
 		if(loanId != null && !loanId.equals("")){
 			querySB.append("ln.loanId=?");
@@ -859,7 +853,6 @@ public class LoanCalculatorController{
 			}
 		}
 		return loans;
-
 	}
 
 
@@ -979,8 +972,6 @@ public class LoanCalculatorController{
 			} catch (LoanAccessException lae) {
 				lae.printStackTrace();
 			}
-
-
 		}
 		if (!"[]".equals(loansId)) {
 			loansId = loansId.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
@@ -997,11 +988,9 @@ public class LoanCalculatorController{
 					loansForAgg = loanAggService.findLoanAgg("select la from Loan la where " + querySBForLoanAgg.toString(), queryValsForLoanAgg);
 					loans2.add((Loan) loansForAgg.get(0));
 				}
-
 			} catch (LoanAccessException lae) {
 				lae.printStackTrace();
 			}
-
 		}
 
 		model.addAttribute("message", "");
@@ -1025,7 +1014,6 @@ public class LoanCalculatorController{
 		if(loanAggDetails ==null && loanAggRemovedCounter==0){
 			model.addAttribute("message", "Please select Loan For Aggregation!");
 		}
-
 		return "aggregateloan";
 	}
 
