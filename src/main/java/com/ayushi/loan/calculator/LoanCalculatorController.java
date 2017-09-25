@@ -728,7 +728,7 @@ public class LoanCalculatorController{
 				model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
 				model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
 				model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-				model.addAttribute("startDate", formatter.format(loanagg.get(0).getStartDate().getTime()));
+				model.addAttribute("startDateForSummary", formatter.format(loanagg.get(0).getStartDate().getTime()));
 
 				if (loanagg.size() > 0) {
 					model.addAttribute("loanAggId", loanagg.get(0).getLoanAggId());
@@ -756,7 +756,7 @@ public class LoanCalculatorController{
 				model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
 				model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
 				model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-				model.addAttribute("startDate", calTodayStr);
+				model.addAttribute("startDateForSummary", calTodayStr);
 			}
 			model.addAttribute("message", "");
 		}else{
@@ -769,7 +769,7 @@ public class LoanCalculatorController{
 
 	@RequestMapping(value = "/aggregateloanask")
 	public String aggregateloan(Model model) {
-		model.addAttribute("message", "Loan Aggregation");
+		model.addAttribute("message", "");
 		return "aggregateloan";
 	}
 
@@ -989,11 +989,10 @@ public class LoanCalculatorController{
 
 		}
 
-
+		model.addAttribute("message", "");
 		model.addAttribute("loanEntries1", loans2);
 		model.addAttribute("loanEntries2", loans1);
 		if (loanAggDetails!=null && loanAggRemovedCounter==0 && loanAggDetails.get(0) != null) {
-			loanAgg = (LoanAgg)loanAggDetails.get(0);
 			model.addAttribute("loanAggId", loanAgg.getLoanAggId());
 			model.addAttribute("name", loanAgg.getName());
 			model.addAttribute("type", loanAgg.getType());
@@ -1007,7 +1006,10 @@ public class LoanCalculatorController{
 			model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
 			model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
 			model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-			model.addAttribute("startDate", startDate);
+			model.addAttribute("startDateForSummary", startDate);
+		if(loanAggDetails ==null && loanAggRemovedCounter==0){
+			model.addAttribute("message", "Please select Loan For Aggregation!");
+		}
 
 		return "aggregateloan";
 	}

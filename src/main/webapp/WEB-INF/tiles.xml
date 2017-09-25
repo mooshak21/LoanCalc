@@ -22,7 +22,7 @@
     </definition>
 
     <definition name="loanapp.aggregatepage" template="/WEB-INF/views/layouts/aggregateloan.jsp">
-        <put-attribute name="title" value="Search Loan homepage" />
+        <put-attribute name="title" value="Loan Aggregation" />
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
         <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
         <put-attribute name="mmaster" value="/WEB-INF/tiles/maggmaster.jsp" />
