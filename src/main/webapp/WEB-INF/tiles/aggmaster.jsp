@@ -42,12 +42,37 @@
                     </div>
 
                     <button type="submit" class="btn btn-default">Search</button>
-                    <input type="button" value="Clear" class="btn btn-default" onClick="clearFields()">
+                    <input type="button" value="Reset" class="btn btn-default" onClick="clearFields()">
                 </form>
 
             </div>
         </div>
     </div>
 </c:if>
+<script type="text/javascript">
+
+    function clearFields() {
+        var elmLength = document.getElementById('loanSearchForm').elements.length;
+        for (i = 0; i < elmLength; i++) {
+            var typ = document.getElementById('loanSearchForm').elements[i].type;
+            if (typ == "text") {
+                document.getElementById('loanSearchForm').elements[i].value = "";
+            }
+            else if (typ == "date") {
+                document.getElementById('loanSearchForm').elements[i].value = "";
+            } else if (typ == "number") {
+                document.getElementById('loanSearchForm').elements[i].value = "";
+            }
+        }
+        return false;
+    }
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent) {
+        window.parent.parent.postMessage(["resultsFrame", {
+            height: document.body.getBoundingClientRect().height,
+            slug: "2zdsyvbv"
+        }], "*")
+    }
+</script>
 
 

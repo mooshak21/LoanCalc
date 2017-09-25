@@ -101,21 +101,21 @@
                     <input class="form-control" name="loansId" type="hidden" id="loansId">
 
                     <button type="submit" class="btn btn-default">Save Aggregation</button>
-                    <input type="button" value="Clear" class="btn btn-default" onClick="clearFields()">
+                    <input type="button" value="Reset" class="btn btn-default" onClick="clearFields()">
                     <button onclick="location.href='/aggregateloanask'" type="button" class="btn btn-default">Search</button>
 
                 <script>
                     function clearFields() {
-                        var elmLength = document.getElementById('form1').elements.length;
+                        var elmLength = document.getElementById('loanAggregateForm').elements.length;
                         for (i = 0; i < elmLength; i++) {
-                            var typ = document.getElementById('form1').elements[i].type;
+                            var typ = document.getElementById('loanAggregateForm').elements[i].type;
                             if (typ == "text") {
-                                document.getElementById('form1').elements[i].value = "";
+                                document.getElementById('loanAggregateForm').elements[i].value = "";
                             }
                             else if (typ == "date") {
-                                document.getElementById('form1').elements[i].value = "";
+                                document.getElementById('loanAggregateForm').elements[i].value = "";
                             } else if (typ == "number") {
-                                document.getElementById('form1').elements[i].value = "";
+                                document.getElementById('loanAggregateForm').elements[i].value = "";
                             }
                         }
                         return false;
@@ -240,16 +240,16 @@
 
     }
     function clearFields() {
-        var elmLength = document.getElementById('form').elements.length;
+        var elmLength = document.getElementById('loanSearchForm').elements.length;
         for (i = 0; i < elmLength; i++) {
-            var typ = document.getElementById('form').elements[i].type;
+            var typ = document.getElementById('loanSearchForm').elements[i].type;
             if (typ == "text") {
-                document.getElementById('form').elements[i].value = "";
+                document.getElementById('loanSearchForm').elements[i].value = "";
             }
             else if (typ == "date") {
-                document.getElementById('form').elements[i].value = "";
+                document.getElementById('loanSearchForm').elements[i].value = "";
             } else if (typ == "number") {
-                document.getElementById('form').elements[i].value = "";
+                document.getElementById('loanSearchForm').elements[i].value = "";
             }
         }
         return false;

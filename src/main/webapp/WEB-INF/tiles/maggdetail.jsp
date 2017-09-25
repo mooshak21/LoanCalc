@@ -57,7 +57,7 @@
                     <input class="form-control" name="loansId" type="hidden" id="loansId">
 
                     <button type="submit" class="btn btn-default">Save Aggregation</button>
-                    <input type="button" value="Clear" class="btn btn-default" onClick="clearFields()">
+                    <input type="button" value="Reset" class="btn btn-default" onClick="clearFields()">
                     <button onclick="location.href='/aggregateloanask'" type="button" class="btn btn-default">Search</button>
 
                     <script>
