@@ -241,6 +241,7 @@ public class LoanCalculatorController{
 					queryValList.add(Double.valueOf(loanAmt));	
 					loanObject.setAmount(Double.valueOf(loanAmt));
 				}
+
 				if(airVal != null && !airVal.equals("")){
 					if(firstVal)
 						querySB.append(" and ln.APR=?");
@@ -597,6 +598,7 @@ public class LoanCalculatorController{
 
 	@RequestMapping(value = "/aggregateloan", method = RequestMethod.POST)
 	public String loanAgg(
+			@RequestParam("loanId") String loanId,
 			@RequestParam("loanAmt") String loanAmt,
 			@RequestParam("lender") String lender,
 			@RequestParam("state") String state,
@@ -604,7 +606,7 @@ public class LoanCalculatorController{
 			@RequestParam("airVal") String airVal,
 			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			Model model, HttpServletRequest request) throws ParseException {
-		java.util.List<Serializable> loans = searchLoanForAggregation(loanAmt, lender, state, numOfYears, airVal);
+		java.util.List<Serializable> loans = searchLoanForAggregation(loanId,loanAmt, lender, state, numOfYears, airVal);
 		if(loans.size()>0 ){
 			java.util.List<Serializable> loanRelationship = null;
 			java.util.List<Serializable> loanAgg = null;
@@ -773,7 +775,7 @@ public class LoanCalculatorController{
 		return "aggregateloan";
 	}
 
-	private java.util.List<Serializable> searchLoanForAggregation(String loanAmt, String lender, String
+	private java.util.List<Serializable> searchLoanForAggregation(String loanId, String loanAmt, String lender, String
 			state, String numOfYears, String airVal) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = new AmortizedLoan();
@@ -784,11 +786,24 @@ public class LoanCalculatorController{
 		boolean firstVal = false;
 		Double payoffAmt = null;
 
-		if (loanAmt != null && !loanAmt.equals("")) {
-			querySB.append("ln.amount=?");
+
+		if(loanId != null && !loanId.equals("")){
+			querySB.append("ln.loanId=?");
 			firstVal = true;
-			queryValList.add(Double.valueOf(loanAmt));
-			loanObject.setAmount(Double.valueOf(loanAmt));
+			queryValList.add(Double.valueOf(loanId));
+			loanObject.setAmount(Double.valueOf(loanId));
+		}
+
+		if (loanAmt != null && !loanAmt.equals("")) {
+			if (firstVal)
+				querySB.append(" and ln.amount=?");
+			else {
+				querySB.append(" ln.amount=?");
+				firstVal = true;
+			}
+
+			queryValList.add(lender);
+			loanObject.setLender(lender);
 		}
 		if (lender != null && !lender.equals("")) {
 			if (firstVal)
