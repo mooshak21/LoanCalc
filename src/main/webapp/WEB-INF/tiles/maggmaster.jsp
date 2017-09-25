@@ -21,8 +21,8 @@
                       onsubmit='if(loanSearchForm1.loanId.value == "" && loanSearchForm1.loanAmt.value == ""  && loanSearchForm1.numOfYears.value == "" && loanSearchForm1.lender.value == "" && loanSearchForm1.state.value == "" && loanSearchForm1.airVal.value == ""){ $("#message1").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanSearchForm1.loanAmt.focus(); return false;} else { $("#message1").html("");}'>
                     <div class="form-group row">
                         <label for="loanId">Loan Id</label>
-                        <input class="form-control resetMe" type="number" name="loanId" value="${loanId}" min="1"
-                               max="9999999999" id="loanId">
+                        <input class="form-control resetMe" type="number" name="loanId" value="${loanId}"
+                               id="loanId">
                     </div>
                     <div class="form-group row">
                         <label for="loanAmt">Loan Amount 1</label>
