@@ -790,8 +790,8 @@ public class LoanCalculatorController{
 		if(loanId != null && !loanId.equals("")){
 			querySB.append("ln.loanId=?");
 			firstVal = true;
-			queryValList.add(Double.valueOf(loanId));
-			loanObject.setAmount(Double.valueOf(loanId));
+			queryValList.add(Long.valueOf(loanId));
+			loanObject.setLoanId(Long.valueOf(loanId));
 		}
 
 		if (loanAmt != null && !loanAmt.equals("")) {
@@ -802,8 +802,8 @@ public class LoanCalculatorController{
 				firstVal = true;
 			}
 
-			queryValList.add(lender);
-			loanObject.setLender(lender);
+			queryValList.add(Double.valueOf(loanAmt));
+			loanObject.setAmount(Double.valueOf(loanAmt));
 		}
 		if (lender != null && !lender.equals("")) {
 			if (firstVal)
