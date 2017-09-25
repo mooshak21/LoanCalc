@@ -16,7 +16,7 @@
                     <div class="form-group row">
                         <label for="loanId">Loan Id</label>
                         <input class="form-control resetMe" type="number" name="loanId" value="${loanId}" min="1"
-                               max="9999999999" id="loanId">
+                               max="99999999999999" id="loanId">
                     </div>
                     <div class="form-group row">
                         <label for="loanAmt">Loan Amount</label>
