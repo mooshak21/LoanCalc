@@ -198,21 +198,6 @@
         setLoanVal();
 
     }
-    function clearFields() {
-        var elmLength = document.getElementById('loanSearchForm').elements.length;
-        for (i = 0; i < elmLength; i++) {
-            var typ = document.getElementById('loanSearchForm').elements[i].type;
-            if (typ == "text") {
-                document.getElementById('loanSearchForm').elements[i].value = "";
-            }
-            else if (typ == "date") {
-                document.getElementById('loanSearchForm').elements[i].value = "";
-            } else if (typ == "number") {
-                document.getElementById('loanSearchForm').elements[i].value = "";
-            }
-        }
-        return false;
-    }
     // tell the embed parent frame the height of the content
     if (window.parent && window.parent.parent) {
         window.parent.parent.postMessage(["resultsFrame", {

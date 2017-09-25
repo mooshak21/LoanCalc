@@ -42,7 +42,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-default">Search</button>
-                    <input type="button" value="Clear" class="btn btn-default" onClick="clearFields()">
+                    <input type="button" value="Reset" class="btn btn-default" onClick="clearFields()">
                 </form>
 
             </div>
