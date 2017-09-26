@@ -24,12 +24,15 @@ import com.ayushi.loan.exception.EmailServiceException;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.exception.PreferenceProcessException;
+import com.ayushi.loan.preferences.EmailReminderPreference;
+import com.ayushi.loan.preferences.LoanIdPreference;
 
 import java.io.Serializable;
 
 import com.ayushi.loan.preferences.Preference;
 import com.ayushi.loan.preferences.Preferences;
 import com.ayushi.loan.preferences.LocationPreference;
+import com.ayushi.loan.preferences.ReminderFrequencyPreference;
 import com.ayushi.loan.preferences.WebServicePreference;
 import com.ayushi.loan.preferences.RiskTolerancePreference;
 import com.ayushi.loan.preferences.TimeHorizonPreference;
@@ -43,14 +46,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@SessionAttributes({"message", "loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail"})
+@SessionAttributes({"message", "loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "reminderFrequency","loanId"})
 public class LoanCalculatorController {
 
 
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                       Model model) {
+                       @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFreq,
+                       @CookieValue(value = "loanId", defaultValue = "") String loanId,
+                       Model model, HttpServletRequest request) {
         model.addAttribute("userEmail", emailCookie);
+        model.addAttribute("reminderFrequency",reminderFreq);
+        model.addAttribute("loanId", loanId);
+        request.getCookies();
         return "index";
     }
 
@@ -334,7 +342,7 @@ public class LoanCalculatorController {
                            RedirectAttributes redirectAttributes,
                            Model model, HttpServletResponse response, HttpServletRequest request) {
 
-
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         AmortizedLoan loanObject = (AmortizedLoan) model.asMap().get("amortizeloan");
         Loan loan = (Loan) model.asMap().get("loan");
         Double payoffAmt = (Double) model.asMap().get("payoffAmt");
@@ -345,12 +353,20 @@ public class LoanCalculatorController {
             response.addCookie(new Cookie("userEmail", email));
             model.addAttribute("userEmail", email);
         }
-
+        
+       // response.addCookie(new Cookie("loanId",loan.getLoanId().toString()));
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        LoanIdPreference liPref = new LoanIdPreference();
+        liPref.setId(1);
+        liPref.setName("Loan Id");
+        liPref.setEmailAddress(email);
+        liPref.setFlag(true);
+        liPref.setActive("Y");
+       
         Properties prop = getProperties("spring/email.properties");
 
         if (email != null && !email.isEmpty()) {
 
-            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
             LoanEmailGeneratorService emailService = (LoanEmailGeneratorService) appCtx.getBean("emailService");
             String message = null;
             String subject = null;
@@ -358,20 +374,27 @@ public class LoanCalculatorController {
             if (loanObject != null && dataType.equals("amortizedLoan")) {
                 message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
                 subject = prop.getProperty("email.subject") + loanObject.getLoanId();
+                 liPref.setValue(loanObject.getLoanId().toString());
             }
 
             if (loan != null && dataType.equals("Loan")) {
                 message = emailService.buildMessage(loan);
                 subject = prop.getProperty("email.subject") + loan.getLoanId();
+                liPref.setValue(loan.getLoanId().toString());
             }
 
             if (message != null && subject != null) {
                 try {
-                    emailService.sendMail(email, subject, message);
+                    //emailService.sendMail(email, subject, message);
                     redirectAttributes.addFlashAttribute("emailMsg", prop.getProperty("email.success"));
-                } catch (EmailServiceException ex) {
+                    prefService.createPreference(liPref);
+                }
+//                catch (EmailServiceException ex) {
+//                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+//                    redirectAttributes.addFlashAttribute("emailErr", "we couldn't send you the email. Please try later!");
+//                } 
+                catch (PreferenceAccessException ex) {
                     Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
-                    redirectAttributes.addFlashAttribute("emailErr", "we couldn't send you the email. Please try later!");
                 }
             }
         } else {
@@ -496,6 +519,7 @@ public class LoanCalculatorController {
             @RequestParam("riskTolerancePreference") String riskTolerancePreference,
             @RequestParam("timeHorizonPreference") String timeHorizonPreference,
             @RequestParam("email") String email,
+            @RequestParam("reminderfreq") String reminderFreq,
             HttpServletRequest request, HttpServletResponse response, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
@@ -514,6 +538,11 @@ public class LoanCalculatorController {
             model.addAttribute("userEmail", email);
             response.addCookie(new Cookie("userEmail", email));
         }
+        
+        if (reminderFreq != null && !reminderFreq.equals("")) {
+            model.addAttribute("reminderFrequency", reminderFreq);
+            response.addCookie(new Cookie("reminderFrequency", reminderFreq));
+        }
 
         if (allVal) {
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
@@ -523,6 +552,7 @@ public class LoanCalculatorController {
                 LocationPreference locPref = new LocationPreference();
                 locPref.setId(1);
                 locPref.setName("State");
+                locPref.setEmailAddress(email);
                 locPref.setValue(locationPreference);
                 locPref.setFlag(true);
                 locPref.setActive("Y");
@@ -531,6 +561,7 @@ public class LoanCalculatorController {
             if (webServicePreference != null && !webServicePreference.equals("")) {
                 WebServicePreference wsPref = new WebServicePreference();
                 wsPref.setId(2);
+                wsPref.setEmailAddress(email);
                 wsPref.setName("Web Service");
                 wsPref.setValue(webServicePreference);
                 wsPref.setFlag(true);
@@ -540,6 +571,7 @@ public class LoanCalculatorController {
             if (riskTolerancePreference != null && !riskTolerancePreference.equals("")) {
                 RiskTolerancePreference rtPref = new RiskTolerancePreference();
                 rtPref.setId(3);
+                rtPref.setEmailAddress(email);
                 rtPref.setName("Interest Rate");
                 rtPref.setValue(riskTolerancePreference);
                 rtPref.setFlag(true);
@@ -549,12 +581,37 @@ public class LoanCalculatorController {
             if (timeHorizonPreference != null && !timeHorizonPreference.equals("")) {
                 TimeHorizonPreference thPref = new TimeHorizonPreference();
                 thPref.setId(4);
+                thPref.setEmailAddress(email);
                 thPref.setName("Time Period");
                 thPref.setValue(timeHorizonPreference);
                 thPref.setFlag(true);
                 thPref.setActive("Y");
                 prefList.add(thPref);
             }
+            
+            if(reminderFreq != null && !reminderFreq.isEmpty()){
+                EmailReminderPreference erPref = new EmailReminderPreference();
+                erPref.setId(5);
+                erPref.setEmailAddress(email);
+                erPref.setName("Email Address Reminder");
+                erPref.setValue(reminderFreq);
+                erPref.setFlag(true);
+                erPref.setActive("Y");
+                prefList.add(erPref);
+            }
+            
+            if(reminderFreq != null && !reminderFreq.isEmpty()){
+                ReminderFrequencyPreference rfPref = new ReminderFrequencyPreference();
+                rfPref.setId(6);
+                rfPref.setEmailAddress(email);
+                rfPref.setName("Reminder Frecuency");
+                rfPref.setValue(reminderFreq);
+                rfPref.setFlag(true);
+                rfPref.setActive("Y");
+                prefList.add(rfPref);
+            }
+            
+            
 
 
             List<Integer> preferenceIds = null;

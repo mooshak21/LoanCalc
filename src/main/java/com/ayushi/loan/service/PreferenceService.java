@@ -26,6 +26,15 @@ public class PreferenceService implements PreferenceAttributeService {
 	public void createPreference(Preference preference) throws PreferenceAccessException {
 		preferenceDao.insert(preference);
 	}
+        
+        public void createOrUpdatePreference(Preference preference) throws PreferenceAccessException{
+            Preference pref = (Preference) preferenceDao.find("select p from pref p where p.pref_emailAddress = ? and p.pref_id = ?", new Object[]{preference.getEmailAddress(),preference.getId()}).get(0);
+            if( pref != null){
+                modifyPreference(preference);
+            }else{
+                createPreference(preference);
+            }
+        }
 	public Preference retrievePreference(Preference preference) throws PreferenceAccessException {
 		return (Preference)preferenceDao.find(Preference.class, preference);
 	}
@@ -39,7 +48,7 @@ public class PreferenceService implements PreferenceAttributeService {
 		return (List<Serializable>) preferenceDao.find(query, objVals);
 	}
 	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException {
-		//preferenceDao.insert(loan, prefIds);
+		preferenceDao.insert(loan, prefIds);
 	}
 	public List<Integer> processPreferences(Preferences preferences, Predicate<Preference> tester) throws PreferenceProcessException{
 		return Preferences.processPreferencesWithPredicate(preferences.getPreferences(), tester);

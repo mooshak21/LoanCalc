@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ayushi.loan.preferences.Preference" table="PREF" polymorphism="implicit">
+
+
+        <composite-id>
+            <key-property name="id" column="prefid" type="java.lang.Integer"/>
+            <key-property name="emailAddress" column="prefemailAddress" 
+                          type="java.lang.String" length="30" />
+        </composite-id>
+        
+        <discriminator>
+            <column name="DISCRIMINATOR"/>
+         </discriminator>
+ 
+        <property name="type" type="java.lang.String">
+            <column name="preftype" length="20" not-null="true" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="prefname" length="30" not-null="true" />
+        </property>
+        <property name="value" type="java.lang.String">
+            <column name="prefvalue" length="30" not-null="true" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="prefdescription" length="50" not-null="true" />
+        </property>
+        
+        <subclass name="com.ayushi.loan.preferences.LoanIdPreference" discriminator-value="LI"/>
+
+    </class>
+</hibernate-mapping>

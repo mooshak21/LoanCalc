@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 import com.ayushi.loan.exception.PreferenceAccessException;
+import com.ayushi.loan.preferences.Preference;
 
 public class PreferenceDao {
 	private SessionFactory sessionFactory;	
