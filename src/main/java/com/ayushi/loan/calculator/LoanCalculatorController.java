@@ -622,14 +622,8 @@ public class LoanCalculatorController {
             AggregationSummary aggregationSummary = new AggregationSummary();
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
             LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
-            LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
-            LoanAggService loanAggService = (LoanAggService) appCtx.getBean("loanAggService");
-            try {
-                loanRelationship = loanRelationshipService.findLoanRelation("select ls from LoanRelationship ls");
-            } catch (LoanAccessException lae) {
-                lae.printStackTrace();
-            }
 
+            LoanAggService loanAggService = (LoanAggService) appCtx.getBean("loanAggService");
             List<Loan> loansBasedOnLoanIds = new ArrayList<Loan>();
             List<Loan> loanFromLoan = new ArrayList<Loan>();
             List<LoanRelationship> loanFromLoanRelationship = new ArrayList<LoanRelationship>();
@@ -639,10 +633,11 @@ public class LoanCalculatorController {
             List<Long> loanIdFromLoanRelationship = new ArrayList<Long>();
             List<Long> duplicatevalues = null;
             List<Long> uniquevalues = null;
-            if (loans != null) {
+            if (loans != null && loans.size()>0) {
                 for (int counter = 0; counter < loans.size(); counter++) {
                     loanFromLoan.add((Loan) loans.get(counter));
                 }
+                loanRelationship = searchLoanRelationship(loanFromLoan);
                 if (loanRelationship != null) {
                     for (int counter = 0; counter < loanRelationship.size(); counter++) {
 
@@ -809,6 +804,49 @@ public class LoanCalculatorController {
     public String aggregateloan(Model model) {
         model.addAttribute("message", "");
         return "aggregateloan";
+    }
+
+    private java.util.List<Serializable> searchLoanRelationship(List<Loan> loan){
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        StringBuffer querySB = new StringBuffer();
+        java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
+        Object[] queryVals = null;
+        java.util.List<Serializable> loanRelationship = null;
+        java.util.List<Serializable> loanRelationshipUsingLoanAgg = null;
+        LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
+        for (int i=0;i<loan.size();i++) {
+            if (i == 0 && (i == loan.size() - 1)) {
+                querySB.append("?)");
+                queryValList.add(Long.valueOf(loan.get(i).getLoanId()));
+                break;
+            } else if (i < loan.size() - 1) {
+                querySB.append("?,");
+                queryValList.add(Long.valueOf(loan.get(i).getLoanId()));
+            } else if (i != 0 && (i == loan.size() - 1)) {
+                querySB.append("?)");
+                queryValList.add(Long.valueOf(loan.get(i).getLoanId()));
+            }
+        }
+            queryVals = new Object[queryValList.size()];
+            queryVals = queryValList.toArray(queryVals);
+            try {
+                loanRelationship = loanRelationshipService.findLoanRelation("select ls from LoanRelationship ls where loanId IN(" + querySB.toString(), queryVals);
+
+                StringBuffer querySBForAgg = new StringBuffer();
+                Object[] queryValsForAgg = null;
+                java.util.List<Object> queryValListForAgg = new java.util.ArrayList<Object>();
+                querySBForAgg.append("la.loanAgg=?");
+                if (loanRelationship != null && loanRelationship.size() > 0) {
+                    queryValListForAgg.add(((LoanRelationship)loanRelationship.get(0)).getLoanAgg());
+                    queryValsForAgg = new Object[queryValListForAgg.size()];
+                    queryValsForAgg = queryValListForAgg.toArray(queryValsForAgg);
+                    loanRelationshipUsingLoanAgg = loanRelationshipService.findLoanRelation("select la from LoanRelationship la where " + querySBForAgg.toString(), queryValsForAgg);
+                }
+
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+            }
+        return loanRelationshipUsingLoanAgg;
     }
 
     private java.util.List<Serializable> searchLoanForAggregation(String loanId, String loanAmt, String lender, String
