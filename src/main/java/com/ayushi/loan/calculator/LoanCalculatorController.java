@@ -644,8 +644,11 @@ public class LoanCalculatorController {
                     }
 
                     if ( loannotfound ) {
-                        aggregatedLoans.add(
-                                (Loan)searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null).get(0));
+                        List<Serializable> searchedLoan = searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null);
+
+                        if ( searchedLoan != null && aggregatedLoans.size() > 0) {
+                            aggregatedLoans.add((Loan)searchedLoan.get(0));
+                        }
                     }
                 }
 
