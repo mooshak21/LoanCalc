@@ -597,7 +597,6 @@ public class LoanCalculatorController {
         }
         return prop;
     }
-
     @RequestMapping(value = "/aggregateloan", method = RequestMethod.POST)
     public String loanAgg(
             @RequestParam("loanId") String loanId,
@@ -624,22 +623,29 @@ public class LoanCalculatorController {
             List<Long> loanIdFromLoanRelationship = new ArrayList<Long>();
             Long loanIdtoCheck=null;
             Loan loanToCheck=null;
-
+            boolean loannotfound;
             loanRelationship = searchLoanRelationship(loans);
 
             if (loanRelationship != null && loanRelationship.size() > 0) {
                 loanAgg = ((LoanRelationship)loanRelationship.get(0)).getLoanAgg();
 
                 for (int counter = 0; counter < loanRelationship.size(); counter++) {
+                    loannotfound=true;
                     loanIdtoCheck = ((LoanRelationship)loanRelationship.get(counter)).getLoanId();
                     loanIdFromLoanRelationship.add(loanIdtoCheck);
 
                     for (int lnctr = 0; lnctr < loans.size(); lnctr++) {
                         loanToCheck = (Loan)loans.get(lnctr);
                         if ( loanIdtoCheck.equals(loanToCheck.getLoanId())) {
+                            loannotfound = false;
                             aggregatedLoans.add((Loan)loans.remove(lnctr));
                             break;
                         }
+                    }
+
+                    if ( loannotfound ) {
+                        aggregatedLoans.add(
+                                (Loan)searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null).get(0));
                     }
                 }
 
@@ -711,25 +717,25 @@ public class LoanCalculatorController {
                 queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
             }
         }
-            queryVals = new Object[queryValList.size()];
-            queryVals = queryValList.toArray(queryVals);
-            try {
-                loanRelationship = loanRelationshipService.findLoanRelation("select ls from LoanRelationship ls where loanId IN(" + querySB.toString(), queryVals);
+        queryVals = new Object[queryValList.size()];
+        queryVals = queryValList.toArray(queryVals);
+        try {
+            loanRelationship = loanRelationshipService.findLoanRelation("select ls from LoanRelationship ls where loanId IN(" + querySB.toString(), queryVals);
 
-                StringBuffer querySBForAgg = new StringBuffer();
-                Object[] queryValsForAgg = null;
-                java.util.List<Object> queryValListForAgg = new java.util.ArrayList<Object>();
-                querySBForAgg.append("la.loanAgg=?");
-                if (loanRelationship != null && loanRelationship.size() > 0) {
-                    queryValListForAgg.add(((LoanRelationship)loanRelationship.get(0)).getLoanAgg());
-                    queryValsForAgg = new Object[queryValListForAgg.size()];
-                    queryValsForAgg = queryValListForAgg.toArray(queryValsForAgg);
-                    loanRelationshipUsingLoanAgg = loanRelationshipService.findLoanRelation("select la from LoanRelationship la where " + querySBForAgg.toString(), queryValsForAgg);
-                }
-
-            } catch (LoanAccessException lae) {
-                lae.printStackTrace();
+            StringBuffer querySBForAgg = new StringBuffer();
+            Object[] queryValsForAgg = null;
+            java.util.List<Object> queryValListForAgg = new java.util.ArrayList<Object>();
+            querySBForAgg.append("la.loanAgg=?");
+            if (loanRelationship != null && loanRelationship.size() > 0) {
+                queryValListForAgg.add(((LoanRelationship)loanRelationship.get(0)).getLoanAgg());
+                queryValsForAgg = new Object[queryValListForAgg.size()];
+                queryValsForAgg = queryValListForAgg.toArray(queryValsForAgg);
+                loanRelationshipUsingLoanAgg = loanRelationshipService.findLoanRelation("select la from LoanRelationship la where " + querySBForAgg.toString(), queryValsForAgg);
             }
+
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+        }
         return loanRelationshipUsingLoanAgg;
     }
 
@@ -984,8 +990,11 @@ public class LoanCalculatorController {
 
 
 
-                            
 
-    
-                    
+
+
+
+
+
+
 
