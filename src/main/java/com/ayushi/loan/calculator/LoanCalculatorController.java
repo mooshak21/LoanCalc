@@ -608,192 +608,74 @@ public class LoanCalculatorController {
             @RequestParam("airVal") String airVal,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
-        java.util.List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
 
-        if (loans.size() > 0) {
+        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
+
+        if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
-            java.util.List<Serializable> loanRelationshipForLoanIds = null;
-            java.util.List<Serializable> loanAgg = null;
-            List<LoanAgg> loanagg = new ArrayList<LoanAgg>();
+            LoanAgg loanAgg = null;
             SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-            String startDate = null;
-            java.util.Calendar calToday = java.util.Calendar.getInstance();
-            String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
             AggregationSummary aggregationSummary = new AggregationSummary();
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
             LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
 
-            LoanAggService loanAggService = (LoanAggService) appCtx.getBean("loanAggService");
-            List<Loan> loansBasedOnLoanIds = new ArrayList<Loan>();
-            List<Loan> loanFromLoan = new ArrayList<Loan>();
-            List<LoanRelationship> loanFromLoanRelationship = new ArrayList<LoanRelationship>();
-            List<Loan> uniqueLoans = new ArrayList<Loan>();
-            List<Loan> duplicateLoans = new ArrayList<Loan>();
-            List<Long> loanIdFromLoan = new ArrayList<Long>();
+            List<Loan> aggregatedLoans = new ArrayList<Loan>();
+
             List<Long> loanIdFromLoanRelationship = new ArrayList<Long>();
-            List<Long> duplicatevalues = null;
-            List<Long> uniquevalues = null;
-            if (loans != null && loans.size()>0) {
-                for (int counter = 0; counter < loans.size(); counter++) {
-                    loanFromLoan.add((Loan) loans.get(counter));
-                }
-                loanRelationship = searchLoanRelationship(loanFromLoan);
-                if (loanRelationship != null && loanRelationship.size() >0) {
-                    for (int counter = 0; counter < loanRelationship.size(); counter++) {
+            Long loanIdtoCheck=null;
+            Loan loanToCheck=null;
 
-                        loanFromLoanRelationship.add((LoanRelationship) loanRelationship.get(counter));
-                    }
+            loanRelationship = searchLoanRelationship(loans);
 
-                    for (int counter = 0; counter < loanFromLoanRelationship.size(); counter++) {
+            if (loanRelationship != null && loanRelationship.size() > 0) {
+                loanAgg = ((LoanRelationship)loanRelationship.get(0)).getLoanAgg();
 
-                        loanIdFromLoanRelationship.add(loanFromLoanRelationship.get(counter).getLoanId());
-                    }
-                }
-                for (int counter = 0; counter < loanFromLoan.size(); counter++) {
+                for (int counter = 0; counter < loanRelationship.size(); counter++) {
+                    loanIdtoCheck = ((LoanRelationship)loanRelationship.get(counter)).getLoanId();
+                    loanIdFromLoanRelationship.add(loanIdtoCheck);
 
-                    loanIdFromLoan.add(loanFromLoan.get(counter).getLoanId());
-                }
-                if (loanIdFromLoanRelationship != null && loanIdFromLoanRelationship.size() >0 && loanIdFromLoan != null && loanIdFromLoan.size()>0) {
-                    duplicatevalues = new ArrayList<Long>(loanIdFromLoan);
-                    uniquevalues = new ArrayList<Long>();
-                    uniquevalues.addAll(loanIdFromLoan);
-                    uniquevalues.addAll(loanIdFromLoanRelationship);
-                    duplicatevalues.retainAll(loanIdFromLoanRelationship);
-
-                    uniquevalues.removeAll(duplicatevalues);
-
-                    for (Loan unique : loanFromLoan) {
-                        for (Long value : uniquevalues) {
-                            if (value.equals(unique.getLoanId())) {
-                                uniqueLoans.add(unique);
-                            }
-                        }
-                    }
-
-                    for (Loan duplicate : loanFromLoan) {
-                        for (Long value : duplicatevalues) {
-                            if (value.equals(duplicate.getLoanId())) {
-                                duplicateLoans.add(duplicate);
-                            }
-                        }
-                    }
-
-                    System.out.println("Dupliacte Values" + duplicatevalues);
-                    System.out.println("Unique Values" + uniquevalues);
-                }
-            }
-
-
-            if (loanFromLoanRelationship.size() > 0 && duplicateLoans.size() > 0) {
-                try {
-                    StringBuffer querySB = new StringBuffer();
-                    Object[] queryVals = null;
-                    java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
-                    for (int counter = 0; counter < loanFromLoanRelationship.size(); counter++) {
-                        if (duplicateLoans.get(0).getLoanId().equals(loanFromLoanRelationship.get(counter).getLoanId())) {
-                            querySB.append("la.loanAggId=?");
-                            queryValList.add(Long.valueOf(loanFromLoanRelationship.get(0).getLoanAgg().getLoanAggId()));
+                    for (int lnctr = 0; lnctr < loans.size(); lnctr++) {
+                        loanToCheck = (Loan)loans.get(lnctr);
+                        if ( loanIdtoCheck.equals(loanToCheck.getLoanId())) {
+                            aggregatedLoans.add((Loan)loans.remove(lnctr));
                             break;
                         }
                     }
-                    queryVals = new Object[queryValList.size()];
-                    queryVals = queryValList.toArray(queryVals);
-                    loanAgg = loanAggService.findLoanAgg("select la from LoanAgg la where " + querySB.toString(), queryVals);
+                }
 
+                try{
+                    aggregationSummary = loanWebService.aggregationSummary(aggregatedLoans, loanAgg.getStartDate());
+
+                    if ( aggregationSummary != null ) {
+                        model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
+                        model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
+                        model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
+                        model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
+                        model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
+                        model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
+                    }
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();
+                    model.addAttribute("message", "Calculate Summary Failed!");
+                    return "aggregateloan";
                 }
 
-                if (loanId!="" && loanAgg != null && loanAgg.size() >0) {
-                    List<LoanRelationship> loansBasedOnLoanIdsForLR = new ArrayList<LoanRelationship>();
-                    Long loanAggId = null;
-                    for (int counter = 0; counter < loanFromLoanRelationship.size(); counter++) {
-                        if (duplicateLoans.get(0).getLoanId().equals(loanFromLoanRelationship.get(counter).getLoanId())) {
-                            loanAggId = loanFromLoanRelationship.get(0).getLoanAgg().getLoanAggId();
-                            break;
-                        }
-                    }
-                    for (int counter = 0; counter < loanFromLoanRelationship.size(); counter++) {
-                        if(loanAggId ==  loanFromLoanRelationship.get(counter).getLoanAgg().getLoanAggId()){
-                            loansBasedOnLoanIdsForLR.add(loanFromLoanRelationship.get(counter));
-                        }
-                    }
 
-                    for (int counter = 0; counter < loansBasedOnLoanIdsForLR.size(); counter++) {
-                        java.util.List<Serializable> loansForLoanIds = null;
-                        loansForLoanIds = searchLoanForAggregation(loansBasedOnLoanIdsForLR.get(counter).getLoanId().toString(), null, null, null, null, null);
-                        if(loansForLoanIds!=null && loansForLoanIds.size()>0) {
-                            for (int i = 0; loansForLoanIds.size() > i; i++) {
-                                loansBasedOnLoanIds.add((Loan) loansForLoanIds.get(i));
-                            }
-                        }
-                    }
-                }
-                if (loanAgg != null && loanAgg.size()>0) {
-                    for (int counter = 0; counter < loanAgg.size(); counter++) {
-                        loanagg.add((LoanAgg) loanAgg.get(counter));
-                    }
-                    try {
-                        if(loanId !=null && loansBasedOnLoanIds.size()>0){
-                            aggregationSummary = loanWebService.aggregationSummary(loansBasedOnLoanIds, loanagg.get(0).getStartDate());
-                        }else{
-                            aggregationSummary = loanWebService.aggregationSummary(duplicateLoans, loanagg.get(0).getStartDate());
-                        }
-                    } catch (LoanAccessException lae) {
-                        lae.printStackTrace();
-                        model.addAttribute("message", "Calculate Summary Failed!");
-                        return "aggregateloan";
-                    }
-                }
-                String message = null;
-
-                model.addAttribute("loanEntries1", uniqueLoans);
-                if(loanId !=null && loansBasedOnLoanIds.size()>0){
-                    model.addAttribute("loanEntries2", loansBasedOnLoanIds);
-                }else{
-                    model.addAttribute("loanEntries2", duplicateLoans);
-                }
-
-                model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
-                model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
-                model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
-                model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
-                model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
-                model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-                model.addAttribute("startDateForSummary", formatter.format(loanagg.get(0).getStartDate().getTime()));
-
-                if (loanagg.size() > 0) {
-                    model.addAttribute("loanAggId", loanagg.get(0).getLoanAggId());
-                    model.addAttribute("name", loanagg.get(0).getName());
-                    model.addAttribute("type", loanagg.get(0).getType());
-                    model.addAttribute("term", loanagg.get(0).getTerm());
-                    model.addAttribute("startDate", formatter.format(loanagg.get(0).getStartDate().getTime()));
-                    model.addAttribute("email", loanagg.get(0).getEmail());
-                }
-
-            } else {
-                model.addAttribute("loanEntries1", uniqueLoans);
-                if(loanId !=null && loansBasedOnLoanIds.size()>0){
-                    model.addAttribute("loanEntries2", loansBasedOnLoanIds);
-                }else{
-                    model.addAttribute("loanEntries2", duplicateLoans);
-                }
-                if (loanagg.size() > 0) {
-                    model.addAttribute("loanAggId", loanagg.get(0).getLoanAggId());
-                    model.addAttribute("name", loanagg.get(0).getName());
-                    model.addAttribute("type", loanagg.get(0).getType());
-                    model.addAttribute("term", loanagg.get(0).getTerm());
-                    model.addAttribute("startDate", loanagg.get(0).getStartDate());
-                    model.addAttribute("email", loanagg.get(0).getEmail());
-                }
-                model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
-                model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
-                model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
-                model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
-                model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
-                model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-                model.addAttribute("startDateForSummary", calTodayStr);
             }
+
+            model.addAttribute("loanEntries1", loans);
+            model.addAttribute("loanEntries2", aggregatedLoans);
+
+            if (loanAgg != null) {
+                model.addAttribute("startDateForSummary", formatter.format(loanAgg.getStartDate().getTime()));
+                model.addAttribute("loanAggId", loanAgg.getLoanAggId());
+                model.addAttribute("name", loanAgg.getName());
+                model.addAttribute("type", loanAgg.getType());
+                model.addAttribute("term", loanAgg.getTerm());
+                model.addAttribute("startDate", formatter.format(loanAgg.getStartDate().getTime()));
+                model.addAttribute("email", loanAgg.getEmail());
+            }
+
             model.addAttribute("message", "");
         } else {
             model.addAttribute("message", "No Record Found");
@@ -808,7 +690,7 @@ public class LoanCalculatorController {
         return "aggregateloan";
     }
 
-    private java.util.List<Serializable> searchLoanRelationship(List<Loan> loan){
+    private java.util.List<Serializable> searchLoanRelationship(List<Serializable> loan){
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         StringBuffer querySB = new StringBuffer();
         java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
@@ -819,14 +701,14 @@ public class LoanCalculatorController {
         for (int i=0;i<loan.size();i++) {
             if (i == 0 && (i == loan.size() - 1)) {
                 querySB.append("?)");
-                queryValList.add(Long.valueOf(loan.get(i).getLoanId()));
+                queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
                 break;
             } else if (i < loan.size() - 1) {
                 querySB.append("?,");
-                queryValList.add(Long.valueOf(loan.get(i).getLoanId()));
+                queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
             } else if (i != 0 && (i == loan.size() - 1)) {
                 querySB.append("?)");
-                queryValList.add(Long.valueOf(loan.get(i).getLoanId()));
+                queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
             }
         }
             queryVals = new Object[queryValList.size()];

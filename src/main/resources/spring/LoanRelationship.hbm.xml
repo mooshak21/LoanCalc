@@ -8,7 +8,7 @@
             <column name="LOAN_REL_ID" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="loanAgg" class="com.ayushi.loan.LoanAgg" fetch="select">
+        <many-to-one name="loanAgg" class="com.ayushi.loan.LoanAgg" fetch="select" lazy="false">
             <column name="LOAN_AGG_ID" not-null="true" />
         </many-to-one>
         <property name="loanId" type="java.lang.Long">
