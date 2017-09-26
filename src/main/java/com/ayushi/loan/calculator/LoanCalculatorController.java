@@ -610,7 +610,7 @@ public class LoanCalculatorController {
             Model model, HttpServletRequest request) throws ParseException {
         java.util.List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
 
-        if (loans.size() > 0) {
+        if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
             java.util.List<Serializable> loanRelationshipForLoanIds = null;
             java.util.List<Serializable> loanAgg = null;
