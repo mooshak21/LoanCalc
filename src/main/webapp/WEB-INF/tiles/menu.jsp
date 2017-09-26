@@ -42,7 +42,7 @@
                 </li>
 
                   <li class="nav-item">
-                      <a class="nav-link menuItemXs" href="/aggregateloanask">Loans Aggregation</a>
+                      <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                   </li>
               </ul>
             </div>
@@ -78,7 +78,7 @@
               <a class="nav-link menuItem" href="/loanpreferenceviewask">View/Edit Preferences</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link menuItem" href="/aggregateloanask">Loans Aggregation</a>
+                <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
             </li>
          </ul> 
 

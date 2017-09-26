@@ -179,7 +179,7 @@
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
             <div class="card-block">
-                <h5 align="center"> Loan Aggregate Summary  </h5>
+                <h5 align="center"> Aggregate Loan Summary  </h5>
                 <table class="table table-hover table-bordered">
                     <tr><td style="width: 40%">Total Amount:</td><td><h4>${totalAmount}</h4></td></tr>
                     <tr><td style="width: 40%">Amount Paid:</td><td><h4>${amountPaid}</h4></td></tr>

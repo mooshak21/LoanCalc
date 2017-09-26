@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
             <div class="card-header">
-                <h5 >Loan Aggregation</h5>
+                <h5 >Aggregate Loan</h5>
             </div>
             <div class="card-header">
                 <h5 >${message}</h5>
