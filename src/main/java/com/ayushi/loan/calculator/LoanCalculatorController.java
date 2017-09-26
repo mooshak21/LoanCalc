@@ -638,7 +638,7 @@ public class LoanCalculatorController {
                     loanFromLoan.add((Loan) loans.get(counter));
                 }
                 loanRelationship = searchLoanRelationship(loanFromLoan);
-                if (loanRelationship != null) {
+                if (loanRelationship != null && loanRelationship.size() >0) {
                     for (int counter = 0; counter < loanRelationship.size(); counter++) {
 
                         loanFromLoanRelationship.add((LoanRelationship) loanRelationship.get(counter));
@@ -653,7 +653,7 @@ public class LoanCalculatorController {
 
                     loanIdFromLoan.add(loanFromLoan.get(counter).getLoanId());
                 }
-                if (loanIdFromLoanRelationship != null && loanIdFromLoan != null) {
+                if (loanIdFromLoanRelationship != null && loanIdFromLoanRelationship.size() >0 && loanIdFromLoan != null && loanIdFromLoan.size()>0) {
                     duplicatevalues = new ArrayList<Long>(loanIdFromLoan);
                     uniquevalues = new ArrayList<Long>();
                     uniquevalues.addAll(loanIdFromLoan);
@@ -704,7 +704,7 @@ public class LoanCalculatorController {
                     lae.printStackTrace();
                 }
 
-                if (loanId!="" && loanAgg != null) {
+                if (loanId!="" && loanAgg != null && loanAgg.size() >0) {
                     List<LoanRelationship> loansBasedOnLoanIdsForLR = new ArrayList<LoanRelationship>();
                     Long loanAggId = null;
                     for (int counter = 0; counter < loanFromLoanRelationship.size(); counter++) {
@@ -722,12 +722,14 @@ public class LoanCalculatorController {
                     for (int counter = 0; counter < loansBasedOnLoanIdsForLR.size(); counter++) {
                         java.util.List<Serializable> loansForLoanIds = null;
                         loansForLoanIds = searchLoanForAggregation(loansBasedOnLoanIdsForLR.get(counter).getLoanId().toString(), null, null, null, null, null);
-                        for(int i =0; loansForLoanIds.size()>i;i++){
-                            loansBasedOnLoanIds.add((Loan) loansForLoanIds.get(i));
+                        if(loansForLoanIds!=null && loansForLoanIds.size()>0) {
+                            for (int i = 0; loansForLoanIds.size() > i; i++) {
+                                loansBasedOnLoanIds.add((Loan) loansForLoanIds.get(i));
+                            }
                         }
                     }
                 }
-                if (loanAgg != null) {
+                if (loanAgg != null && loanAgg.size()>0) {
                     for (int counter = 0; counter < loanAgg.size(); counter++) {
                         loanagg.add((LoanAgg) loanAgg.get(counter));
                     }
