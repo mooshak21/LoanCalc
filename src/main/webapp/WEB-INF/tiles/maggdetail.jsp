@@ -80,7 +80,7 @@
                     <tr>
                         <th>Sel</th>
                         <th>Loan Id</th>
-                        <th>Amount</th>
+                        <th>Amount($)</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -108,7 +108,7 @@
                     <tr>
                         <th>Sel</th>
                         <th>Loan Id</th>
-                        <th>Amount</th>
+                        <th>Amount($)</th>
                     </tr>
                     </thead>
                     <tbody>
