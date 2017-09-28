@@ -409,14 +409,16 @@ public class LoanCalculatorController {
           String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
             try {
                 loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?",new Object[]{new Long(loanId)});
-                Loan searchloan = (Loan) loans.get(0);
-                AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
-                LoanApp loanApp = new LoanApp(amortizeLoan);
-                amortizeLoan.setLoanApp(loanApp);
-                amortizeLoan.setLoanId(searchloan.getLoanId());
-                model.addAttribute("payoffAmt", amortizeLoan.getPayoffAmount(searchloan.getAmount(), calTodayStr));
-                model.addAttribute("amortizeloan", amortizeLoan);
-                model.addAttribute("loans", loans);
+                if (loans != null && loans.size() > 0){
+                    Loan searchloan = (Loan) loans.get(0);
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+                    LoanApp loanApp = new LoanApp(amortizeLoan);
+                    amortizeLoan.setLoanApp(loanApp);
+                    amortizeLoan.setLoanId(searchloan.getLoanId());
+                    model.addAttribute("payoffAmt", amortizeLoan.getPayoffAmount(searchloan.getAmount(), calTodayStr));
+                    model.addAttribute("amortizeloan", amortizeLoan);
+                    model.addAttribute("loans", loans);
+                }
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
                 model.addAttribute("message", "Loan no longer available!");

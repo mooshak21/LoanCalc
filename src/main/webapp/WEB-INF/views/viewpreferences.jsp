@@ -64,7 +64,16 @@
                     <div class="form-group">
                         <label for="reminderFreq">Reminder Frequency: </label>
                         <select  class="form-control resetMe" id="reminderFreq" name="reminderfreq">
+                            <c:if test="${reminderFrequency eq 'NoRemind'}">
+                                <option value="NoRemind" selected>No Remind</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually" >Semi-Annually</option>
+                                <option value="Annually" >Annually</option>
+                            </c:if>
                             <c:if test="${reminderFrequency eq 'Weekly'}">
+                                <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" selected>Weekly</option>
                                 <option value="Monthly">Monthly</option>
                                 <option value="Quarterly" >Quarterly</option>
@@ -72,6 +81,7 @@
                                 <option value="Annually" >Annually</option>
                             </c:if>
                             <c:if test="${reminderFrequency eq 'Monthly'}">
+                                 <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" selected>Monthly</option>
                                 <option value="Quarterly" >Quarterly</option>
@@ -79,6 +89,7 @@
                                 <option value="Annually" >Annually</option>
                             </c:if>
                             <c:if test="${reminderFrequency eq 'Quarterly'}">
+                                 <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
                                 <option value="Quarterly" selected>Quarterly</option>
@@ -86,6 +97,7 @@
                                 <option value="Annually" >Annually</option>
                             </c:if>
                              <c:if test="${reminderFrequency eq 'Semi-Annually'}">
+                                 <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
                                 <option value="Quarterly" >Quarterly</option>
@@ -93,6 +105,7 @@
                                 <option value="Annually" >Annually</option>
                             </c:if>
                             <c:if test="${reminderFrequency eq 'Annually'}">
+                                 <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
                                 <option value="Quarterly" >Quarterly</option>
@@ -100,6 +113,7 @@
                                 <option value="Annually" selected>Annually</option>
                             </c:if>
                             <c:if test="${reminderFrequency eq ''}">
+                                <option value="NoRemind" selected>No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
                                 <option value="Quarterly" >Quarterly</option>
