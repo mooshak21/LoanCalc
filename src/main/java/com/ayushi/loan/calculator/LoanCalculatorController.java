@@ -419,6 +419,7 @@ public class LoanCalculatorController {
                     model.addAttribute("payoffAmt", amortizeLoan.getPayoffAmount(searchloan.getAmount(), calTodayStr));
                     model.addAttribute("amortizeloan", amortizeLoan);
                     model.addAttribute("loans", loans);
+                    model.addAttribute("loanId", loanId);
                 }
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
@@ -443,6 +444,7 @@ public class LoanCalculatorController {
 
     @RequestMapping(value = "/viewloanentries/{pageid}")
     public String viewloanentries(@PathVariable int pageid, Model model,
+                                  @CookieValue(value = "loanId", defaultValue = "") String loanId,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         int total = 12;
@@ -465,12 +467,14 @@ public class LoanCalculatorController {
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("payoffOn", calTodayStr);
         model.addAttribute("amortizeOn", calTodayStr);
+        model.addAttribute("loanId", loanId);
         return "viewloans";
     }
 
 
     @RequestMapping(value = "/viewloan/{pageid}")
     public String viewloan(@PathVariable int pageid, Model model,
+                           @CookieValue(value = "loanId", defaultValue = "") String loanId,
                            HttpServletRequest request,
                            HttpServletResponse response) {
         int total = 1;
@@ -494,6 +498,7 @@ public class LoanCalculatorController {
                         loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
                 model.addAttribute("payoffAmt", !payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null) ? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
                 model.addAttribute("amortizeloan", al);
+                model.addAttribute("loanId", loanId);
                 al.setLoanId(loan.getLoanId());
             }
         }
