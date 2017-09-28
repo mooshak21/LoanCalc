@@ -17,7 +17,7 @@
                                                for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
                                                <a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%><%}%></td>
                                 </tr>--%>
-                                <c:if test="${loans.size() > 1}">
+                                <c:if test="${loans.size() > 0}">
                                     <tr>
                                         <td colspan="2">
                                             <c:forEach items="${loans}" varStatus="status">

@@ -13,7 +13,7 @@
                     <div class="card col-10 col-md-8 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
-                                <c:if test="${loans.size() > 1}">
+                                <c:if test="${loans.size() > 0}">
                                     <tr>
                                         <td colspan="2">
                                             <c:forEach items="${loans}" varStatus="status">
