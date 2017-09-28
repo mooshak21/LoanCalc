@@ -40,24 +40,21 @@ import com.ayushi.loan.preferences.TimeHorizonPreference;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@SessionAttributes({"message", "loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "reminderFrequency","loanId"})
+@SessionAttributes({"message", "loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans"})
 public class LoanCalculatorController {
 
 
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                       @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFreq,
-                       @CookieValue(value = "loanId", defaultValue = "") String loanId,
                        Model model, HttpServletRequest request) {
         model.addAttribute("userEmail", emailCookie);
-        model.addAttribute("reminderFrequency",reminderFreq);
-        model.addAttribute("loanId", loanId);
         request.getCookies();
         return "index";
     }
@@ -348,21 +345,14 @@ public class LoanCalculatorController {
         Double payoffAmt = (Double) model.asMap().get("payoffAmt");
         String payoffOn = (String) model.asMap().get("payoffOn");
         String userEmail = (String) model.asMap().get("userEmail");
+        Long loanId=null;
 
         if (email != null && !email.equals(userEmail)) {
+            updatePreferenceEmailAddress(email, userEmail);
             response.addCookie(new Cookie("userEmail", email));
             model.addAttribute("userEmail", email);
         }
-        
-       // response.addCookie(new Cookie("loanId",loan.getLoanId().toString()));
-        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-        LoanIdPreference liPref = new LoanIdPreference();
-        liPref.setId(1);
-        liPref.setName("Loan Id");
-        liPref.setEmailAddress(email);
-        liPref.setFlag(true);
-        liPref.setActive("Y");
-       
+            
         Properties prop = getProperties("spring/email.properties");
 
         if (email != null && !email.isEmpty()) {
@@ -374,25 +364,26 @@ public class LoanCalculatorController {
             if (loanObject != null && dataType.equals("amortizedLoan")) {
                 message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
                 subject = prop.getProperty("email.subject") + loanObject.getLoanId();
-                 liPref.setValue(loanObject.getLoanId().toString());
+                loanId=loanObject.getLoanId();
             }
 
             if (loan != null && dataType.equals("Loan")) {
                 message = emailService.buildMessage(loan);
                 subject = prop.getProperty("email.subject") + loan.getLoanId();
-                liPref.setValue(loan.getLoanId().toString());
+                loanId = loan.getLoanId();
             }
 
             if (message != null && subject != null) {
                 try {
-                    //emailService.sendMail(email, subject, message);
+                    emailService.sendMail(email, subject, message);
                     redirectAttributes.addFlashAttribute("emailMsg", prop.getProperty("email.success"));
-                    prefService.createPreference(liPref);
+                    response.addCookie(new Cookie("loanId",loanId.toString()));
+                    addPreference(new LoanIdPreference(), 7, email, "Loan id",loanId.toString());
                 }
-//                catch (EmailServiceException ex) {
-//                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
-//                    redirectAttributes.addFlashAttribute("emailErr", "we couldn't send you the email. Please try later!");
-//                } 
+                catch (EmailServiceException ex) {
+                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                    redirectAttributes.addFlashAttribute("emailErr", "we couldn't send you the email. Please try later!");
+                } 
                 catch (PreferenceAccessException ex) {
                     Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -408,10 +399,41 @@ public class LoanCalculatorController {
 
 
     //------------------------------------------------------------------------------------------------------------------------------               
-
+    @RequestMapping(value = "/quickview")
+    public String quickView(Model model,@CookieValue(value = "loanId", defaultValue = "") String loanId){
+        if(loanId != null){
+          List<Serializable> loans = new ArrayList<>();
+          ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+          LoanService loanService = (LoanService) appCtx.getBean("loanService");
+          java.util.Calendar calToday = java.util.Calendar.getInstance();
+          String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
+            try {
+                loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?",new Object[]{new Long(loanId)});
+                Loan searchloan = (Loan) loans.get(0);
+                AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+                LoanApp loanApp = new LoanApp(amortizeLoan);
+                amortizeLoan.setLoanApp(loanApp);
+                amortizeLoan.setLoanId(searchloan.getLoanId());
+                model.addAttribute("payoffAmt", amortizeLoan.getPayoffAmount(searchloan.getAmount(), calTodayStr));
+                model.addAttribute("amortizeloan", amortizeLoan);
+                model.addAttribute("loans", loans);
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+                model.addAttribute("message", "Loan no longer available!");
+            }
+          
+          
+        }
+        return "viewloans";
+    }
+            
+    
+    
+    //-----------------------------------------------------------------
     @RequestMapping(value = "/loanviewask")
-    public String loanviewask(Model model) {
+    public String loanviewask(@CookieValue(value = "loanId", defaultValue = "") String loanId,Model model) {
         model.addAttribute("message", "View Loans");
+        model.addAttribute("loanId", loanId);
         return "viewloans";
     }
 
@@ -502,8 +524,9 @@ public class LoanCalculatorController {
 
     //----------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "/loanpreferenceviewask")
-    public String loanpreferenceviewask(Model model) {
+    public String loanpreferenceviewask( @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,Model model) {
         model.addAttribute("message", "Edit Preferences");
+        model.addAttribute("reminderFrequency", reminderFrequency);
         return "viewpreferences";
     }
 
@@ -520,7 +543,8 @@ public class LoanCalculatorController {
             @RequestParam("timeHorizonPreference") String timeHorizonPreference,
             @RequestParam("email") String email,
             @RequestParam("reminderfreq") String reminderFreq,
-            HttpServletRequest request, HttpServletResponse response, Model model) {
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+           HttpServletRequest request, HttpServletResponse response, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
         if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
@@ -536,6 +560,9 @@ public class LoanCalculatorController {
 
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
+            if(!emailCookie.isEmpty() && ! emailCookie.equals(email)){
+                updatePreferenceEmailAddress(email, emailCookie);
+            }
             response.addCookie(new Cookie("userEmail", email));
         }
         
@@ -544,7 +571,7 @@ public class LoanCalculatorController {
             response.addCookie(new Cookie("reminderFrequency", reminderFreq));
         }
 
-        if (allVal) {
+      //  if (allVal) {
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
             PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
             List<Preference> prefList = new ArrayList<Preference>();
@@ -589,12 +616,12 @@ public class LoanCalculatorController {
                 prefList.add(thPref);
             }
             
-            if(reminderFreq != null && !reminderFreq.isEmpty()){
+            if(email != null && !email.isEmpty()){
                 EmailReminderPreference erPref = new EmailReminderPreference();
                 erPref.setId(5);
                 erPref.setEmailAddress(email);
                 erPref.setName("Email Address Reminder");
-                erPref.setValue(reminderFreq);
+                erPref.setValue(email);
                 erPref.setFlag(true);
                 erPref.setActive("Y");
                 prefList.add(erPref);
@@ -610,33 +637,42 @@ public class LoanCalculatorController {
                 rfPref.setActive("Y");
                 prefList.add(rfPref);
             }
-            
-            
+        
 
-
-            List<Integer> preferenceIds = null;
+            List<Preference> preferences = null;
             Preferences prefs = new Preferences();
             prefs.setPreferences(prefList);
             StringBuffer sbPref = new StringBuffer();
             try {
-                preferenceIds = prefService.processPreferences(prefs,
+                preferences = prefService.processPreferences(prefs,
                         pref -> pref.getFlag() && pref.getActive().equals("Y"));
-                if (preferenceIds != null && preferenceIds.size() > 0) {
-                    prefService.addPreferences(loanQryObject, preferenceIds);
-                    for (Integer prefId : preferenceIds)
-                        sbPref.append(prefId);
+                if(preferences != null && preferences.size() > 0){
+                    for(Preference p : preferences){
+                        prefService.createPreference(p);
+                        sbPref.append(p.getId());
+                    }
                     model.addAttribute("message", "Preference Service Successful! " + sbPref.toString());
-                } else {
+                }else{
                     model.addAttribute("message", "Preference Service Failed!");
                 }
+                
+                    
+//                if (preferenceIds != null && preferenceIds.size() > 0) {
+//                    prefService.addPreferences(loanQryObject, preferenceIds);
+//                    for (Integer prefId : preferenceIds)
+//                        sbPref.append(prefId);
+//                    model.addAttribute("message", "Preference Service Successful! " + sbPref.toString());
+//                } else {
+//                    model.addAttribute("message", "Preference Service Failed!");
+//                }
             } catch (PreferenceAccessException | PreferenceProcessException pae) {
                 pae.printStackTrace();
                 model.addAttribute("message", "Preference Service Failed!");
                 return "viewpreferences";
             }
-        } else {
-            model.addAttribute("message", "Preference Service : Required Parameters not entered!");
-        }
+//        } else {
+//            model.addAttribute("message", "Preference Service : Required Parameters not entered!");
+//        }
         return "viewpreferences";
     }
 
@@ -650,6 +686,42 @@ public class LoanCalculatorController {
         }
         return prop;
     }
+    
+   private void addPreference(Preference pref, Integer id, String email, String name, String value) throws PreferenceAccessException{
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        pref.setId(id);
+        pref.setEmailAddress(email);
+        pref.setName(name);
+        pref.setValue(value);
+        pref.setFlag(true);
+        pref.setActive("Y");
+        prefService.createPreference(pref);
+   }
+   
+   private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        List<Preference> preferences;
+        try {
+            preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{oldEmail});
+            if(preferences != null){
+                    for(Preference p : preferences){
+                        prefService.removePreference(p);
+                        p.setEmailAddress(newEmail);
+                        if(p instanceof EmailReminderPreference){
+                            p.setValue(newEmail);
+                        }
+                        prefService.createPreference(p);
+                     }
+            }
+        } catch (PreferenceAccessException ex) {
+            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+//------------------------------------------------------------------------------------------------------------------------------------------------------    
     @RequestMapping(value = "/aggregateloan", method = RequestMethod.POST)
     public String loanAgg(
             @RequestParam("loanId") String loanId,
@@ -1047,6 +1119,8 @@ public class LoanCalculatorController {
         }
         return "aggregateloan";
     }
+    
+    
 
 }
 

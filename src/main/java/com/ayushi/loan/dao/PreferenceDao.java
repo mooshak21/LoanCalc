@@ -55,10 +55,10 @@ public class PreferenceDao {
 			throw new PreferenceAccessException(dae);
 		}
 	}
-	public List<Serializable> find(String query, Object[] objVals) throws PreferenceAccessException{
+	public List<Preference> find(String query, Object[] objVals) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			return (List<Serializable>)ht.find(query, objVals);
+			return (List<Preference>)ht.find(query, objVals);
 		}catch(DataAccessException dae){
 			throw new PreferenceAccessException(dae);
 		}

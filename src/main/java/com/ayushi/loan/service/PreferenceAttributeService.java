@@ -15,7 +15,9 @@ public interface PreferenceAttributeService {
 	public Preference retrievePreference(Preference preference) throws PreferenceAccessException;
 	public void modifyPreference(Preference preference) throws PreferenceAccessException;
 	public void removePreference(Preference preference) throws PreferenceAccessException;
-	public List<Serializable> findPreference(String query, Object[] objVals) throws PreferenceAccessException;
+	public List<Preference> findPreference(String query, Object[] objVals) throws PreferenceAccessException;
+        public Preference findOnePreference(Integer id, String email) throws PreferenceAccessException;
 	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException;
-	public List<Integer> processPreferences(Preferences prefs, Predicate<Preference> tester) throws PreferenceProcessException;
+        public List<Preference> processPreferences(Preferences prefs, Predicate<Preference> tester) throws PreferenceProcessException;
+//	public List<Integer> processPreferences(Preferences prefs, Predicate<Preference> tester) throws PreferenceProcessException;
 }

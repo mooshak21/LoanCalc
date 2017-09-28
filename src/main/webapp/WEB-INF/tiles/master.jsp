@@ -49,6 +49,9 @@
                    
                     
                         <input type="submit" class="btn btn-default float-left" value="Submit"/>
+                        <c:if test="${loanId ne null}">
+                                <button type="button" class="btn btn-default float-left" style="margin-left: 5px" onclick="location.href = '/quickview'">Quick View</button>
+                        </c:if>
                         <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
                     
                 </form>    

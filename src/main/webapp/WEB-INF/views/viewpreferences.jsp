@@ -58,7 +58,7 @@
                    
                    <div class="form-group">
                        <label for="email">Email: </label>
-                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
                    </div>
                    
                     <div class="form-group">
