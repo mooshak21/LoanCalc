@@ -88,7 +88,7 @@
                         <tr>
                             <td><input  value="${entry.loanId}" name="loans" type="checkbox" class="checkbox"></td>
                             <td><c:out value="${entry.loanId}"/></td>
-                            <td><c:out value="${entry.amount}"/></td>
+                            <td><fmt:formatNumber value="${entry.amount}" pattern="###,###,###.00"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -116,7 +116,7 @@
                         <tr>
                             <td><input value="${entry.loanId}" name="loan" type="checkbox" class="checkbox"></td>
                             <td><c:out value="${entry.loanId}"/></td>
-                            <td><c:out value="${entry.amount}"/></td>
+                            <td><fmt:formatNumber value="${entry.amount}" pattern="###,###,###.00"/></td>
                         </tr>
                     </c:forEach>
                     </tbody>
