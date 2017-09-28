@@ -52,8 +52,8 @@
                                step="0.01" id="interestRate">
                     </div>
 
-                    <button type="submit" class="btn btn-default">Search</button>
-                    <input  type= "button" class="btn btn-default"  value="Reset" onclick="resetForm()"/>
+                    <button type="submit" class="btn btn-default float-left">Search</button>
+                    <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
                 </form>
 
             </div>
