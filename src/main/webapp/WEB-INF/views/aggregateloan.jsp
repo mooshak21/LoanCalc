@@ -14,29 +14,29 @@
                 <form name="loanSearchForm" id="loanSearchForm" action="/aggregateloan" method="POST"
                       onsubmit='if(loanSearchForm.loanId.value == "" && loanSearchForm.loanAmt.value == ""  && loanSearchForm.numOfYears.value == "" && loanSearchForm.lender.value == "" && loanSearchForm.state.value == "" && loanSearchForm.airVal.value == ""){ message.innerHTML="Please enter at least Loan Amount, Number of Years, Lender, State, APR"; loanSearchForm.loanAmt.focus(); return false;}'>
                     <div class="form-group row">
-                        <label for="loanId">Loan Id</label>
+                        <label for="loanId">Loan Id:</label>
                         <input class="form-control resetMe" type="number" name="loanId" value="${loanId}"
                                id="loanId">
                     </div>
                     <div class="form-group row">
-                        <label for="loanAmt">Loan Amount</label>
+                        <label for="loanAmt">Loan Amount:</label>
                         <input class="form-control resetMe" type="number" name="loanAmt" value="${loanAmt}" min="1"
                                max="9999999999" id="loanAmt">
                     </div>
 
                     <div class="form-group row">
-                        <label for="numberOfYears">Number of Years</label>
+                        <label for="numberOfYears">Number of Years:</label>
                         <input class="form-control resetMe" type="number" name="numOfYears" value="${numberOfYears}" min="1"
                                max="100" id="numberOfYears">
                     </div>
 
                     <div class="form-group row">
-                        <label for="lender">Lender</label>
+                        <label for="lender">Lender:</label>
                         <input class="form-control resetMe" type="text" name="lender" value="${lender}" id="lender">
                     </div>
 
                     <div class="form-group row">
-                        <label for="state">State </label>
+                        <label for="state">State:</label>
                         <input class="form-control resetMe" type="text" name="state" value="${state}" id="state">
                     </div>
 
@@ -71,12 +71,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="name">Loan Name</label>
+                        <label for="name">Loan Name:</label>
                         <input class="form-control resetMe" type="text" name="name" value="${name}" required="true" id="name">
                     </div>
 
                     <div class="form-group row">
-                        <label for="type">Loan Type</label>
+                        <label for="type">Loan Type:</label>
                         <select class="form-control resetMe" name="type" required="true" id="type" >
                             <option value="">Choose a Loan Type</option>
                             <option value="Student Loan"  ${type == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
@@ -86,18 +86,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="email">Loanee Email Address</label>
+                        <label for="email">Loanee Email Address:</label>
                         <input class="form-control resetMe" type="email" name="email" value="${email}" required="true" id="email">
                     </div>
 
                     <div class="form-group row">
-                        <label for="startDate">Start Date </label>
+                        <label for="startDate">Start Date:</label>
                         <input class="form-control resetMe" type="text" name="startDate" value="${startDate}" required="true"
                                id="startDate">
                     </div>
 
                     <div class="form-group row">
-                        <label for="term">Loan Term</label>
+                        <label for="term">Loan Term:</label>
                         <input class="form-control" type="number" name="term" value="${maximumNumOfYears}" min="0" max="100" step="1"
                                id="term" readonly="readonly">
                     </div>

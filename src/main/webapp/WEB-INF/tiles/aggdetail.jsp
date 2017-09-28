@@ -24,12 +24,12 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="name">Loan Name</label>
+                        <label for="name">Loan Name:</label>
                         <input class="form-control resetMe" type="text" name="name" value="${name}" required="true" id="name">
                     </div>
 
                     <div class="form-group row">
-                        <label for="type">Loan Type</label>
+                        <label for="type">Loan Type:</label>
                         <select class="form-control resetMe" name="type" required="true" id="type" >
                             <option value="">Choose a Loan Type</option>
                             <option value="Student Loan"  ${type == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
@@ -39,18 +39,18 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="email">Loanee Email Address</label>
+                        <label for="email">Loanee Email Address:</label>
                         <input class="form-control resetMe" type="email" name="email" value="${email}" required="true" id="email">
                     </div>
 
                     <div class="form-group row">
-                        <label for="startDate">Start Date </label>
+                        <label for="startDate">Start Date:</label>
                         <input class="form-control resetMe" type="text" name="startDate" value="${startDate}" required="true"
                                id="startDate">
                     </div>
 
                     <div class="form-group row">
-                        <label for="term">Loan Term</label>
+                        <label for="term">Loan Term:</label>
                         <input class="form-control" type="number" name="term" value="${maximumNumOfYears}" min="0" max="100" step="1"
                                id="term" readonly="readonly">
                     </div>
