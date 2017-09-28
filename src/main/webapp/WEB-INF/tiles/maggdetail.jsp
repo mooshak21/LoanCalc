@@ -7,7 +7,7 @@
 
 <c:if test="${loanEntries1 != null  || loanEntries2 != null }">
     <form name="loanAggregateForm1" id="loanAggregateForm1" action="/updateaggregate" method="POST"
-          onsubmit='if(loanAggregateForm1.name1.value == ""  && loanAggregateForm1.type1.value == "" && loanAggregateForm1.email1.value == "" && loanAggregateForm1.startDate1.value == "" && loanAggregateForm1.term1.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;} '>
+          onsubmit='if(loanAggregateForm1.name1.value == ""  && loanAggregateForm1.type1.value == "" && loanAggregateForm1.email1.value == "" && loanAggregateForm1.startDate1.value == "" && loanAggregateForm1.term1.value == ""){ alert("Please enter all the fields"); loanAggregateForm.name.focus(); return false;}'>
         <div class="row justify-content-center">
             <div class="card col-10 col-md-8 cardBody">
                 <div class="card-header">
@@ -40,12 +40,12 @@
 
                     <div class="form-group row">
                         <label for="email">Loanee Email Address</label>
-                        <input class="form-control resetMe" type="text" name="email" required="true" value="${email}" id="email">
+                        <input class="form-control resetMe" type="email" name="email" required="true" value="${email}" id="email">
                     </div>
 
                     <div class="form-group row">
                         <label for="startDate">Start Date </label>
-                        <input class="form-control resetMe" type="text" name="startDate" value="${startDate}" required="true"
+                        <input class="form-control resetMe" type="email" name="startDate" value="${startDate}" required="true"
                                id="startDate">
                     </div>
 
@@ -134,10 +134,10 @@
             <div class="card-block">
                 <h5 align="center"> Aggregate Loan Summary  </h5>
                 <table class="table table-hover table-bordered">
-                    <tr><td style="width: 40%">Total Amount:</td><td><h4>${totalAmount}</h4></td></tr>
-                    <tr><td style="width: 40%">Amount Paid:</td><td><h4>${amountPaid}</h4></td></tr>
-                    <tr><td style="width: 40%">Remaining Amount:</td><td><h4>${remainingAmount}</h4></td></tr>
-                    <tr><td style="width: 40%">Remaining Percent:</td><td><h4>${remainingPercent}%</h4></td></tr>
+                    <tr><td style="width: 40%">Total Amount:($)</td><td><h4>${totalAmount}</h4></td></tr>
+                    <tr><td style="width: 40%">Amount Paid:($)</td><td><h4>${amountPaid}</h4></td></tr>
+                    <tr><td style="width: 40%">Remaining Amount:($)</td><td><h4>${remainingAmount}</h4></td></tr>
+                    <tr><td style="width: 40%">Remaining Percent:(%)</td><td><h4>${remainingPercent}%</h4></td></tr>
                     <tr><td style="width: 40%">Maximum Term:</td><td><h4>${maximumNumOfYears}</h4></td></tr>
                     <tr><td style="width: 40%">PayOff Date:</td><td><h4>${payoff}</h4></td></tr>
                     <tr><td style="width: 40%">Start Date:</td><td><h4>${startDateForSummary}</h4></td></tr>
@@ -190,5 +190,6 @@
             slug: "2zdsyvbv"
         }], "*")
     }
+
 </script>
 

@@ -4,11 +4,10 @@ import com.ayushi.loan.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,9 +39,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.Cookie;
 
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -646,7 +642,7 @@ public class LoanCalculatorController {
                     if ( loannotfound ) {
                         List<Serializable> searchedLoan = searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null);
 
-                        if ( searchedLoan != null && aggregatedLoans.size() > 0) {
+                        if ( searchedLoan != null) {
                             aggregatedLoans.add((Loan)searchedLoan.get(0));
                         }
                     }
@@ -656,10 +652,10 @@ public class LoanCalculatorController {
                     aggregationSummary = loanWebService.aggregationSummary(aggregatedLoans, loanAgg.getStartDate());
 
                     if ( aggregationSummary != null ) {
-                        model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
-                        model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
-                        model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
-                        model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
+                        model.addAttribute("totalAmount",aggregationSummary.getTotalAmount());
+                        model.addAttribute("amountPaid", aggregationSummary.getAmountPaid());
+                        model.addAttribute("remainingAmount", aggregationSummary.getRemainingAmount());
+                        model.addAttribute("remainingPercent", aggregationSummary.getRemainingPercent());
                         model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
                         model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
                     }
@@ -683,6 +679,9 @@ public class LoanCalculatorController {
                 model.addAttribute("term", loanAgg.getTerm());
                 model.addAttribute("startDate", formatter.format(loanAgg.getStartDate().getTime()));
                 model.addAttribute("email", loanAgg.getEmail());
+            }
+            if(loanAgg == null && loanAgg.getEmail() == null){
+                model.addAttribute("email", emailCookie);
             }
 
             model.addAttribute("message", "");
@@ -976,10 +975,13 @@ public class LoanCalculatorController {
             model.addAttribute("startDate", startDate);
             model.addAttribute("email", loanAgg.getEmail());
         }
-        model.addAttribute("totalAmount", Math.round(aggregationSummary.getTotalAmount()));
-        model.addAttribute("amountPaid", Math.round(aggregationSummary.getAmountPaid()));
-        model.addAttribute("remainingAmount", Math.round(aggregationSummary.getRemainingAmount()));
-        model.addAttribute("remainingPercent", Math.round(aggregationSummary.getRemainingPercent()));
+        if(loanAgg == null && loanAgg.getEmail() == null){
+            model.addAttribute("email", emailCookie);
+        }
+        model.addAttribute("totalAmount", aggregationSummary.getTotalAmount());
+        model.addAttribute("amountPaid", aggregationSummary.getAmountPaid());
+        model.addAttribute("remainingAmount", aggregationSummary.getRemainingAmount());
+        model.addAttribute("remainingPercent", aggregationSummary.getRemainingPercent());
         model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
         model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
         model.addAttribute("startDateForSummary", startDate);

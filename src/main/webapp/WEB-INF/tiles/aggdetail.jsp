@@ -40,7 +40,7 @@
 
                     <div class="form-group row">
                         <label for="email">Loanee Email Address</label>
-                        <input class="form-control resetMe" type="text" name="email" value="${email}" required="true" id="email">
+                        <input class="form-control resetMe" type="email" name="email" value="${email}" required="true" id="email">
                     </div>
 
                     <div class="form-group row">
@@ -59,7 +59,7 @@
                     <input class="form-control" name="loansId" type="hidden" id="loansId">
 
 
-                    <button type="submit" class="btn btn-default">Save Aggregation</button>
+                    <button type="submit" class="btn btn-default" >Save Aggregation</button>
                     <input  type= "button" class="btn btn-default"  value="Reset" onclick="resetForm()"/>
                     <button onclick="location.href='/aggregateloanask'" type="button" class="btn btn-default">Search</button>
 
@@ -135,10 +135,10 @@
             <div class="card-block">
                 <h5 align="center"> Aggregate Loan Summary  </h5>
                 <table class="table table-hover table-bordered">
-                    <tr><td style="width: 40%">Total Amount:</td><td><h4>${totalAmount}</h4></td></tr>
-                    <tr><td style="width: 40%">Amount Paid:</td><td><h4>${amountPaid}</h4></td></tr>
-                    <tr><td style="width: 40%">Remaining Amount:</td><td><h4>${remainingAmount}</h4></td></tr>
-                    <tr><td style="width: 40%">Remaining Percent:</td><td><h4>${remainingPercent}%</h4></td></tr>
+                    <tr><td style="width: 40%">Total Amount:($)</td><td><h4>${totalAmount}</h4></td></tr>
+                    <tr><td style="width: 40%">Amount Paid:($)</td><td><h4>${amountPaid}</h4></td></tr>
+                    <tr><td style="width: 40%">Remaining Amount:($)</td><td><h4>${remainingAmount}</h4></td></tr>
+                    <tr><td style="width: 40%">Remaining Percent:(%)</td><td><h4>${remainingPercent}%</h4></td></tr>
                     <tr><td style="width: 40%">Maximum Term:</td><td><h4>${maximumNumOfYears}</h4></td></tr>
                     <tr><td style="width: 40%">PayOff Date:</td><td><h4>${payoff}</h4></td></tr>
                     <tr><td style="width: 40%">Start Date:</td><td><h4>${startDateForSummary}</h4></td></tr>
