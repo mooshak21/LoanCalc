@@ -817,7 +817,7 @@ public class LoanCalculatorController {
                 model.addAttribute("startDate", formatter.format(loanAgg.getStartDate().getTime()));
                 model.addAttribute("email", loanAgg.getEmail());
             }
-            if(loanAgg == null && loanAgg.getEmail() == null){
+            if(loanAgg == null || loanAgg.getEmail() == null){
                 model.addAttribute("email", emailCookie);
             }
 

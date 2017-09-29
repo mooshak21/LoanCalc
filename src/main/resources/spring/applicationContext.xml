@@ -58,13 +58,13 @@
         <property name="minEvictableIdleTimeMillis" value="1800000"/>
         <property name="validationQuery" value="SELECT version();"/>
     </bean>
-    
+
     <bean class="java.net.URI" id="dbUrl">
-      <constructor-arg value="${DATABASE_URL}"/>
+        <constructor-arg value="${DATABASE_URL}"/>
     </bean>
-    
+
     <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mappingResources">
             <list>
@@ -72,20 +72,18 @@
                 <value>spring/LoanApp.hbm.xml </value>
                 <value>spring/LoanAgg.hbm.xml </value>
                 <value>spring/LoanRelationship.hbm.xml </value>
-                <value>spring/Preference.hbm.xml </value>
             </list>
         </property>
-             <property name="hibernateProperties">
-        <props>
-            <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-            <prop key="hibernate.current_session_context_class">thread</prop>
-            <prop key="hibernate.hbm2ddl.auto">update</prop>
-        </props>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+            </props>
         </property>
     </bean>
-    
+
     <bean id="emailService"
-        class="com.ayushi.loan.service.LoanEmailGeneratorServiceImpl">
+          class="com.ayushi.loan.service.LoanEmailGeneratorServiceImpl">
         <property name="emailFrom" value="${email.from}" />
         <property name="headerTitle" value="${email.header.title}" />
         <property name="headerSubTitle" value="${email.header.subtitle}" />
@@ -95,28 +93,28 @@
         <property name="colorlight" value="${email.color.light}" />
         <property name="secretApiKey" value="${email.sendgrid.secretapikey}" />
     </bean>
-    
+
     <bean id="loanService"
-        class="com.ayushi.loan.service.LoanService">
+          class="com.ayushi.loan.service.LoanService">
         <property name="loanDao" ref="loanDao" />
     </bean>
-    
+
     <bean id="loanDao"
-        class="com.ayushi.loan.dao.LoanDao">
+          class="com.ayushi.loan.dao.LoanDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    
+
     <bean id="loanWebService"
-        class="com.ayushi.loan.service.LoanWebService">
+          class="com.ayushi.loan.service.LoanWebService">
     </bean>
-    
+
     <bean id="preferenceDao"
-        class="com.ayushi.loan.dao.PreferenceDao">
+          class="com.ayushi.loan.dao.PreferenceDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
-    
+
     <bean id="preferenceService"
-        class="com.ayushi.loan.service.PreferenceService">
+          class="com.ayushi.loan.service.PreferenceService">
         <property name="preferenceDao" ref="preferenceDao" />
     </bean>
     <bean id="loanAggDao"
@@ -139,11 +137,11 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-            <property name="prefix">
-                    <value>/WEB-INF/views/</value>
-            </property>
-            <property name="suffix">
-                    <value>.jsp</value>
-            </property>
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
     </bean>
 </beans>
