@@ -2,10 +2,12 @@ package com.ayushi.loan.preferences;
 
 import java.io.Serializable;
 import com.ayushi.loan.preferences.CheckPreference;
+import java.util.Objects;
 
 public class Preference implements Serializable, CheckPreference {
 	protected long serializableId = 0L;
 	protected Integer id;
+        protected String emailAddress;
 	protected String type;
 	protected String name;
 	protected String value;
@@ -13,17 +15,20 @@ public class Preference implements Serializable, CheckPreference {
 	protected String active;
 	protected Boolean flag;
 
-	public Preference(Integer id, String type, String nm, String val, String desc, String actv, Boolean flg){
+	public Preference(Integer id, String emailAddress, String type, String nm, String val, String desc, String actv, Boolean flg){
 		this.id = id;
 		this.type = type;
+                this.emailAddress = emailAddress;
 		name = nm;
 		value = val;
 		description = desc;
 		active = actv;
 		flag = flg;		
 	}
-	public Preference(){
+	
+        public Preference(){
 		this.id = 0;
+                emailAddress= "";
 		type = "default";
 		name = "default";
 		value = "default";
@@ -31,12 +36,30 @@ public class Preference implements Serializable, CheckPreference {
 		active = "N";
 		flag = false;
 	}
-	public void setId(Integer id){
+
+        public long getSerializableId() {
+            return serializableId;
+        }
+
+        public void setSerializableId(long serializableId) {
+            this.serializableId = serializableId;
+        }
+        
+        public void setId(Integer id){
 		this.id = id;
 	}
 	public Integer getId(){
 		return id;
 	}
+
+        public String getEmailAddress() {
+            return emailAddress;
+        }
+
+        public void setEmailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
+        }
+        
 	public void setType(String type){
 		this.type = type;
 	}
@@ -73,9 +96,42 @@ public class Preference implements Serializable, CheckPreference {
 	public Boolean getFlag(){
 		return flag;
 	}
+        @Override
 	public Integer process(){
 		return id;
 	}
 
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 17 * hash + Objects.hashCode(this.id);
+            hash = 17 * hash + Objects.hashCode(this.emailAddress);
+            hash = 17 * hash + Objects.hashCode(this.value);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Preference other = (Preference) obj;
+            if (!Objects.equals(this.emailAddress, other.emailAddress)) {
+                return false;
+            }
+            if (!Objects.equals(this.id, other.id)) {
+                return false;
+            }
+            return true;
+        }
+
+        
+        
 }	
 	

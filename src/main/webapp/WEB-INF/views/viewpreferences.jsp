@@ -1,7 +1,6 @@
 
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
    <div class="row justify-content-center">
@@ -59,8 +58,72 @@
                    
                    <div class="form-group">
                        <label for="email">Email: </label>
-                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
                    </div>
+                   
+                    <div class="form-group">
+                        <label for="reminderFreq">Reminder Frequency: </label>
+                        <select  class="form-control resetMe" id="reminderFreq" name="reminderfreq">
+                            <c:if test="${reminderFrequency eq 'NoRemind'}">
+                                <option value="NoRemind" selected>No Remind</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually" >Semi-Annually</option>
+                                <option value="Annually" >Annually</option>
+                            </c:if>
+                            <c:if test="${reminderFrequency eq 'Weekly'}">
+                                <option value="NoRemind">No Remind</option>
+                                <option value="Weekly" selected>Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually" >Semi-Annually</option>
+                                <option value="Annually" >Annually</option>
+                            </c:if>
+                            <c:if test="${reminderFrequency eq 'Monthly'}">
+                                 <option value="NoRemind">No Remind</option>
+                                <option value="Weekly" >Weekly</option>
+                                <option value="Monthly" selected>Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually" >Semi-Annually</option>
+                                <option value="Annually" >Annually</option>
+                            </c:if>
+                            <c:if test="${reminderFrequency eq 'Quarterly'}">
+                                 <option value="NoRemind">No Remind</option>
+                                <option value="Weekly" >Weekly</option>
+                                <option value="Monthly" >Monthly</option>
+                                <option value="Quarterly" selected>Quarterly</option>
+                                <option value="Semi-Annually" >Semi-Annually</option>
+                                <option value="Annually" >Annually</option>
+                            </c:if>
+                             <c:if test="${reminderFrequency eq 'Semi-Annually'}">
+                                 <option value="NoRemind">No Remind</option>
+                                <option value="Weekly" >Weekly</option>
+                                <option value="Monthly" >Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually" selected>Semi-Annually</option>
+                                <option value="Annually" >Annually</option>
+                            </c:if>
+                            <c:if test="${reminderFrequency eq 'Annually'}">
+                                 <option value="NoRemind">No Remind</option>
+                                <option value="Weekly" >Weekly</option>
+                                <option value="Monthly" >Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually">Semi-Annually</option>
+                                <option value="Annually" selected>Annually</option>
+                            </c:if>
+                            <c:if test="${reminderFrequency eq ''}">
+                                <option value="NoRemind" selected>No Remind</option>
+                                <option value="Weekly" >Weekly</option>
+                                <option value="Monthly" >Monthly</option>
+                                <option value="Quarterly" >Quarterly</option>
+                                <option value="Semi-Annually">Semi-Annually</option>
+                                <option value="Annually">Annually</option>
+                            </c:if>
+                        </select>
+                    </div>
+                   
+                   
 
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
@@ -92,11 +155,12 @@
         </div>
    </c:if> 
 
-                   <script>
+ <script>
 function resetForm() {
     $( document ).ready(function() {
         $(".resetMe").val("");
     });
     
-}
+};
+
 </script>

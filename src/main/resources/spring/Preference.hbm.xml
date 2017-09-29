@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ayushi.loan.preferences.Preference" table="PREF" polymorphism="implicit">
+
+
+        <composite-id>
+            <key-property name="id" column="pref_id" type="java.lang.Integer"/>
+            <key-property name="emailAddress" column="pref_emailAddress" 
+                          type="java.lang.String" length="30" />
+        </composite-id>
+        
+        <discriminator>
+            <column name="DISCRIMINATOR"/>
+         </discriminator>
+ 
+        <property name="type" type="java.lang.String">
+            <column name="pref_type" length="20" not-null="true" />
+        </property>
+        <property name="name" type="java.lang.String">
+            <column name="pref_name" length="30" not-null="true" />
+        </property>
+        <property name="value" type="java.lang.String">
+            <column name="pref_value" length="30" not-null="true" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="pref_description" length="50" not-null="true" />
+        </property>
+        
+        <subclass name="com.ayushi.loan.preferences.LoanIdPreference" discriminator-value="LI"/>
+        <subclass name="com.ayushi.loan.preferences.EmailReminderPreference" discriminator-value="ER"/>
+        <subclass name="com.ayushi.loan.preferences.ReminderFrequencyPreference" discriminator-value="RF"/>
+        <subclass name="com.ayushi.loan.preferences.LocationPreference" discriminator-value="LT"/>
+        <subclass name="com.ayushi.loan.preferences.RiskTolerancePreference" discriminator-value="RT"/>
+        <subclass name="com.ayushi.loan.preferences.TimeHorizonPreference" discriminator-value="TH"/>
+        <subclass name="com.ayushi.loan.preferences.WebServicePreference" discriminator-value="WS"/>
+
+    </class>
+</hibernate-mapping>

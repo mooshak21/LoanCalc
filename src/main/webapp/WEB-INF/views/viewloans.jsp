@@ -7,14 +7,25 @@
         	<jsp:include page="/WEB-INF/views/emailForm.jsp">
             		<jsp:param name="dataType" value="amortizedLoan"/>
 	        </jsp:include>
-               <div class="row justify-content-center">
+              <div class="row justify-content-center">
                     <div class="card col-10 col-md-8 cardBody">
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
-                                <tr><td colspan="2"><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
-                                            int pages = total, pgIdx;
-                                            for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
-                                            <a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%><%}%></td></tr>
+<%--                                <tr>
+                                    <td colspan="2"><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
+                                               int pages = total, pgIdx;
+                                               for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
+                                               <a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%><%}%></td>
+                                </tr>--%>
+                                <c:if test="${loans.size() > 0}">
+                                    <tr>
+                                        <td colspan="2">
+                                            <c:forEach items="${loans}" varStatus="status">
+                                                <a href="/viewloan/${status.index + 1}">${status.index + 1}</a>
+                                            </c:forEach>
+                                        </td>
+                                    </tr>
+                                </c:if>                
                                <tr><td style="width: 40%">Loan Id:</td><td>${amortizeloan.loanId}</td></tr>
                                <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4>${amortizeloan.monthly}</h4></td></tr>
                                <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4>${amortizeloan.interestRate}</h4></td></tr>

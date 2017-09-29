@@ -103,3 +103,16 @@ CREATE INDEX "loan_Agg"
     (loan_agg_id)
 
     TABLESPACE pg_default;
+
+
+create table pref
+(
+	pref_id INT4 not null,
+	pref_emailaddress VARCHAR(30) not null,
+	pref_type VARCHAR(20) not null,
+	pref_name VARCHAR(30) not null,
+	pref_value VARCHAR(30) not null,
+	pref_description VARCHAR(50) not null,
+        discriminator VARCHAR(255) not null,
+	primary key (pref_id, pref_emailaddress)
+)

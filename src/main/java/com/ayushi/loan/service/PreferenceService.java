@@ -26,7 +26,7 @@ public class PreferenceService implements PreferenceAttributeService {
 	public void createPreference(Preference preference) throws PreferenceAccessException {
 		preferenceDao.insert(preference);
 	}
-	public Preference retrievePreference(Preference preference) throws PreferenceAccessException {
+       	public Preference retrievePreference(Preference preference) throws PreferenceAccessException {
 		return (Preference)preferenceDao.find(Preference.class, preference);
 	}
 	public void modifyPreference(Preference preference) throws PreferenceAccessException {
@@ -35,13 +35,19 @@ public class PreferenceService implements PreferenceAttributeService {
 	public void removePreference(Preference preference) throws PreferenceAccessException {
 		preferenceDao.remove(preference);
 	}
-	public List<Serializable> findPreference(String query, Object[] objVals) throws PreferenceAccessException {
-		return (List<Serializable>) preferenceDao.find(query, objVals);
+	public List<Preference> findPreference(String query, Object[] objVals) throws PreferenceAccessException {
+		return (List<Preference>) preferenceDao.find(query, objVals);
 	}
+        public Preference findOnePreference(Integer id, String email) throws PreferenceAccessException {
+            return (Preference) preferenceDao.find("select p from pref p where p.pref_emailAddress = ? and p.pref_id = ?", new Object[]{email,id}).get(0);
+        }
 	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException {
-		//preferenceDao.insert(loan, prefIds);
+		preferenceDao.insert(loan, prefIds);
 	}
-	public List<Integer> processPreferences(Preferences preferences, Predicate<Preference> tester) throws PreferenceProcessException{
+        public List<Preference> processPreferences(Preferences preferences, Predicate<Preference> tester) throws PreferenceProcessException{
 		return Preferences.processPreferencesWithPredicate(preferences.getPreferences(), tester);
 	}
+//	public List<Integer> processPreferences(Preferences preferences, Predicate<Preference> tester) throws PreferenceProcessException{
+//		return Preferences.processPreferencesWithPredicate(preferences.getPreferences(), tester);
+//	}
 }
