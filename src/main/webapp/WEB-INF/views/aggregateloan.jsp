@@ -181,10 +181,10 @@
             <div class="card-block">
                 <h5 align="center"> Aggregate Loan Summary  </h5>
                 <table class="table table-hover table-bordered">
-                    <tr><td style="width: 40%">Total Amount:($)</td><td><h4>${totalAmount}</h4></td></tr>
-                    <tr><td style="width: 40%">Amount Paid:($)</td><td><h4>${amountPaid}</h4></td></tr>
-                    <tr><td style="width: 40%">Remaining Amount:($)</td><td><h4>${remainingAmount}</h4></td></tr>
-                    <tr><td style="width: 40%">Remaining Percent:(%)</td><td><h4>${remainingPercent}</h4></td></tr>
+                    <tr><td style="width: 40%">Total Amount:($)</td><td><h4><fmt:formatNumber value="${totalAmount}" pattern="###,###,###.00"/></h4></td></tr>
+                    <tr><td style="width: 40%">Amount Paid:($)</td><td><h4><fmt:formatNumber value="${amountPaid}" pattern="###,###,###.##"/></h4></td></tr>
+                    <tr><td style="width: 40%">Remaining Amount:($)</td><td><h4><fmt:formatNumber value="${remainingAmount}" pattern="###,###,###.##"/></h4></td></tr>
+                    <tr><td style="width: 40%">Remaining Percent:(%)</td><td><h4><fmt:formatNumber value="${remainingPercent}" pattern="###,###,###.###"/></h4></td></tr>
                     <tr><td style="width: 40%">Maximum Term:</td><td><h4>${maximumNumOfYears}</h4></td></tr>
                     <tr><td style="width: 40%">PayOff Date:</td><td><h4>${payoff}</h4></td></tr>
                     <tr><td style="width: 40%">Start Date:</td><td><h4>${startDateForSummary}</h4></td></tr>
@@ -233,6 +233,7 @@
         });
 
     }
+
     // tell the embed parent frame the height of the content
     if (window.parent && window.parent.parent) {
         window.parent.parent.postMessage(["resultsFrame", {

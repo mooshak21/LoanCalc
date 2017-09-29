@@ -848,7 +848,11 @@ public class LoanCalculatorController {
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         Calendar cal = null;
         cal = Calendar.getInstance();
-        cal.setTime(formatter.parse(startDate));
+        try {
+            cal.setTime(formatter.parse(startDate));
+        }catch(ParseException parseEx){
+            parseEx.printStackTrace();
+        }
         //System.out.println(loanIds);
         if (StringUtils.isNotEmpty(loanAggId)) {
             loanAgg = new LoanAgg();
