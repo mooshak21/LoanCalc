@@ -420,6 +420,7 @@ public class LoanCalculatorController {
                     model.addAttribute("amortizeloan", amortizeLoan);
                     model.addAttribute("loans", loans);
                     model.addAttribute("loanId", loanId);
+                    model.addAttribute("message", "Search Loan in Quick View");
                 }
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
