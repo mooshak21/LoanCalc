@@ -72,12 +72,14 @@
                 <value>spring/LoanApp.hbm.xml </value>
                 <value>spring/LoanAgg.hbm.xml </value>
                 <value>spring/LoanRelationship.hbm.xml </value>
+                <value>spring/Preference.hbm.xml </value>
             </list>
         </property>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
                 <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>
