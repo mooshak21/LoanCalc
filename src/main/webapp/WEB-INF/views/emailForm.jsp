@@ -9,6 +9,7 @@
                 <c:if test="${emailMsg eq null}">
                     <form name="emailForm" action="/sendmail" method="POST" id='emailForm'>
                         <input type="hidden" value="${param.dataType}" name="dataType"/>
+                        <input type="hidden" value="${message}" name="prevMessage"/>
                         <c:if test="${emailErr eq null}">
                             <div class="form-group">
                                 <div class="input-group justify-content-center">

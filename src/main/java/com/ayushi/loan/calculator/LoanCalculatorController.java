@@ -47,7 +47,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@SessionAttributes({"message", "loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans"})
+@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans"})
 public class LoanCalculatorController {
 
 
@@ -337,6 +337,7 @@ public class LoanCalculatorController {
     @RequestMapping(value = "/sendmail")
     public String sendMail(@RequestParam(value = "email", defaultValue = "") String email,
                            @RequestParam(value = "dataType") String dataType,
+                           @RequestParam(value = "prevMessage") String prevMessage,
                            RedirectAttributes redirectAttributes,
                            Model model, HttpServletResponse response, HttpServletRequest request) {
 
@@ -392,7 +393,8 @@ public class LoanCalculatorController {
         } else {
             redirectAttributes.addFlashAttribute("emailErr", prop.getProperty("email.error"));
         }
-
+        
+        redirectAttributes.addFlashAttribute("message", prevMessage);
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;
 
@@ -469,6 +471,7 @@ public class LoanCalculatorController {
         model.addAttribute("payoffOn", calTodayStr);
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("loanId", loanId);
+         model.addAttribute("message", "View Loans");
         return "viewloans";
     }
 
@@ -503,7 +506,7 @@ public class LoanCalculatorController {
                 al.setLoanId(loan.getLoanId());
             }
         }
-
+        model.addAttribute("message", "View Loans");
         return "viewloan";
     }
 
@@ -660,7 +663,8 @@ public class LoanCalculatorController {
                         prefService.createPreference(p);
                         sbPref.append(p.getId());
                     }
-                    model.addAttribute("message", "Preference Service Successful! " + sbPref.toString());
+//                    model.addAttribute("message", "Preference Service Successful! " + sbPref.toString());
+                      model.addAttribute("message", "Preference Service Successful! ");
                 }else{
                     model.addAttribute("message", "Preference Service Failed!");
                 }
