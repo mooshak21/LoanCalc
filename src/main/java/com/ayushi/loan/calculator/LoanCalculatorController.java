@@ -402,7 +402,7 @@ public class LoanCalculatorController {
     //------------------------------------------------------------------------------------------------------------------------------               
     @RequestMapping(value = "/quickview")
     public String quickView(Model model,@CookieValue(value = "loanId", defaultValue = "") String loanId){
-        if(loanId != null){
+        if(loanId != null && !loanId.equals("")){
           List<Serializable> loans = new ArrayList<>();
           ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
           LoanService loanService = (LoanService) appCtx.getBean("loanService");

@@ -7,7 +7,7 @@ CREATE TABLE loanapp (
     LENDER varchar(10) not null,
     ST varchar(10) not null,
     NUM_OF_YRS integer not null,
-    CONSTRAINT loanapp_pkey primary key (LOAN_ID), unique (LOAN_AMT));
+    CONSTRAINT loanapp_pkey primary key (LOAN_ID));
 
 -----------------------------------------------------------------------------------------
 
@@ -115,4 +115,4 @@ create table pref
 	pref_description VARCHAR(50) not null,
         discriminator VARCHAR(255) not null,
 	primary key (pref_id, pref_emailaddress)
-)
+);
