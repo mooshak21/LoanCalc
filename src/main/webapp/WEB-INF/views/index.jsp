@@ -4,7 +4,7 @@
         <div class="card col-10 col-md-8" >
             <div class="card-block">
                <p> Loan Calculator is a Web App and Mobile App for calculation of loan amortization and payoff amount.</p> 
-	       <p> <a href="createloan">Create Loan</a></p>
+	       <p> <a href="/loan">Create Loan</a></p>
             </div>
         </div>
 </div>
