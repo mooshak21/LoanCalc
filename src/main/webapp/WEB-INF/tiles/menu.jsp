@@ -17,7 +17,10 @@
                   <a class="nav-link menuItemXs" href="/" >Home</a>
                 </li>
 
-                <li class="nav-item">
+	        <li class="nav-item">
+	          <a class="nav-link menuItemXs" href="/login">Login</a>
+		</li>
+		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
 
@@ -56,7 +59,9 @@
             <li class="nav-item">
               <a class="nav-link active" href="/" id="menuHome">Home</a>
             </li>
-           
+            <li class="nav-item">
+              <a class="nav-link menuItem" href="/login">Login</a>
+	    </li>
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
             </li>
