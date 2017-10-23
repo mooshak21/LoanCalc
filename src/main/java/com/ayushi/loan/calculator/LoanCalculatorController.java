@@ -1144,7 +1144,7 @@ public class LoanCalculatorController {
     }    
 
  @RequestMapping(value = "/login")
-     public String login(@RequestParam("email", defaultValue = "") String email,
+     public String login(@RequestParam(value="email", defaultValue = "") String email,
 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("message", "Login Successful!");
         if (email != null && !email.equals("")) {
