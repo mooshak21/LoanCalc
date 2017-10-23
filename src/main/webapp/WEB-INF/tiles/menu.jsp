@@ -44,9 +44,9 @@
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                   </li>
-		              <li class="nav-item">
-				                          <a class="nav-link menuItem" href="/logout">Log out</a>
-							              </li>
+		  <li class="nav-item">
+		      <a class="nav-link menuItemXs" href="/logout">Log out</a>
+		  </li>
               </ul>
             </div>
           </nav>
@@ -84,7 +84,7 @@
                 <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
             </li>
 	    <li class="nav-item">
-		    <a class="nav-link menuItem" href="/logout">Log out</a>
+	    	<a class="nav-link menuItem" href="/logout">Log out</a>
 	    </li>
          </ul> 
 
