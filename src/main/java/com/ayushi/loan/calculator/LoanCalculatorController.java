@@ -1137,7 +1137,11 @@ public class LoanCalculatorController {
         return "aggregateloan";
     }
     
-    
+ @RequestMapping(value = "/logout")
+    public String logout(Model model) {
+        model.addAttribute("message", "Logout");
+        return "index";
+    }    
 
 }
 
