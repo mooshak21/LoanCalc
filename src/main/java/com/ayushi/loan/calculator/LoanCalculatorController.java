@@ -1144,11 +1144,18 @@ public class LoanCalculatorController {
     }    
 
  @RequestMapping(value = "/login")
-    public String login(Model model) {
+     public String login(@RequestParam("email") String email,
+@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("message", "Login Successful!");
-        return "index";
+        if (email != null && !email.equals("")) {
+            model.addAttribute("userEmail", email);
+            if(!emailCookie.isEmpty() && ! emailCookie.equals(email)){
+                updatePreferenceEmailAddress(email, emailCookie);
+            }
+            response.addCookie(new Cookie("userEmail", email));
+        }
+        return "login";
     }    
-
 }
 
 
