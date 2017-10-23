@@ -1145,8 +1145,8 @@ public class LoanCalculatorController {
 
  @RequestMapping(value = "/login")
     public String login(Model model) {
-        model.addAttribute("message", "Login");
-        return "login";
+        model.addAttribute("message", "Login Successful!");
+        return "index";
     }    
 
 }
