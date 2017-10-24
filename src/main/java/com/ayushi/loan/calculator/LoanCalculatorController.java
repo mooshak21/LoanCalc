@@ -1163,7 +1163,7 @@ public class LoanCalculatorController {
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 			        List<Preference> preferences;
 				        try {
-				           preferences = prefService.findPreference("select pref from Preference where pref.emailAddress = ?", new Object[]{newEmail});
+				           preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
 										                    for(Preference p : preferences){
 													System.out.println(p.getEmailAddress());
