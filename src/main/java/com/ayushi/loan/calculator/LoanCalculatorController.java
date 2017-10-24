@@ -1157,13 +1157,12 @@ public class LoanCalculatorController {
         return "login";
     }    
 
-private void checkPreferenceEmailAddress(String newEmail) {
+private boolean checkPreferenceEmailAddress(String newEmail) {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 			        List<Preference> preferences;
 				        try {
-						            preferences = prefService.findPreference("select p from Preference p
-									     where p.emailAddress = ?", new Object[]{newEmail});
+				           preferences = prefService.findPreference("select p from Preference where p.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
 										                    for(Preference p : preferences){
 												    	if(p instanceof  EmailReminderPreference){
