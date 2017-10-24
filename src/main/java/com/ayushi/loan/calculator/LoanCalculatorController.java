@@ -1150,8 +1150,8 @@ public class LoanCalculatorController {
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
             if(checkPreferenceEmailAddress(email)){
-                     	response.addCookie(new Cookie("userEmail", email));
-        		return "index";
+              	response.addCookie(new Cookie("userEmail", email));
+       		return "index";
 	    }else
 	        return "login";
         }
@@ -1166,7 +1166,7 @@ public class LoanCalculatorController {
 				           preferences = prefService.findPreference("select p from Preference where p.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
 										                    for(Preference p : preferences){
-												    	if(p.getValue().equals(newEmail))
+												    	if(p.getEmailAddress().equals(newEmail))
 														return true;
 												    }
 		    							}
