@@ -1157,7 +1157,7 @@ public class LoanCalculatorController {
         return "login";
     }    
 
-private boolean checkPreferenceEmailAddress(String newEmail) {
+	private boolean checkPreferenceEmailAddress(String newEmail) {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 			        List<Preference> preferences;
@@ -1175,15 +1175,6 @@ private boolean checkPreferenceEmailAddress(String newEmail) {
 				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
 				        }
 				    return false;	
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
