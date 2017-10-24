@@ -1146,16 +1146,33 @@ public class LoanCalculatorController {
  @RequestMapping(value = "/login")
      public String login(@RequestParam(value="email", defaultValue = "") String email,
 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("message", "Login Successful!");
+        model.addAttribute("message", "Login Form");
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
-            if(!emailCookie.isEmpty() && ! emailCookie.equals(email)){
-                updatePreferenceEmailAddress(email, emailCookie);
-            }
-            response.addCookie(new Cookie("userEmail", email));
+            if(!emailCookie.isEmpty() && !emailCookie.equals(email)){
+               if(checkPreferenceEmailAddress(email))
+                     	response.addCookie(new Cookie("userEmail", email));
+	    }
         }
         return "login";
     }    
+
+private void checkPreferenceEmailAddress(String newEmail) {
+	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+			        List<Preference> preferences;
+				        try {
+						            preferences = prefService.findPreference("select p from Preference p
+									     where p.emailAddress = ?", new Object[]{newEmail});
+							                if(preferences != null){
+										                    for(Preference p : preferences){
+												    	if(p instanceof  EmailReminderPreference){
+				if(p.getValue().equals(newEmail))
+					return true;
+													}
+												    }
+		    
+												    return false;	
 }
 
 
