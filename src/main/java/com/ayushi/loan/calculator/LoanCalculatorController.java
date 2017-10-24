@@ -1166,6 +1166,8 @@ public class LoanCalculatorController {
 				           preferences = prefService.findPreference("select p from Preference where p.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
 										                    for(Preference p : preferences){
+													System.out.println(p.getEmailAddress());
+													System.out.println(newEmail);
 												    	if(p.getEmailAddress().equals(newEmail))
 														return true;
 												    }
