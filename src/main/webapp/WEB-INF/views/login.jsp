@@ -9,7 +9,7 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loginForm" id="loginform" action="/login" method="GET">
+                <form name="loginForm" id="loginform" action="/" method="GET">
                    <div class="form-group">
                        <label for="email">Email: </label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
