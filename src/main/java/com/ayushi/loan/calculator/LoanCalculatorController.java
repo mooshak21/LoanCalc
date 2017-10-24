@@ -1153,7 +1153,8 @@ public class LoanCalculatorController {
                if(checkPreferenceEmailAddress(email)){
                      	response.addCookie(new Cookie("userEmail", email));
         		return "index";
-		}
+		}else
+	        	return "login";
 	    }else
 	        return "login";
         }
