@@ -1166,11 +1166,11 @@ private boolean checkPreferenceEmailAddress(String newEmail) {
 							                if(preferences != null){
 										                    for(Preference p : preferences){
 												    	if(p instanceof  EmailReminderPreference){
-				if(p.getValue().equals(newEmail))
-					return true;
+														if(p.getValue().equals(newEmail))
+															return true;
 													}
 												    }
-		    
+		    							}
 				        } catch (PreferenceAccessException ex) {
 				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
 				        }
