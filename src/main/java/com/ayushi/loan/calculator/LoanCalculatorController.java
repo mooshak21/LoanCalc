@@ -1166,10 +1166,8 @@ public class LoanCalculatorController {
 				           preferences = prefService.findPreference("select p from Preference where p.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
 										                    for(Preference p : preferences){
-												    	if(p instanceof  EmailReminderPreference){
-														if(p.getValue().equals(newEmail))
-															return true;
-													}
+												    	if(p.getValue().equals(newEmail))
+														return true;
 												    }
 		    							}
 				        } catch (PreferenceAccessException ex) {
