@@ -1172,7 +1172,10 @@ private void checkPreferenceEmailAddress(String newEmail) {
 													}
 												    }
 		    
-												    return false;	
+				        } catch (PreferenceAccessException ex) {
+				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+				        }
+				    return false;	
 }
 
 
