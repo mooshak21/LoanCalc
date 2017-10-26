@@ -11,6 +11,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 	private Double apr;
 	private Integer numberOfYears;
 	private Long loanId;
+	private String loanType;
 	private LoanApp loanApp;
 	private Double principal, interest;
 
@@ -47,6 +48,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 		loanApp = lnApp;
 		loanApp.setLoan(this);
 	}
+
 	public LoanApp getLoanApp(){
 		return loanApp;
 	}
@@ -131,6 +133,13 @@ public class Loan implements Serializable, Comparable<Loan> {
 		return interest;
 	}
 
+	public String getLoanType() {
+		return loanType;
+	}
+
+	public void setLoanType(String loanType) {
+		this.loanType = loanType;
+	}
 
 	public String toString(){
 		return "Loan with id " + this.getLoanId() + " and amount $" + this.getAmount() + " has a monthly payment of $" + this.getMonthly() + " with principal of $ " + this.getPrincipal() + " and interest of $ " + this.getInterest() + " for " + this.getNumberOfYears() + " years and is from " + this.getLender() + " in state " + this.getState() + " at interest rate of " + this.getInterestRate() + "% and APR of " + this.getAPR() + "%" + " and Loan App of " + (this.getLoanApp() != null ? this.getLoanApp().toString() : "");

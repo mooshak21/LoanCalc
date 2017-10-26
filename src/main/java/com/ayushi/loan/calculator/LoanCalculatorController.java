@@ -80,17 +80,19 @@ public class LoanCalculatorController {
             @RequestParam("lender") String lender,
             @RequestParam("loanAmt") String loanAmt,
             @RequestParam("state") String state,
+            @RequestParam("loanType") String loanType,
             @RequestParam("numOfYears") String numOfYears, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
         Loan loanObject = null;
         if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
                 && lender != null && !lender.equals("") && state != null && !state.equals("")
-                && numOfYears != null && !numOfYears.equals("")) {
+                && numOfYears != null && !numOfYears.equals("") && loanType != null && !loanType.equals("")) {
             allVal = true;
             loanQryObject.setAmount(Double.valueOf(loanAmt));
             loanQryObject.setLender(lender);
             loanQryObject.setState(state);
+            loanQryObject.setLoanType(loanType);
             loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
             loanQryObject.setAPR(Double.valueOf(airVal));
         }
@@ -110,6 +112,7 @@ public class LoanCalculatorController {
             if (loanObject != null) {
                 LoanService loanService = (LoanService) appCtx.getBean("loanService");
                 try {
+                    loanObject.setLoanType(loanType);
                     loanService.createLoan(loanObject);
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();
@@ -227,6 +230,7 @@ public class LoanCalculatorController {
             @RequestParam("loanAmt") String loanAmt,
             @RequestParam("state") String state,
             @RequestParam("numOfYears") String numOfYears,
+            @RequestParam("loanType") String loanType,
             @RequestParam("amortizeOn") String amortizeOn,
             @RequestParam("payoffOn") String payoffOn,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
@@ -288,6 +292,16 @@ public class LoanCalculatorController {
             queryValList.add(Integer.valueOf(numOfYears));
             loanObject.setNumberOfYears(Integer.valueOf(numOfYears));
         }
+        if (loanType != null && !loanType.equals("")) {
+            if (firstVal)
+                querySB.append(" and ln.loanType=?");
+            else {
+                querySB.append(" ln.loanType=?");
+                firstVal = true;
+            }
+            queryValList.add(loanType);
+            loanObject.setLoanType(loanType);
+        }
         if (firstVal) {
             queryVals = new Object[queryValList.size()];
             queryVals = queryValList.toArray(queryVals);
@@ -318,6 +332,12 @@ public class LoanCalculatorController {
             model.addAttribute("message", "Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
             //request.getSession().setAttribute("loans", loans);
             model.addAttribute("loans", loans);
+            if(loans!=null && loans.size()!=0){
+                model.addAttribute("loanType", ((Loan) loans.get(0)).getLoanType());
+            }else{
+                model.addAttribute("loanType", "");
+            }
+
             model.addAttribute("amortizeloan", loanObject);
             model.addAttribute("payoffOn", payoffOn);
             model.addAttribute("payoffAmt", payoffAmt);

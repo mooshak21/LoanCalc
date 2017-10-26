@@ -35,7 +35,7 @@
                                 <label for="interestRate">Annual Interest Rate: </label>
                                   <input class="form-control resetMe" type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step="0.01" id="interestRate">
                             </div>
-                                
+
                             <div class="form-group row">
                                 <label for="amortize">Amortize on Date: </label>
                                   <input class="form-control resetMe" type="text" name="amortizeOn" value="${amortizeOn}" required="true" id="amortize">

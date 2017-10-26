@@ -30,23 +30,23 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Monthly Payment:($)</td>
-                                    <td>${amortizeloan.monthly}</td>
+                                    <td><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Interest Rate:(%)</td>
-                                    <td>${amortizeloan.interestRate}</td>
+                                    <td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.###"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Last Interest:($)</td>
-                                    <td>${amortizeloan.interest}</td>
+                                    <td><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Last Principal:($)</td>
-                                    <td>${amortizeloan.principal}</td>
+                                    <td><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Loan Amount:($)</td>
-                                    <td>${amortizeloan.amount}</td>
+                                    <td><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Lender:</td>
@@ -58,22 +58,28 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">APR:(%)</td>
-                                    <td>${amortizeloan.APR}</td>
+                                    <td><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.###"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Number of Years:</td>
                                     <td>${amortizeloan.numberOfYears}</td>
                                 </tr>
-				<c:if test="${not empty payoffAmount}">
+                                <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/searchloan'}">
+                                <tr>
+                                    <td style="width: 40%">Loan Type:</td>
+                                    <td>${loanType}</td>
+                                </tr>
+                                </c:if>
+				                <c:if test="${not empty payoffAmount}">
                                 	<tr>
                                     		<td style="width: 40%">Payoff Amount:($)</td>
-                                    		<td>${payoffAmount}</td>
+                                    		<td><fmt:formatNumber value="${payoffAmount}" pattern="###,###,###.00"/></td>
                                 	</tr>
                                 	<tr>
                                     		<td style="width: 40%">As of Payoff Date on:</td>
                                    		<td>${payoffOn}</td>
                                 	</tr>
-				</c:if>
+                                </c:if>
                             </table>
                         </div>
                     </div>

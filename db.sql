@@ -116,3 +116,5 @@ create table pref
         discriminator VARCHAR(255) not null,
 	primary key (pref_id, pref_emailaddress)
 );
+
+ALTER TABLE loan ADD COLUMN loan_type character varying(100) NOT NULL DEFAULT 'Home Loan';

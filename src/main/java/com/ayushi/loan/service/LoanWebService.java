@@ -25,13 +25,13 @@ public class LoanWebService implements LendingWebService {
 		String lender = loan.getLender();
 		String loanAmt = new Double(loan.getAmount()).toString();
 		String state = loan.getState();
-		String numOfYears = new Integer(loan.getNumberOfYears()).toString(); 
+		String numOfYears = new Integer(loan.getNumberOfYears()).toString();
+		String loanType = loan.getLoanType();
 		if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
-				   && numOfYears != null && !numOfYears.equals("")){
+				   && numOfYears != null && !numOfYears.equals("")&& loanType != null && !loanType.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
-			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + 						"&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears, Loan.class);
-		
+			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + 						"&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
 			return loanObject;
 		}else{
 			return null;

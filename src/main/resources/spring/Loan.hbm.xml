@@ -29,6 +29,9 @@
     	<property name="numberOfYears" type="java.lang.Integer">
 		<column name="NUM_OF_YRS" length="10" not-null="true"/>
 	</property>
+        <property name="loanType" type="java.lang.String">
+            <column name="LOAN_TYPE" length="100" not-null="true"/>
+        </property>
 
     </class>
 </hibernate-mapping>
