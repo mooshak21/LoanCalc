@@ -36,29 +36,15 @@
                        <label for="interestRate">Annual Interest Rate: </label>
                        <input class="form-control resetMe" type="number" name="airVal" value="${amortizeloan.APR}" min="0" max="100" step="0.01" id="interestRate">
                    </div>
-
-                    <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/loansearchask'}">
                     <div class="form-group">
                         <label for="loanType">Loan Type:</label>
                         <select class="form-control resetMe" name="loanType" id="loanType" >
                             <option value="">Choose a Loan Type</option>
-                            <option value="Student Loan"  ${loan.loanType == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
-                            <option value="Auto Loan"  ${loan.loanType == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
-                            <option value="Home Loan" ${loan.loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
+                            <option value="Student Loan"  ${amortizeloan.loanType == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
+                            <option value="Auto Loan"  ${amortizeloan.loanType == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
+                            <option value="Home Loan" ${amortizeloan.loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
                         </select>
                     </div>
-                    </c:if>
-                    <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/searchloan'}">
-                        <div class="form-group">
-                            <label for="loanType">Loan Type:</label>
-                            <select class="form-control resetMe" name="loanType" id="loanType1">
-                                <option value="">Choose a Loan Type</option>
-                                <option value="Student Loan" ${loanType == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
-                                <option value="Auto Loan"  ${loanType == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
-                                <option value="Home Loan" ${loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
-                            </select>
-                        </div>
-                    </c:if>
                    <div class="form-group">
                        <label for="amortize">Amortize on Date: </label>
                        <input class="form-control resetMe" type="text" name="amortizeOn" value="${amortizeOn}" required="true" id="amortize">		

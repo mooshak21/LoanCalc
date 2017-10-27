@@ -317,7 +317,7 @@ public class LoanCalculatorController {
                 total = loans.size();
                 Loan searchloan = (Loan) loans.get(0);
                 if (searchloan != null) {
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0,searchloan.getLoanId(), searchloan.getLoanType());
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
@@ -332,11 +332,11 @@ public class LoanCalculatorController {
             model.addAttribute("message", "Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
             //request.getSession().setAttribute("loans", loans);
             model.addAttribute("loans", loans);
-            if(loans!=null && loans.size()!=0){
+           /* if(loans!=null && loans.size()!=0){
                 model.addAttribute("loanType", ((Loan) loans.get(0)).getLoanType());
             }else{
                 model.addAttribute("loanType", "");
-            }
+            }*/
 
             model.addAttribute("amortizeloan", loanObject);
             model.addAttribute("payoffOn", payoffOn);
@@ -434,7 +434,7 @@ public class LoanCalculatorController {
                 loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?",new Object[]{new Long(loanId)});
                 if (loans != null && loans.size() > 0){
                     Loan searchloan = (Loan) loans.get(0);
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0);
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0,searchloan.getLoanId(), searchloan.getLoanType());
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     amortizeLoan.setLoanId(searchloan.getLoanId());
@@ -519,7 +519,7 @@ public class LoanCalculatorController {
             Loan loan = (Loan) loans.get(pageid - 1);
             if (amortizeOn != null) {
                 al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(),
-                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0);
+                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0,loan.getLoanId(),loan.getLoanType());
                 model.addAttribute("payoffAmt", !payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null) ? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
                 model.addAttribute("amortizeloan", al);
                 model.addAttribute("loanId", loanId);

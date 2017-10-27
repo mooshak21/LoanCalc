@@ -64,17 +64,17 @@
             <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
-                        <tr><td style="width: 40%">Loan Id:<td><h4>${loan.loanId}</h4></td></tr><tr><td>Monthly Payment:</td><td><h4><fmt:formatNumber value="${loan.monthly}" pattern="###,###,###.##"/></h4></td></tr>
-                        <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4><fmt:formatNumber value="${loan.interestRate}" pattern="###,###,###.##"/></h4></td></tr>
+                        <tr><td style="width: 40%">Loan Id:<td><h4>${loan.loanId}</h4></td></tr><tr><td>Monthly Payment:($)</td><td><h4><fmt:formatNumber value="${loan.monthly}" pattern="###,###,###.###"/></h4></td></tr>
+                        <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4><fmt:formatNumber value="${loan.interestRate}" pattern="###,###,###.########"/></h4></td></tr>
                         <tr><td style="width: 40%">Loan Amount:($)</td><td><h4><fmt:formatNumber value="${loan.amount}" pattern="###,###,###.00"/></h4></td></tr>
                         <tr><td style="width: 40%">Lender:</td><td><h4>${loan.lender}</h4></td></tr>
                         <tr><td style="width: 40%">State:</td><td><h4>${loan.state}</h4></td></tr>
-                        <tr><td style="width: 40%">APR:(%)</td><td><h4><fmt:formatNumber value="${loan.APR}" pattern="###,###,###.###"/></h4></td></tr>
+                        <tr><td style="width: 40%">APR:(%)</td><td><h4><fmt:formatNumber value="${loan.APR}" pattern="###,###,###.########"/></h4></td></tr>
                         <tr><td style="width: 40%">Number of Years:</td><td><h4>${loan.numberOfYears}</h4></td></tr>
                         <tr><td style="width: 40%">Loan Type:</td><td><h4>${loan.loanType}</h4></td></tr>
                         <tr><td style="width: 40%">Loan App:</td><td><h4>${loan.loanApp.lender}</h4></td></tr>
-                        <tr><td style="width: 40%">Interest:(%)</td><td><h4><fmt:formatNumber value="${loan.interest}" pattern="###,###,###.###"/></h4></td></tr>
-                        <tr><td style="width: 40%">Principal:($)</td><td><h4><fmt:formatNumber value="${loan.principal}" pattern="###,###,###.##"/></h4></td></tr>
+                        <tr><td style="width: 40%">Interest:($)</td><td><h4><fmt:formatNumber value="${loan.interest}" pattern="###,###,###.###"/></h4></td></tr>
+                        <tr><td style="width: 40%">Principal:($)</td><td><h4><fmt:formatNumber value="${loan.principal}" pattern="###,###,###.###"/></h4></td></tr>
                         <tr><td style="width: 40%" colspan="2"><a href='/amortizeloan?airVal=${loan.APR}&loanAmt=${loan.amount}&state=${loan.state}&lender=${loan.lender}&numOfYears=${loan.numberOfYears}&amortizeOn=01/01/2017'>Amortize Loan</a></td></tr>
                     </table>
                 </div>

@@ -34,7 +34,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Interest Rate:(%)</td>
-                                    <td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.###"/></td>
+                                    <td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Last Interest:($)</td>
@@ -58,7 +58,7 @@
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">APR:(%)</td>
-                                    <td><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.###"/></td>
+                                    <td><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 40%">Number of Years:</td>

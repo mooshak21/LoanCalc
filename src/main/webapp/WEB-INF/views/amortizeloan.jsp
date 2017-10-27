@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
             pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
      <div class="row justify-content-center">
@@ -59,14 +60,14 @@
             <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
-                        <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4>${amortizeloan.monthly}</h4></td></tr>
-                        <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4>${amortizeloan.interestRate}</h4></td></tr>
-                        <tr><td style="width: 40%">Last Interest:($)</td><td><h4>${amortizeloan.interest}</h4></td></tr>
-                        <tr><td style="width: 40%">Last Principal:($)</td><td><h4>${amortizeloan.principal}</h4></td></tr>
-                        <tr><td style="width: 40%">Loan Amount:($)</td><td><h4>${amortizeloan.amount}</h4></td></tr>
+                        <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></h4></td></tr>
+                        <tr><td style="width: 40%">Last Interest:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Last Principal:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Loan Amount:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></h4></td></tr>
                         <tr><td style="width: 40%">Lender:</td><td><h4>${amortizeloan.lender}</h4></td></tr>
                         <tr><td style="width: 40%">State:</td><td><h4>${amortizeloan.state}</h4></td></tr>
-                        <tr><td style="width: 40%">APR:(%)</td><td><h4>${amortizeloan.APR}</h4></td></tr>
+                        <tr><td style="width: 40%">APR:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></h4></td></tr>
                         <tr><td style="width: 40%">Number of Years:</td><td><h4>${amortizeloan.numberOfYears}</h4></td></tr>
                      </table>
                 </div>
