@@ -27,15 +27,16 @@
                                     </tr>
                                 </c:if>                
                                <tr><td style="width: 40%">Loan Id:</td><td>${amortizeloan.loanId}</td></tr>
-                               <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></h4></td></tr>
-                               <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></h4></td></tr>
-                               <tr><td style="width: 40%">Last Interest:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></h4></td></tr>
-                               <tr><td style="width: 40%">Last Principal:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></h4></td></tr>
-                               <tr><td style="width: 40%">Loan Amount:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></h4></td></tr>
-                               <tr><td style="width: 40%">Lender:</td><td><h4>${amortizeloan.lender}</h4></td></tr>
-                               <tr><td style="width: 40%">State:</td><td><h4>${amortizeloan.state}</h4></td></tr>
-                               <tr><td style="width: 40%">APR:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></h4></td></tr>
-                               <tr><td style="width: 40%">Number of Years:</td><td><h4>${amortizeloan.numberOfYears}</h4></td></tr>
+                               <tr><td style="width: 40%">Monthly Payment:($)</td><td><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Interest Rate:(%)</td><td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></td></tr>
+                               <tr><td style="width: 40%">Last Interest:($)</td><td><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Last Principal:($)</td><td><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Loan Amount:($)</td><td><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Lender:</td><td>${amortizeloan.lender}</td></tr>
+                               <tr><td style="width: 40%">State:</td><td>${amortizeloan.state}</td></tr>
+                               <tr><td style="width: 40%">APR:(%)</td><td><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></td></tr>
+                               <tr><td style="width: 40%">Number of Years:</td><td>${amortizeloan.numberOfYears}</td></tr>
+                                <tr><td style="width: 40%">Loan Type:</td><td>${amortizeloan.loanType}</td></tr>
                             </table>
                         </div>
                     </div>

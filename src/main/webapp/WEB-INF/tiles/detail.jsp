@@ -64,12 +64,12 @@
                                     <td style="width: 40%">Number of Years:</td>
                                     <td>${amortizeloan.numberOfYears}</td>
                                 </tr>
-                                <c:if test="${requestScope['javax.servlet.forward.request_uri'] eq '/searchloan'}">
+
                                 <tr>
                                     <td style="width: 40%">Loan Type:</td>
-                                    <td>${loanType}</td>
+                                    <td>${amortizeloan.loanType}</td>
                                 </tr>
-                                </c:if>
+
 				                <c:if test="${not empty payoffAmount}">
                                 	<tr>
                                     		<td style="width: 40%">Payoff Amount:($)</td>
