@@ -54,9 +54,14 @@ public class LoanCalculatorController {
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
                        Model model, HttpServletRequest request) {
-	model.addAttribute("userEmail", emailCookie);
-        request.getCookies();
-        return "index";
+	if(emailCookie != null && !emailCookie.equals("")){
+		model.addAttribute("userEmail", emailCookie);
+        	request.getCookies();
+
+        	return "login";
+	}else{
+        	return "viewpreferences";
+	}
     }
 
 
