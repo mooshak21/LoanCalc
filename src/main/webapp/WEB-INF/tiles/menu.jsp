@@ -25,6 +25,9 @@
 		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
+		<li class="nav-item">
+                  <a class="nav-link menuItemXs" href="/quickview">Quick View Loan</a>
+                </li>
 
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/createloan">Create Loan</a>
@@ -68,7 +71,11 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
             </li>
-            
+	            
+	   <li class="nav-item">
+                  <a class="nav-link menuItem" href="/quickview">Quick View Loan</a>
+            </li>
+
             <li class="nav-item">
               <a class="nav-link menuItem" href="/createloan">Create Loan</a>
             </li>
