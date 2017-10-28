@@ -589,7 +589,7 @@ public class LoanCalculatorController {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
            HttpServletRequest request, HttpServletResponse response, Model model) {
 	
-	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, numberOfYearsPreference = null;
+	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null;
         boolean allVal = false;
         if (loanAmt != null && !loanAmt.equals(""))
 	    amountPreference = loanAmt;
