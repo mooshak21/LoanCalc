@@ -83,7 +83,7 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link menuItem" href="/loanpreferenceviewask">View/Edit Preferences</a>
+              <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
