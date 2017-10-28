@@ -38,7 +38,7 @@ import com.ayushi.loan.preferences.RiskTolerancePreference;
 import com.ayushi.loan.preferences.TimeHorizonPreference;
 import com.ayushi.loan.preferences.LoanAmountPreference;
 import com.ayushi.loan.preferences.LoanLenderPreference;
-import com.ayushi.loan.preferences.LoanAnnualInteresteRatePreference;
+import com.ayushi.loan.preferences.LoanAnnualInterestRatePreference;
 import com.ayushi.loan.preferences.LoanNumberOfYearsPreference;
 import com.ayushi.loan.preferences.LoanStatePreference;
 
