@@ -203,7 +203,6 @@ public class LoanCalculatorController {
 
     @RequestMapping(value = "/searchloan", method = RequestMethod.GET)
     public String searchLoan(Model model, RedirectAttributes redirectAttributes) {
-
         return "searchloan";
     }
 
@@ -863,7 +862,7 @@ public class LoanCalculatorController {
 
     @RequestMapping(value = "/aggregateloanask")
     public String aggregateloan(Model model) {
-        model.addAttribute("message", "");
+        model.addAttribute("message", "Loan Aggregation");
         return "aggregateloan";
     }
 
