@@ -55,6 +55,7 @@ public class LoanCalculatorController {
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
                        Model model, HttpServletRequest request) {
 	if(emailCookie != null && !emailCookie.equals("")){
+	        model.addAttribute("message", "Login Form");
 		model.addAttribute("userEmail", emailCookie);
         	request.getCookies();
 
