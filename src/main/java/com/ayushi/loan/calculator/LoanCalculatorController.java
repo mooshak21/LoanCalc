@@ -1169,7 +1169,7 @@ public class LoanCalculatorController {
         model.addAttribute("message", "Login Form");
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
-	    Preference pref = checkPreferenceEmailAddress(email)
+	    Preference pref = checkPreferenceEmailAddress(email);
             if(pref != null){
               	response.addCookie(new Cookie("userEmail", email));
 		model.addAttribute("userEmail", email);
