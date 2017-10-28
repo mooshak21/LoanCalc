@@ -1167,7 +1167,7 @@ public class LoanCalculatorController {
  @RequestMapping(value = "/logout")
     public String logout(Model model) {
         model.addAttribute("message", "Logout");
-        return "index";
+        return "logout";
     }    
 
  @RequestMapping(value = "/login")
