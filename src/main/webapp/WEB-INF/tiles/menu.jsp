@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
 
 
@@ -20,6 +21,7 @@
 	        <li class="nav-item">
 	          <a class="nav-link menuItemXs" href="/login">Login</a>
 		</li>
+	<c:if test="${not empty userEmail}">
 		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
@@ -40,13 +42,13 @@
                   <a class="nav-link menuItemXs" href="/loanviewask">View Loans</a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
-                </li>
-
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                   </li>
+        </c:if>                
+                <li class="nav-item">
+                  <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
+                </li>
 		  <li class="nav-item">
 		      <a class="nav-link menuItemXs" href="/logout">Log out</a>
 		  </li>
@@ -62,6 +64,7 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
+	<c:if test="${not empty userEmail}">
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
             </li>
@@ -83,10 +86,11 @@
             </li>
             
             <li class="nav-item">
-              <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
+            </li>
+        </c:if>                
+            <li class="nav-item">
+              <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
 	    <li class="nav-item">
 	    	<a class="nav-link menuItem" href="/logout">Log out</a>

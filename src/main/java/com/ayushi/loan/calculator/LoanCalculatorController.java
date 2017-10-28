@@ -61,7 +61,7 @@ public class LoanCalculatorController {
 
         	return "login";
 	}else{
-		model.addAttribute("message", "Regiser with preferences");
+		model.addAttribute("message", "Register with preferences");
         	return "viewpreferences";
 	}
     }
