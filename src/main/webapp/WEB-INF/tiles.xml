@@ -55,6 +55,10 @@
         <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
      </definition>
 
+     <definition name="logout" extends="loanapp.homepage">
+	<put-attribute name="title" value="Logout"/>
+	<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
+     </definition>
      <definition name="index" extends="loanapp.homepage">
              <put-attribute name="title" value="Home Page"/>
              <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
