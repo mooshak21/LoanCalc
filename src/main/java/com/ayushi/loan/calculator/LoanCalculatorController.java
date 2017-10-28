@@ -583,18 +583,19 @@ public class LoanCalculatorController {
             @RequestParam("reminderfreq") String reminderFreq,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
            HttpServletRequest request, HttpServletResponse response, Model model) {
+	
+	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, numberOfYearsPreference = null;
         boolean allVal = false;
-        Loan loanQryObject = new Loan();
-        if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
-                && lender != null && !lender.equals("") && state != null && !state.equals("")
-                && numOfYears != null && !numOfYears.equals("")) {
-            allVal = true;
-            loanQryObject.setAmount(Double.valueOf(loanAmt));
-            loanQryObject.setLender(lender);
-            loanQryObject.setState(state);
-            loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
-            loanQryObject.setAPR(Double.valueOf(airVal));
-        }
+        if (loanAmt != null && !loanAmt.equals(""))
+	    amountPreference = loanAmt;
+	if(airVal != null && !airVal.equals(""))
+	    airPreference = airVal;	
+        if(lender != null && !lender.equals(""))
+	    lenderPreference = lender;
+	if(state != null && !state.equals(""))
+	    statePreference = state;
+        if(numOfYears != null && !numOfYears.equals("")) 
+	    numberOfYearsPreference = numOfYears;
 
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
@@ -609,10 +610,10 @@ public class LoanCalculatorController {
             response.addCookie(new Cookie("reminderFrequency", reminderFreq));
         }
 
-      //  if (allVal) {
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
             PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
             List<Preference> prefList = new ArrayList<Preference>();
+
             if (locationPreference != null && !locationPreference.equals("")) {
                 LocationPreference locPref = new LocationPreference();
                 locPref.setId(1);
@@ -676,7 +677,49 @@ public class LoanCalculatorController {
                 prefList.add(rfPref);
             }
         
+            if (amountPreference != null && !amountPreference.equals("")) {
+                LoanAmountPreference lamtPref = new LoanAmountPreference();
+                lamtPref.setId(7);
+                lamtPref.setName("Amount");
+                lamtPref.setEmailAddress(email);
+                lamtPref.setValue(amountPreference);
+                lamtPref.setFlag(true);
+                lamtPref.setActive("Y");
+                prefList.add(lamtPref);
+            }
 
+            if (airPreference != null && !airPreference.equals("")) {
+                LoanAnnualInterestRatePreference lairPref = new LoanAnnualInterestRatePreference();
+                lairPref.setId(8);
+                lairPref.setName("AIR");
+                lairPref.setEmailAddress(email);
+                lairPref.setValue(airPreference);
+                lairPref.setFlag(true);
+                lairPref.setActive("Y");
+                prefList.add(lairPref);
+            }
+
+            if (lenderPreference != null && !lenderPreference.equals("")) {
+                LoanLenderPreference lenderPref = new LoanLenderPreference();
+                lenderPref.setId(9);
+                lenderPref.setName("Lender");
+                lenderPref.setEmailAddress(email);
+                lenderPref.setValue(lenderPreference);
+                lenderPref.setFlag(true);
+                lenderPref.setActive("Y");
+                prefList.add(lenderPref);
+            }
+
+	    if (numberOfYearsPreference != null && !numberOfYearsPreference.equals("")){
+                LoanNumberOfYearsPreference lnumPref = new LoanNumberOfYearsPreference();
+                lnumPref.setId(9);
+                lnumPref.setName("NumberOfYears");
+                lnumPref.setEmailAddress(email);
+                lnumPref.setValue(numberOfYearsPreference);
+                lnumPref.setFlag(true);
+                lnumPref.setActive("Y");
+                prefList.add(lnumPref);
+	    }
             List<Preference> preferences = null;
             Preferences prefs = new Preferences();
             prefs.setPreferences(prefList);
