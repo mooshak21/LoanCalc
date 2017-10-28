@@ -13,7 +13,8 @@
                    <div class="form-group">
                        <label for="email">Email: </label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
-                   </div>
+			       <p>Do you want to <a href="/loanpreferenceviewask">Register</a>?</p>
+		   </div>
 
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
