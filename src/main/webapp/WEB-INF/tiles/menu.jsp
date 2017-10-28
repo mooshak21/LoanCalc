@@ -41,7 +41,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loanpreferenceviewask">View / Edit Preferences</a>
+                  <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
                 </li>
 
                   <li class="nav-item">
