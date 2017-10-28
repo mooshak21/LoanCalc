@@ -40,6 +40,7 @@
 	<subclass name="com.ayushi.loan.preferences.LoanLenderPreference" discriminator-value="LR"/>
         <subclass name="com.ayushi.loan.preferences.LoanStatePreference" discriminator-value="LS"/>
         <subclass name="com.ayushi.loan.preferences.LoanNumberOfYearsPreference" discriminator-value="LN"/>
+
 	<subclass name="com.ayushi.loan.preferences.LoanAnnualInterestRatePreference" discriminator-value="LT"/>
     </class>
 </hibernate-mapping>
