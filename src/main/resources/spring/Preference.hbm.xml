@@ -36,6 +36,11 @@
         <subclass name="com.ayushi.loan.preferences.RiskTolerancePreference" discriminator-value="RT"/>
         <subclass name="com.ayushi.loan.preferences.TimeHorizonPreference" discriminator-value="TH"/>
         <subclass name="com.ayushi.loan.preferences.WebServicePreference" discriminator-value="WS"/>
-
+        <subclass name="com.ayushi.loan.preferences.LoanAmountPreference" discriminator-value="LA"/>
+	<subclass name="com.ayushi.loan.preferences.LoanLenderPreference" discriminator-value="LR"/>
+        <subclass name="com.ayushi.loan.preferences.LoanStatePreference"
+	 discriminator-value="LS"/>
+        <subclass name="com.ayushi.loan.preferences.LoanNumberOfYearsPreference" discriminator-value="LN"/>
+	<subclass name="com.ayushi.loan.preferences.LoanAnnualInterestRatePreference" discriminator-value="LT"/>
     </class>
 </hibernate-mapping>
