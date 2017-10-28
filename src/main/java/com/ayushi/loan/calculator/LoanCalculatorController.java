@@ -1169,8 +1169,10 @@ public class LoanCalculatorController {
         model.addAttribute("message", "Login Form");
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
-            if(checkPreferenceEmailAddress(email)){
+	    Preference pref = checkPreferenceEmailAddress(email)
+            if(pref != null){
               	response.addCookie(new Cookie("userEmail", email));
+		model.addAttribute("userEmail", email);
        		return "index";
 	    }else
 	        return "login";
@@ -1178,7 +1180,7 @@ public class LoanCalculatorController {
         return "login";
     }    
 
-	private boolean checkPreferenceEmailAddress(String newEmail) {
+	private Preference checkPreferenceEmailAddress(String newEmail) {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 			        List<Preference> preferences;
@@ -1186,16 +1188,14 @@ public class LoanCalculatorController {
 				           preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
 										                    for(Preference p : preferences){
-													System.out.println(p.getEmailAddress());
-													System.out.println(newEmail);
-												    	if(p.getEmailAddress().equals(newEmail))
-														return true;
+													if(p.getEmailAddress().equals(newEmail))
+														return p;
 												    }
 		    							}
 				        } catch (PreferenceAccessException ex) {
 				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
 				        }
-				    return false;	
+				    return null;	
 	}
 
 }
