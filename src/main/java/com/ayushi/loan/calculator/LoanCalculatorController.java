@@ -36,6 +36,11 @@ import com.ayushi.loan.preferences.ReminderFrequencyPreference;
 import com.ayushi.loan.preferences.WebServicePreference;
 import com.ayushi.loan.preferences.RiskTolerancePreference;
 import com.ayushi.loan.preferences.TimeHorizonPreference;
+import com.ayushi.loan.preferences.LoanAmountPreference;
+import com.ayushi.loan.preferences.LoanLenderPreference;
+import com.ayushi.loan.preferences.LoanAnnualInteresteRatePreference;
+import com.ayushi.loan.preferences.LoanNumberOfYearsPreference;
+import com.ayushi.loan.preferences.LoanStatePreference;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -617,7 +622,7 @@ public class LoanCalculatorController {
             if (locationPreference != null && !locationPreference.equals("")) {
                 LocationPreference locPref = new LocationPreference();
                 locPref.setId(1);
-                locPref.setName("State");
+                locPref.setName("Location");
                 locPref.setEmailAddress(email);
                 locPref.setValue(locationPreference);
                 locPref.setFlag(true);
@@ -712,7 +717,7 @@ public class LoanCalculatorController {
 
 	    if (numberOfYearsPreference != null && !numberOfYearsPreference.equals("")){
                 LoanNumberOfYearsPreference lnumPref = new LoanNumberOfYearsPreference();
-                lnumPref.setId(9);
+                lnumPref.setId(10);
                 lnumPref.setName("NumberOfYears");
                 lnumPref.setEmailAddress(email);
                 lnumPref.setValue(numberOfYearsPreference);
@@ -720,6 +725,18 @@ public class LoanCalculatorController {
                 lnumPref.setActive("Y");
                 prefList.add(lnumPref);
 	    }
+
+            if (statePreference != null && !statePreference.equals("")) {
+                LoanStatePreference lstPref = new LoanStatePreference();
+                lstPref.setId(11);
+                lstPref.setName("State");
+                lstPref.setEmailAddress(email);
+                lstPref.setValue(statePreference);
+                lstPref.setFlag(true);
+                lstPref.setActive("Y");
+                prefList.add(lstPref);
+            }
+
             List<Preference> preferences = null;
             Preferences prefs = new Preferences();
             prefs.setPreferences(prefList);
