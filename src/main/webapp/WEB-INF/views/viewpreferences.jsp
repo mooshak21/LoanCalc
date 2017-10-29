@@ -18,7 +18,7 @@
 
                    <div class="form-group">
                        <label for="numberOfYears">Number of Years:</label>
-                       <input class="form-control resetMe" type="number" name="numOfYears" value="${numberOfYears}" min="1" max="100" id="numberOfYears">
+                       <input class="form-control resetMe" type="number" name="numOfYears" value="${numOfYears}" min="1" max="100" id="numberOfYears">
                    </div>
 
                    <div class="form-group">
