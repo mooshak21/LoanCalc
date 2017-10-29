@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ayushi.loan.preferences;
+package com.ayushi..preferences;
 
 /**
  *
  * @author Gagan Jain 
  */
-public class LoanAmountPreference extends Preference{
+public class AmountPreference extends Preference{
 
-    public LoanAmountPreference() {
+    public AmountPreference() {
         super();
-         type = "LoanAmountPreference";
-        name = "LoanAmountPreference";
-        description = "LoanAmountPreference";
+         type = "AmountPreference";
+        name = "AmountPreference";
+        description = "AmountPreference";
         
     }
     

@@ -9,13 +9,13 @@ package com.ayushi.loan.preferences;
  *
  * @author Gagan Jain 
  */
-public class LoanLenderPreference extends Preference{
+public class LenderPreference extends Preference{
 
-    public LoanLenderPreference() {
+    public LenderPreference() {
         super();
-         type = "LoanLenderPreference";
-        name = "LoanLenderPreference";
-        description = "LoanLenderPreference";
+         type = "LenderPreference";
+        name = "LenderPreference";
+        description = "LenderPreference";
         
     }
     

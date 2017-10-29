@@ -9,13 +9,13 @@ package com.ayushi.loan.preferences;
  *
  * @author Gagan Jain 
  */
-public class LoanAnnualInterestRatePreference extends Preference{
+public class YearsPreference extends Preference{
 
-    public LoanAnnualInterestRatePreference() {
+    public YearsPreference() {
         super();
-         type = "LoanAnnualInterestRatePreference";
-        name = "LoanAnnualInterestRatePreference";
-        description = "LoanAnnualInterestRatePreference";
+         type = "YearsPreference";
+        name = "YearsPreference";
+        description = "YearsPreference";
         
     }
     
