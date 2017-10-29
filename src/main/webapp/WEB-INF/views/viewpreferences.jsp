@@ -37,22 +37,22 @@
 
                    <div class="form-group">
                        <label for="locationPreference">Location Preference: </label>
-                        <input class="form-control resetMe" type="text" name="locationPreference" value="state" id="locationPreference">
+		       <input class="form-control resetMe" type="text" name="locationPreference" value="${locationPreference}" id="locationPreference">
                    </div>
 
                    <div class="form-group">
                        <label for="wsPreference">Web Service Preference: </label>
-                       <input class="form-control resetMe" type="text" name="webServicePreference" value="REST" id="wsPreference">
+		       <input class="form-control resetMe" type="text" name="webServicePreference" value="${webServicePreference}" id="wsPreference">
                    </div>
 
                     <div class="form-group">
                        <label for="rtPreference">Risk Tolerance Preference: </label>
-                       <input class="form-control resetMe" type="number" name="riskTolerancePreference" value="1" min="0" max="100" step="1" id="rtPreference">
+		       <input class="form-control resetMe" type="number" name="riskTolerancePreference" value="${riskTolerancePreference}" min="0" max="100" step="1" id="rtPreference">
                    </div>
 
                    <div class="form-group">
                        <label for="thPreference">Time Horizon Preference: </label>
-                       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="1" min="0" max="100" step="0.01" id="thPreference">
+		       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="${timeHorizonPreference}" min="0" max="100" step="0.01" id="thPreference">
                    </div>
                    
                    <div class="form-group">
