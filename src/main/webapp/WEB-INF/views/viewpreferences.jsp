@@ -13,27 +13,27 @@
                    
                    <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
-                        <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
+                        <input class="form-control resetMe" type="number" name="loanAmt" value="${loanAmt}" min="1" max="9999999999" id="loanAmount">
                    </div>
 
                    <div class="form-group">
                        <label for="numberOfYears">Number of Years:</label>
-                       <input class="form-control resetMe" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears">
+                       <input class="form-control resetMe" type="number" name="numOfYears" value="${numberOfYears}" min="1" max="100" id="numberOfYears">
                    </div>
 
                    <div class="form-group">
                        <label for="lender">Lender:</label>
-                       <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender">
+                       <input class="form-control resetMe" type="text" name="lender" value="${lender}" id="lender">
                    </div>
 
                    <div class="form-group">
                        <label for="state">State: </label>
-                        <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state">
+                        <input class="form-control resetMe" type="text" name="state" value="${state}" id="state">
                    </div>
 
                    <div class="form-group">
                        <label for="interestRate">Annual Interest Rate: </label>
-                       <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
+                       <input class="form-control resetMe" type="number" name="airVal" value="${airVal}" min="0" max="100" step="0.01" id="interestRate">
                    </div>
 
                    <div class="form-group">
