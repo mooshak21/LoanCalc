@@ -25,7 +25,6 @@
                        <label for="lender">Lender:</label>
                        <input class="form-control resetMe" type="text" name="lender" value="${lender}" id="lender">
                    </div>
-
                    <div class="form-group">
                        <label for="state">State: </label>
                         <input class="form-control resetMe" type="text" name="state" value="${state}" id="state">
