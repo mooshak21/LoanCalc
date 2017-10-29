@@ -695,7 +695,7 @@ public class LoanCalculatorController {
                 RiskTolerancePreference rtPref = new RiskTolerancePreference();
                 rtPref.setId(3);
                 rtPref.setEmailAddress(email);
-                rtPref.setName("Interest Rate");
+                rtPref.setName("Risk Tolerance");
                 rtPref.setValue(riskTolerancePreference);
                 rtPref.setFlag(true);
                 rtPref.setActive("Y");
@@ -792,38 +792,25 @@ public class LoanCalculatorController {
             List<Preference> preferences = null;
             Preferences prefs = new Preferences();
             prefs.setPreferences(prefList);
-            StringBuffer sbPref = new StringBuffer();
             try {
                 preferences = prefService.processPreferences(prefs,
                         pref -> pref.getFlag() && pref.getActive().equals("Y"));
                 if(preferences != null && preferences.size() > 0){
                     for(Preference p : preferences){
                         prefService.createPreference(p);
-                        sbPref.append(p.getId());
                     }
-//                    model.addAttribute("message", "Preference Service Successful! " + sbPref.toString());
                       model.addAttribute("message", "Preference Service Successful! ");
                 }else{
                     model.addAttribute("message", "Preference Service Failed!");
                 }
-                
-                    
-//                if (preferenceIds != null && preferenceIds.size() > 0) {
-//                    prefService.addPreferences(loanQryObject, preferenceIds);
-//                    for (Integer prefId : preferenceIds)
-//                        sbPref.append(prefId);
-//                    model.addAttribute("message", "Preference Service Successful! " + sbPref.toString());
-//                } else {
-//                    model.addAttribute("message", "Preference Service Failed!");
-//                }
             } catch (PreferenceAccessException | PreferenceProcessException pae) {
                 pae.printStackTrace();
+
                 model.addAttribute("message", "Preference Service Failed!");
+
                 return "viewpreferences";
             }
-//        } else {
-//            model.addAttribute("message", "Preference Service : Required Parameters not entered!");
-//        }
+
         return "viewpreferences";
     }
 
