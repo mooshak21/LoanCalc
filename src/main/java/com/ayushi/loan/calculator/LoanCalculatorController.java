@@ -567,9 +567,61 @@ public class LoanCalculatorController {
 
     //----------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "/loanpreferenceviewask")
-    public String loanpreferenceviewask( @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,Model model) {
+    public String loanpreferenceviewask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,Model model) {
         model.addAttribute("message", "Edit Preferences");
         model.addAttribute("reminderFrequency", reminderFrequency);
+	List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        String airVal = null;
+        String lender = null;
+        String loanAmt = null;
+        String state = null;
+        String numOfYears = null;
+        String locationPreference = null;
+        String webServicePreference = null;
+        String riskTolerancePreference = null;
+        String timeHorizonPreference = null;
+	for(Preference pref : prefs){
+		if(pref instanceof LocationPreference){
+			locationPreference = pref.getValue();
+			model.addAttribute("locationPreference", locationPreference);
+		}
+		if(pref instanceof WebServicePreference){
+			webServicePreference = pref.getValue();
+			model.addAttribute("webServicePreference", webServicePreference);
+		}
+
+		if(pref instanceof RiskTolerancePreference){
+ 			riskTolerancePreference = pref.getValue();
+			model.addAttribute("riskTolerancePreference", riskTolerancePreference);
+		}
+
+		if(pref instanceof TimeHorizonPreference){
+ 			timeHorizonPreference = pref.getValue();
+			model.addAttribute("timeHorizonPreference", timeHorizonPreference);
+		}
+
+		if(pref instanceof AmountPreference){
+ 			loanAmt = pref.getValue();
+			model.addAttribute("loanAmt", loanAmt);
+		} 
+		if(pref instanceof AirPreference){
+ 			airVal = pref.getValue();
+			model.addAttribute("airVal", airVal);
+		}  
+		if(pref instanceof LenderPreference){
+ 			lender = pref.getValue();
+			model.addAttribute("lender", lender);
+		}   
+		if(pref instanceof YearsPreference){
+ 			numOfYears = pref.getValue();
+			model.addAttribute("numOfYears", numOfYears);
+		}   
+		if(pref instanceof StatePreference{
+ 			state = pref.getValue();
+			model.addAttribute("state", state);
+		}    
+	}
+
         return "viewpreferences";
     }
 
@@ -1257,6 +1309,21 @@ public class LoanCalculatorController {
 													if(p.getEmailAddress().equals(newEmail))
 														return p;
 												    }
+		    							}
+				        } catch (PreferenceAccessException ex) {
+				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+				        }
+				    return null;	
+	}
+
+	private List<Preference> getPreferencesByEmailAddress(String email) {
+	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+			        List<Preference> preferences;
+				        try {
+				           preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{email});
+							                if(preferences != null){
+										return preferences;
 		    							}
 				        } catch (PreferenceAccessException ex) {
 				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
