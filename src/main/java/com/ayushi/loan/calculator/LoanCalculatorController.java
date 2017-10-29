@@ -36,11 +36,11 @@ import com.ayushi.loan.preferences.ReminderFrequencyPreference;
 import com.ayushi.loan.preferences.WebServicePreference;
 import com.ayushi.loan.preferences.RiskTolerancePreference;
 import com.ayushi.loan.preferences.TimeHorizonPreference;
-import com.ayushi.loan.preferences.LoanAmountPreference;
-import com.ayushi.loan.preferences.LoanLenderPreference;
-import com.ayushi.loan.preferences.LoanAnnualInterestRatePreference;
-import com.ayushi.loan.preferences.LoanNumberOfYearsPreference;
-import com.ayushi.loan.preferences.LoanStatePreference;
+import com.ayushi.loan.preferences.AmountPreference;
+import com.ayushi.loan.preferences.LenderPreference;
+import com.ayushi.loan.preferences.AirPreference;
+import com.ayushi.loan.preferences.YearsPreference;
+import com.ayushi.loan.preferences.StatePreference;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -683,7 +683,7 @@ public class LoanCalculatorController {
             }
         
             if (amountPreference != null && !amountPreference.equals("")) {
-                LoanAmountPreference lamtPref = new LoanAmountPreference();
+                AmountPreference lamtPref = new AmountPreference();
                 lamtPref.setId(7);
                 lamtPref.setName("Amount");
                 lamtPref.setEmailAddress(email);
@@ -694,7 +694,7 @@ public class LoanCalculatorController {
             }
 
             if (airPreference != null && !airPreference.equals("")) {
-                LoanAnnualInterestRatePreference lairPref = new LoanAnnualInterestRatePreference();
+                AirPreference lairPref = new AirPreference();
                 lairPref.setId(8);
                 lairPref.setName("AIR");
                 lairPref.setEmailAddress(email);
@@ -705,7 +705,7 @@ public class LoanCalculatorController {
             }
 
             if (lenderPreference != null && !lenderPreference.equals("")) {
-                LoanLenderPreference lenderPref = new LoanLenderPreference();
+                LenderPreference lenderPref = new LenderPreference();
                 lenderPref.setId(9);
                 lenderPref.setName("Lender");
                 lenderPref.setEmailAddress(email);
@@ -716,7 +716,7 @@ public class LoanCalculatorController {
             }
 
 	    if (numberOfYearsPreference != null && !numberOfYearsPreference.equals("")){
-                LoanNumberOfYearsPreference lnumPref = new LoanNumberOfYearsPreference();
+                YearsPreference lnumPref = new YearsPreference();
                 lnumPref.setId(10);
                 lnumPref.setName("NumberOfYears");
                 lnumPref.setEmailAddress(email);
@@ -727,7 +727,7 @@ public class LoanCalculatorController {
 	    }
 
             if (statePreference != null && !statePreference.equals("")) {
-                LoanStatePreference lstPref = new LoanStatePreference();
+                StatePreference lstPref = new StatePreference();
                 lstPref.setId(11);
                 lstPref.setName("State");
                 lstPref.setEmailAddress(email);
