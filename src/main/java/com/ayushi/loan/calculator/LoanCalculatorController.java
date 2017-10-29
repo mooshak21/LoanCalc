@@ -616,7 +616,7 @@ public class LoanCalculatorController {
  			numOfYears = pref.getValue();
 			model.addAttribute("numOfYears", numOfYears);
 		}   
-		if(pref instanceof StatePreference{
+		if(pref instanceof StatePreference){
  			state = pref.getValue();
 			model.addAttribute("state", state);
 		}    
