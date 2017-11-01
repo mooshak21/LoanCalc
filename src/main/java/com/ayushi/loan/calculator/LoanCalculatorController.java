@@ -1391,7 +1391,6 @@ public class LoanCalculatorController implements ServletContextAware {
 
             }
             model.addAttribute("loanId", loanId);
-            model.addAttribute("loanAggId", loanAgg.getLoanAggId());
             model.addAttribute("numberOfYears", numOfYears);
             model.addAttribute("loanAmt", loanAmt);
             model.addAttribute("lender", lender);
