@@ -1,13 +1,20 @@
 package com.ayushi.loan.calculator;
 
 import com.ayushi.loan.service.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +23,7 @@ import java.util.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +34,6 @@ import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.exception.PreferenceProcessException;
 import com.ayushi.loan.preferences.EmailReminderPreference;
 import com.ayushi.loan.preferences.LoanIdPreference;
-
-import java.io.Serializable;
 
 import com.ayushi.loan.preferences.Preference;
 import com.ayushi.loan.preferences.Preferences;
@@ -42,18 +48,23 @@ import com.ayushi.loan.preferences.AirPreference;
 import com.ayushi.loan.preferences.YearsPreference;
 import com.ayushi.loan.preferences.StatePreference;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
 @SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans"})
-public class LoanCalculatorController {
+public class LoanCalculatorController implements ServletContextAware {
+
+    private ServletContext context;
+
+    public void setServletContext(ServletContext servletContext) {
+        this.context = servletContext;
+    }
 
 
     @RequestMapping(value = "/")
@@ -961,7 +972,7 @@ public class LoanCalculatorController {
 
     @RequestMapping(value = "/aggregateloanask")
     public String aggregateloan(Model model) {
-        model.addAttribute("message", "Loan Aggregation");
+        model.addAttribute("message", "Aggregate Loan");
         return "aggregateloan";
     }
 
@@ -1315,7 +1326,130 @@ public class LoanCalculatorController {
 				        } catch (PreferenceAccessException ex) {
 				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
 				        }
-				    return null;	
+				    return null;
 	}
+
+    @RequestMapping(value = "/aggregateloanreportask" , method = RequestMethod.GET)
+    public String aggregateloanReport(Model model,HttpServletResponse response, HttpServletRequest request) {
+        Cookie[] cookie_jar = request.getCookies();
+        for (Cookie c: cookie_jar){
+            if(c.getName().equals("userEmail")){
+                String email=c.getValue();
+                ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+                PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+                List<Preference> preferences;
+                try {
+                    preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{email});
+                    if (preferences != null) {
+                        for(Preference p:preferences) {
+                            if (p.getName().equals("Loan id")){
+                                model.addAttribute("loanId", p.getValue());
+                            }else if(p.getName().equals("NumberOfYears")){
+                                model.addAttribute("numberOfYears", p.getValue());
+                            }else if(p.getName().equals("Amount")){
+                                model.addAttribute("loanAmt", p.getValue());
+                            }else if(p.getName().equals("Lender")){
+                                model.addAttribute("lender", p.getValue());
+                            }else if(p.getName().equals("State")){
+                                model.addAttribute("state", p.getValue());
+                            }else if(p.getName().equals("APR")){
+                                model.addAttribute("APR", p.getValue());
+                            }
+                        }
+                    }
+                }catch (PreferenceAccessException ex) {
+                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+        model.addAttribute("message", "Aggregate Loan Report");
+        return "aggregateloanreport";
+    }
+
+    @RequestMapping(value = "/aggregateloanreport", method = RequestMethod.POST)
+    public String aggregateloanreport(
+            @RequestParam("loanId") String loanId,
+            @RequestParam("loanAmt") String loanAmt,
+            @RequestParam("lender") String lender,
+            @RequestParam("state") String state,
+            @RequestParam("numOfYears") String numOfYears,
+            @RequestParam("APR") String airVal,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws ParseException {
+
+        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
+
+        if (loans != null && loans.size() > 0) {
+            java.util.List<Serializable> loanRelationship = null;
+            LoanAgg loanAgg = null;
+            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+            loanRelationship = searchLoanRelationship(loans);
+            if (loanRelationship != null && loanRelationship.size() > 0) {
+                loanAgg = ((LoanRelationship) loanRelationship.get(0)).getLoanAgg();
+                model.addAttribute("loanAggId",loanAgg.getLoanAggId());
+
+            }
+            model.addAttribute("loanId", loanId);
+            model.addAttribute("loanAggId", loanAgg.getLoanAggId());
+            model.addAttribute("numberOfYears", numOfYears);
+            model.addAttribute("loanAmt", loanAmt);
+            model.addAttribute("lender", lender);
+            model.addAttribute("state", state);
+            model.addAttribute("APR", airVal);
+        }else {
+                model.addAttribute("message", "No Record Found");
+                return "aggregateloanreport";
+            }
+            return "aggregateloanreport";
+    }
+
+    @RequestMapping(value = "/generateReport", method = RequestMethod.GET)
+    public void generateJasperReportPDF(@RequestParam("loanAggId") String loanAggId,HttpServletResponse response,HttpServletRequest request ) {
+        JRPdfExporter exporter = new JRPdfExporter();
+        Connection connection = null;
+        HashMap jasperParameter = new HashMap();
+        jasperParameter.put("loanAggId",Double.valueOf(loanAggId));
+        try
+        {
+            Class.forName("org.postgresql.Driver");
+            String oracleURL = "jdbc:postgresql://localhost:5432";
+            connection = DriverManager.getConnection(oracleURL,"jain_gagan@yahoo.com","gjain6917");
+
+        }
+        catch(SQLException exception)
+        {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(path);
+            JasperPrint jasperPrint;
+            jasperPrint = JasperFillManager.fillReport(jasperReport,jasperParameter,connection);
+            if (jasperPrint != null) {
+                response.setContentType("text/html");
+                request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+                renderHtml(new JRHtmlExporter(), jasperPrint, response.getWriter());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error in generate Report..."+e);
+        }
+    }
+
+    public static void renderHtml(JRExporter exporter, JasperPrint print, PrintWriter writer)
+            throws JRException {
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+        exporter.setParameter(JRExporterParameter.OUTPUT_WRITER, writer);
+        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "/servlets/image?image=");
+        exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS ,Boolean.TRUE);
+        exporter.exportReport();
+    }
+
+
 
 }

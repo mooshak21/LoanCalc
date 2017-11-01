@@ -31,7 +31,17 @@
         <put-attribute name="detail" value="/WEB-INF/tiles/aggdetail.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
-    
+
+    <definition name="loanapp.aggregatereport" template="/WEB-INF/views/layouts/aggregateloanReport.jsp">
+        <put-attribute name="title" value="Loan Aggregation" />
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp" />
+        <put-attribute name="master" value="/WEB-INF/tiles/aggReportmaster.jsp" />
+        <put-attribute name="mmaster" value="/WEB-INF/tiles/maggReportmaster.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+
+
     <definition name="searchloan" extends="loanapp.searchpage">
        <put-attribute name="title" value="Search Loan"/>
     </definition>
@@ -77,5 +87,9 @@
 
     <definition name="aggregateloan" extends ="loanapp.aggregatepage">
         <put-attribute name="title" value="Loan Aggregation"/>
+    </definition>
+
+    <definition name="aggregateloanreport" extends ="loanapp.aggregatereport">
+        <put-attribute name="title" value="Loan Aggregation Report"/>
     </definition>
 </tiles-definitions>

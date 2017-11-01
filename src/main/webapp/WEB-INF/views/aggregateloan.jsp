@@ -42,7 +42,7 @@
 
                     <div class="form-group row">
                         <label for="interestRate">Annual Interest Rate: </label>
-                        <input class="form-control resetMe" type="number" name="airVal" value="${APR}" min="0" max="100"
+                        <input class="form-control resetMe" type="number" name="interestRate" value="${APR}" min="0" max="100"
                                step="0.01" id="interestRate">
                     </div>
 
