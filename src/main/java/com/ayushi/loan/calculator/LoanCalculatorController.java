@@ -7,6 +7,7 @@ import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +49,6 @@ import com.ayushi.loan.preferences.AirPreference;
 import com.ayushi.loan.preferences.YearsPreference;
 import com.ayushi.loan.preferences.StatePreference;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.Cookie;
 
 import org.springframework.web.context.ServletContextAware;
@@ -65,6 +64,8 @@ public class LoanCalculatorController implements ServletContextAware {
     public void setServletContext(ServletContext servletContext) {
         this.context = servletContext;
     }
+
+    private static final Logger logger = Logger.getLogger(LoanCalculatorController.class);
 
 
     @RequestMapping(value = "/")
@@ -425,11 +426,11 @@ public class LoanCalculatorController implements ServletContextAware {
                     addPreference(new LoanIdPreference(), 7, email, "Loan id",loanId.toString());
                 }
                 catch (EmailServiceException ex) {
-                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                     redirectAttributes.addFlashAttribute("emailErr", "we couldn't send you the email. Please try later!");
                 } 
                 catch (PreferenceAccessException ex) {
-                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
             }
         } else {
@@ -831,7 +832,7 @@ public class LoanCalculatorController implements ServletContextAware {
         try {
             prop.load(LoanCalculatorController.class.getClassLoader().getResourceAsStream(fileProp));
         } catch (IOException ex) {
-            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex.getMessage());
         }
         return prop;
     }
@@ -865,7 +866,7 @@ public class LoanCalculatorController implements ServletContextAware {
                      }
             }
         } catch (PreferenceAccessException ex) {
-            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex.getMessage());
         }
         
     }
@@ -1309,7 +1310,7 @@ public class LoanCalculatorController implements ServletContextAware {
 												    }
 		    							}
 				        } catch (PreferenceAccessException ex) {
-				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                            logger.error(ex.getMessage());
 				        }
 				    return null;	
 	}
@@ -1324,7 +1325,7 @@ public class LoanCalculatorController implements ServletContextAware {
 										return preferences;
 		    							}
 				        } catch (PreferenceAccessException ex) {
-				            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+				            logger.error(ex.getMessage());
 				        }
 				    return null;
 	}
@@ -1358,7 +1359,7 @@ public class LoanCalculatorController implements ServletContextAware {
                         }
                     }
                 }catch (PreferenceAccessException ex) {
-                    Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error(ex.getMessage());
                 }
             }
 
@@ -1410,36 +1411,35 @@ public class LoanCalculatorController implements ServletContextAware {
         Connection connection = null;
         HashMap jasperParameter = new HashMap();
         jasperParameter.put("loanAggId",Double.valueOf(loanAggId));
-        System.out.println("loanAggId" + Double.valueOf(loanAggId));
+        logger.debug("loanAggId"+loanAggId);
         try
         {
             Class.forName("org.postgresql.Driver");
             String oracleURL = "jdbc:postgresql://localhost:5432";
             connection = DriverManager.getConnection(oracleURL,"postgres","narola123");
-
         }
-        catch(SQLException exception)
+        catch(SQLException ex)
         {
-            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, exception);
+            logger.error(ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex.getMessage());
         }
 
         try {
             String path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
-            System.out.println("jrxml path" + path);
+            logger.debug("jrxml path" + path);
             JasperReport jasperReport = JasperCompileManager.compileReport(path);
             JasperPrint jasperPrint;
             jasperPrint = JasperFillManager.fillReport(jasperReport,jasperParameter,connection);
+            logger.debug("jasper print"+ jasperPrint ==null);
             if (jasperPrint != null) {
                 response.setContentType("text/html");
                 request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
                 renderHtml(new JRHtmlExporter(), jasperPrint, response.getWriter());
-                System.out.println("html" +jasperPrint);
-
+                logger.debug("render html complete");
             }
         } catch (Exception ex) {
-            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error("Error in generate report:"+ex.getMessage());
         }
     }
 
