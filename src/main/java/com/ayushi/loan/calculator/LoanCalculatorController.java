@@ -1416,7 +1416,8 @@ public class LoanCalculatorController implements ServletContextAware {
         {
             Class.forName("org.postgresql.Driver");
             String oracleURL = "jdbc:postgresql://localhost:5432";
-            connection = DriverManager.getConnection(oracleURL,"postgres","narola123");
+            connection = DriverManager.getConnection(oracleURL,"jain_gagan@yahoo.com","gjain6917");
+            logger.debug("connection is null:"+connection==null);
         }
         catch(SQLException ex)
         {
@@ -1424,22 +1425,23 @@ public class LoanCalculatorController implements ServletContextAware {
         } catch (ClassNotFoundException ex) {
             logger.error(ex.getMessage());
         }
-
-        try {
-            String path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
-            logger.debug("jrxml path" + path);
-            JasperReport jasperReport = JasperCompileManager.compileReport(path);
-            JasperPrint jasperPrint;
-            jasperPrint = JasperFillManager.fillReport(jasperReport,jasperParameter,connection);
-            logger.debug("jasper print"+ jasperPrint ==null);
-            if (jasperPrint != null) {
-                response.setContentType("text/html");
-                request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
-                renderHtml(new JRHtmlExporter(), jasperPrint, response.getWriter());
-                logger.debug("render html complete");
+        if(connection!=null) {
+            try {
+                String path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
+                logger.debug("jrxml path" + path);
+                JasperReport jasperReport = JasperCompileManager.compileReport(path);
+                JasperPrint jasperPrint;
+                jasperPrint = JasperFillManager.fillReport(jasperReport, jasperParameter, connection);
+                logger.debug("jasper print" + jasperPrint == null);
+                if (jasperPrint != null) {
+                    response.setContentType("text/html");
+                    request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+                    renderHtml(new JRHtmlExporter(), jasperPrint, response.getWriter());
+                    logger.debug("render html complete");
+                }
+            } catch (Exception ex) {
+                logger.error("Error in generate report:" + ex.getMessage());
             }
-        } catch (Exception ex) {
-            logger.error("Error in generate report:"+ex.getMessage());
         }
     }
 
