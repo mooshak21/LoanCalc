@@ -56,7 +56,7 @@
                 </form>
             </div>
             <c:if test="${loanAggId != null}">
-                <a onclick="generateReportMobile(${loanAggId});">Generate Report</a>
+                <button onclick="generateReportMobile(${loanAggId});" class="btn btn-default" id="generateReportMobile">Generate Report</button>
             </c:if>
 
         </div>
@@ -79,6 +79,7 @@
             success: function(html){
                 $("#jasperReportMobile").empty();
                 $("#jasperReportMobile").append(html);
+                $("#generateReportMobile").css("display","none");
             }
         });
     }

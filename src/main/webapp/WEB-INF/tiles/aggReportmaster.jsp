@@ -57,8 +57,8 @@
             </div>
 
         <c:if test="${loanAggId != null}">
-            <a onclick="generateReportWeb(${loanAggId});">Generate Report</a>
-        </c:if>
+            <button  onclick="generateReportWeb(${loanAggId});" class="btn btn-default" id="generateReportWeb">Generate Report</button>
+            </c:if>
             <div id="jasperReportWeb"></div>
         </div>
 
@@ -81,6 +81,7 @@
             success: function(html){
                $("#jasperReportWeb").empty();
                $("#jasperReportWeb").append(html);
+               $("#generateReportWeb").css("display","none");
             }
         });
     }

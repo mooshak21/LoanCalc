@@ -6,8 +6,10 @@ import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.j2ee.servlets.ImageServlet;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +55,7 @@ import javax.servlet.http.Cookie;
 
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 
 @Controller
@@ -1414,9 +1417,13 @@ public class LoanCalculatorController implements ServletContextAware {
         logger.debug("loanAggId"+loanAggId);
         try
         {
-            Class.forName("org.postgresql.Driver");
-            String oracleURL = "jdbc:postgresql://localhost:5432";
-            connection = DriverManager.getConnection(oracleURL,"jain_gagan@yahoo.com","gjain6917");
+
+            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+            BasicDataSource dbBean = (BasicDataSource)appCtx.getBean("dataSource");
+
+           Class.forName(dbBean.getDriverClassName());
+            String postgresURL = dbBean.getUrl();
+            connection = DriverManager.getConnection(postgresURL,dbBean.getUsername(),dbBean.getPassword());
             logger.debug("connection is null:"+connection==null);
         }
         catch(SQLException ex)
@@ -1454,7 +1461,5 @@ public class LoanCalculatorController implements ServletContextAware {
         exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS ,Boolean.TRUE);
         exporter.exportReport();
     }
-
-
 
 }
