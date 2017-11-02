@@ -142,7 +142,27 @@
             </div>
         </div>
     </div>
+    <div id="reportMessageMobileDiv" style="text-align: center;font-size: 12px;font-weight: bold;color: #4f5f6f;">Please wait your report is being generated..</div>
+    <script>
+        generateReportMobile(${loanAggId});
+        function generateReportMobile(value){
+
+            $.ajax({
+                url:"/generateReport?loanAggId="+ value,
+                type: 'GET',
+                success: function(html){
+                    $("#jasperReportMobile").empty();
+                    $("#jasperReportMobile").append(html);
+                    $("#reportMessageMobileDiv").hide();
+                }
+            });
+        }
+    </script>
+
+    <div id="jasperReportMobile"></div>
 </c:if>
+
+
 
 <script type="text/javascript">
     setLoanVal1();

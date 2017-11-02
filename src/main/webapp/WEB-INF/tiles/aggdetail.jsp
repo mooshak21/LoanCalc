@@ -143,6 +143,24 @@
             </div>
         </div>
     </div>
+
+    <div id="reportMessageDiv" style="text-align: center;font-size: 20px;font-weight: bold;color: #4f5f6f;">Please wait your report is being generated..</div>
+    <script>
+        generateReportWeb(${loanAggId});
+        function generateReportWeb(value){
+
+            $.ajax({
+                url:"/generateReport?loanAggId="+ value,
+                type: 'GET',
+                success: function(html){
+                    $("#jasperReportWeb").empty();
+                    $("#jasperReportWeb").append(html);
+                    $("#reportMessageDiv").hide();
+                }
+            });
+        }
+    </script>
+    <div id="jasperReportWeb"></div>
 </c:if>
 
 <script type="text/javascript">
