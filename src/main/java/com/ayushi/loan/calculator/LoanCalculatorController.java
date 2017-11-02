@@ -1387,6 +1387,7 @@ public class LoanCalculatorController implements ServletContextAware {
             loanRelationship = searchLoanRelationship(loans);
             if (loanRelationship != null && loanRelationship.size() > 0) {
                 loanAgg = ((LoanRelationship) loanRelationship.get(0)).getLoanAgg();
+                System.out.println("loan agg Id " + loanAgg.getLoanAggId());
                 model.addAttribute("loanAggId",loanAgg.getLoanAggId());
 
             }
@@ -1409,22 +1410,24 @@ public class LoanCalculatorController implements ServletContextAware {
         Connection connection = null;
         HashMap jasperParameter = new HashMap();
         jasperParameter.put("loanAggId",Double.valueOf(loanAggId));
+        System.out.println("loanAggId" + Double.valueOf(loanAggId));
         try
         {
             Class.forName("org.postgresql.Driver");
             String oracleURL = "jdbc:postgresql://localhost:5432";
-            connection = DriverManager.getConnection(oracleURL,"jain_gagan@yahoo.com","gjain6917");
+            connection = DriverManager.getConnection(oracleURL,"postgres","narola123");
 
         }
         catch(SQLException exception)
         {
-            exception.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, exception);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
             String path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
+            System.out.println("jrxml path" + path);
             JasperReport jasperReport = JasperCompileManager.compileReport(path);
             JasperPrint jasperPrint;
             jasperPrint = JasperFillManager.fillReport(jasperReport,jasperParameter,connection);
@@ -1432,10 +1435,11 @@ public class LoanCalculatorController implements ServletContextAware {
                 response.setContentType("text/html");
                 request.getSession().setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
                 renderHtml(new JRHtmlExporter(), jasperPrint, response.getWriter());
+                System.out.println("html" +jasperPrint);
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error in generate Report..."+e);
+        } catch (Exception ex) {
+            Logger.getLogger(LoanCalculatorController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
