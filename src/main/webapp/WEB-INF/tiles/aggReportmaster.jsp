@@ -57,9 +57,25 @@
             </div>
 
         <c:if test="${loanAggId != null}">
-            <button  onclick="generateReportWeb(${loanAggId});" class="btn btn-default" id="generateReportWeb">Generate Report</button>
-            </c:if>
+                    <div id="reportMessageDiv" style="text-align: center;font-size: 20px;font-weight: bold;color: #4f5f6f;">Please wait your report is being generated..</div>
+            <script>
+                generateReportWeb(${loanAggId});
+                function generateReportWeb(value){
+
+                    $.ajax({
+                        url:"/generateReport?loanAggId="+ value,
+                        type: 'GET',
+                        success: function(html){
+                            $("#jasperReportWeb").empty();
+                            $("#jasperReportWeb").append(html);
+                            $("#reportMessageDiv").hide();
+                        }
+                    });
+                }
+            </script>
+        </c:if>
             <div id="jasperReportWeb"></div>
+
         </div>
 
     </div>
@@ -74,17 +90,7 @@
     }
 
 
-    function generateReportWeb(value){
-        $.ajax({
-            url:"/generateReport?loanAggId="+ value,
-            type: 'GET',
-            success: function(html){
-               $("#jasperReportWeb").empty();
-               $("#jasperReportWeb").append(html);
-               $("#generateReportWeb").css("display","none");
-            }
-        });
-    }
+
 </script>
 
 

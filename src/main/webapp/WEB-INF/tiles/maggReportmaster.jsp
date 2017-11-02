@@ -56,7 +56,22 @@
                 </form>
             </div>
             <c:if test="${loanAggId != null}">
-                <button onclick="generateReportMobile(${loanAggId});" class="btn btn-default" id="generateReportMobile">Generate Report</button>
+                <div id="reportMessageMobileDiv" style="text-align: center;font-size: 12px;font-weight: bold;color: #4f5f6f;">Please wait your report is being generated..</div>
+                <script>
+                    generateReportMobile(${loanAggId});
+                    function generateReportMobile(value){
+
+                        $.ajax({
+                            url:"/generateReport?loanAggId="+ value,
+                            type: 'GET',
+                            success: function(html){
+                                $("#jasperReportMobile").empty();
+                                $("#jasperReportMobile").append(html);
+                                $("#reportMessageMobileDiv").hide();
+                            }
+                        });
+                    }
+                </script>
             </c:if>
 
         </div>
@@ -72,17 +87,6 @@
         });
     }
 
-    function generateReportMobile(value){
-        $.ajax({
-            url:"/generateReport?loanAggId="+ value,
-            type: 'GET',
-            success: function(html){
-                $("#jasperReportMobile").empty();
-                $("#jasperReportMobile").append(html);
-                $("#generateReportMobile").css("display","none");
-            }
-        });
-    }
 </script>
 
 

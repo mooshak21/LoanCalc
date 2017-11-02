@@ -48,13 +48,15 @@
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                   </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menuItemXs" href="/aggregateloanreportask">Aggregate Loan Report</a>
+                </li>
         </c:if>                
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
                 </li>
-                  <li class="nav-item">
-                      <a class="nav-link menuItemXs" href="/aggregateloanreportask">Aggregate Loan Report</a>
-                  </li>
+
 		  <li class="nav-item">
 		      <a class="nav-link menuItemXs" href="/logout">Log out</a>
 		  </li>
@@ -98,13 +100,15 @@
             <li class="nav-item">
                 <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="/aggregateloanreportask">Aggregate Loan Report</a>
+            </li>
         </c:if>                
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="/aggregateloanreportask">Aggregate Loan Report</a>
-            </li>
+
 	    <li class="nav-item">
 	    	<a class="nav-link menuItem" href="/logout">Log out</a>
 	    </li>
