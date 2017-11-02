@@ -595,7 +595,8 @@ public class LoanCalculatorController implements ServletContextAware {
         String webServicePreference = null;
         String riskTolerancePreference = null;
         String timeHorizonPreference = null;
-	for(Preference pref : prefs){
+	if(prefs != null){
+	    for(Preference pref : prefs){
 		if(pref instanceof LocationPreference){
 			locationPreference = pref.getValue();
 			model.addAttribute("locationPreference", locationPreference);
@@ -635,6 +636,7 @@ public class LoanCalculatorController implements ServletContextAware {
  			state = pref.getValue();
 			model.addAttribute("state", state);
 		}    
+	   }
 	}
 
         return "viewpreferences";
