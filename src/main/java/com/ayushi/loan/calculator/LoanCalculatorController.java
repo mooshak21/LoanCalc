@@ -1358,7 +1358,7 @@ public class LoanCalculatorController implements ServletContextAware {
                                 model.addAttribute("lender", p.getValue());
                             }else if(p.getName().equals("State")){
                                 model.addAttribute("state", p.getValue());
-                            }else if(p.getName().equals("APR")){
+                            }else if(p.getName().equals("AIR")){
                                 model.addAttribute("APR", p.getValue());
                             }
                         }
