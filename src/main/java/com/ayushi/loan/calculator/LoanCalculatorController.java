@@ -1358,7 +1358,7 @@ public class LoanCalculatorController implements ServletContextAware {
                                 model.addAttribute("lender", p.getValue());
                             }else if(p.getName().equals("State")){
                                 model.addAttribute("state", p.getValue());
-                            }else if(p.getName().equals("APR")){
+                            }else if(p.getName().equals("AIR")){
                                 model.addAttribute("APR", p.getValue());
                             }
                         }
@@ -1382,27 +1382,52 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("numOfYears") String numOfYears,
             @RequestParam("APR") String airVal,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-            Model model, HttpServletRequest request) throws ParseException {
+            Model model, HttpServletRequest request) throws ParseException, LoanAccessException {
 
         List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
+            java.util.List<Serializable> loanRelationshipforCount = null;
             LoanAgg loanAgg = null;
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+            LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
             loanRelationship = searchLoanRelationship(loans);
             if (loanRelationship != null && loanRelationship.size() > 0) {
                 loanAgg = ((LoanRelationship) loanRelationship.get(0)).getLoanAgg();
                 System.out.println("loan agg Id " + loanAgg.getLoanAggId());
-                model.addAttribute("loanAggId",loanAgg.getLoanAggId());
+                StringBuffer querySBForAgg = new StringBuffer();
+                Object[] queryValsForAgg = null;
+                java.util.List<Object> queryValListForAgg = new java.util.ArrayList<Object>();
+                querySBForAgg.append("la.loanAgg=?");
+                queryValListForAgg.add(((LoanRelationship)loanRelationship.get(0)).getLoanAgg());
+                queryValsForAgg = new Object[queryValListForAgg.size()];
+                queryValsForAgg = queryValListForAgg.toArray(queryValsForAgg);
+                try {
+                    loanRelationshipforCount = loanRelationshipService.findLoanRelation("select la from LoanRelationship la where " + querySBForAgg.toString(), queryValsForAgg);
+                } catch (LoanAccessException e) {
+                    e.printStackTrace();
+                }
 
+                model.addAttribute("loanAggId",loanAgg.getLoanAggId());
+                model.addAttribute("loanId", loanId);
+                model.addAttribute("numberOfYears", numOfYears);
+                model.addAttribute("loanAmt", loanAmt);
+                model.addAttribute("lender", lender);
+                model.addAttribute("state", state);
+                model.addAttribute("APR", airVal);
+                model.addAttribute("NoOfLoansInRelation", loanRelationshipforCount.size());
+                model.addAttribute("message", "Aggregate Loan Report");
+
+            }else {
+                model.addAttribute("message", "No Record Found");
+                model.addAttribute("loanId", loanId);
+                model.addAttribute("numberOfYears", numOfYears);
+                model.addAttribute("loanAmt", loanAmt);
+                model.addAttribute("lender", lender);
+                model.addAttribute("state", state);
+                model.addAttribute("APR", airVal);
             }
-            model.addAttribute("loanId", loanId);
-            model.addAttribute("numberOfYears", numOfYears);
-            model.addAttribute("loanAmt", loanAmt);
-            model.addAttribute("lender", lender);
-            model.addAttribute("state", state);
-            model.addAttribute("APR", airVal);
         }else {
                 model.addAttribute("message", "No Record Found");
                 return "aggregateloanreport";
