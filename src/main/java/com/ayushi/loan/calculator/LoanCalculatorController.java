@@ -607,48 +607,48 @@ public class LoanCalculatorController implements ServletContextAware {
         String webServicePreference = null;
         String riskTolerancePreference = null;
         String timeHorizonPreference = null;
+	String[] prefAttr = null, prefVal = null;
+
 	if(prefs != null){
 	    for(Preference pref : prefs){
 		if(pref instanceof LocationPreference){
 			locationPreference = pref.getValue();
-			model.addAttribute("locationPreference", locationPreference);
 		}
 		if(pref instanceof WebServicePreference){
 			webServicePreference = pref.getValue();
-			model.addAttribute("webServicePreference", webServicePreference);
 		}
 
 		if(pref instanceof RiskTolerancePreference){
  			riskTolerancePreference = pref.getValue();
-			model.addAttribute("riskTolerancePreference", riskTolerancePreference);
 		}
 
 		if(pref instanceof TimeHorizonPreference){
  			timeHorizonPreference = pref.getValue();
-			model.addAttribute("timeHorizonPreference", timeHorizonPreference);
 		}
 
 		if(pref instanceof AmountPreference){
  			loanAmt = pref.getValue();
-			model.addAttribute("loanAmt", loanAmt);
 		} 
 		if(pref instanceof AirPreference){
  			airVal = pref.getValue();
-			model.addAttribute("airVal", airVal);
 		}  
 		if(pref instanceof LenderPreference){
  			lender = pref.getValue();
-			model.addAttribute("lender", lender);
 		}   
 		if(pref instanceof YearsPreference){
  			numOfYears = pref.getValue();
-			model.addAttribute("numOfYears", numOfYears);
 		}   
 		if(pref instanceof StatePreference){
  			state = pref.getValue();
-			model.addAttribute("state", state);
 		}    
 	   }
+	   prefAttr = new String[prefs.size()] { "locationPreference", "webServicePreference", "riskTolerancePreference", "timeHorizonPreference",
+						  "loanAmt", "airVal", "lender", "state" };	
+    	   prefVal = new String[prefs.size()] { locationPreference, webServicePreference, riskTolerancePreference, timeHorizonPreference, loanAmt,
+						 airVal, lender, numOfYears, state };
+	
+	  for(int prefIdx = 0; prefIdx < prefAttr.length; prefIdx++)
+		model.addAttribute(prefAttr[prefIdx], prefVal);
 	}
 
         return "viewpreferences";
@@ -980,7 +980,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("email", emailCookie);
             }
 
-            model.addAttribute("message", "");
+            model.addAttribute("message", "Loan Aggregation Created!");
         } else {
             model.addAttribute("message", "No Record Found");
             return "aggregateloan";
