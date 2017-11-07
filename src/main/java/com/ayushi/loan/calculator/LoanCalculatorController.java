@@ -620,7 +620,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		prefVal.add(pref.getValue());
 	   }
 	  for(prefIdx = 0; prefIdx < prefAttr.length; prefIdx++)
-		model.addAttribute(prefAttr[prefIdx].toString(), prefVal.get(prefIdx));
+		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 	}
 
         return "viewpreferences";
