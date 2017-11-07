@@ -426,7 +426,19 @@ public class LoanCalculatorController implements ServletContextAware {
                     emailService.sendMail(email, subject, message);
                     redirectAttributes.addFlashAttribute("emailMsg", prop.getProperty("email.success"));
                     response.addCookie(new Cookie("loanId",loanId.toString()));
-                    addPreference(new LoanIdPreference(), 7, email, "Loan id",loanId.toString());
+		    List<Preference> prefs = getPreferences(email);
+		    int loanidPrefId = -1;
+		    if(prefs != null){
+			for(Preference pref: prefs){
+				if(pref.getName().equals("Loan id")){
+					loanidPrefId = pref.getId();
+					break;
+				}
+			}
+			if(loanidPrefId == -1)
+				loanidPrefId = prefs.size()+1;
+		    }	
+                    addPreference(new LoanIdPreference(), loanidPrefId, email, "Loan id", loanId.toString());
                 }
                 catch (EmailServiceException ex) {
                     logger.error(ex.getMessage());
