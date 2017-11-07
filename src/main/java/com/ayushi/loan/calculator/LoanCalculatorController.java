@@ -611,7 +611,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	if(prefs != null){
 	    String[] prefAttrs = new String[] { "locationPreference", "webServicePreference", "riskTolerancePreference", "timeHorizonPreference",
-						  "loanAmt", "airVal", "lender", "state", "emailAddress", "loanId" };	
+						  "loanAmt", "airVal", "lender", "state", "emailAddress", "loanId", "reminderFrequency" };	
 	    prefVal = new ArrayList<String>(prefs.size());	
 	    prefAttr = new ArrayList<String>(prefs.size());
 	    int prefIdx = 0;
