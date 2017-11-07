@@ -648,7 +648,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						 airVal, lender, numOfYears, state };
 	
 	  for(int prefIdx = 0; prefIdx < prefAttr.length; prefIdx++)
-		model.addAttribute(prefAttr[prefIdx], prefVal);
+		model.addAttribute(prefAttr[prefIdx].toString(), prefVal.toString());
 	}
 
         return "viewpreferences";
