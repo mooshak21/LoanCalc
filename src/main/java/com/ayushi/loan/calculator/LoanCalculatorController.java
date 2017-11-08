@@ -705,7 +705,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 TimeHorizonPreference thPref = new TimeHorizonPreference();
                 thPref.setId(4);
                 thPref.setEmailAddress(email);
-                thPref.setName("TimePeriod");
+                thPref.setName("TimeHorizon");
                 thPref.setValue(timeHorizonPreference);
                 thPref.setFlag(true);
                 thPref.setActive("Y");
@@ -727,7 +727,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 ReminderFrequencyPreference rfPref = new ReminderFrequencyPreference();
                 rfPref.setId(6);
                 rfPref.setEmailAddress(email);
-                rfPref.setName("ReminderFrequency");
+                rfPref.setName("reminderFrequency");
                 rfPref.setValue(reminderFreq);
                 rfPref.setFlag(true);
                 rfPref.setActive("Y");
