@@ -430,7 +430,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		    int loanidPrefId = -1;
 		    if(prefs != null){
 			for(Preference pref: prefs){
-				if(pref.getName().equals("Loan id")){
+				if(pref.getName().equals("LoanId")){
 					loanidPrefId = pref.getId();
 					break;
 				}
@@ -438,7 +438,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			if(loanidPrefId == -1)
 				loanidPrefId = prefs.size()+1;
 		    }	
-                    addPreference(new LoanIdPreference(), loanidPrefId, email, "Loan id", loanId.toString());
+                    addPreference(new LoanIdPreference(), loanidPrefId, email, "LoanId", loanId.toString());
                 }
                 catch (EmailServiceException ex) {
                     logger.error(ex.getMessage());
@@ -610,13 +610,13 @@ public class LoanCalculatorController implements ServletContextAware {
 	ArrayList<String> prefVal = null, prefAttr = null;
 
 	if(prefs != null){
-	    String[] prefAttrs = new String[] { "locationPreference", "webServicePreference", "riskTolerancePreference", "timeHorizonPreference",
-						  "loanAmt", "airVal", "lender", "state", "emailAddress", "loanId", "reminderFrequency", "test" };	
+	    //String[] prefAttrs = new String[] { "Location", "WebService", "RiskTolerance", "TimeHorizon", "EmailAddressReminder", "ReminderFrecuency",
+		//				  "Amount", "AIR", "Lender", "NumberOfYears", "State", "EmailAddress", "LoanId" };	
 	    prefVal = new ArrayList<String>(prefs.size());	
 	    prefAttr = new ArrayList<String>(prefs.size());
 	    int prefIdx = 0;
 	    for(Preference pref : prefs){
-		prefAttr.add(prefAttrs[prefIdx++]);
+		prefAttr.add(pref.getName());
 		prefVal.add(pref.getValue());
 	   }
 	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
@@ -686,7 +686,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 WebServicePreference wsPref = new WebServicePreference();
                 wsPref.setId(2);
                 wsPref.setEmailAddress(email);
-                wsPref.setName("Web Service");
+                wsPref.setName("WebService");
                 wsPref.setValue(webServicePreference);
                 wsPref.setFlag(true);
                 wsPref.setActive("Y");
@@ -696,7 +696,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 RiskTolerancePreference rtPref = new RiskTolerancePreference();
                 rtPref.setId(3);
                 rtPref.setEmailAddress(email);
-                rtPref.setName("Risk Tolerance");
+                rtPref.setName("RiskTolerance");
                 rtPref.setValue(riskTolerancePreference);
                 rtPref.setFlag(true);
                 rtPref.setActive("Y");
@@ -706,7 +706,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 TimeHorizonPreference thPref = new TimeHorizonPreference();
                 thPref.setId(4);
                 thPref.setEmailAddress(email);
-                thPref.setName("Time Period");
+                thPref.setName("TimePeriod");
                 thPref.setValue(timeHorizonPreference);
                 thPref.setFlag(true);
                 thPref.setActive("Y");
@@ -717,7 +717,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 EmailReminderPreference erPref = new EmailReminderPreference();
                 erPref.setId(5);
                 erPref.setEmailAddress(email);
-                erPref.setName("Email Address Reminder");
+                erPref.setName("EmailAddressReminder");
                 erPref.setValue(email);
                 erPref.setFlag(true);
                 erPref.setActive("Y");
@@ -728,7 +728,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 ReminderFrequencyPreference rfPref = new ReminderFrequencyPreference();
                 rfPref.setId(6);
                 rfPref.setEmailAddress(email);
-                rfPref.setName("Reminder Frecuency");
+                rfPref.setName("ReminderFrequency");
                 rfPref.setValue(reminderFreq);
                 rfPref.setFlag(true);
                 rfPref.setActive("Y");
@@ -1332,7 +1332,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{email});
                     if (preferences != null) {
                         for(Preference p:preferences) {
-                            if (p.getName().equals("Loan id")){
+                            if (p.getName().equals("LoanId")){
                                 model.addAttribute("loanId", p.getValue());
                             }else if(p.getName().equals("NumberOfYears")){
                                 model.addAttribute("numberOfYears", p.getValue());

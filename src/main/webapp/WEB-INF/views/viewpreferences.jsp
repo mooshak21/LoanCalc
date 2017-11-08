@@ -13,46 +13,46 @@
                    
                    <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
-                        <input class="form-control resetMe" type="number" name="loanAmt" value="${loanAmt}" min="1" max="9999999999" id="loanAmount">
+                        <input class="form-control resetMe" type="number" name="loanAmt" value="${Amount}" min="1" max="9999999999" id="loanAmount">
                    </div>
 
                    <div class="form-group">
                        <label for="numberOfYears">Number of Years:</label>
-                       <input class="form-control resetMe" type="number" name="numOfYears" value="${numOfYears}" min="1" max="100" id="numberOfYears">
+                       <input class="form-control resetMe" type="number" name="numOfYears" value="${NumberOfYears}" min="1" max="100" id="numberOfYears">
                    </div>
 
                    <div class="form-group">
                        <label for="lender">Lender:</label>
-                       <input class="form-control resetMe" type="text" name="lender" value="${lender}" id="lender">
+                       <input class="form-control resetMe" type="text" name="lender" value="${Lender}" id="lender">
                    </div>
                    <div class="form-group">
                        <label for="state">State: </label>
-                        <input class="form-control resetMe" type="text" name="state" value="${state}" id="state">
+                        <input class="form-control resetMe" type="text" name="state" value="${State}" id="state">
                    </div>
 
                    <div class="form-group">
                        <label for="interestRate">Annual Interest Rate: </label>
-                       <input class="form-control resetMe" type="number" name="airVal" value="${airVal}" min="0" max="100" step="0.01" id="interestRate">
+                       <input class="form-control resetMe" type="number" name="airVal" value="${AIR}" min="0" max="100" step="0.01" id="interestRate">
                    </div>
 
                    <div class="form-group">
                        <label for="locationPreference">Location Preference: </label>
-		       <input class="form-control resetMe" type="text" name="locationPreference" value="${locationPreference}" id="locationPreference">
+		       <input class="form-control resetMe" type="text" name="locationPreference" value="${Location}" id="locationPreference">
                    </div>
 
                    <div class="form-group">
                        <label for="wsPreference">Web Service Preference: </label>
-		       <input class="form-control resetMe" type="text" name="webServicePreference" value="${webServicePreference}" id="wsPreference">
+		       <input class="form-control resetMe" type="text" name="webServicePreference" value="${WebService}" id="wsPreference">
                    </div>
 
                     <div class="form-group">
                        <label for="rtPreference">Risk Tolerance Preference: </label>
-		       <input class="form-control resetMe" type="number" name="riskTolerancePreference" value="${riskTolerancePreference}" min="0" max="100" step="1" id="rtPreference">
+		       <input class="form-control resetMe" type="number" name="riskTolerancePreference" value="${RiskTolerance}" min="0" max="100" step="1" id="rtPreference">
                    </div>
 
                    <div class="form-group">
                        <label for="thPreference">Time Horizon Preference: </label>
-		       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="${timeHorizonPreference}" min="0" max="100" step="0.01" id="thPreference">
+		       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="${TimeHorizon}" min="0" max="100" step="0.01" id="thPreference">
                    </div>
                    
                    <div class="form-group">
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label for="reminderFreq">Reminder Frequency: </label>
                         <select  class="form-control resetMe" id="reminderFreq" name="reminderfreq">
-                            <c:if test="${reminderFrequency eq 'NoRemind'}">
+                            <c:if test="${ReminderFrequency eq 'NoRemind'}">
                                 <option value="NoRemind" selected>No Remind</option>
                                 <option value="Weekly">Weekly</option>
                                 <option value="Monthly">Monthly</option>
@@ -71,7 +71,7 @@
                                 <option value="Semi-Annually" >Semi-Annually</option>
                                 <option value="Annually" >Annually</option>
                             </c:if>
-                            <c:if test="${reminderFrequency eq 'Weekly'}">
+                            <c:if test="${ReminderFrequency eq 'Weekly'}">
                                 <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" selected>Weekly</option>
                                 <option value="Monthly">Monthly</option>
@@ -79,7 +79,7 @@
                                 <option value="Semi-Annually" >Semi-Annually</option>
                                 <option value="Annually" >Annually</option>
                             </c:if>
-                            <c:if test="${reminderFrequency eq 'Monthly'}">
+                            <c:if test="${ReminderFrequency eq 'Monthly'}">
                                  <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" selected>Monthly</option>
@@ -87,7 +87,7 @@
                                 <option value="Semi-Annually" >Semi-Annually</option>
                                 <option value="Annually" >Annually</option>
                             </c:if>
-                            <c:if test="${reminderFrequency eq 'Quarterly'}">
+                            <c:if test="${ReminderFrequency eq 'Quarterly'}">
                                  <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
@@ -95,7 +95,7 @@
                                 <option value="Semi-Annually" >Semi-Annually</option>
                                 <option value="Annually" >Annually</option>
                             </c:if>
-                             <c:if test="${reminderFrequency eq 'Semi-Annually'}">
+                             <c:if test="${ReminderFrequency eq 'Semi-Annually'}">
                                  <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
@@ -103,7 +103,7 @@
                                 <option value="Semi-Annually" selected>Semi-Annually</option>
                                 <option value="Annually" >Annually</option>
                             </c:if>
-                            <c:if test="${reminderFrequency eq 'Annually'}">
+                            <c:if test="${ReminderFrequency eq 'Annually'}">
                                  <option value="NoRemind">No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
@@ -111,7 +111,7 @@
                                 <option value="Semi-Annually">Semi-Annually</option>
                                 <option value="Annually" selected>Annually</option>
                             </c:if>
-                            <c:if test="${reminderFrequency eq ''}">
+                            <c:if test="${ReminderFrequency eq ''}">
                                 <option value="NoRemind" selected>No Remind</option>
                                 <option value="Weekly" >Weekly</option>
                                 <option value="Monthly" >Monthly</option>
