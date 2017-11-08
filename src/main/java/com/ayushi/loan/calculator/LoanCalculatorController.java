@@ -619,8 +619,9 @@ public class LoanCalculatorController implements ServletContextAware {
 	   }
 	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
 		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-	}
-
+	}else{
+            model.addAttribute("ReminderFrequency", "");
+        }
         return "viewpreferences";
     }
 
