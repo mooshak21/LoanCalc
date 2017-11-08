@@ -662,7 +662,7 @@ public class LoanCalculatorController implements ServletContextAware {
         }
         
         if (reminderFreq != null && !reminderFreq.equals("")) {
-            model.addAttribute("reminderFrequency", reminderFreq);
+            model.addAttribute("ReminderFrequency", reminderFreq);
             response.addCookie(new Cookie("reminderFrequency", reminderFreq));
         }
 
