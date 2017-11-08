@@ -620,7 +620,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
 		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 	}else{
-            model.addAttribute("ReminderFrequency", "");
+            model.addAttribute("reminderFrequency", "");
         }
         return "viewpreferences";
     }
@@ -663,7 +663,7 @@ public class LoanCalculatorController implements ServletContextAware {
         }
         
         if (reminderFreq != null && !reminderFreq.equals("")) {
-            model.addAttribute("ReminderFrequency", reminderFreq);
+            model.addAttribute("reminderFrequency", reminderFreq);
             response.addCookie(new Cookie("reminderFrequency", reminderFreq));
         }
 
