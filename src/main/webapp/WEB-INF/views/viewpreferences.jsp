@@ -62,7 +62,7 @@
                    
                     <div class="form-group">
                         <label for="reminderfreq">Reminder Frequency: </label>
-                        <select  class="form-control resetMe" id="reminderFreq" name="reminderfreq">
+                        <select  class="form-control resetMe" id="reminderfreq" name="reminderfreq">
                             <c:if test="${ReminderFrequency eq 'NoRemind'}">
                                 <option value="NoRemind" selected>No Remind</option>
                                 <option value="Weekly">Weekly</option>
