@@ -56,7 +56,7 @@
                 </form>
             </div>
             <c:if test="${loanAggId != null}">
-                <div id="report" style="text-align: center;font-size: 16px;color: #4f5f6f;padding-bottom: 17px; ">Total Number of Aggregated Loans :${NoOfLoansInRelation}</div>
+                <div id="report" style="text-align: center;font-size: 16px;color: #4f5f6f;padding-bottom: 17px; ">Total Number of Aggregated Loans : ${NoOfLoansInRelation}</div>
                 <div id="reportMessageMobileDiv" style="text-align: center;font-size: 12px;font-weight: bold;color: #4f5f6f;">Please wait your report is being generated..</div>
                 <script>
                     generateReportMobile(${loanAggId});

@@ -946,6 +946,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("term", loanAgg.getTerm());
                 model.addAttribute("startDate", formatter.format(loanAgg.getStartDate().getTime()));
                 model.addAttribute("email", loanAgg.getEmail());
+                model.addAttribute("NoOfLoansInRelation", aggregatedLoans.size());
             }
             if(loanAgg == null || loanAgg.getEmail() == null){
                 model.addAttribute("email", emailCookie);
@@ -1256,6 +1257,7 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
         model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
         model.addAttribute("startDateForSummary", startDate);
+        model.addAttribute("NoOfLoansInRelation", loans1.size());
         if (loanAggDetails == null && loanAggRemovedCounter == 0) {
             model.addAttribute("message", "Please select Loan For Aggregation!");
         }

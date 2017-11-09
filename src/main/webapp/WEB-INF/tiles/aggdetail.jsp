@@ -144,6 +144,7 @@
         </div>
     </div>
 
+    <div id="report" style="text-align: center;font-size: 16px;color: #4f5f6f;padding-bottom: 17px; ">Total Number of Aggregated Loans : ${NoOfLoansInRelation}</div>
     <div id="reportMessageDiv" style="text-align: center;font-size: 20px;font-weight: bold;color: #4f5f6f;">Please wait your report is being generated..</div>
     <script>
         generateReportWeb(${loanAggId});
