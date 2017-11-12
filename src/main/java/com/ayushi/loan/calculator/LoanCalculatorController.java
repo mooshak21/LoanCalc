@@ -235,6 +235,7 @@ public class LoanCalculatorController implements ServletContextAware {
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("payoffOn", calTodayStr);
+
         return "searchloan";
     }
 
@@ -598,15 +599,6 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("message", "Edit Preferences");
         model.addAttribute("reminderFrequency", reminderFrequency);
 	List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        String airVal = null;
-        String lender = null;
-        String loanAmt = null;
-        String state = null;
-        String numOfYears = null;
-        String locationPreference = null;
-        String webServicePreference = null;
-        String riskTolerancePreference = null;
-        String timeHorizonPreference = null;
 	ArrayList<String> prefVal = null, prefAttr = null;
 
 	if(prefs != null){
@@ -619,9 +611,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	   }
 	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
 		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-	}else{
-            model.addAttribute("reminderFrequency", "");
-        }
+	}
         return "viewpreferences";
     }
 
