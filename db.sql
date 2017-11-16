@@ -118,3 +118,5 @@ create table pref
 );
 
 ALTER TABLE loan ADD COLUMN loan_type character varying(100) NOT NULL DEFAULT 'Home Loan';
+ALTER TABLE loan ADD COLUMN email character varying(50) NOT NULL DEFAULT 'contact@loaninsight.online';
+ALTER TABLE loan ADD COLUMN currency character varying(15) NOT NULL DEFAULT 'USD';
