@@ -784,7 +784,7 @@ public class LoanCalculatorController implements ServletContextAware {
             }
 
             if (passwordPreference != null && !passwordPreference.equals("")) {
-                passwordPreference lpwdPref = new PasswordPreference();
+                PasswordPreference lpwdPref = new PasswordPreference();
                 lpwdPref.setId(12);
                 lpwdPref.setName("Password");
                 lpwdPref.setEmailAddress(email);
