@@ -1292,8 +1292,8 @@ public class LoanCalculatorController implements ServletContextAware {
         return "login";
     }    
 
-    @RequestMapping(value = "/resetpasswordask")
-    public String aggregateloan(Model model) {
+@RequestMapping(value = "/resetpasswordask")
+  public String resetPassword(Model model) {
         model.addAttribute("message", "Reset Password");
         return "resetpassword";
     }
@@ -1311,6 +1311,21 @@ public class LoanCalculatorController implements ServletContextAware {
         return "resetpassword";
     }
 
+@RequestMapping(value = "/forgetpasswordask")
+  public String forgetPassword(Model model) {
+        model.addAttribute("message", "Forget Password");
+        return "forgetpassword";
+    }
+
+ @RequestMapping(value = "/forgetpassword")
+     public String forgetPassword(@RequestParam(value="email", defaultValue = "") String email,
+@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("message", "Forget Password Form");
+        if (email != null && !email.equals("")) {
+            model.addAttribute("userEmail", email);
+        }
+        return "forgetpassword";
+    }
 	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
