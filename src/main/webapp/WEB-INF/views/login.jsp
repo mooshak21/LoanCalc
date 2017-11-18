@@ -18,7 +18,7 @@
                        <label for="password">Password: </label>
                        <input class="form-control resetMe" type="password" name="password" value="${Password}" id="password" required="true">
                    </div>
-			<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>   
+			<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or <a href="/resetpasswordask">reset password</a> or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>   
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
                    
