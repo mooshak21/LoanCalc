@@ -62,7 +62,7 @@
 
                    <div class="form-group">
                        <label for="password">Password: </label>
-                       <input class="form-control resetMe" type="password" name="password" value="${Password}" id="password" required="true">
+                       <input class="form-control resetMe" type="text" name="password" value="${Password}" id="password" required="true">
                    </div>
                    
                     <div class="form-group">

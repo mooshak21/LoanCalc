@@ -13,9 +13,12 @@
                    <div class="form-group">
                        <label for="email">Email: </label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
-			       <p>Do you want to <a href="/loanpreferenceviewask">Register</a>?</p>
 		   </div>
-
+                <div class="form-group">
+                       <label for="password">Password: </label>
+                       <input class="form-control resetMe" type="password" name="password" value="${Password}" id="password" required="true">
+                   </div>
+			<p>Do you want to <a href="/loanpreferenceviewask">Register</a>?</p>   
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
                    
