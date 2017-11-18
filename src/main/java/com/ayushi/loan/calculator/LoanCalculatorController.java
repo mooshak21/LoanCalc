@@ -1296,6 +1296,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 			        List<Preference> preferences;
+				boolean emailFlag = false, passwordFlag = false;
 				        try {
 				           preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{newEmail});
 							                if(preferences != null){
