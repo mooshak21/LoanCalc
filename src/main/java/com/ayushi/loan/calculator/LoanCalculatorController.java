@@ -1276,13 +1276,13 @@ public class LoanCalculatorController implements ServletContextAware {
     }    
 
  @RequestMapping(value = "/login")
-     public String login(@RequestParam(value="email", defaultValue = "") String email,
+     public String login(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="password", defaultValue = "") String password,
 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
         model.addAttribute("message", "Login Form");
-        if (email != null && !email.equals("")) {
+        if (email != null && !email.equals("") && password != null && !password.equals("")) {
             model.addAttribute("userEmail", email);
-	    Preference pref = checkPreferenceEmailAddress(email);
-            if(pref != null){
+	    boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
+            if(emailPasswordFlag){
               	response.addCookie(new Cookie("userEmail", email));
 		model.addAttribute("userEmail", email);
        		return "index";
@@ -1292,7 +1292,7 @@ public class LoanCalculatorController implements ServletContextAware {
         return "login";
     }    
 
-	private Preference checkPreferenceEmailAddress(String newEmail) {
+	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 			        List<Preference> preferences;
@@ -1301,13 +1301,20 @@ public class LoanCalculatorController implements ServletContextAware {
 							                if(preferences != null){
 										                    for(Preference p : preferences){
 													if(p.getEmailAddress().equals(newEmail))
-														return p;
+														emailFlag = true;
+													if(p instanceof PasswordPreference)
+														if(p.getValue().equals(password))
+															passwordFlag = true;
+													if(emailFlag && passwordFlag)
+														return true;
 												    }
+												    
+												    return false;							
 		    							}
 				        } catch (PreferenceAccessException ex) {
                             logger.error(ex.getMessage());
 				        }
-				    return null;	
+				    return false;	
 	}
 
 	private List<Preference> getPreferencesByEmailAddress(String email) {
