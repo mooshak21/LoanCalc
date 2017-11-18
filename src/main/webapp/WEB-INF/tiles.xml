@@ -70,6 +70,16 @@
 	<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
      </definition>
 
+     <definition name="resetpassword" extends="loanapp.homepage">
+	<put-attribute name="title" value="Reset Password"/>
+        <put-attribute name="body" value="/WEB-INF/views/resetpassword.jsp"/>
+     </definition>
+
+     <definition name="forgetpassword" extends="loanapp.homepage">
+	<put-attribute name="title" value="Forget Password"/>
+        <put-attribute name="body" value="/WEB-INF/views/forgetpassword.jsp"/>
+     </definition>
+
      <definition name="index" extends="loanapp.homepage">
              <put-attribute name="title" value="Home Page"/>
              <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>

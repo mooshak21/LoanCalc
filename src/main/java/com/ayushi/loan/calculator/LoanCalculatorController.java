@@ -1292,6 +1292,25 @@ public class LoanCalculatorController implements ServletContextAware {
         return "login";
     }    
 
+    @RequestMapping(value = "/resetpasswordask")
+    public String aggregateloan(Model model) {
+        model.addAttribute("message", "Reset Password");
+        return "resetpassword";
+    }
+
+ @RequestMapping(value = "/resetpassword")
+     public String resetPassword(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="oldpassword", defaultValue = "") String oldpassword,
+ @RequestParam(value="newpassword", defaultValue = "") String newpassword,
+@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("message", "Reset Password Form");
+        if (email != null && !email.equals("") && oldpassword != null && !oldpassword.equals("") && newpassword != null && !newpassword.equals("")) {
+            model.addAttribute("userEmail", email);
+            model.addAttribute("oldpassword", oldpassword);
+            model.addAttribute("newpassword", newpassword);
+        }
+        return "resetpassword";
+    }
+
 	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
 	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
