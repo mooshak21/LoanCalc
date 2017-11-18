@@ -627,11 +627,12 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("riskTolerancePreference") String riskTolerancePreference,
             @RequestParam("timeHorizonPreference") String timeHorizonPreference,
             @RequestParam("email") String email,
+            @RequestParam("password") String password,
             @RequestParam("reminderfreq") String reminderFreq,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
            HttpServletRequest request, HttpServletResponse response, Model model) {
 	
-	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null;
+	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, passwordPreference = null;
         boolean allVal = false;
         if (loanAmt != null && !loanAmt.equals(""))
 	    amountPreference = loanAmt;
@@ -643,6 +644,8 @@ public class LoanCalculatorController implements ServletContextAware {
 	    statePreference = state;
         if(numOfYears != null && !numOfYears.equals("")) 
 	    numberOfYearsPreference = numOfYears;
+	if(password != null && !password.equals(""))
+	    passwordPreference = password;
 
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
@@ -777,6 +780,17 @@ public class LoanCalculatorController implements ServletContextAware {
                 lstPref.setFlag(true);
                 lstPref.setActive("Y");
                 prefList.add(lstPref);
+            }
+
+            if (passwordPreference != null && !passwordPreference.equals("")) {
+                passwordPreference lpwdPref = new PasswordPreference();
+                lpwdPref.setId(12);
+                lpwdPref.setName("Password");
+                lpwdPref.setEmailAddress(email);
+                lpwdPref.setValue(passwordPreference);
+                lpwdPref.setFlag(true);
+                lpwdPref.setActive("Y");
+                prefList.add(lpwdPref);
             }
 
             List<Preference> preferences = null;

@@ -59,6 +59,11 @@
                        <label for="email">Email: </label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
                    </div>
+
+                   <div class="form-group">
+                       <label for="password">Password: </label>
+                       <input class="form-control resetMe" type="password" name="password" value="${Password}" id="password" required="true">
+                   </div>
                    
                     <div class="form-group">
                         <label for="reminderfreq">Reminder Frequency: </label>
