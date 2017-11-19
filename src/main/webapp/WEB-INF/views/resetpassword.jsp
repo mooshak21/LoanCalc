@@ -20,7 +20,7 @@
                    </div>
                 <div class="form-group">
                        <label for="newpassword">New Password: </label>
-                       <input class="form-control resetMe" type="password" name="password" value="" id="newpassword" required="true">
+                       <input class="form-control resetMe" type="password" name="newpassword" value="" id="newpassword" required="true">
                    </div>
 		<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or <a href="/resetpasswordask">reset password</a></p>
 		<p>or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>   
