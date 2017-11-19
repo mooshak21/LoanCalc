@@ -1302,14 +1302,41 @@ public class LoanCalculatorController implements ServletContextAware {
      public String resetPassword(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="oldpassword", defaultValue = "") String oldpassword,
  @RequestParam(value="newpassword", defaultValue = "") String newpassword,
 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("message", "Reset Password Form");
         if (email != null && !email.equals("") && oldpassword != null && !oldpassword.equals("") && newpassword != null && !newpassword.equals("")) {
             model.addAttribute("userEmail", email);
             model.addAttribute("oldpassword", oldpassword);
             model.addAttribute("newpassword", newpassword);
+	    if(updatePreferencePassword(email, newpassword))	
+	            model.addAttribute("message", "Reset Password Successful!");
+	    else
+	            model.addAttribute("message", "Reset Password Failed!");
         }
         return "resetpassword";
     }
+
+private boolean updatePreferencePassword(String email, String newPassword) {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        List<Preference> preferences;
+	boolean passwordChanged = false;
+        try {
+            preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{email});
+            if(preferences != null){
+                    for(Preference p : preferences){
+                        if(p instanceof PasswordPreference){
+                            p.setValue(newPassword);
+	                    prefService.modifyPreference(p);
+			    passwordChanged = true;	
+			    break;	
+                        }
+                     }
+            }
+        } catch (PreferenceAccessException ex) {
+            logger.error(ex.getMessage());
+        }
+	return passwordChanged;	
+    }
+   
 
 @RequestMapping(value = "/forgetpasswordask")
   public String forgetPassword(Model model) {
