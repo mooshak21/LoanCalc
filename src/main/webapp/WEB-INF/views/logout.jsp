@@ -5,7 +5,8 @@
             <div class="card-block">
 		    <p> ${userEmail} logged out successfully!</p>
                <p> Loan Calculator is a Web App and Mobile App for calculation of loan amortization and payoff amount.</p> 
-	       <p>Do you want to <a href="/login">Login</a> or <a href="/loanpreferenceviewask">Register</a>?</p>
+		<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or <a href="/resetpasswordask">reset password</a></p>
+		<p>or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>   
             </div>
         </div>
 </div>
