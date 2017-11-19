@@ -1306,7 +1306,7 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("userEmail", email);
             model.addAttribute("oldpassword", oldpassword);
             model.addAttribute("newpassword", newpassword);
-	    if(updatePreferencePassword(email, newpassword))	
+	    if(checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))	
 	            model.addAttribute("message", "Reset Password Successful!");
 	    else
 	            model.addAttribute("message", "Reset Password Failed!");
