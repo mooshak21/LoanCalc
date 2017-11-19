@@ -23,6 +23,9 @@
             </div>
         </div>
     </div>
+        <jsp:include page="/WEB-INF/views/emailForm.jsp">
+            <jsp:param name="dataType" value="Loan"/>
+        </jsp:include>
 
  <script>
 function resetForm() {
