@@ -30,9 +30,10 @@ public class Loan implements Serializable, Comparable<Loan> {
 		principal = 0.0;
 		interest = 0.0;
 		loanType = "Home Loan";
+		loanDenomination = "USD";
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype){
+	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom){
 		monthly = new Double(mnthly);
 		amount = new Double(amt);
 		total = new Double(tot);
@@ -51,6 +52,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 		interest = new Double(interestPayment);
 		principal = new Double(monthly - interest);
 		loanType = loantype;
+		loanDenomination = loanDenom;
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;

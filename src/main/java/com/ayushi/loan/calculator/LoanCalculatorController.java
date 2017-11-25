@@ -347,7 +347,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 total = loans.size();
                 Loan searchloan = (Loan) loans.get(0);
                 if (searchloan != null) {
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0,searchloan.getLoanId(), searchloan.getLoanType());
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0,searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination());
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
