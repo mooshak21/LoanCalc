@@ -79,6 +79,7 @@
                                     		<td style="width: 40%">As of Payoff Date on:</td>
                                    		<td>${payoffOn}</td>
                                 	</tr>
+	                             <tr><td style="width: 40%">Loan Denomination:</td><td><h4>${amortizeloan.loanDenomination}</h4></td></tr>
                                 </c:if>
                             </table>
                         </div>
