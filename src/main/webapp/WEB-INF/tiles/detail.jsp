@@ -29,7 +29,7 @@
                                     <td>${amortizeloan.loanId}</td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 40%">Monthly Payment:($)</td>
+                                    <td style="width: 40%">Monthly Payment:</td>
                                     <td><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
@@ -37,15 +37,15 @@
                                     <td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 40%">Last Interest:($)</td>
+                                    <td style="width: 40%">Last Interest:</td>
                                     <td><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 40%">Last Principal:($)</td>
+                                    <td style="width: 40%">Last Principal:</td>
                                     <td><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 40%">Loan Amount:($)</td>
+                                    <td style="width: 40%">Loan Amount:</td>
                                     <td><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.00"/></td>
                                 </tr>
                                 <tr>
@@ -95,10 +95,10 @@
                                 <thead class="thead-default">
                                     <tr>
                                        <th>Date</th>
-                                       <th>Principal($)</th>
-                                       <th>Interest($)</th>
-                                       <th>Loan Amount($)</th>
-                                       <th>Monthly($)</th>
+                                       <th>Principal</th>
+                                       <th>Interest</th>
+                                       <th>Loan Amount</th>
+                                       <th>Monthly</th>
                                     </tr>
                                 </thead>
                                 <tbody>
