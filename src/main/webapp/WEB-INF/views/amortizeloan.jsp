@@ -69,6 +69,7 @@
                         <tr><td style="width: 40%">State:</td><td><h4>${amortizeloan.state}</h4></td></tr>
                         <tr><td style="width: 40%">APR:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></h4></td></tr>
                         <tr><td style="width: 40%">Number of Years:</td><td><h4>${amortizeloan.numberOfYears}</h4></td></tr>
+                        <tr><td style="width: 40%">Loan Denomination:</td><td><h4>${amortizeloan.loanDenomination}</h4></td></tr>
                      </table>
                 </div>
             </div>
