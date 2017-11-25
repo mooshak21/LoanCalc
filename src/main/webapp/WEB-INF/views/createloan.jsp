@@ -45,6 +45,15 @@
                              <option value="Home Loan" ${loan.loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
                          </select>
                      </div>
+                     <div class="form-group">
+                         <label for="loanDenomination">Loan Denomination:</label>
+                         <select class="form-control resetMe" name="loanDenomination" required="true" id="loanDenomination" >
+                             <option value="">Choose a Loan Denomination</option>
+                             <option value="USD"  ${loan.loanDenomination == 'USD' ? 'selected' : ''}>USD</option>
+                             <option value="CAN$"  ${loan.loanDenomination == 'CAN$' ? 'selected' : ''}>CAN$</option>
+                             <option value="MEXPESO" ${loan.loanDenomination == 'MEXPESO' ? 'selected' : ''}>Mexican Peso</option>
+                         </select>
+                     </div>
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                      <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
                 

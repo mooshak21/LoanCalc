@@ -60,11 +60,11 @@
             <div class="card col-10 col-md-8 cardBody">
                 <div class="card-block">
                     <table class="table table-hover table-bordered">
-                        <tr><td style="width: 40%">Monthly Payment:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Monthly Payment:</td><td><h4><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></h4></td></tr>
                         <tr><td style="width: 40%">Interest Rate:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></h4></td></tr>
-                        <tr><td style="width: 40%">Last Interest:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></h4></td></tr>
-                        <tr><td style="width: 40%">Last Principal:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></h4></td></tr>
-                        <tr><td style="width: 40%">Loan Amount:($)</td><td><h4><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Last Interest:</td><td><h4><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Last Principal:</td><td><h4><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></h4></td></tr>
+                        <tr><td style="width: 40%">Loan Amount:</td><td><h4><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></h4></td></tr>
                         <tr><td style="width: 40%">Lender:</td><td><h4>${amortizeloan.lender}</h4></td></tr>
                         <tr><td style="width: 40%">State:</td><td><h4>${amortizeloan.state}</h4></td></tr>
                         <tr><td style="width: 40%">APR:(%)</td><td><h4><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></h4></td></tr>
