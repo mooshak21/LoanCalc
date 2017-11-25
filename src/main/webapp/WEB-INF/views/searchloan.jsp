@@ -69,7 +69,7 @@
                                <td><h4>${amortizeloan.loanId}</h4></td>
                            </tr>
                            <tr>
-                               <td style="width: 40%">Monthly Payment:($)</td>
+                               <td style="width: 40%">Monthly Payment:</td>
                                <td><h4><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></h4></td>
                            </tr>
                            <tr>
@@ -77,15 +77,15 @@
                                <td><h4><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></h4></td>
                            </tr>
                            <tr>
-                               <td style="width: 40%">Last Interest:($)</td>
+                               <td style="width: 40%">Last Interest:</td>
                                <td><h4><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></h4></td>
                            </tr>
                            <tr>
-                               <td style="width: 40%">Last Principal:($)</td>
+                               <td style="width: 40%">Last Principal:</td>
                                <td><h4><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></h4></td>
                            </tr>
                            <tr>
-                               <td style="width: 40%">Loan Amount:($)</td>
+                               <td style="width: 40%">Loan Amount:</td>
                                <td><h4><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></h4></td>
                            </tr>
                            <tr>
@@ -105,7 +105,7 @@
                                <td><h4>${amortizeloan.numberOfYears}</h4></td>
                            </tr>
                            <tr>
-                               <td style="width: 40%">Payoff Amount:($)</td>
+                               <td style="width: 40%">Payoff Amount:</td>
                                <td><h4><fmt:formatNumber value="${payoffAmount}" pattern="###,###,###.###" /></h4></td>
                            </tr>
                            <tr>
@@ -127,10 +127,10 @@
                                   <thead class="thead-default">
                                       <tr>
                                          <th>Date</th>
-                                         <th>Principal($)</th>
-                                         <th>Interest($)</th>
-                                         <th>Loan Amount($)</th>
-                                         <th>Monthly($)</th>
+                                         <th>Principal</th>
+                                         <th>Interest</th>
+                                         <th>Loan Amount</th>
+                                         <th>Monthly</th>
                                       </tr>
                                   </thead>
                                   <tbody>
