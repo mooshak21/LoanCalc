@@ -23,16 +23,17 @@
                                     </tr>
                                 </c:if> 
                                <tr><td style="width: 40%">Loan Id:</td><td><a href='/viewloanexcel/${amortizeloan.loanId}'>${amortizeloan.loanId}</a></td></tr>
-                               <tr><td style="width: 40%">Monthly Payment:($)</td><td><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Monthly Payment:</td><td><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></td></tr>
                                <tr><td style="width: 40%">Interest Rate:(%)</td><td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></td></tr>
-                               <tr><td style="width: 40%">Last Interest:($)</td><td><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></td></tr>
-                               <tr><td style="width: 40%">Last Principal:($)</td><td><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Last Interest:</td><td><fmt:formatNumber value="${amortizeloan.interest}" pattern="###,###,###.###" /></td></tr>
+                               <tr><td style="width: 40%">Last Principal:</td><td><fmt:formatNumber value="${amortizeloan.principal}" pattern="###,###,###.###" /></td></tr>
                                <tr><td style="width: 40%">Loan Amount:</td><td><fmt:formatNumber value="${amortizeloan.amount}" pattern="###,###,###.###" /></td></tr>
                                <tr><td style="width: 40%">Lender:</td><td>${amortizeloan.lender}</td></tr>
                                <tr><td style="width: 40%">State:</td><td>${amortizeloan.state}</td></tr>
                                <tr><td style="width: 40%">APR:(%)</td><td><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></td></tr>
                                <tr><td style="width: 40%">Number of Years:</td><td>${amortizeloan.numberOfYears}</td></tr>
                                 <tr><td style="width: 40%">Loan Type:</td><td>${amortizeloan.loanType}</td></tr>
+                                <tr><td style="width: 40%">Loan Denomination:</td><td>${amortizeloan.loanDenomination}</td></tr>
                             </table>
                             
                            
@@ -49,10 +50,10 @@
                                 <thead class="thead-default">
                                     <tr>
                                        <th>Date</th>
-                                       <th>Principal($)</th>
-                                       <th>Interest($)</th>
-                                       <th>Loan Amount($)</th>
-                                       <th>Monthly($)</th>
+                                       <th>Principal</th>
+                                       <th>Interest</th>
+                                       <th>Loan Amount</th>
+                                       <th>Monthly</th>
                                     </tr>
                                 </thead>
                                 <tbody>

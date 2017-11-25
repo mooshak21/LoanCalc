@@ -37,6 +37,7 @@
                                <tr><td style="width: 40%">APR:(%)</td><td><fmt:formatNumber value="${amortizeloan.APR}" pattern="###,###,###.########"/></td></tr>
                                <tr><td style="width: 40%">Number of Years:</td><td>${amortizeloan.numberOfYears}</td></tr>
                                 <tr><td style="width: 40%">Loan Type:</td><td>${amortizeloan.loanType}</td></tr>
+                                <tr><td style="width: 40%">Loan Denomination:</td><td>${amortizeloan.loanDenomination}</td></tr>
                             </table>
                         </div>
                     </div>
@@ -51,10 +52,10 @@
                                 <thead class="thead-default">
                                     <tr>
                                        <th>Date</th>
-                                       <th>Principal($)</th>
-                                       <th>Interest($)</th>
-                                       <th>Loan Amount($)</th>
-                                       <th>Monthly($)</th>
+                                       <th>Principal</th>
+                                       <th>Interest</th>
+                                       <th>Loan Amount</th>
+                                       <th>Monthly</th>
                                     </tr>
                                 </thead>
                                 <tbody>
