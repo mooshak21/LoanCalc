@@ -12,6 +12,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 	private Integer numberOfYears;
 	private Long loanId;
 	private String loanType;
+	private String loanDenomination;
 	private LoanApp loanApp;
 	private Double principal, interest;
 
@@ -146,6 +147,14 @@ public class Loan implements Serializable, Comparable<Loan> {
 
 	public void setLoanType(String loanType) {
 		this.loanType = loanType;
+	}
+
+	public String getLoanDenomination() {
+		return loanDenomination;
+	}
+
+	public void setLoanDenomination(String loanDenomination) {
+		this.loanDenomination = loanDenomination;
 	}
 
 	public String toString(){

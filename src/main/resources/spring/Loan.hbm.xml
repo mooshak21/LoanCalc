@@ -32,6 +32,9 @@
         <property name="loanType" type="java.lang.String">
             <column name="LOAN_TYPE" length="100" not-null="true"/>
         </property>
+        <property name="loanDenomination" type="java.lang.String">
+            <column name="LOAN_DENOM" length="100" not-null="true"/>
+        </property>
 
     </class>
 </hibernate-mapping>
