@@ -109,13 +109,14 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("loanAmt") String loanAmt,
             @RequestParam("state") String state,
             @RequestParam("loanType") String loanType,
+	    @RequestParam("loanDenomination") String loanDenomination,
             @RequestParam("numOfYears") String numOfYears, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
         Loan loanObject = null;
         if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
                 && lender != null && !lender.equals("") && state != null && !state.equals("")
-                && numOfYears != null && !numOfYears.equals("") && loanType != null && !loanType.equals("")) {
+                && numOfYears != null && !numOfYears.equals("") && loanType != null && !loanType.equals("") && loanDenomination != null && !loanDenomination.equals("")) {
             allVal = true;
             loanQryObject.setAmount(Double.valueOf(loanAmt));
             loanQryObject.setLender(lender);
@@ -141,6 +142,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 LoanService loanService = (LoanService) appCtx.getBean("loanService");
                 try {
                     loanObject.setLoanType(loanType);
+		    loanObject.setLoanDenomination(loanDenomination);	
                     loanService.createLoan(loanObject);
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();
