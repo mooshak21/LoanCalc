@@ -84,10 +84,10 @@
                          <thead class="thead-default">
                              <tr>
                                 <th>Date</th>
-                                <th>Principal($)</th>
-                                <th>Interest($)</th>
-                                <th>Loan Amount($)</th>
-                                <th>Monthly($)</th>
+                                <th>Principal</th>
+                                <th>Interest</th>
+                                <th>Loan Amount</th>
+                                <th>Monthly</th>
                              </tr>
                          </thead>
                          <tbody>
