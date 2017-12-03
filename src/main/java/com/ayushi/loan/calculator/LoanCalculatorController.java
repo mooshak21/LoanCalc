@@ -1412,7 +1412,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 	}
 
     @RequestMapping(value = "/aggregateloanreportask" , method = RequestMethod.GET)
-    public String aggregateloanReport(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String aggregateloanReport(@CookieValue(value = "userEmail", defaultValue = "") String userEmail, Model model, HttpServletResponse response, HttpServletRequest request) {
        if(userEmail != null && !userEmail.equals("")){
     			List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
     			ArrayList<String> prefVal = null, prefAttr = null;
