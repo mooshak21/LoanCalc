@@ -1301,7 +1301,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
 				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 			}
-	       		return "aggregateloanreport";
+			model.addAttribute("message", "Aggregate Loan Report");	
+			return "aggregateloanreport";
 	    }else
 	        return "login";
 	    }
@@ -1424,15 +1425,15 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                     if (preferences != null) {
                         for(Preference p:preferences) {
                             if (p.getName().equals("LoanId")){
-                                model.addAttribute("loanId", p.getValue());
+                                model.addAttribute("LoanId", p.getValue());
                             }else if(p.getName().equals("NumberOfYears")){
-                                model.addAttribute("numberOfYears", p.getValue());
+                                model.addAttribute("NumberOfYears", p.getValue());
                             }else if(p.getName().equals("Amount")){
-                                model.addAttribute("loanAmt", p.getValue());
+                                model.addAttribute("LoanAmt", p.getValue());
                             }else if(p.getName().equals("Lender")){
-                                model.addAttribute("lender", p.getValue());
+                                model.addAttribute("Lender", p.getValue());
                             }else if(p.getName().equals("State")){
-                                model.addAttribute("state", p.getValue());
+                                model.addAttribute("State", p.getValue());
                             }else if(p.getName().equals("AIR")){
                                 model.addAttribute("APR", p.getValue());
                             }
