@@ -1286,12 +1286,26 @@ public class LoanCalculatorController implements ServletContextAware {
 	    boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if(emailPasswordFlag){
               	response.addCookie(new Cookie("userEmail", email));
-		model.addAttribute("userEmail", email);
-       		return "index";
+			model.addAttribute("userEmail", email);
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			ArrayList<String> prefVal = null, prefAttr = null;
+	
+			if(prefs != null){
+			    prefVal = new ArrayList<String>(prefs.size());	
+			    prefAttr = new ArrayList<String>(prefs.size());
+			    int prefIdx = 0;
+			    for(Preference pref : prefs){
+				prefAttr.add(pref.getName());
+				prefVal.add(pref.getValue());
+			   }
+			  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+			}
+	       		return "aggregateloanreport";
 	    }else
 	        return "login";
-        }
-        return "login";
+	    }
+        	return "login";
     }    
 
 @RequestMapping(value = "/resetpasswordask")
