@@ -1412,38 +1412,22 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 	}
 
     @RequestMapping(value = "/aggregateloanreportask" , method = RequestMethod.GET)
-    public String aggregateloanReport(Model model,HttpServletResponse response, HttpServletRequest request) {
-        Cookie[] cookie_jar = request.getCookies();
-        for (Cookie c: cookie_jar){
-            if(c.getName().equals("userEmail")){
-                String email=c.getValue();
-                ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-                PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-                List<Preference> preferences;
-                try {
-                    preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{email});
-                    if (preferences != null) {
-                        for(Preference p:preferences) {
-                            if (p.getName().equals("LoanId")){
-                                model.addAttribute("LoanId", p.getValue());
-                            }else if(p.getName().equals("NumberOfYears")){
-                                model.addAttribute("NumberOfYears", p.getValue());
-                            }else if(p.getName().equals("Amount")){
-                                model.addAttribute("LoanAmt", p.getValue());
-                            }else if(p.getName().equals("Lender")){
-                                model.addAttribute("Lender", p.getValue());
-                            }else if(p.getName().equals("State")){
-                                model.addAttribute("State", p.getValue());
-                            }else if(p.getName().equals("AIR")){
-                                model.addAttribute("APR", p.getValue());
-                            }
-                        }
-                    }
-                }catch (PreferenceAccessException ex) {
-                    logger.error(ex.getMessage());
-                }
-            }
-
+    public String aggregateloanReport(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model, HttpServletResponse response, HttpServletRequest request) {
+       if(userEmail != null && !userEmail.equals("")){
+    			List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
+    			ArrayList<String> prefVal = null, prefAttr = null;
+    	
+    			if(prefs != null){
+    			    prefVal = new ArrayList<String>(prefs.size());	
+    			    prefAttr = new ArrayList<String>(prefs.size());
+    			    int prefIdx = 0;
+    			    for(Preference pref : prefs){
+    				prefAttr.add(pref.getName());
+    				prefVal.add(pref.getValue());
+    			   }
+    			  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+    				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+    			}
         }
         model.addAttribute("message", "Aggregate Loan Report");
         return "aggregateloanreport";

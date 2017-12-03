@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="loanAmt">Loan Amount:</label>
-                        <input class="form-control resetMe" type="number" name="loanAmt" value="${LoanAmt}" min="1"
+                        <input class="form-control resetMe" type="number" name="loanAmt" value="${Amount}" min="1"
                                max="9999999999" id="loanAmt">
                     </div>
 
@@ -42,7 +42,7 @@
 
                     <div class="form-group row">
                         <label for="interestRate">Annual Interest Rate: </label>
-                        <input class="form-control resetMe" type="number" name="interestRate" value="${APR}" min="0" max="100"
+                        <input class="form-control resetMe" type="number" name="interestRate" value="${AIR}" min="0" max="100"
                                step="0.01" id="interestRate">
                     </div>
 
