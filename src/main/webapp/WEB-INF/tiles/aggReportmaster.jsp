@@ -17,36 +17,36 @@
                       onsubmit='if(aggregateLoanReportForm.loanId.value == "" && aggregateLoanReportForm.loanAmt.value == ""  && aggregateLoanReportForm.numOfYears.value == "" && aggregateLoanReportForm.lender.value == "" && aggregateLoanReportForm.state.value == "" && aggregateLoanReportForm.APR.value == ""){ $("#message").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); aggregateLoanReportForm.loanAmt.focus(); return false;} else { $("#message").html("");}'>
                     <div class="form-group row">
                         <label for="loanId">Loan Id:</label>
-                        <input class="form-control resetMe" type="number" name="loanId" value="${loanId}"
+                        <input class="form-control resetMe" type="number" name="loanId" value="${LoanId}"
                                id="loanId">
                         <input type="hidden" name="loanAggId" value="${loanAggId}"
                                id="loanAggId">
                     </div>
                     <div class="form-group row">
                         <label for="loanAmt">Loan Amount:</label>
-                        <input class="form-control resetMe" type="number" name="loanAmt" value="${loanAmt}" min="1"
+                        <input class="form-control resetMe" type="number" name="loanAmt" value="${Amount}" min="1"
                                max="9999999999" id="loanAmt">
                     </div>
 
                     <div class="form-group row">
                         <label for="numberOfYears">Number of Years:</label>
-                        <input class="form-control resetMe" type="number" name="numOfYears" value="${numberOfYears}" min="1"
+                        <input class="form-control resetMe" type="number" name="numOfYears" value="${NumberOfYears}" min="1"
                                max="100" id="numberOfYears">
                     </div>
 
                     <div class="form-group row">
                         <label for="lender">Lender:</label>
-                        <input class="form-control resetMe" type="text" name="lender" value="${lender}" id="lender">
+                        <input class="form-control resetMe" type="text" name="lender" value="${Lender}" id="lender">
                     </div>
 
                     <div class="form-group row">
                         <label for="state">State: </label>
-                        <input class="form-control resetMe" type="text" name="state" value="${state}" id="state">
+                        <input class="form-control resetMe" type="text" name="state" value="${State}" id="state">
                     </div>
 
                     <div class="form-group row">
                         <label for="APR">Annual Interest Rate: </label>
-                        <input class="form-control resetMe" type="number" name="APR" value="${APR}" min="0" max="100"
+                        <input class="form-control resetMe" type="number" name="APR" value="${AIR}" min="0" max="100"
                                step="0.01" id="APR">
                     </div>
 

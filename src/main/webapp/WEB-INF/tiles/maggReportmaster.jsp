@@ -18,7 +18,7 @@
                       onsubmit='if(aggregateLoanReportForm1.loanId.value == "" && aggregateLoanReportForm1.loanAmt.value == ""  && aggregateLoanReportForm1.numOfYears.value == "" && aggregateLoanReportForm1.lender.value == "" && aggregateLoanReportForm1.state.value == "" && aggregateLoanReportForm1.APR.value == ""){ $("#message1").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); aggregateLoanReportForm1.loanAmt.focus(); return false;} else { $("#message1").html("");}'>
                     <div class="form-group row">
                         <label for="loanId">Loan Id:</label>
-                        <input class="form-control resetMe" type="number" name="loanId" value="${loanId}"
+                        <input class="form-control resetMe" type="number" name="loanId" value="${LoanId}"
                                id="loanId">
                         <input type="hidden" name="loanAggId" value="${loanAggId}"
                                id="loanAggId">
