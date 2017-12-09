@@ -66,7 +66,7 @@
                    </div>
                    
                    <div class="form-group">
-                       <label for="confirmpassword">Password: </label>
+                       <label for="confirmpassword">Confirm Password: </label>
                        <input class="form-control resetMe" type="text" name="confirmpassword" value="" id="confirmpassword" required="true">
                    </div>
                    
