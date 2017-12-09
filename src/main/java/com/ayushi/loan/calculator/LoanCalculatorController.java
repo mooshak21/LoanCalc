@@ -601,20 +601,20 @@ public class LoanCalculatorController implements ServletContextAware {
     public String loanpreferenceviewask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,Model model) {
         model.addAttribute("message", "Edit Preferences");
         model.addAttribute("reminderFrequency", reminderFrequency);
-	List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-	ArrayList<String> prefVal = null, prefAttr = null;
-
-	if(prefs != null){
-	    prefVal = new ArrayList<String>(prefs.size());	
-	    prefAttr = new ArrayList<String>(prefs.size());
-	    int prefIdx = 0;
-	    for(Preference pref : prefs){
-		prefAttr.add(pref.getName());
-		prefVal.add(pref.getValue());
-	   }
-	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
-		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-	}
+		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+		ArrayList<String> prefVal = null, prefAttr = null;
+	
+		if(prefs != null){
+		    prefVal = new ArrayList<String>(prefs.size());	
+		    prefAttr = new ArrayList<String>(prefs.size());
+		    int prefIdx = 0;
+		    for(Preference pref : prefs){
+			prefAttr.add(pref.getName());
+			prefVal.add(pref.getValue());
+		   }
+		  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+			model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+		}
         return "viewpreferences";
     }
 
@@ -968,8 +968,24 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/aggregateloanask")
-    public String aggregateloan(Model model) {
+    public String aggregateloan(Model model,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
         model.addAttribute("message", "Aggregate Loan");
+    	List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+    	ArrayList<String> prefVal = null, prefAttr = null;
+
+    	if(prefs != null){
+    	    prefVal = new ArrayList<String>(prefs.size());	
+    	    prefAttr = new ArrayList<String>(prefs.size());
+    	    int prefIdx = 0;
+    	    for(Preference pref : prefs){
+    		prefAttr.add(pref.getName());
+    		prefVal.add(pref.getValue());
+    	   }
+    	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+    		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+    	}
+        
         return "aggregateloan";
     }
 
@@ -1438,8 +1454,8 @@ private boolean updatePreferencePassword(String email, String newPassword) {
     			    prefAttr = new ArrayList<String>(prefs.size());
     			    int prefIdx = 0;
     			    for(Preference pref : prefs){
-    				prefAttr.add(pref.getName());
-    				prefVal.add(pref.getValue());
+    			    	prefAttr.add(pref.getName());
+    			    	prefVal.add(pref.getValue());
     			   }
     			  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
     				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
