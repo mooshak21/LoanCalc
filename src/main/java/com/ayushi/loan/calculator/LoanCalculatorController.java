@@ -618,7 +618,7 @@ public class LoanCalculatorController implements ServletContextAware {
         return "viewpreferences";
     }
 
-    @RequestMapping(value = "/vieweditpreferences", method = RequestMethod.GET)
+    @RequestMapping(value = "/vieweditpreferences", method = RequestMethod.POST)
     public String vieweditpreferences(
             @RequestParam("airVal") String airVal,
             @RequestParam("lender") String lender,
