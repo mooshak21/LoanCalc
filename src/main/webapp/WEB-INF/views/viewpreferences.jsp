@@ -62,9 +62,9 @@
 
                    <div class="form-group">
                        <label for="password">Password: </label>
-                       <input class="form-control resetMe" type="text" name="password" value="${Password}" id="password" required="true">
+                       <input class="form-control resetMe" type="text" name="password" value="" id="password" required="true">
                    </div>
-                   
+                 
                     <div class="form-group">
                         <label for="reminderfreq">Reminder Frequency: </label>
                         <select  class="form-control resetMe" id="reminderfreq" name="reminderfreq">
