@@ -1431,13 +1431,9 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 													if(p.getEmailAddress().equals(newEmail))
 														emailFlag = true;
 													if(p instanceof PasswordPreference){
-														// gensalt's log_rounds parameter determines the complexity
-														// the work factor is 2**log_rounds, and the default is 10
-														String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-
 														// Check that an unencrypted password matches one that has
 														// previously been hashed
-														if (BCrypt.checkpw(password, hashed))
+														if (BCrypt.checkpw(password, p.getValue()))
 															passwordFlag = true;
 														else
 															passwordFlag = false;
