@@ -9,11 +9,16 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loginForm" id="loginform" action="/forgetpassword" method="GET">
+                <form name="loginForm" id="loginform" action="/forgetpassword" method="POST">
                    <div class="form-group">
                        <label for="email">Email: </label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
-		   </div>
+		   			</div>
+		   			<div class="form-group">
+                       <label for="password">Password: </label>
+                       <input class="form-control resetMe" type="text" name="password" value="${password}" id="password" required="true">
+                   </div>
+		   			
 			<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or <a href="/resetpasswordask">reset password</a></p>
 			<p>or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>   
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>

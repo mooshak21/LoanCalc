@@ -1330,9 +1330,9 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("userEmail", email);
             model.addAttribute("oldpassword", oldpassword);
             model.addAttribute("newpassword", newpassword);
-	    if(checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))	
+            if(checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))	
 	            model.addAttribute("message", "Reset Password Successful!");
-	    else
+            else
 	            model.addAttribute("message", "Reset Password Failed!");
         }
         return "resetpassword";
@@ -1370,11 +1370,20 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 
  @RequestMapping(value = "/forgetpassword")
      public String forgetPassword(@RequestParam(value="email", defaultValue = "") String email,
+    		 					@RequestParam(value="password", defaultValue = "") String password,
 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("message", "Forget Password Form");
-        if (email != null && !email.equals("")) {
-            model.addAttribute("userEmail", email);
-        }
+	 	model.addAttribute("message", "Forget Password Form");
+	    if (email != null && !email.equals("") && 
+	    		 password != null && !password.equals("") && 
+	    		 emailCookie != null && !emailCookie.equals("") &&
+	    		 email.equals(emailCookie)) {
+	         model.addAttribute("userEmail", email);
+	         model.addAttribute("password", password);
+		    if(updatePreferencePassword(email, newpassword))	
+	            model.addAttribute("message", "Change Password Successful!");
+		    else
+	            model.addAttribute("message", "Change Password Failed!");
+	    }
         return "forgetpassword";
     }
 	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
