@@ -75,16 +75,16 @@ public class LoanCalculatorController implements ServletContextAware {
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
                        Model model, HttpServletRequest request) {
-	if(emailCookie != null && !emailCookie.equals("")){
+    	if(emailCookie != null && !emailCookie.equals("")){
 	        model.addAttribute("message", "Login Form");
-		model.addAttribute("userEmail", emailCookie);
+	        model.addAttribute("userEmail", emailCookie);
         	request.getCookies();
 
         	return "login";
-	}else{
-		model.addAttribute("message", "Register with preferences");
-        	return "viewpreferences";
-	}
+    	}else{
+    		model.addAttribute("message", "Register with preferences");
+    		return "viewpreferences";
+    	}
     }
 
 
@@ -1280,33 +1280,37 @@ public class LoanCalculatorController implements ServletContextAware {
  @RequestMapping(value = "/login")
      public String login(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="password", defaultValue = "") String password,
 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("message", "Login Form");
+        if(emailCookie == null){
+            model.addAttribute("message", "Register with preferences");
+        	return "viewpreferences";
+        }
         if (email != null && !email.equals("") && password != null && !password.equals("")) {
+            model.addAttribute("message", "Login Form");
             model.addAttribute("userEmail", email);
-	    boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
+            boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if(emailPasswordFlag){
               	response.addCookie(new Cookie("userEmail", email));
-			model.addAttribute("userEmail", email);
-			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-			ArrayList<String> prefVal = null, prefAttr = null;
-	
-			if(prefs != null){
-			    prefVal = new ArrayList<String>(prefs.size());	
-			    prefAttr = new ArrayList<String>(prefs.size());
-			    int prefIdx = 0;
-			    for(Preference pref : prefs){
-				prefAttr.add(pref.getName());
-				prefVal.add(pref.getValue());
-			   }
-			  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
-				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-			}
-			model.addAttribute("message", "Aggregate Loan Report");	
-			return "aggregateloanreport";
-	    }else
-	        return "login";
+				model.addAttribute("userEmail", email);
+				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+				ArrayList<String> prefVal = null, prefAttr = null;
+		
+				if(prefs != null){
+				    prefVal = new ArrayList<String>(prefs.size());	
+				    prefAttr = new ArrayList<String>(prefs.size());
+				    int prefIdx = 0;
+				    for(Preference pref : prefs){
+					prefAttr.add(pref.getName());
+					prefVal.add(pref.getValue());
+				   }
+				  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+				}
+				model.addAttribute("message", "Aggregate Loan Report");	
+				return "aggregateloanreport";
+            }else
+            	return "login";
 	    }
-        	return "login";
+        return "login";
     }    
 
 @RequestMapping(value = "/resetpasswordask")
