@@ -56,7 +56,7 @@ import javax.servlet.http.Cookie;
 
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.mindrot.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 @Controller
