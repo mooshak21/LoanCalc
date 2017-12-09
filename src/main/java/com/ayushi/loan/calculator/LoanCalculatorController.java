@@ -1379,7 +1379,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                     for(Preference p : preferences){
                         if(p instanceof PasswordPreference){
             				// Hash a password for the first time
-            				String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+            				String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 
                             p.setValue(hashed);
 	                    prefService.modifyPreference(p);
