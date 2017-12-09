@@ -1382,9 +1382,9 @@ private boolean updatePreferencePassword(String email, String newPassword) {
             				String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 
                             p.setValue(hashed);
-	                    prefService.modifyPreference(p);
-			    passwordChanged = true;	
-			    break;	
+		                    prefService.modifyPreference(p);
+		                    passwordChanged = true;	
+		                    break;	
                         }
                      }
             }
@@ -1437,7 +1437,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 
 														// Check that an unencrypted password matches one that has
 														// previously been hashed
-														if (BCrypt.checkpw(p.getValue(), hashed))
+														if (BCrypt.checkpw(password, hashed))
 															passwordFlag = true;
 														else
 															passwordFlag = false;
