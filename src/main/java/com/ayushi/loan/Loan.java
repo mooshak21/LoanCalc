@@ -15,7 +15,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 	private String loanDenomination;
 	private LoanApp loanApp;
 	private Double principal, interest;
-
+	private String email;
 	public Loan(){
 		amount = 0.0;
 		total = 0.0;
@@ -31,6 +31,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 		interest = 0.0;
 		loanType = "Home Loan";
 		loanDenomination = "USD";
+		email = "contact@loaninsight.online";
 	}
 
 	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom){
@@ -171,4 +172,18 @@ public class Loan implements Serializable, Comparable<Loan> {
             return -1;
         }
     }
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

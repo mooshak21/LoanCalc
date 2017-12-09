@@ -878,7 +878,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
 
-        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
+        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, emailCookie);
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
@@ -914,7 +914,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     }
 
                     if ( loannotfound ) {
-                        List<Serializable> searchedLoan = searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null);
+                        List<Serializable> searchedLoan = searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null, null);
 
                         if ( searchedLoan != null) {
                             aggregatedLoans.add((Loan)searchedLoan.get(0));
@@ -1033,7 +1033,7 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     private java.util.List<Serializable> searchLoanForAggregation(String loanId, String loanAmt, String lender, String
-            state, String numOfYears, String airVal) {
+            state, String numOfYears, String airVal, String email) {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         AmortizedLoan loanObject = new AmortizedLoan();
         int total = 0;
@@ -1103,6 +1103,17 @@ public class LoanCalculatorController implements ServletContextAware {
             queryValList.add(Double.valueOf(airVal));
             loanObject.setAPR(Double.valueOf(airVal));
         }
+        if (email != null && !email.equals("")) {
+            if (firstVal)
+                querySB.append(" and ln.email=?");
+            else {
+                querySB.append(" ln.email=?");
+                firstVal = true;
+            }
+            queryValList.add(email);
+            loanObject.setEmail(email);
+        }
+
         java.util.List<Serializable> loans = null;
         if (firstVal) {
             queryVals = new Object[queryValList.size()];
@@ -1476,7 +1487,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException, LoanAccessException {
 
-        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal);
+        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, emailCookie);
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
