@@ -9,7 +9,7 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loanForm" id="loanform" action="/vieweditpreferences" method="GET" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
+                <form name="loanForm" id="loanform" action="/vieweditpreferences" method="POST" onsubmit='if(loanForm.password.value != loanForm.confirmpassword.value){ alert("Please enter same value as password!"); loanForm.password.focus(); return false;}'>
                    
                    <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
@@ -64,7 +64,12 @@
                        <label for="password">Password: </label>
                        <input class="form-control resetMe" type="text" name="password" value="" id="password" required="true">
                    </div>
-                 
+                   
+                   <div class="form-group">
+                       <label for="confirmpassword">Password: </label>
+                       <input class="form-control resetMe" type="text" name="confirmpassword" value="" id="confirmpassword" required="true">
+                   </div>
+                   
                     <div class="form-group">
                         <label for="reminderfreq">Reminder Frequency: </label>
                         <select  class="form-control resetMe" id="reminderfreq" name="reminderfreq">
