@@ -9,7 +9,7 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loanForm" id="loanform" action="/vieweditpreferences" method="POST" onsubmit='if(loanform.password.value == loanform.confirmpassword.value){ return true; } else{ alert("Please enter same value as password!"); loanForm.password.focus(); return false;}'>
+                <form name="loanForm" id="loanform" action="/vieweditpreferences" method="POST" onsubmit='if(loanForm.password.value == loanForm.confirmpassword.value){ return true; } else{ alert("Please enter same value as password!"); loanForm.password.focus(); return false;}'>
                    
                    <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
