@@ -50,6 +50,10 @@
                         <input class="form-control resetMe" type="number" name="APR" value="${AIR}" min="0" max="100"
                                step="0.01" id="APR">
                     </div>
+                  <div class="form-group row">
+                       <label for="email">Email: </label>
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email">
+				   </div>
 
                     <button type="submit" class="btn btn-default float-left">Search</button>
                     <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
