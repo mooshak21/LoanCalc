@@ -790,7 +790,10 @@ public class LoanCalculatorController implements ServletContextAware {
                 lpwdPref.setId(12);
                 lpwdPref.setName("Password");
                 lpwdPref.setEmailAddress(email);
-                lpwdPref.setValue(passwordPreference);
+				// Hash a password for the first time
+				String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt(12));
+
+                lpwdPref.setValue(hashed);
                 lpwdPref.setFlag(true);
                 lpwdPref.setActive("Y");
                 prefList.add(lpwdPref);
@@ -1375,7 +1378,10 @@ private boolean updatePreferencePassword(String email, String newPassword) {
             if(preferences != null){
                     for(Preference p : preferences){
                         if(p instanceof PasswordPreference){
-                            p.setValue(newPassword);
+            				// Hash a password for the first time
+            				String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+
+                            p.setValue(hashed);
 	                    prefService.modifyPreference(p);
 			    passwordChanged = true;	
 			    break;	
@@ -1424,9 +1430,18 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 										                    for(Preference p : preferences){
 													if(p.getEmailAddress().equals(newEmail))
 														emailFlag = true;
-													if(p instanceof PasswordPreference)
-														if(p.getValue().equals(password))
+													if(p instanceof PasswordPreference){
+														// gensalt's log_rounds parameter determines the complexity
+														// the work factor is 2**log_rounds, and the default is 10
+														String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
+
+														// Check that an unencrypted password matches one that has
+														// previously been hashed
+														if (BCrypt.checkpw(p.getValue(), hashed))
 															passwordFlag = true;
+														else
+															passwordFlag = false;
+													}
 													if(emailFlag && passwordFlag)
 														return true;
 												    }
