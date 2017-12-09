@@ -1379,7 +1379,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 	    		 email.equals(emailCookie)) {
 	         model.addAttribute("userEmail", email);
 	         model.addAttribute("password", password);
-		    if(updatePreferencePassword(email, newpassword))	
+		    if(updatePreferencePassword(email, password))	
 	            model.addAttribute("message", "Change Password Successful!");
 		    else
 	            model.addAttribute("message", "Change Password Failed!");
