@@ -1307,9 +1307,12 @@ public class LoanCalculatorController implements ServletContextAware {
 				}
 				model.addAttribute("message", "Aggregate Loan Report");	
 				return "aggregateloanreport";
-            }else
+            }else{
+                model.addAttribute("message", "Login Form");
             	return "login";
+            }
 	    }
+        model.addAttribute("message", "Login Form");
         return "login";
     }    
 
