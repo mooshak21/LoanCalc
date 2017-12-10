@@ -1314,7 +1314,7 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("message", "Register with preferences");
         	return "viewpreferences";
         }
-        if (email != null && !email.equals("") && password != null && !password.equals("") && loginAttempt.equals("0")) {
+        if (email != null && !email.equals("") && password != null && !password.equals("")) {
             model.addAttribute("message", "Login Form");
             model.addAttribute("userEmail", email);
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
@@ -1336,13 +1336,15 @@ public class LoanCalculatorController implements ServletContextAware {
 					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 				}
 				model.addAttribute("message", "Aggregate Loan Report");	
+
 				return "aggregateloanreport";
-            }else{
+            }else if(!loginAttempt.equals("0")){
             	Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
             	nextLoginAttempt++;
               	response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
                 model.addAttribute("message", "Login Form");
-            	return "loginwithrecaptcha";
+            	
+                return "loginwithrecaptcha";
             }
 	    }
         model.addAttribute("message", "Login Form");
