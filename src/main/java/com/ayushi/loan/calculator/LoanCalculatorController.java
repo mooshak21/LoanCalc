@@ -1345,10 +1345,11 @@ public class LoanCalculatorController implements ServletContextAware {
             	nextLoginAttempt++;
               	response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
                 model.addAttribute("message", "Login Form");
-            	
+                model.addAttribute("loginStatus", null);
                 return "loginwithrecaptcha";
             }
 	    }
+        model.addAttribute("loginStatus", null);
         model.addAttribute("message", "Login Form");
         return "login";
     }    
