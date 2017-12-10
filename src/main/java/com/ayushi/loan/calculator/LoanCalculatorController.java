@@ -60,7 +60,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 
 @Controller
-@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans"})
+@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus"})
 public class LoanCalculatorController implements ServletContextAware {
 
     private ServletContext context;
@@ -74,7 +74,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                       Model model, HttpServletRequest request) {
+    				    Model model, HttpServletRequest request) {
     	if(emailCookie != null && !emailCookie.equals("")){
 	        model.addAttribute("message", "Login Form");
 	        model.addAttribute("userEmail", emailCookie);
@@ -1304,6 +1304,7 @@ public class LoanCalculatorController implements ServletContextAware {
  @RequestMapping(value = "/logout")
     public String logout(Model model) {
         model.addAttribute("message", "Logout");
+        model.addAttribute("loginStatus", null);
         return "logout";
     }    
 
@@ -1321,7 +1322,7 @@ public class LoanCalculatorController implements ServletContextAware {
             if(emailPasswordFlag){
               	response.addCookie(new Cookie("userEmail", email));
               	response.addCookie(new Cookie("loginStatus", "Y"));
-              	model.addAttribute("loginStatus", "Y");
+              	request.getSession().addAttribute("loginStatus", "Y");
 				model.addAttribute("userEmail", email);
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				ArrayList<String> prefVal = null, prefAttr = null;
@@ -1345,11 +1346,11 @@ public class LoanCalculatorController implements ServletContextAware {
             	nextLoginAttempt++;
               	response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
                 model.addAttribute("message", "Login Form");
-                model.addAttribute("loginStatus", null);
+                request.getSession().setAttribute("loginStatus", null);
                 return "loginwithrecaptcha";
             }
 	    }
-        model.addAttribute("loginStatus", null);
+        request.getSession().setAttribute("loginStatus", null);
         model.addAttribute("message", "Login Form");
         return "login";
     }    
