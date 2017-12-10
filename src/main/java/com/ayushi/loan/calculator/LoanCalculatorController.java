@@ -1338,7 +1338,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Aggregate Loan Report");	
 				return "aggregateloanreport";
             }else{
-              	response.addCookie(new Cookie("loginAttempt", loginAttempt++));
+              	response.addCookie(new Cookie("loginAttempt", (loginAttempt++).toString()));
                 model.addAttribute("message", "Login Form");
             	return "loginwithrecaptcha";
             }
