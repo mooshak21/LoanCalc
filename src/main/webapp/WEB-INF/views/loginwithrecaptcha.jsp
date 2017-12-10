@@ -45,7 +45,7 @@
      				<div id='recaptcha' class="g-recaptcha"
 						class="g-recaptcha"
 						data-sitekey="6LfeXDwUAAAAAJqiCnXGP9rW7H5suSjve8JBHIbx"
-						data-callback="loginWithReCaptcha">
+						data-callback="loginWithReCaptcha"
 		          		data-size="invisible">
 		          	</div>
                 </form>
