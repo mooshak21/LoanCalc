@@ -61,22 +61,25 @@
      </definition>
 
      <definition name="login" extends="loanapp.homepage">
-	<put-attribute name="title" value="Login"/>
+		<put-attribute name="title" value="Login"/>
         <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
      </definition>
-
+    <definition name="loginwithrecaptcha" extends="loanapp.homepage">
+		<put-attribute name="title" value="Login With ReCaptcha"/>
+        <put-attribute name="body" value="/WEB-INF/views/loginwithrecaptcha.jsp"/>
+     </definition>
      <definition name="logout" extends="loanapp.homepage">
-	<put-attribute name="title" value="Logout"/>
-	<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
+		<put-attribute name="title" value="Logout"/>
+		<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
      </definition>
 
      <definition name="resetpassword" extends="loanapp.homepage">
-	<put-attribute name="title" value="Reset Password"/>
+		<put-attribute name="title" value="Reset Password"/>
         <put-attribute name="body" value="/WEB-INF/views/resetpassword.jsp"/>
      </definition>
 
      <definition name="forgetpassword" extends="loanapp.homepage">
-	<put-attribute name="title" value="Forget Password"/>
+		<put-attribute name="title" value="Forget Password"/>
         <put-attribute name="body" value="/WEB-INF/views/forgetpassword.jsp"/>
      </definition>
 
