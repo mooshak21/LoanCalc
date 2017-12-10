@@ -1,4 +1,20 @@
-
+<script type="text/javascript" language="JavaScript">
+<!--
+//--------------------------------
+// This code compares two fields in a form and submit it
+// if they're the same, or not if they're different.
+//--------------------------------
+function checkPasswords(theForm) {
+    if (theForm.password.value != theForm.confirmpassword.value)
+    {
+        alert('Those passwords don\'t match!');
+        return false;
+    } else {
+        return true;
+    }
+}
+//-->
+</script> 
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -9,7 +25,7 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loanForm" id="loanform" action="/vieweditpreferences" method="POST" onsubmit='if(loanForm.password.value == loanForm.confirmpassword.value){ return true; } else{ alert("Please enter same value as password!"); loanForm.password.focus(); return false;}'>
+                <form name="loanForm" id="loanform" action="/vieweditpreferences" method="POST" onsubmit='return checkPasswords(this);'>
                    
                    <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
