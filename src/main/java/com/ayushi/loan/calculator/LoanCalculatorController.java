@@ -1309,12 +1309,12 @@ public class LoanCalculatorController implements ServletContextAware {
 
  @RequestMapping(value = "/login")
      public String login(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="password", defaultValue = "") String password,
-@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = 0) Integer loginAttempt, HttpServletRequest request, HttpServletResponse response, Model model) {
+@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt, HttpServletRequest request, HttpServletResponse response, Model model) {
         if(emailCookie == null){
             model.addAttribute("message", "Register with preferences");
         	return "viewpreferences";
         }
-        if (email != null && !email.equals("") && password != null && !password.equals("") && loginAttempt == 0) {
+        if (email != null && !email.equals("") && password != null && !password.equals("") && loginAttempt.equals("0")) {
             model.addAttribute("message", "Login Form");
             model.addAttribute("userEmail", email);
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
@@ -1338,7 +1338,9 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Aggregate Loan Report");	
 				return "aggregateloanreport";
             }else{
-              	response.addCookie(new Cookie("loginAttempt", (new Integer(loginAttempt++)).toString()));
+            	Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
+            	nextLoginAttempt++;
+              	response.addCookie(new Cookie("loginAttempt", newLoginAttempt.toString()));
                 model.addAttribute("message", "Login Form");
             	return "loginwithrecaptcha";
             }
