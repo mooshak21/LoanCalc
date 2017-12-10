@@ -1320,6 +1320,8 @@ public class LoanCalculatorController implements ServletContextAware {
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if(emailPasswordFlag){
               	response.addCookie(new Cookie("userEmail", email));
+              	response.addCookie(new Cookie("loginStatus", "Y"));
+              	model.addAttribute("loginStatus", "Y");
 				model.addAttribute("userEmail", email);
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				ArrayList<String> prefVal = null, prefAttr = null;
