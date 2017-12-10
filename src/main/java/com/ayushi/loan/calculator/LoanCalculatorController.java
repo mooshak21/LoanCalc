@@ -601,9 +601,11 @@ public class LoanCalculatorController implements ServletContextAware {
 
     //----------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "/loanpreferenceviewask")
-    public String loanpreferenceviewask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,Model model) {
+    public String loanpreferenceviewask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan, Model model) {
         model.addAttribute("message", "Edit Preferences");
         model.addAttribute("reminderFrequency", reminderFrequency);
+        model.addAttribute("Plan", plan);
+     
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		ArrayList<String> prefVal = null, prefAttr = null;
 	
@@ -653,8 +655,10 @@ public class LoanCalculatorController implements ServletContextAware {
 	    numberOfYearsPreference = numOfYears;
 	if(password != null && !password.equals(""))
 	    passwordPreference = password;
-	if(plan != null && !plan.equals(""))
+	if(plan != null && !plan.equals("")){
 		planPreference = plan;
+        response.addCookie(new Cookie("plan", plan));
+	}
 	
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
@@ -1326,9 +1330,13 @@ public class LoanCalculatorController implements ServletContextAware {
 
  @RequestMapping(value = "/login")
      public String login(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="password", defaultValue = "") String password,
-@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt, HttpServletRequest request, HttpServletResponse response, Model model) {
+@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt, 
+@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan,
+HttpServletRequest request, HttpServletResponse response, Model model) {
         if(emailCookie == null){
             model.addAttribute("message", "Register with preferences");
+            model.addAttribute("reminderFrequency", reminderFrequency);
+            model.addAttribute("plan", plan);
         	return "viewpreferences";
         }
         if (email != null && !email.equals("") && password != null && !password.equals("")) {
