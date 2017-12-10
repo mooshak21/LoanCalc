@@ -78,7 +78,8 @@ public class LoanCalculatorController implements ServletContextAware {
     	if(emailCookie != null && !emailCookie.equals("")){
 	        model.addAttribute("message", "Login Form");
 	        model.addAttribute("userEmail", emailCookie);
-        	request.getCookies();
+
+	        request.getCookies();
 
         	return "login";
     	}else{
@@ -1322,7 +1323,7 @@ public class LoanCalculatorController implements ServletContextAware {
             if(emailPasswordFlag){
               	response.addCookie(new Cookie("userEmail", email));
               	response.addCookie(new Cookie("loginStatus", "Y"));
-              	request.getSession().addAttribute("loginStatus", "Y");
+              	request.getSession().setAttribute("loginStatus", "Y");
 				model.addAttribute("userEmail", email);
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				ArrayList<String> prefVal = null, prefAttr = null;
