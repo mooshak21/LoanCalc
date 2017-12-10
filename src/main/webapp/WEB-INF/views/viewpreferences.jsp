@@ -148,7 +148,27 @@ function checkPasswords(theForm) {
                         </select>
                     </div>
                    
-                   
+                   <div class="form-group">
+                        <label for="plan">Plan: </label>
+                        <select  class="form-control resetMe" id="plan" name="plan">
+                            <c:if test="${plan eq '0.0'}">
+                                <option value="0.0" selected>Free</option>
+                                <option value="9.99">Lite</option>
+                                <option value="19.99">Premium</option>
+                            </c:if>
+                            <c:if test="${plan eq '9.99'}">
+                                <option value="0.0">Free</option>
+                                <option value="9.99" selected>Lite</option>
+                                <option value="19.99">Premium</option>
+                            </c:if>
+                            <c:if test="${plan eq '19.99'}">
+                                <option value="0.0">Free</option>
+                                <option value="9.99">Lite</option>
+                                <option value="19.99" selected>Premium</option>
+                            </c:if>
+                            
+                        </select>
+                    </div>
 
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>

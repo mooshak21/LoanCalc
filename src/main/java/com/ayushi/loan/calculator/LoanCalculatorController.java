@@ -51,6 +51,7 @@ import com.ayushi.loan.preferences.AirPreference;
 import com.ayushi.loan.preferences.YearsPreference;
 import com.ayushi.loan.preferences.StatePreference;
 import com.ayushi.loan.preferences.PasswordPreference;
+import com.ayushi.loan.preferences.PlanPreference;
 
 import javax.servlet.http.Cookie;
 
@@ -633,12 +634,13 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("reminderfreq") String reminderFreq,
+            @RequestParam("plan") String plan,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
            HttpServletRequest request, HttpServletResponse response, Model model) {
 	
-	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, passwordPreference = null;
+	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, passwordPreference = null, planPreference = null;
         boolean allVal = false;
-        if (loanAmt != null && !loanAmt.equals(""))
+    if (loanAmt != null && !loanAmt.equals(""))
 	    amountPreference = loanAmt;
 	if(airVal != null && !airVal.equals(""))
 	    airPreference = airVal;	
@@ -650,7 +652,9 @@ public class LoanCalculatorController implements ServletContextAware {
 	    numberOfYearsPreference = numOfYears;
 	if(password != null && !password.equals(""))
 	    passwordPreference = password;
-
+	if(plan != null && !plan.equals(""))
+		planPreference = plan;
+	
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
             if(!emailCookie.isEmpty() && ! emailCookie.equals(email)){
@@ -800,6 +804,16 @@ public class LoanCalculatorController implements ServletContextAware {
                 prefList.add(lpwdPref);
             }
 
+            if(planPreference != null && !planPreference.isEmpty()){
+            	PlanPreference planPref = new PlanPreference();
+            	planPref.setId(13);
+            	planPref.setEmailAddress(email);
+            	planPref.setName("Plan");
+            	planPref.setValue(planPreference);
+            	planPref.setFlag(true);
+            	planPref.setActive("Y");
+                prefList.add(planPref);
+            }
             List<Preference> preferences = null;
             Preferences prefs = new Preferences();
             prefs.setPreferences(prefList);
