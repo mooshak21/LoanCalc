@@ -151,22 +151,22 @@ function checkPasswords(theForm) {
                    <div class="form-group">
                         <label for="plan">Plan: </label>
                         <select  class="form-control resetMe" id="plan" name="plan">
-                            <c:if test="${plan eq ''}">
+                            <c:if test="${Plan eq ''}">
                                 <option value="0.0" selected>Free</option>
                                 <option value="9.99">Lite</option>
                                 <option value="19.99">Premium</option>
                             </c:if>
-                            <c:if test="${plan eq '0.0'}">
+                            <c:if test="${Plan eq '0.0'}">
                                 <option value="0.0" selected>Free</option>
                                 <option value="9.99">Lite</option>
                                 <option value="19.99">Premium</option>
                             </c:if>
-                            <c:if test="${plan eq '9.99'}">
+                            <c:if test="${Plan eq '9.99'}">
                                 <option value="0.0">Free</option>
                                 <option value="9.99" selected>Lite</option>
                                 <option value="19.99">Premium</option>
                             </c:if>
-                            <c:if test="${plan eq '19.99'}">
+                            <c:if test="${Plan eq '19.99'}">
                                 <option value="0.0">Free</option>
                                 <option value="9.99">Lite</option>
                                 <option value="19.99" selected>Premium</option>
