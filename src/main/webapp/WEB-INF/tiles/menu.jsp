@@ -21,7 +21,7 @@
 	        <li class="nav-item">
 	          <a class="nav-link menuItemXs" href="/login">Login</a>
 		</li>
-	<c:if test="${not empty loginStatus}">
+	<c:if test="${not empty userEmail}">
 		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
@@ -72,7 +72,7 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
-	<c:if test="${not empty loginStatus}">
+	<c:if test="${not empty userEmail}">
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
             </li>
