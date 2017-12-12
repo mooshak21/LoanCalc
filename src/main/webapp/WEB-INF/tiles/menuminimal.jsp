@@ -20,42 +20,11 @@
 
 	        <li class="nav-item">
 	          <a class="nav-link menuItemXs" href="/login">Login</a>
-		</li>
-	<c:if test="${not empty userEmail}">
-		<li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
-                </li>
-		<li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/quickview">Quick View Loan</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/createloan">Create Loan</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loanamortizeask">Amortize Loan</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loanpayoffask">Payoff Loan</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loanviewask">View Loans</a>
-                </li>
-
-                  <li class="nav-item">
-                      <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
-                  </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menuItemXs" href="/aggregateloanreportask">Aggregate Loan Report</a>
-                </li>
-        </c:if>                
-                <li class="nav-item">
+			</li>
+              
+            <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
-                </li>
+            </li>
 
 		  <li class="nav-item">
 		      <a class="nav-link menuItemXs" href="/logout">Log out</a>
@@ -72,39 +41,6 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
-	<c:if test="${not empty userEmail}">
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
-            </li>
-	            
-	   <li class="nav-item">
-                  <a class="nav-link menuItem" href="/quickview">Quick View Loan</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/createloan">Create Loan</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/loanamortizeask">Amortize Loan</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/loanpayoffask">Payoff Loan</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/loanviewask">View Loans</a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="/aggregateloanreportask">Aggregate Loan Report</a>
-            </li>
-        </c:if>                
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
