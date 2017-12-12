@@ -1326,9 +1326,9 @@ public class LoanCalculatorController implements ServletContextAware {
     }
     
  @RequestMapping(value = "/logout")
-    public String logout(Model model) {
+    public String logout(Model model, SessionStatus status) {
         model.addAttribute("message", "Logout");
-        
+        status.setComplete();
         return "logout";
     }    
 
