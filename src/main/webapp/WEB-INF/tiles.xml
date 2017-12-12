@@ -11,7 +11,14 @@
         <put-attribute name="body" value="/WEB-INF/tiles/body.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
-    
+
+    <definition name="loanappminimal.homepage" template="/WEB-INF/views/layouts/loan.jsp">
+        <put-attribute name="title" value="Loan homepage" />
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/tiles/menuminimal.jsp" />
+        <put-attribute name="body" value="/WEB-INF/tiles/body.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>    
     <definition name="loanapp.searchpage" template="/WEB-INF/views/layouts/locateloan.jsp">
         <put-attribute name="title" value="Search Loan homepage" />
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
@@ -68,7 +75,7 @@
 		<put-attribute name="title" value="Login With ReCaptcha"/>
         <put-attribute name="body" value="/WEB-INF/views/loginwithrecaptcha.jsp"/>
      </definition>
-     <definition name="logout" extends="loanapp.homepage">
+     <definition name="logout" extends="loanappminimal.homepage">
 		<put-attribute name="title" value="Logout"/>
 		<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
      </definition>
