@@ -11,7 +11,8 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loanForm" id="loanform" action="/searchloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
+                <form name="loanForm" id="loanform" action="/searchloan" method="POST" 
+                      onsubmit='if((loanForm.loanId.value != "") || (loanForm.loanAmt.value != ""  || loanForm.numOfYears.value != "" || loanForm.lender.value != "" || loanForm.state.value != "" || loanForm.airVal.value != "") || (loanForm.email.value != "")){ return true;}else { message.innerHTML="Please enter LoanId or at least Loan Amount, Number of Years, Lender, State, APR or email address"; loanForm.loanAmt.focus(); return false;}'>
                     <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
                         <input class="form-control resetMe" type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999" id="loanAmount">
@@ -54,7 +55,11 @@
                        <label for="payoff"> Payoff on Date: </label>
                        <input class="form-control resetMe" type="text" name="payoffOn" value="${payoffOn}" id="payoff">
                    </div>
-                   
+                   <div class="form-group">
+                       <label for="email">Email: </label>
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email">
+				   </div>
+                  
                     
                         <input type="submit" class="btn btn-default float-left" value="Submit"/>
                         <c:if test="${loanId ne null && loanId > 0}">
