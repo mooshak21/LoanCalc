@@ -1568,10 +1568,15 @@ private boolean updatePreferencePassword(String email, String newPassword) {
             @RequestParam("state") String state,
             @RequestParam("numOfYears") String numOfYears,
             @RequestParam("APR") String airVal,
+            @RequestParam("email") String email,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException, LoanAccessException {
 
-        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, emailCookie);
+ 	if(email != null && email.equals(""))
+		email = emailCookie;
+
+        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, email);
+      
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
