@@ -15,7 +15,9 @@
             </div>
             <div class="card-block">
                 <form name="loanSearchForm" id="loanSearchForm" action="/aggregateloan" method="POST"
-                      onsubmit='if(loanSearchForm.loanId.value == "" && loanSearchForm.loanAmt.value == ""  && loanSearchForm.numOfYears.value == "" && loanSearchForm.lender.value == "" && loanSearchForm.state.value == "" && loanSearchForm.airVal.value == ""){ $("#message").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanSearchForm.loanAmt.focus(); return false;} else { $("#message").html("");}'>
+<!--                      onsubmit='if(loanSearchForm.loanId.value == "" && loanSearchForm.loanAmt.value == ""  && loanSearchForm.numOfYears.value == "" && loanSearchForm.lender.value == "" && loanSearchForm.state.value == "" && loanSearchForm.airVal.value == ""){ $("#message").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanSearchForm.loanAmt.focus(); return false;} else { $("#message").html("");}'>-->
+                      onsubmit='if((loanSearchForm.loanId.value != "") || (loanSearchForm.loanAmt.value != ""  || loanSearchForm.numOfYears.value != "" || loanSearchForm.lender.value != "" || loanSearchForm.state.value != "" || loanSearchForm.airVal.value != "") || (loanSearchForm.email.value != "")){ return true;}else { message.innerHTML="Please enter LoanId or at least Loan Amount, Number of Years, Lender, State, APR or email address"; loanSearchForm.loanAmt.focus(); return false;}'>
+
                     <div class="form-group row">
                         <label for="loanId">Loan Id:</label>
                         <input class="form-control resetMe" type="number" name="loanId" value="${LoanId}"
