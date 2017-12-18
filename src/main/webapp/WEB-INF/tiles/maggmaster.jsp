@@ -15,7 +15,6 @@
             </div>
             <div class="card-block">
                 <form name="loanSearchForm1" id="loanSearchForm1" action="/aggregateloan" method="POST"
-<!--                      onsubmit='if(loanSearchForm1.loanId.value == "" && loanSearchForm1.loanAmt.value == ""  && loanSearchForm1.numOfYears.value == "" && loanSearchForm1.lender.value == "" && loanSearchForm1.state.value == "" && loanSearchForm1.airVal.value == ""){ $("#message1").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanSearchForm1.loanAmt.focus(); return false;} else { $("#message1").html("");}'>-->
                       onsubmit='if((loanSearchForm1.loanId.value != "") || (loanSearchForm1.loanAmt.value != ""  || loanSearchForm1.numOfYears.value != "" || loanSearchForm1.lender.value != "" || loanSearchForm1.state.value != "" || loanSearchForm1.airVal.value != "") || (loanSearchForm1.email.value != "")){ return true;}else { message1.innerHTML="Please enter LoanId or at least Loan Amount, Number of Years, Lender, State, APR or email address"; loanSearchForm1.loanAmt.focus(); return false;}'>
 
                     <div class="form-group row">
