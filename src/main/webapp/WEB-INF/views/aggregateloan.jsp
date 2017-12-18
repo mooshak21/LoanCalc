@@ -12,7 +12,8 @@
             </div>
             <div class="card-block">
                 <form name="loanSearchForm" id="loanSearchForm" action="/aggregateloan" method="POST"
-                      onsubmit='if(loanSearchForm.loanId.value == "" && loanSearchForm.loanAmt.value == ""  && loanSearchForm.numOfYears.value == "" && loanSearchForm.lender.value == "" && loanSearchForm.state.value == "" && loanSearchForm.airVal.value == ""){ message.innerHTML="Please enter at least Loan Amount, Number of Years, Lender, State, APR"; loanSearchForm.loanAmt.focus(); return false;}'>
+                      onsubmit='if((loanSearchForm.loanId.value != "") || (loanSearchForm.loanAmt.value != ""  || loanSearchForm.numOfYears.value != "" || loanSearchForm.lender.value != "" || loanSearchForm.state.value != "" || loanSearchForm.airVal.value != "") || (loanSearchForm.email.value != "")){ return true;}else { message.innerHTML="Please enter LoanId or at least Loan Amount, Number of Years, Lender, State, APR or email address"; loanSearchForm.loanAmt.focus(); return false;}'>
+		
                     <div class="form-group row">
                         <label for="loanId">Loan Id:</label>
                         <input class="form-control resetMe" type="number" name="loanId" value="${LoanId}"
@@ -44,6 +45,11 @@
                         <label for="interestRate">Annual Interest Rate: </label>
                         <input class="form-control resetMe" type="number" name="interestRate" value="${AIR}" min="0" max="100"
                                step="0.01" id="interestRate">
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="email">Loanee Email Address:</label>
+                        <input class="form-control resetMe" type="email" name="email" value="${email}" required="true" id="email">
                     </div>
 
                     <button type="submit" class="btn btn-default float-left">Search</button>
