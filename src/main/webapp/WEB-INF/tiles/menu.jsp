@@ -23,12 +23,13 @@
 		</li>
 	<c:if test="${not empty userEmail} and (${planSelected == '9.99'} or ${planSelected == '19.99'})">
 		<li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
-                </li>
-		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/quickview">Quick View Loan</a>
                 </li>
-
+	</c:if>
+	<c:if test="${not empty userEmail} and (${planSelected == '0.0'} or ${planSelected == '9.99'} or ${planSelected == '19.99'})">
+		<li class="nav-item">
+                  <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
+                </li>
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/createloan">Create Loan</a>
                 </li>
@@ -73,13 +74,15 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
-	<c:if test="${not empty userEmail} and (${planSelected == '9.99'} or ${planSelected eq '19.99'})">
-           <li class="nav-item">
-              <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
-            </li>
+	<c:if test="${not empty userEmail} and (${planSelected == '9.99'} or ${planSelected == '19.99'})">
 	            
 	   <li class="nav-item">
                   <a class="nav-link menuItem" href="/quickview">Quick View Loan</a>
+            </li>
+	</c:if>
+	<c:if test="${not empty userEmail} and (${planSelected == '0.0'} or ${planSelected == '9.99'} or ${planSelected == '19.99'})">
+           <li class="nav-item">
+              <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
             </li>
 
             <li class="nav-item">
