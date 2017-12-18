@@ -101,8 +101,9 @@ public class LoanCalculatorController implements ServletContextAware {
 
 
     @RequestMapping(value = "/createloan", method = RequestMethod.GET)
-    public String createloan(Model model) {
+    public String createloan(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         model.addAttribute("message", "Create Loan");
+	model.addAttribute("userEmail", emailCookie);
         return "createloan";
     }
 
@@ -119,6 +120,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("state") String state,
             @RequestParam("loanType") String loanType,
 	    @RequestParam("loanDenomination") String loanDenomination,
+	    @RequestParam("email") String email,
             @RequestParam("numOfYears") String numOfYears, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
@@ -151,7 +153,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 LoanService loanService = (LoanService) appCtx.getBean("loanService");
                 try {
                     loanObject.setLoanType(loanType);
-		    loanObject.setLoanDenomination(loanDenomination);	
+		    loanObject.setLoanDenomination(loanDenomination);
+		    loanObject.setEmail(email);	
                     loanService.createLoan(loanObject);
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();

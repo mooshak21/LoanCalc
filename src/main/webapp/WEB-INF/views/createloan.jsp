@@ -13,28 +13,32 @@
                  <form name="loanForm" id="loanform" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
                      <div class="form-group">
                         <label for="loanAmount">Loan Amount:</label>
-                         <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount">
+                         <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount" required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="numberOfYears">Number of Years:</label>
-                        <input class="form-control resetMe" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears">
+                        <input class="form-control resetMe" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears" required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="lender">Lender:</label>
-                        <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender">
+                        <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender" required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="state">State: </label>
-                         <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state">
+                         <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state" required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="interestRate">Annual Interest Rate: </label>
-                        <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate">
+                        <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate" required="true">
                     </div>
+                   <div class="form-group">
+                       <label for="email">Email: </label>
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
+		   </div>
 
                      <div class="form-group">
                          <label for="loanType">Loan Type:</label>
@@ -52,7 +56,10 @@
                              <option value="USD"  ${loan.loanDenomination == 'USD' ? 'selected' : ''}>USD</option>
                              <option value="CAN$"  ${loan.loanDenomination == 'CAN$' ? 'selected' : ''}>CAN$</option>
                              <option value="MEXPESO" ${loan.loanDenomination == 'MEXPESO' ? 'selected' : ''}>Mexican Peso</option>
-                         </select>
+                             <option value="EURO"  ${loan.loanDenomination == 'EURO' ? 'selected' : ''}>Euro</option>
+                             <option value="UKPOUND"  ${loan.loanDenomination == 'UKPOUND' ? 'selected' : ''}>UK Pound</option>
+                             <option value="INR" ${loan.loanDenomination == 'INR' ? 'selected' : ''}>Indian Rupees</option>
+                        </select>
                      </div>
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                      <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 

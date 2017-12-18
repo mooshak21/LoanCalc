@@ -34,7 +34,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 		email = "contact@loaninsight.online";
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom){
+	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom, String email){
 		monthly = new Double(mnthly);
 		amount = new Double(amt);
 		total = new Double(tot);
@@ -54,6 +54,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 		principal = new Double(monthly - interest);
 		loanType = loantype;
 		loanDenomination = loanDenom;
+		this.email = email;
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
