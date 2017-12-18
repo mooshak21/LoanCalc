@@ -835,13 +835,15 @@ public class LoanCalculatorController implements ServletContextAware {
                     for(Preference p : preferences){
                         prefService.createPreference(p);
                     }
+		      model.addAttribute("plan", plan);
                       model.addAttribute("message", "Preference Service Successful! ");
                 }else{
+		    model.addAttribute("plan", plan);
                     model.addAttribute("message", "Preference Service Failed!");
                 }
             } catch (PreferenceAccessException | PreferenceProcessException pae) {
                 pae.printStackTrace();
-
+		model.addAttribute("plan", plan);
                 model.addAttribute("message", "Preference Service Failed!");
 
                 return "viewpreferences";
