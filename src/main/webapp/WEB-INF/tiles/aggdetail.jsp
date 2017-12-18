@@ -32,7 +32,9 @@
                             <option value="Student Loan"  ${type == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
                             <option value="Auto Loan"  ${type == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
                             <option value="Home Loan" ${type == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
-                        </select>
+			    <option value="Home & Auto Loan" ${type == 'Home & Auto Loan' ? 'selected' : ''}>Home & Auto Loan</option>
+                            <option value="Student & Auto Loan" ${type == 'Student & Auto Loan' ? 'selected' : ''}>Student & Auto Loan</option>
+                            <option value="Home & Student Loan" ${type == 'Home & Student Loan' ? 'selected' : ''}>Home & Student Loan</option>                        </select>
                     </div>
 
                     <div class="form-group row">
