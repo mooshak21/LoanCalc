@@ -962,7 +962,7 @@ public class LoanCalculatorController implements ServletContextAware {
                             aggregatedLoans.add((Loan)searchedLoan.get(0));
                         }
                     }
-		    else if(loannotfound && email != null)) {
+		    else if(loannotfound && email != null) {
                         List<Serializable> searchedLoan = searchLoanForAggregation(null, null, null, null, null, null, email);
 
                         if ( searchedLoan != null) {
