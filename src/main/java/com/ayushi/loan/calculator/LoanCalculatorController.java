@@ -1346,6 +1346,7 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
             model.addAttribute("message", "Register with preferences");
             model.addAttribute("reminderFrequency", reminderFrequency);
             model.addAttribute("Plan", plan);
+            model.addAttribute("planSelected", plan);
        	    
  	    return "viewpreferences";
         }
@@ -1358,6 +1359,7 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
               	response.addCookie(new Cookie("loginStatus", "Y"));
               	request.getSession().setAttribute("loginStatus", "Y");
               	request.getSession().setAttribute("planSelected", plan);
+	            model.addAttribute("planSelected", plan);
 				model.addAttribute("userEmail", email);
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				ArrayList<String> prefVal = null, prefAttr = null;
