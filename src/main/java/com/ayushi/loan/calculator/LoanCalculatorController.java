@@ -1342,7 +1342,8 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
             model.addAttribute("message", "Register with preferences");
             model.addAttribute("reminderFrequency", reminderFrequency);
             model.addAttribute("plan", plan);
-        	return "viewpreferences";
+       	    
+ 	    return "viewpreferences";
         }
         if (email != null && !email.equals("") && password != null && !password.equals("")) {
             model.addAttribute("message", "Login Form");
@@ -1367,9 +1368,18 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
 				  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
 					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 				}
-				model.addAttribute("message", "Aggregate Loan Report");	
 
-				return "aggregateloanreport";
+				if(plan	!= null && !plan.equals("") && plan.equals("19.99")){			
+					model.addAttribute("message", "Aggregate Loan Report");	
+					return "aggregateloanreport";
+
+				}else if(plan	!= null && !plan.equals("") && plan.equals("9.99")){
+					model.addAttribute("message", "Amortize Loan");				
+					return "amortizeloan";
+				}else{
+					return "index";
+				}
+
             }else if(!loginAttempt.equals("0")){
             	Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
             	nextLoginAttempt++;
@@ -1378,7 +1388,7 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
                 
                 return "loginwithrecaptcha";
             }
-	    }
+    	}
        
         model.addAttribute("message", "Login Form");
         return "login";
