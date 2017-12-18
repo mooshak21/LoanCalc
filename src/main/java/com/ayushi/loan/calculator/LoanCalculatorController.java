@@ -63,8 +63,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 
 @Controller
-@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus"})
+@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus", "planSelected"})
 public class LoanCalculatorController implements ServletContextAware {
+    protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99";
 
     private ServletContext context;
 
@@ -1344,7 +1345,7 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
         if(emailCookie == null){
             model.addAttribute("message", "Register with preferences");
             model.addAttribute("reminderFrequency", reminderFrequency);
-            model.addAttribute("plan", plan);
+            model.addAttribute("Plan", plan);
        	    
  	    return "viewpreferences";
         }
@@ -1356,6 +1357,7 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
               	response.addCookie(new Cookie("userEmail", email));
               	response.addCookie(new Cookie("loginStatus", "Y"));
               	request.getSession().setAttribute("loginStatus", "Y");
+              	request.getSession().setAttribute("planSelected", plan);
 				model.addAttribute("userEmail", email);
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				ArrayList<String> prefVal = null, prefAttr = null;
@@ -1372,11 +1374,11 @@ HttpServletRequest request, HttpServletResponse response, Model model) {
 					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 				}
 
-				if(plan	!= null && !plan.equals("") && plan.equals("19.99")){			
+				if(plan	!= null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)){			
 					model.addAttribute("message", "Aggregate Loan Report");	
 					return "aggregateloanreport";
 
-				}else if(plan	!= null && !plan.equals("") && plan.equals("9.99")){
+				}else if(plan	!= null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)){
 					model.addAttribute("message", "Amortize Loan");				
 					return "amortizeloan";
 				}else{
