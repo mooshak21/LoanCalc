@@ -913,10 +913,14 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("state") String state,
             @RequestParam("numOfYears") String numOfYears,
             @RequestParam("airVal") String airVal,
+            @RequestParam("email") String email,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
 
-        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, emailCookie);
+	if(email != null && email.equals(""))
+		email = emailCookie;
+
+        List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, email);
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
@@ -951,13 +955,21 @@ public class LoanCalculatorController implements ServletContextAware {
                         }
                     }
 
-                    if ( loannotfound ) {
+                    if ( loannotfound && loanIdtoCheck != null) {
                         List<Serializable> searchedLoan = searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null, null);
 
                         if ( searchedLoan != null) {
                             aggregatedLoans.add((Loan)searchedLoan.get(0));
                         }
                     }
+		    else if(loannotfound && email != null)) {
+                        List<Serializable> searchedLoan = searchLoanForAggregation(null, null, null, null, null, null, email);
+
+                        if ( searchedLoan != null) {
+                            aggregatedLoans.add((Loan)searchedLoan.get(0));
+                        }
+                    }
+
                 }
 
                 try{
