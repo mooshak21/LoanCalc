@@ -662,7 +662,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	    passwordPreference = password;
 	if(plan != null && !plan.equals("")){
 		planPreference = plan;
-		model.addAttribute("plan", plan);
+	        model.addAttribute("Plan", plan);
         	response.addCookie(new Cookie("plan", plan));
 	}
 	
@@ -835,15 +835,15 @@ public class LoanCalculatorController implements ServletContextAware {
                     for(Preference p : preferences){
                         prefService.createPreference(p);
                     }
-		      model.addAttribute("plan", plan);
+		      model.addAttribute("Plan", plan);
                       model.addAttribute("message", "Preference Service Successful! ");
                 }else{
-		    model.addAttribute("plan", plan);
+		    model.addAttribute("Plan", plan);
                     model.addAttribute("message", "Preference Service Failed!");
                 }
             } catch (PreferenceAccessException | PreferenceProcessException pae) {
                 pae.printStackTrace();
-		model.addAttribute("plan", plan);
+		model.addAttribute("Plan", plan);
                 model.addAttribute("message", "Preference Service Failed!");
 
                 return "viewpreferences";
