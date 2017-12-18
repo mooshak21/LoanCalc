@@ -10,12 +10,12 @@
             <div class="card-header">
                 <h5 >${message}</h5>
             </div>
-            <div  id="message1" name="message1">
+            <div  id="message" name="message">
 
             </div>
             <div class="card-block">
                 <form name="aggregateLoanReportForm1" id="aggregateLoanReportForm1" action="/aggregateloanreport" method="POST"
-                      onsubmit='if(aggregateLoanReportForm1.loanId.value == "" && aggregateLoanReportForm1.loanAmt.value == ""  && aggregateLoanReportForm1.numOfYears.value == "" && aggregateLoanReportForm1.lender.value == "" && aggregateLoanReportForm1.state.value == "" && aggregateLoanReportForm1.APR.value == ""){ $("#message1").html("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); aggregateLoanReportForm1.loanAmt.focus(); return false;} else { $("#message1").html("");}'>
+                      onsubmit='if((aggregateLoanReportForm1.loanId.value != "") || (aggregateLoanReportForm1.loanAmt.value != ""  || aggregateLoanReportForm1.numOfYears.value != "" || aggregateLoanReportForm1.lender.value != "" || aggregateLoanReportForm1.state.value != "" || aggregateLoanReportForm1.airVal.value != "") || (aggregateLoanReportForm1.email.value != "")){ return true;}else { message.innerHTML="Please enter LoanId or at least Loan Amount, Number of Years, Lender, State, APR or email address"; aggregateLoanReportForm1.loanAmt.focus(); return false;}'>
                     <div class="form-group row">
                         <label for="loanId">Loan Id:</label>
                         <input class="form-control resetMe" type="number" name="loanId" value="${LoanId}"
