@@ -1671,7 +1671,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
 		try{
 	    		connection.close();
 		}catch(SQLException ex){
-{	                logger.error("Error in closing connection!" + ex.getMessage()); 
+	                logger.error("Error in closing connection!" + ex.getMessage()); 
 		}
 	    }
         }
