@@ -1667,7 +1667,13 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                 }
             } catch (Exception ex) {
                 logger.error("Error in generate report:" + ex.getMessage());
-            }
+            } finally {
+		try{
+	    		connection.close();
+		}catch(SQLException ex){
+{	                logger.error("Error in closing connection!" + ex.getMessage()); 
+		}
+	    }
         }
     }
 
