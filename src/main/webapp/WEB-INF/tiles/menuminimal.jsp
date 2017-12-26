@@ -22,9 +22,13 @@
 	          <a class="nav-link menuItemXs" href="/login">Login</a>
 			</li>
               
-            <li class="nav-item">
+                <li class="nav-item">
+                  <a class="nav-link menuItemXs" href="/createloan">Create Loan</a>
+                </li>
+	        
+		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
-            </li>
+            	</li>
 
 		  <li class="nav-item">
 		      <a class="nav-link menuItemXs" href="/logout">Log out</a>
@@ -41,6 +45,9 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
+            <li class="nav-item">
+              <a class="nav-link menuItem" href="/createloan">Create Loan</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
