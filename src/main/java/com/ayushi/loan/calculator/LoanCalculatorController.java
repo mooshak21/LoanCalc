@@ -91,8 +91,10 @@ public class LoanCalculatorController implements ServletContextAware {
 
         	return "login";
     	}else{
-    		model.addAttribute("message", "Register with preferences");
-    		return "viewpreferences";
+/*    		model.addAttribute("message", "Register with preferences");
+    		return "viewpreferences";*/
+		model.addAttribute("message", "Create Loan");
+		return "createloan";
     	}
     }
 
@@ -1361,13 +1363,12 @@ public class LoanCalculatorController implements ServletContextAware {
 @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan,
 HttpServletRequest request, HttpServletResponse response, Model model) {
         if(emailCookie == null){
-/*            model.addAttribute("message", "Register with preferences");
+            model.addAttribute("message", "Register with preferences");
             model.addAttribute("reminderFrequency", reminderFrequency);
             model.addAttribute("Plan", plan);
             model.addAttribute("planSelected", plan);
        	    
- 	    return "viewpreferences";*/
-	    return "createloan";
+ 	    return "viewpreferences";
         }
         if (email != null && !email.equals("") && password != null && !password.equals("")) {
             model.addAttribute("message", "Login Form");
