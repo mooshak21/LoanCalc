@@ -18,6 +18,31 @@
 	 (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-5699569860213511", enable_page_level_ads: true });
     </script> 
 
+
+
+<!-- Global site tag (gtag.js) - Google AdWords: 823238525 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-823238525"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-823238525');
+</script>
+
+
+
+<!-- Event snippet for Registration conversion page -->
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-823238525/pjxfCIaO5noQ_b7GiAM',
+      'value': 9.99,
+      'currency': 'USD'
+  });
+</script>
+
+
+
   </head>
   
   <body>
