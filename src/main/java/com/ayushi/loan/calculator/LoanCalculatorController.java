@@ -93,7 +93,7 @@ public class LoanCalculatorController implements ServletContextAware {
     	}else{
 /*    		model.addAttribute("message", "Register with preferences");
     		return "viewpreferences";*/
-		model.addAttribute("message", "Create Loan");
+        	model.addAttribute("message", "Enter Loan for Amortization Schedule");
 		return "createloan";
     	}
     }
