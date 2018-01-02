@@ -31,7 +31,7 @@
                   <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link menuItemXs" href="/createloan">Create Loan</a>
+                  <a class="nav-link menuItemXs" href="/createloan">Enter Loan</a>
                 </li>
 
                 <li class="nav-item">
@@ -86,7 +86,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link menuItem" href="/createloan">Create Loan</a>
+              <a class="nav-link menuItem" href="/createloan">Enter Loan</a>
             </li>
             
             <li class="nav-item">
