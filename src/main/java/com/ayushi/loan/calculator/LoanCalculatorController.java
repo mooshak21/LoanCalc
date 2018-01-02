@@ -102,7 +102,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
     @RequestMapping(value = "/createloan", method = RequestMethod.GET)
     public String createloan(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
-        model.addAttribute("message", "Create Loan");
+        model.addAttribute("message", "Enter Loan for Amortization Schedule");
 	model.addAttribute("userEmail", emailCookie);
         return "createloan";
     }
