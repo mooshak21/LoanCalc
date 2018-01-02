@@ -58,7 +58,7 @@
      </definition>
 
      <definition name="createloan" extends="loanappminimal.homepage">
-       <put-attribute name="title" value="Create Loan"/>
+       <put-attribute name="title" value="Enter Loan"/>
        <put-attribute name="body" value="/WEB-INF/views/createloan.jsp"/>
      </definition>
 
