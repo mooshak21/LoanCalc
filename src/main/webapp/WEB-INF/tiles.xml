@@ -67,15 +67,15 @@
        <put-attribute name="body" value="/WEB-INF/views/viewpreferences.jsp"/>
      </definition>
 
-     <definition name="login" extends="loanappminimal.homepage">
+     <definition name="login" extends="loanapp.homepage">
 		<put-attribute name="title" value="Login"/>
         <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
      </definition>
-    <definition name="loginwithrecaptcha" extends="loanappminimal.homepage">
+    <definition name="loginwithrecaptcha" extends="loanapp.homepage">
 		<put-attribute name="title" value="Login With ReCaptcha"/>
         <put-attribute name="body" value="/WEB-INF/views/loginwithrecaptcha.jsp"/>
      </definition>
-     <definition name="logout" extends="loanappminimal.homepage">
+     <definition name="logout" extends="loanapp.homepage">
 		<put-attribute name="title" value="Logout"/>
 		<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
      </definition>
