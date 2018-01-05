@@ -413,11 +413,11 @@ public class LoanCalculatorController implements ServletContextAware {
         String userEmail = (String) model.asMap().get("userEmail");
         Long loanId=null;
 
-        if (email != null && !email.equals(userEmail)) {
+//        if (email != null && !email.equals(userEmail)) {
 //            updatePreferenceEmailAddress(email, userEmail);
-            response.addCookie(new Cookie("userEmail", email));
-            model.addAttribute("userEmail", email);
-        }
+//            response.addCookie(new Cookie("userEmail", email));
+//            model.addAttribute("userEmail", email);
+//        }
             
         Properties prop = getProperties("spring/email.properties");
 
