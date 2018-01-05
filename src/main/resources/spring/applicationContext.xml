@@ -59,10 +59,6 @@
         <!--<property name="minEvictableIdleTimeMillis" value="1800000"/>-->
         <property name="minEvictableIdleTimeMillis" value="18000"/>
         <property name="validationQuery" value="SELECT version();"/>
-	<property name="maxActive" value="20"/>
-	<property name="maxIdle" value="5"/>
-    	<property name="minIdle" value="2"/>
-    	<property name="initialSize" value="10"/>
 	<property name="removeAbandoned" value="true"/>    
     </bean>
 
