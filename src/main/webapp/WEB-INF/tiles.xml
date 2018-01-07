@@ -49,11 +49,11 @@
     </definition>
 
 
-    <definition name="searchloan" extends="loanappminimal.searchpage">
+    <definition name="searchloan" extends="loanapp.searchpage">
        <put-attribute name="title" value="Search Loan"/>
     </definition>
     
-    <definition name="amortizeloan" extends="loanappminimal.searchpage">
+    <definition name="amortizeloan" extends="loanapp.searchpage">
       <put-attribute name="title" value="Amortize Loan"/>
      </definition>
 
@@ -95,21 +95,21 @@
              <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
      </definition>
 
-     <definition name="viewloans" extends="loanappminimal.searchpage">
+     <definition name="viewloans" extends="loanapp.searchpage">
              <put-attribute name="title" value="View Loans"/>
              <put-attribute name="detail" value="/WEB-INF/views/viewloans.jsp"/>
      </definition>
 
-     <definition name="viewloan" extends="loanappminimal.searchpage">
+     <definition name="viewloan" extends="loanapp.searchpage">
             <put-attribute name="title" value="View Loans"/>
             <put-attribute name="detail" value="/WEB-INF/views/viewloan.jsp"/>
      </definition>
 
-    <definition name="aggregateloan" extends ="loanappminimal.aggregatepage">
+    <definition name="aggregateloan" extends ="loanapp.aggregatepage">
         <put-attribute name="title" value="Loan Aggregation"/>
     </definition>
 
-    <definition name="aggregateloanreport" extends ="loanappminimal.aggregatereport">
+    <definition name="aggregateloanreport" extends ="loanapp.aggregatereport">
         <put-attribute name="title" value="Loan Aggregation Report"/>
     </definition>
 </tiles-definitions>
