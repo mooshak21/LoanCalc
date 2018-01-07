@@ -57,7 +57,7 @@
       <put-attribute name="title" value="Amortize Loan"/>
      </definition>
 
-     <definition name="createloan" extends="loanappminimal.homepage">
+     <definition name="createloan" extends="loanapp.homepage">
        <put-attribute name="title" value="Enter Loan"/>
        <put-attribute name="body" value="/WEB-INF/views/createloan.jsp"/>
      </definition>
@@ -75,7 +75,7 @@
 		<put-attribute name="title" value="Login With ReCaptcha"/>
         <put-attribute name="body" value="/WEB-INF/views/loginwithrecaptcha.jsp"/>
      </definition>
-     <definition name="logout" extends="loanappminimal.homepage">
+     <definition name="logout" extends="loanapp.homepage">
 		<put-attribute name="title" value="Logout"/>
 		<put-attribute name="body" value="/WEB-INF/views/logout.jsp"/>
      </definition>
