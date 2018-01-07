@@ -49,29 +49,29 @@
     </definition>
 
 
-    <definition name="searchloan" extends="loanapp.searchpage">
+    <definition name="searchloan" extends="loanappminimal.searchpage">
        <put-attribute name="title" value="Search Loan"/>
     </definition>
     
-    <definition name="amortizeloan" extends="loanapp.searchpage">
+    <definition name="amortizeloan" extends="loanappminimal.searchpage">
       <put-attribute name="title" value="Amortize Loan"/>
      </definition>
 
-     <definition name="createloan" extends="loanapp.homepage">
+     <definition name="createloan" extends="loanappminimal.homepage">
        <put-attribute name="title" value="Enter Loan"/>
        <put-attribute name="body" value="/WEB-INF/views/createloan.jsp"/>
      </definition>
 
-     <definition name="viewpreferences" extends="loanapp.homepage">
+     <definition name="viewpreferences" extends="loanappminimal.homepage">
        <put-attribute name="title" value="View/Edit Preferences"/>
        <put-attribute name="body" value="/WEB-INF/views/viewpreferences.jsp"/>
      </definition>
 
-     <definition name="login" extends="loanapp.homepage">
+     <definition name="login" extends="loanappminimal.homepage">
 		<put-attribute name="title" value="Login"/>
         <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
      </definition>
-    <definition name="loginwithrecaptcha" extends="loanapp.homepage">
+    <definition name="loginwithrecaptcha" extends="loanappminimal.homepage">
 		<put-attribute name="title" value="Login With ReCaptcha"/>
         <put-attribute name="body" value="/WEB-INF/views/loginwithrecaptcha.jsp"/>
      </definition>
@@ -85,31 +85,31 @@
         <put-attribute name="body" value="/WEB-INF/views/resetpassword.jsp"/>
      </definition>
 
-     <definition name="forgetpassword" extends="loanapp.homepage">
+     <definition name="forgetpassword" extends="loanappminimal.homepage">
 		<put-attribute name="title" value="Forget Password"/>
         <put-attribute name="body" value="/WEB-INF/views/forgetpassword.jsp"/>
      </definition>
 
-     <definition name="index" extends="loanapp.homepage">
+     <definition name="index" extends="loanappminimal.homepage">
              <put-attribute name="title" value="Home Page"/>
              <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
      </definition>
 
-     <definition name="viewloans" extends="loanapp.searchpage">
+     <definition name="viewloans" extends="loanappminimal.searchpage">
              <put-attribute name="title" value="View Loans"/>
              <put-attribute name="detail" value="/WEB-INF/views/viewloans.jsp"/>
      </definition>
 
-     <definition name="viewloan" extends="loanapp.searchpage">
+     <definition name="viewloan" extends="loanappminimal.searchpage">
             <put-attribute name="title" value="View Loans"/>
             <put-attribute name="detail" value="/WEB-INF/views/viewloan.jsp"/>
      </definition>
 
-    <definition name="aggregateloan" extends ="loanapp.aggregatepage">
+    <definition name="aggregateloan" extends ="loanappminimal.aggregatepage">
         <put-attribute name="title" value="Loan Aggregation"/>
     </definition>
 
-    <definition name="aggregateloanreport" extends ="loanapp.aggregatereport">
+    <definition name="aggregateloanreport" extends ="loanappminimal.aggregatereport">
         <put-attribute name="title" value="Loan Aggregation Report"/>
     </definition>
 </tiles-definitions>
