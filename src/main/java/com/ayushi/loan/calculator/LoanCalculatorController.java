@@ -413,11 +413,11 @@ public class LoanCalculatorController implements ServletContextAware {
         String userEmail = (String) model.asMap().get("userEmail");
         Long loanId=null;
 
-        if (email != null && !email.equals(userEmail)) {
-            updatePreferenceEmailAddress(email, userEmail);
-            response.addCookie(new Cookie("userEmail", email));
-            model.addAttribute("userEmail", email);
-        }
+//        if (email != null && !email.equals(userEmail)) {
+//            updatePreferenceEmailAddress(email, userEmail);
+//            response.addCookie(new Cookie("userEmail", email));
+//            model.addAttribute("userEmail", email);
+//        }
             
         Properties prop = getProperties("spring/email.properties");
 
@@ -674,7 +674,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
-            if(!emailCookie.isEmpty() && ! emailCookie.equals(email)){
+            if(!emailCookie.isEmpty() && !emailCookie.equals(email)){
                 updatePreferenceEmailAddress(email, emailCookie);
             }
             response.addCookie(new Cookie("userEmail", email));
@@ -812,8 +812,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 lpwdPref.setId(12);
                 lpwdPref.setName("Password");
                 lpwdPref.setEmailAddress(email);
-				// Hash a password for the first time
-				String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt());
+		// Hash a password for the first time
+		String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt());
 
                 lpwdPref.setValue(hashed);
                 lpwdPref.setFlag(true);
