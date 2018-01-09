@@ -61,6 +61,10 @@
                              <option value="INR" ${loan.loanDenomination == 'INR' ? 'selected' : ''}>Indian Rupees</option>
                         </select>
                      </div>
+		<div class="card-block">
+		<p>Do you want to <a href="/login">Login</a> or <a href="/loanpreferenceviewask">Register</a>?</p>
+                </div>   
+
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                      <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
                 
