@@ -178,7 +178,7 @@ function checkPasswords(theForm) {
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
 		<div class="card-block">
-		<p>Do you want to <a href="/login">Login</a> or </p><p><a href="/createloan">Enter Loan</a>?</p>
+		<p>Do you want to <a href="/login">Login</a> or <a href="/createloan">Enter Loan</a>?</p>
                 </div>   
                 </form>
             </div>
