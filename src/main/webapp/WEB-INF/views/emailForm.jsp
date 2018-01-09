@@ -7,6 +7,9 @@
         <div class="card col-10 col-md-8 cardBody">
             <div class="card-block">
                 <c:if test="${emailMsg eq null}">
+			<div class="card-block">
+			<p>Send the amortization schedule in email? Then click > next to your email.</p>
+                	</div>   
                     <form name="emailForm" action="/sendmail" method="POST" id='emailForm'>
                         <input type="hidden" value="${param.dataType}" name="dataType"/>
                         <input type="hidden" value="${message}" name="prevMessage"/>
@@ -22,9 +25,8 @@
                         
                         <c:if test="${emailErr ne null}">
 			<div class="card-block">
-			<p>Do you want to Send the amortization schedule in email? If yes, then click the > next to your email.</p>
+			<p>Send the amortization schedule in email? Then click > next to your email.</p>
                 	</div>   
-
                             <div class="form-group has-danger justify-content-center">
                                 <div class="input-group justify-content-center">
                                     <input class="form-control form-control-danger col-md-8" type="email" id="email" name="email" 
