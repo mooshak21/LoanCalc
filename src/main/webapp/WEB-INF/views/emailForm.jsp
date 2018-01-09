@@ -24,9 +24,6 @@
                         </c:if>
                         
                         <c:if test="${emailErr ne null}">
-			<div class="card-block">
-			<p>Send the amortization schedule in email? Then click > next to your email.</p>
-                	</div>   
                             <div class="form-group has-danger justify-content-center">
                                 <div class="input-group justify-content-center">
                                     <input class="form-control form-control-danger col-md-8" type="email" id="email" name="email" 
