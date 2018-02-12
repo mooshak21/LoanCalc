@@ -97,7 +97,57 @@
         text-align: center;
         vertical-align: central;
     }
-    
-   
+ .nisl_form_div {
+     margin: 15px 0;
+     display: inline-block;
+     width: 100%;
+     border: 1px solid #ddd;
+     background: #fff;
+     border-radius: 4px;
+ }
+ .nisl_form_div .form-group {
+     display: inline-block;
+     width: 50%;
+     float: left;
+     padding: 0 5px;
+ }
+ .nisl_form_div .btnss-div {
+     padding: 0 5px;
+ }
+ .nisl_form_div h5 {
+     margin-bottom: 0;
+ }
+ .nisl_form_div .card-block {
+     display: inline-block;
+     width: 100%;
+     padding: 5px 15px;
+ }
+ .nisl_add_div {
+     border: 1px solid #ddd;
+     margin-bottom: 15px;
+ }
+ .nisl_add_div table {
+     margin-bottom: 0;
+ }
+ .nisl_add_div table thead th {
+     background: #f7f7f9;
+     border: 0;
+     border-bottom: 1px solid #ddd;
+     font-size: 14px;
+     font-weight: 500;
+     color: #333;
+ }
+ .nisl_add_div table tbody td {
+     background: #fff;
+     border: 0;
+     font-size: 14px;
+     text-align: left;
+ }
+ .nisl_add_div a {
+     color: #458205;
+     font-size: 15px;
+     text-decoration: underline;
+     font-weight: 500;
+ }
     
    

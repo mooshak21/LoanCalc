@@ -26,6 +26,11 @@
                         <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender" required="true">
                     </div>
 
+                     <div class="form-group">
+                         <label for="region">Region: </label>
+                         <input class="form-control resetMe" type="text" name="region" value="${loan.region}" id="region" required="true">
+                     </div>
+
                     <div class="form-group">
                         <label for="state">State: </label>
                          <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state" required="true">

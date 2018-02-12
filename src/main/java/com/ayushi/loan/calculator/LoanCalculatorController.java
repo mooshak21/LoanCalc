@@ -1,5 +1,6 @@
 package com.ayushi.loan.calculator;
 
+import com.ayushi.loan.preferences.*;
 import com.ayushi.loan.service.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
@@ -9,6 +10,8 @@ import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,24 +39,6 @@ import com.ayushi.loan.exception.EmailServiceException;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.exception.PreferenceProcessException;
-import com.ayushi.loan.preferences.EmailReminderPreference;
-import com.ayushi.loan.preferences.LoanIdPreference;
-
-import com.ayushi.loan.preferences.Preference;
-import com.ayushi.loan.preferences.Preferences;
-import com.ayushi.loan.preferences.LocationPreference;
-import com.ayushi.loan.preferences.ReminderFrequencyPreference;
-import com.ayushi.loan.preferences.WebServicePreference;
-import com.ayushi.loan.preferences.RiskTolerancePreference;
-import com.ayushi.loan.preferences.TimeHorizonPreference;
-import com.ayushi.loan.preferences.AmountPreference;
-import com.ayushi.loan.preferences.LenderPreference;
-import com.ayushi.loan.preferences.AirPreference;
-import com.ayushi.loan.preferences.YearsPreference;
-import com.ayushi.loan.preferences.StatePreference;
-import com.ayushi.loan.preferences.PasswordPreference;
-
-import com.ayushi.loan.preferences.PlanPreference;
 
 import javax.servlet.http.Cookie;
 
@@ -65,6 +50,7 @@ import org.mindrot.jbcrypt.BCrypt;
 @Controller
 @SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus", "planSelected"})
 public class LoanCalculatorController implements ServletContextAware {
+
     protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99";
 
     private ServletContext context;
@@ -78,24 +64,45 @@ public class LoanCalculatorController implements ServletContextAware {
 
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-    					@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
-    					@CookieValue(value = "plan", defaultValue = "") String plan,
-    				    Model model, HttpServletRequest request) {
+                       @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
+                       @CookieValue(value = "plan", defaultValue = "") String plan,
+                       Model model, HttpServletRequest request) {
         model.addAttribute("reminderFrequency", reminderFrequency);
         model.addAttribute("Plan", plan);
         model.addAttribute("userEmail", emailCookie);
-
-    	if(emailCookie != null && !emailCookie.equals("")){
-	        model.addAttribute("message", "Login Form");
-	        request.getCookies();
-
-        	return "login";
-    	}else{
-/*    		model.addAttribute("message", "Register with preferences");
-    		return "viewpreferences";*/
-        	model.addAttribute("message", "Enter Loan for Amortization Schedule");
-		return "createloan";
-    	}
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
+        if (emailCookie == null || emailCookie.equals("")) {
+            model.addAttribute("message", "Login Form");
+            request.getCookies();
+            return "login";
+        } else {
+            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+            StringBuffer querySB = new StringBuffer();
+            java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
+            Object[] queryVals = null;
+            java.util.List<Serializable> loans = null;
+            if (emailCookie != null && !emailCookie.equals("")) {
+                querySB.append("ln.email=?");
+                queryValList.add(emailCookie);
+            }
+            try {
+                queryVals = new Object[queryValList.size()];
+                queryVals = queryValList.toArray(queryVals);
+                LoanService loanService = (LoanService) appCtx.getBean("loanService");
+                loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+                model.addAttribute("message", "Search Loan Failed!");
+            }
+            if (loans != null && loans.size() > 0) {
+                Loan searchLoan = (Loan) loans.get(0);
+                model.addAttribute("region", searchLoan.getRegion());
+                model.addAttribute("loanType", searchLoan.getLoanType());
+                searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(), emailCookie, model);
+            }
+            return "bankoffersandnews";
+        }
     }
 
 
@@ -105,12 +112,17 @@ public class LoanCalculatorController implements ServletContextAware {
     @RequestMapping(value = "/createloan", method = RequestMethod.GET)
     public String createloan(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         model.addAttribute("message", "Enter Loan for Amortization Schedule");
-	model.addAttribute("userEmail", emailCookie);
+        model.addAttribute("userEmail", emailCookie);
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "createloan";
     }
 
     @RequestMapping(value = "/loan", method = RequestMethod.GET)
-    public String loan() {
+    public String loan(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "createloan";
     }
 
@@ -119,20 +131,23 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("airVal") String airVal,
             @RequestParam("lender") String lender,
             @RequestParam("loanAmt") String loanAmt,
+            @RequestParam("region") String region,
             @RequestParam("state") String state,
             @RequestParam("loanType") String loanType,
-	    @RequestParam("loanDenomination") String loanDenomination,
-	    @RequestParam("email") String email,
-            @RequestParam("numOfYears") String numOfYears, Model model) {
+            @RequestParam("loanDenomination") String loanDenomination,
+            @RequestParam("email") String email,
+            @RequestParam("numOfYears") String numOfYears,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
         Loan loanObject = null;
         if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
-                && lender != null && !lender.equals("") && state != null && !state.equals("")
+                && lender != null && !lender.equals("") && region != null && !region.equals("") && state != null && !state.equals("")
                 && numOfYears != null && !numOfYears.equals("") && loanType != null && !loanType.equals("") && loanDenomination != null && !loanDenomination.equals("")) {
             allVal = true;
             loanQryObject.setAmount(Double.valueOf(loanAmt));
             loanQryObject.setLender(lender);
+            loanQryObject.setRegion(region);
             loanQryObject.setState(state);
             loanQryObject.setLoanType(loanType);
             loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
@@ -145,21 +160,26 @@ public class LoanCalculatorController implements ServletContextAware {
                 loanObject = loanWebService.calculateLoan(loanQryObject);
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Calculate Loan Failed!");
                 return "createloan";
             }
                     /*GsonBuilder gsonb = new GsonBuilder();
-					Gson gson = gsonb.create();
+                    Gson gson = gsonb.create();
 					Loan loanObject = gson.fromJson(loan, Loan.class);*/
             if (loanObject != null) {
                 LoanService loanService = (LoanService) appCtx.getBean("loanService");
                 try {
                     loanObject.setLoanType(loanType);
-		    loanObject.setLoanDenomination(loanDenomination);
-		    loanObject.setEmail(email);	
+                    loanObject.setRegion(region);
+                    loanObject.setLoanDenomination(loanDenomination);
+                    loanObject.setEmail(email);
                     loanService.createLoan(loanObject);
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();
+                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                    checkUserPrefernece(model, prefs);
                     model.addAttribute("message", "Create Loan Failed!");
                     return "createloan";
                 }
@@ -168,11 +188,17 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("message", "Create Loan");
                 model.addAttribute("loan", loanObject);
             } else {
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Create Loan Failed!");
             }
         } else {
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            checkUserPrefernece(model, prefs);
             model.addAttribute("message", "Create Loan : Required Parameters not entered!");
         }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "createloan";
     }
 
@@ -180,12 +206,13 @@ public class LoanCalculatorController implements ServletContextAware {
 
 
     @RequestMapping(value = "/loanamortizeask")
-    public String loanamortizeask(Model model) {
+    public String loanamortizeask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         model.addAttribute("message", "Amortize Loan");
         java.util.Calendar calToday = java.util.Calendar.getInstance();
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("amortizeOn", calTodayStr);
-
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "amortizeloan";
     }
 
@@ -197,7 +224,8 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("loanAmt") String loanAmt,
             @RequestParam("state") String state,
             @RequestParam("numOfYears") String numOfYears,
-            @RequestParam("amortizeOn") String amortizeOn, Model model) {
+            @RequestParam("amortizeOn") String amortizeOn,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         boolean allVal = false;
         Loan loanQryObject = new Loan();
         if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
@@ -219,6 +247,8 @@ public class LoanCalculatorController implements ServletContextAware {
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
                 model.addAttribute("message", "Amortize Loan Failed!");
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                checkUserPrefernece(model, prefs);
                 return "amortizeloan";
             }
 
@@ -231,29 +261,55 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("message", "Amortize Loan Failed!");
             }
         } else {
+
             model.addAttribute("message", "Amortize Loan : Required Parameters not entered!");
         }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         model.addAttribute("amortizeOn", amortizeOn);
+
         return "amortizeloan";
     }
 
 
     @RequestMapping(value = "/searchloan", method = RequestMethod.GET)
-    public String searchLoan(Model model, RedirectAttributes redirectAttributes) {
+    public String searchLoan(Model model,
+                             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, RedirectAttributes redirectAttributes) {
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "searchloan";
     }
 
 //-------------------------------------------------------------------------------------------------------------------------------------	         
 
     @RequestMapping(value = "/loansearchask")
-    public String loansearchask(Model model) {
+    public String loansearchask(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
         model.addAttribute("message", "Search Loan");
         java.util.Calendar calToday = java.util.Calendar.getInstance();
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("payoffOn", calTodayStr);
-
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "searchloan";
+    }
+
+    private void checkUserPrefernece(Model model, List<Preference> prefs) {
+        ArrayList<String> prefVal;
+        ArrayList<String> prefAttr;
+        if (prefs != null) {
+            prefVal = new ArrayList<String>(prefs.size());
+            prefAttr = new ArrayList<String>(prefs.size());
+            int prefIdx = 0;
+            for (Preference pref : prefs) {
+                prefAttr.add(pref.getName());
+                prefVal.add(pref.getValue());
+            }
+            for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
+                if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
+                    model.addAttribute("UserPreference", prefVal.get(prefIdx));
+            }
+        }
     }
 
     @RequestMapping(value = "/loanpayoffask")
@@ -361,7 +417,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 total = loans.size();
                 Loan searchloan = (Loan) loans.get(0);
                 if (searchloan != null) {
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0,searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail());
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail());
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
@@ -411,14 +467,14 @@ public class LoanCalculatorController implements ServletContextAware {
         Double payoffAmt = (Double) model.asMap().get("payoffAmt");
         String payoffOn = (String) model.asMap().get("payoffOn");
         String userEmail = (String) model.asMap().get("userEmail");
-        Long loanId=null;
+        Long loanId = null;
 
 //        if (email != null && !email.equals(userEmail)) {
 //            updatePreferenceEmailAddress(email, userEmail);
 //            response.addCookie(new Cookie("userEmail", email));
 //            model.addAttribute("userEmail", email);
 //        }
-            
+
         Properties prop = getProperties("spring/email.properties");
 
         if (email != null && !email.isEmpty()) {
@@ -430,7 +486,7 @@ public class LoanCalculatorController implements ServletContextAware {
             if (loanObject != null && dataType.equals("amortizedLoan")) {
                 message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
                 subject = prop.getProperty("email.subject") + loanObject.getLoanId();
-                loanId=loanObject.getLoanId();
+                loanId = loanObject.getLoanId();
             }
 
             if (loan != null && dataType.equals("Loan")) {
@@ -443,33 +499,31 @@ public class LoanCalculatorController implements ServletContextAware {
                 try {
                     emailService.sendMail(email, subject, message);
                     redirectAttributes.addFlashAttribute("emailMsg", prop.getProperty("email.success"));
-                    response.addCookie(new Cookie("loanId",loanId.toString()));
-		    List<Preference> prefs = getPreferencesByEmailAddress(email);
-		    int loanidPrefId = -1;
-		    if(prefs != null){
-			for(Preference pref: prefs){
-				if(pref.getName().equals("LoanId")){
-					loanidPrefId = pref.getId();
-					break;
-				}
-			}
-			if(loanidPrefId == -1)
-				loanidPrefId = prefs.size()+1;
-		    }	
+                    response.addCookie(new Cookie("loanId", loanId.toString()));
+                    List<Preference> prefs = getPreferencesByEmailAddress(email);
+                    int loanidPrefId = -1;
+                    if (prefs != null) {
+                        for (Preference pref : prefs) {
+                            if (pref.getName().equals("LoanId")) {
+                                loanidPrefId = pref.getId();
+                                break;
+                            }
+                        }
+                        if (loanidPrefId == -1)
+                            loanidPrefId = prefs.size() + 1;
+                    }
                     addPreference(new LoanIdPreference(), loanidPrefId, email, "LoanId", loanId.toString());
-                }
-                catch (EmailServiceException ex) {
+                } catch (EmailServiceException ex) {
                     logger.error(ex.getMessage());
                     redirectAttributes.addFlashAttribute("emailErr", "we couldn't send you the email. Please try later!");
-                } 
-                catch (PreferenceAccessException ex) {
+                } catch (PreferenceAccessException ex) {
                     logger.error(ex.getMessage());
                 }
             }
         } else {
             redirectAttributes.addFlashAttribute("emailErr", prop.getProperty("email.error"));
         }
-        
+
         redirectAttributes.addFlashAttribute("message", prevMessage);
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;
@@ -479,18 +533,19 @@ public class LoanCalculatorController implements ServletContextAware {
 
     //------------------------------------------------------------------------------------------------------------------------------               
     @RequestMapping(value = "/quickview")
-    public String quickView(Model model,@CookieValue(value = "loanId", defaultValue = "") String loanId){
-        if(loanId != null && !loanId.equals("")){
-          List<Serializable> loans = new ArrayList<>();
-          ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-          LoanService loanService = (LoanService) appCtx.getBean("loanService");
-          java.util.Calendar calToday = java.util.Calendar.getInstance();
-          String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
+    public String quickView(Model model, @CookieValue(value = "loanId", defaultValue = "") String loanId,
+                            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+        if (loanId != null && !loanId.equals("")) {
+            List<Serializable> loans = new ArrayList<>();
+            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+            LoanService loanService = (LoanService) appCtx.getBean("loanService");
+            java.util.Calendar calToday = java.util.Calendar.getInstance();
+            String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
             try {
-                loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?",new Object[]{new Long(loanId)});
-                if (loans != null && loans.size() > 0){
+                loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?", new Object[]{new Long(loanId)});
+                if (loans != null && loans.size() > 0) {
                     Loan searchloan = (Loan) loans.get(0);
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0,searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail());
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail());
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     amortizeLoan.setLoanId(searchloan.getLoanId());
@@ -502,21 +557,25 @@ public class LoanCalculatorController implements ServletContextAware {
                 }
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Loan no longer available!");
             }
-          
-          
         }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "viewloans";
     }
-            
-    
-    
+
+
     //-----------------------------------------------------------------
     @RequestMapping(value = "/loanviewask")
-    public String loanviewask(@CookieValue(value = "loanId", defaultValue = "") String loanId,Model model) {
+    public String loanviewask(@CookieValue(value = "loanId", defaultValue = "") String loanId,
+                              @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         model.addAttribute("message", "View Loans");
         model.addAttribute("loanId", loanId);
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "viewloans";
     }
 
@@ -547,7 +606,7 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("payoffOn", calTodayStr);
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("loanId", loanId);
-         model.addAttribute("message", "View Loans");
+        model.addAttribute("message", "View Loans");
         return "viewloans";
     }
 
@@ -574,8 +633,8 @@ public class LoanCalculatorController implements ServletContextAware {
         if (loans != null) {
             Loan loan = (Loan) loans.get(pageid - 1);
             if (amortizeOn != null) {
-                al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getState(),
-                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0,loan.getLoanId(),loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail());
+                al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getRegion(), loan.getState(),
+                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0, loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail());
                 model.addAttribute("payoffAmt", !payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null) ? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
                 model.addAttribute("amortizeloan", al);
                 model.addAttribute("loanId", loanId);
@@ -616,21 +675,22 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("message", "Edit Preferences");
         model.addAttribute("reminderFrequency", reminderFrequency);
         model.addAttribute("Plan", plan);
-     
-		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-		ArrayList<String> prefVal = null, prefAttr = null;
-	
-		if(prefs != null){
-		    prefVal = new ArrayList<String>(prefs.size());	
-		    prefAttr = new ArrayList<String>(prefs.size());
-		    int prefIdx = 0;
-		    for(Preference pref : prefs){
-			prefAttr.add(pref.getName());
-			prefVal.add(pref.getValue());
-		   }
-		  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
-			model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-		}
+
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        ArrayList<String> prefVal = null, prefAttr = null;
+
+        if (prefs != null) {
+            prefVal = new ArrayList<String>(prefs.size());
+            prefAttr = new ArrayList<String>(prefs.size());
+            int prefIdx = 0;
+            for (Preference pref : prefs) {
+                prefAttr.add(pref.getName());
+                prefVal.add(pref.getValue());
+            }
+            for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+                model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+        }
+        checkUserPrefernece(model, prefs);
         return "viewpreferences";
     }
 
@@ -645,218 +705,233 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("webServicePreference") String webServicePreference,
             @RequestParam("riskTolerancePreference") String riskTolerancePreference,
             @RequestParam("timeHorizonPreference") String timeHorizonPreference,
+            @RequestParam("userPreference") String userPreference,
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("reminderfreq") String reminderFreq,
             @RequestParam("plan") String plan,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-           HttpServletRequest request, HttpServletResponse response, Model model) {
-	
-	String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, passwordPreference = null, planPreference = null;
+            HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null, statePreference = null, passwordPreference = null, planPreference = null;
         boolean allVal = false;
-    if (loanAmt != null && !loanAmt.equals(""))
-	    amountPreference = loanAmt;
-	if(airVal != null && !airVal.equals(""))
-	    airPreference = airVal;	
-        if(lender != null && !lender.equals(""))
-	    lenderPreference = lender;
-	if(state != null && !state.equals(""))
-	    statePreference = state;
-        if(numOfYears != null && !numOfYears.equals("")) 
-	    numberOfYearsPreference = numOfYears;
-	if(password != null && !password.equals(""))
-	    passwordPreference = password;
-	if(plan != null && !plan.equals("")){
-		planPreference = plan;
-	        model.addAttribute("Plan", plan);
-        	response.addCookie(new Cookie("plan", plan));
-	}
-	
+        if (loanAmt != null && !loanAmt.equals(""))
+            amountPreference = loanAmt;
+        if (airVal != null && !airVal.equals(""))
+            airPreference = airVal;
+        if (lender != null && !lender.equals(""))
+            lenderPreference = lender;
+        if (state != null && !state.equals(""))
+            statePreference = state;
+        if (numOfYears != null && !numOfYears.equals(""))
+            numberOfYearsPreference = numOfYears;
+        if (password != null && !password.equals(""))
+            passwordPreference = password;
+        if (plan != null && !plan.equals("")) {
+            planPreference = plan;
+            model.addAttribute("Plan", plan);
+            response.addCookie(new Cookie("plan", plan));
+        }
+
         if (email != null && !email.equals("")) {
             model.addAttribute("userEmail", email);
-            if(!emailCookie.isEmpty() && !emailCookie.equals(email)){
+            if (!emailCookie.isEmpty() && !emailCookie.equals(email)) {
                 updatePreferenceEmailAddress(email, emailCookie);
             }
             response.addCookie(new Cookie("userEmail", email));
         }
-        
+
         if (reminderFreq != null && !reminderFreq.equals("")) {
             model.addAttribute("reminderFrequency", reminderFreq);
             response.addCookie(new Cookie("reminderFrequency", reminderFreq));
         }
 
-            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-            PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-            List<Preference> prefList = new ArrayList<Preference>();
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        List<Preference> prefList = new ArrayList<Preference>();
 
-            if (locationPreference != null && !locationPreference.equals("")) {
-                LocationPreference locPref = new LocationPreference();
-                locPref.setId(1);
-                locPref.setName("Location");
-                locPref.setEmailAddress(email);
-                locPref.setValue(locationPreference);
-                locPref.setFlag(true);
-                locPref.setActive("Y");
-                prefList.add(locPref);
-            }
-            if (webServicePreference != null && !webServicePreference.equals("")) {
-                WebServicePreference wsPref = new WebServicePreference();
-                wsPref.setId(2);
-                wsPref.setEmailAddress(email);
-                wsPref.setName("WebService");
-                wsPref.setValue(webServicePreference);
-                wsPref.setFlag(true);
-                wsPref.setActive("Y");
-                prefList.add(wsPref);
-            }
-            if (riskTolerancePreference != null && !riskTolerancePreference.equals("")) {
-                RiskTolerancePreference rtPref = new RiskTolerancePreference();
-                rtPref.setId(3);
-                rtPref.setEmailAddress(email);
-                rtPref.setName("RiskTolerance");
-                rtPref.setValue(riskTolerancePreference);
-                rtPref.setFlag(true);
-                rtPref.setActive("Y");
-                prefList.add(rtPref);
-            }
-            if (timeHorizonPreference != null && !timeHorizonPreference.equals("")) {
-                TimeHorizonPreference thPref = new TimeHorizonPreference();
-                thPref.setId(4);
-                thPref.setEmailAddress(email);
-                thPref.setName("TimeHorizon");
-                thPref.setValue(timeHorizonPreference);
-                thPref.setFlag(true);
-                thPref.setActive("Y");
-                prefList.add(thPref);
-            }
-            
-            if(email != null && !email.isEmpty()){
-                EmailReminderPreference erPref = new EmailReminderPreference();
-                erPref.setId(5);
-                erPref.setEmailAddress(email);
-                erPref.setName("EmailAddressReminder");
-                erPref.setValue(email);
-                erPref.setFlag(true);
-                erPref.setActive("Y");
-                prefList.add(erPref);
-            }
-            
-            if(reminderFreq != null && !reminderFreq.isEmpty()){
-                ReminderFrequencyPreference rfPref = new ReminderFrequencyPreference();
-                rfPref.setId(6);
-                rfPref.setEmailAddress(email);
-                rfPref.setName("reminderFrequency");
-                rfPref.setValue(reminderFreq);
-                rfPref.setFlag(true);
-                rfPref.setActive("Y");
-                prefList.add(rfPref);
-            }
-        
-            if (amountPreference != null && !amountPreference.equals("")) {
-                AmountPreference lamtPref = new AmountPreference();
-                lamtPref.setId(7);
-                lamtPref.setName("Amount");
-                lamtPref.setEmailAddress(email);
-                lamtPref.setValue(amountPreference);
-                lamtPref.setFlag(true);
-                lamtPref.setActive("Y");
-                prefList.add(lamtPref);
-            }
+        if (locationPreference != null && !locationPreference.equals("")) {
+            LocationPreference locPref = new LocationPreference();
+            locPref.setId(1);
+            locPref.setName("Location");
+            locPref.setEmailAddress(email);
+            locPref.setValue(locationPreference);
+            locPref.setFlag(true);
+            locPref.setActive("Y");
+            prefList.add(locPref);
+        }
+        if (webServicePreference != null && !webServicePreference.equals("")) {
+            WebServicePreference wsPref = new WebServicePreference();
+            wsPref.setId(2);
+            wsPref.setEmailAddress(email);
+            wsPref.setName("WebService");
+            wsPref.setValue(webServicePreference);
+            wsPref.setFlag(true);
+            wsPref.setActive("Y");
+            prefList.add(wsPref);
+        }
+        if (riskTolerancePreference != null && !riskTolerancePreference.equals("")) {
+            RiskTolerancePreference rtPref = new RiskTolerancePreference();
+            rtPref.setId(3);
+            rtPref.setEmailAddress(email);
+            rtPref.setName("RiskTolerance");
+            rtPref.setValue(riskTolerancePreference);
+            rtPref.setFlag(true);
+            rtPref.setActive("Y");
+            prefList.add(rtPref);
+        }
+        if (timeHorizonPreference != null && !timeHorizonPreference.equals("")) {
+            TimeHorizonPreference thPref = new TimeHorizonPreference();
+            thPref.setId(4);
+            thPref.setEmailAddress(email);
+            thPref.setName("TimeHorizon");
+            thPref.setValue(timeHorizonPreference);
+            thPref.setFlag(true);
+            thPref.setActive("Y");
+            prefList.add(thPref);
+        }
 
-            if (airPreference != null && !airPreference.equals("")) {
-                AirPreference lairPref = new AirPreference();
-                lairPref.setId(8);
-                lairPref.setName("AIR");
-                lairPref.setEmailAddress(email);
-                lairPref.setValue(airPreference);
-                lairPref.setFlag(true);
-                lairPref.setActive("Y");
-                prefList.add(lairPref);
-            }
+        if (email != null && !email.isEmpty()) {
+            EmailReminderPreference erPref = new EmailReminderPreference();
+            erPref.setId(5);
+            erPref.setEmailAddress(email);
+            erPref.setName("EmailAddressReminder");
+            erPref.setValue(email);
+            erPref.setFlag(true);
+            erPref.setActive("Y");
+            prefList.add(erPref);
+        }
 
-            if (lenderPreference != null && !lenderPreference.equals("")) {
-                LenderPreference lenderPref = new LenderPreference();
-                lenderPref.setId(9);
-                lenderPref.setName("Lender");
-                lenderPref.setEmailAddress(email);
-                lenderPref.setValue(lenderPreference);
-                lenderPref.setFlag(true);
-                lenderPref.setActive("Y");
-                prefList.add(lenderPref);
-            }
+        if (reminderFreq != null && !reminderFreq.isEmpty()) {
+            ReminderFrequencyPreference rfPref = new ReminderFrequencyPreference();
+            rfPref.setId(6);
+            rfPref.setEmailAddress(email);
+            rfPref.setName("reminderFrequency");
+            rfPref.setValue(reminderFreq);
+            rfPref.setFlag(true);
+            rfPref.setActive("Y");
+            prefList.add(rfPref);
+        }
 
-	    if (numberOfYearsPreference != null && !numberOfYearsPreference.equals("")){
-                YearsPreference lnumPref = new YearsPreference();
-                lnumPref.setId(10);
-                lnumPref.setName("NumberOfYears");
-                lnumPref.setEmailAddress(email);
-                lnumPref.setValue(numberOfYearsPreference);
-                lnumPref.setFlag(true);
-                lnumPref.setActive("Y");
-                prefList.add(lnumPref);
-	    }
+        if (amountPreference != null && !amountPreference.equals("")) {
+            AmountPreference lamtPref = new AmountPreference();
+            lamtPref.setId(7);
+            lamtPref.setName("Amount");
+            lamtPref.setEmailAddress(email);
+            lamtPref.setValue(amountPreference);
+            lamtPref.setFlag(true);
+            lamtPref.setActive("Y");
+            prefList.add(lamtPref);
+        }
 
-            if (statePreference != null && !statePreference.equals("")) {
-                StatePreference lstPref = new StatePreference();
-                lstPref.setId(11);
-                lstPref.setName("State");
-                lstPref.setEmailAddress(email);
-                lstPref.setValue(statePreference);
-                lstPref.setFlag(true);
-                lstPref.setActive("Y");
-                prefList.add(lstPref);
-            }
+        if (airPreference != null && !airPreference.equals("")) {
+            AirPreference lairPref = new AirPreference();
+            lairPref.setId(8);
+            lairPref.setName("AIR");
+            lairPref.setEmailAddress(email);
+            lairPref.setValue(airPreference);
+            lairPref.setFlag(true);
+            lairPref.setActive("Y");
+            prefList.add(lairPref);
+        }
 
-            if (passwordPreference != null && !passwordPreference.equals("")) {
-                PasswordPreference lpwdPref = new PasswordPreference();
-                lpwdPref.setId(12);
-                lpwdPref.setName("Password");
-                lpwdPref.setEmailAddress(email);
-		// Hash a password for the first time
-		String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt());
+        if (lenderPreference != null && !lenderPreference.equals("")) {
+            LenderPreference lenderPref = new LenderPreference();
+            lenderPref.setId(9);
+            lenderPref.setName("Lender");
+            lenderPref.setEmailAddress(email);
+            lenderPref.setValue(lenderPreference);
+            lenderPref.setFlag(true);
+            lenderPref.setActive("Y");
+            prefList.add(lenderPref);
+        }
 
-                lpwdPref.setValue(hashed);
-                lpwdPref.setFlag(true);
-                lpwdPref.setActive("Y");
-                prefList.add(lpwdPref);
-            }
+        if (numberOfYearsPreference != null && !numberOfYearsPreference.equals("")) {
+            YearsPreference lnumPref = new YearsPreference();
+            lnumPref.setId(10);
+            lnumPref.setName("NumberOfYears");
+            lnumPref.setEmailAddress(email);
+            lnumPref.setValue(numberOfYearsPreference);
+            lnumPref.setFlag(true);
+            lnumPref.setActive("Y");
+            prefList.add(lnumPref);
+        }
 
-            if(planPreference != null && !planPreference.isEmpty()){
-            	PlanPreference planPref = new PlanPreference();
-            	planPref.setId(13);
-            	planPref.setEmailAddress(email);
-            	planPref.setName("Plan");
-            	planPref.setValue(planPreference);
-            	planPref.setFlag(true);
-            	planPref.setActive("Y");
-                prefList.add(planPref);
-            }
-            List<Preference> preferences = null;
-            Preferences prefs = new Preferences();
-            prefs.setPreferences(prefList);
-            try {
-                preferences = prefService.processPreferences(prefs,
-                        pref -> pref.getFlag() && pref.getActive().equals("Y"));
-                if(preferences != null && preferences.size() > 0){
-                    for(Preference p : preferences){
-                        prefService.createPreference(p);
-                    }
-		      model.addAttribute("planSelected", plan);
-		      model.addAttribute("Plan", plan);
-                      model.addAttribute("message", "Preference Service Successful! ");
-                }else{
-	      	    model.addAttribute("planSelected", plan);
-		    model.addAttribute("Plan", plan);
-                    model.addAttribute("message", "Preference Service Failed!");
+        if (statePreference != null && !statePreference.equals("")) {
+            StatePreference lstPref = new StatePreference();
+            lstPref.setId(11);
+            lstPref.setName("State");
+            lstPref.setEmailAddress(email);
+            lstPref.setValue(statePreference);
+            lstPref.setFlag(true);
+            lstPref.setActive("Y");
+            prefList.add(lstPref);
+        }
+
+        if (passwordPreference != null && !passwordPreference.equals("")) {
+            PasswordPreference lpwdPref = new PasswordPreference();
+            lpwdPref.setId(12);
+            lpwdPref.setName("Password");
+            lpwdPref.setEmailAddress(email);
+            // Hash a password for the first time
+            String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt());
+
+            lpwdPref.setValue(hashed);
+            lpwdPref.setFlag(true);
+            lpwdPref.setActive("Y");
+            prefList.add(lpwdPref);
+        }
+
+        if (planPreference != null && !planPreference.isEmpty()) {
+            PlanPreference planPref = new PlanPreference();
+            planPref.setId(13);
+            planPref.setEmailAddress(email);
+            planPref.setName("Plan");
+            planPref.setValue(planPreference);
+            planPref.setFlag(true);
+            planPref.setActive("Y");
+            prefList.add(planPref);
+        }
+
+        if (userPreference != null && !userPreference.equals("")) {
+            UserPreference usPref = new UserPreference();
+            usPref.setId(14);
+            usPref.setEmailAddress(email);
+            usPref.setName("UserPreference");
+            usPref.setValue(userPreference);
+            usPref.setFlag(true);
+            usPref.setActive("Y");
+            prefList.add(usPref);
+            model.addAttribute("UserPreference", userPreference);
+        }
+        List<Preference> preferences = null;
+        Preferences prefs = new Preferences();
+        prefs.setPreferences(prefList);
+        try {
+            preferences = prefService.processPreferences(prefs,
+                    pref -> pref.getFlag() && pref.getActive().equals("Y"));
+            if (preferences != null && preferences.size() > 0) {
+                for (Preference p : preferences) {
+                    prefService.createPreference(p);
                 }
-            } catch (PreferenceAccessException | PreferenceProcessException pae) {
-                pae.printStackTrace();
-	      	model.addAttribute("planSelected", plan);
-		model.addAttribute("Plan", plan);
+                if (userPreference != null && !userPreference.equals("")) {
+                    model.addAttribute("UserPreference", userPreference);
+                }
+                model.addAttribute("planSelected", plan);
+                model.addAttribute("Plan", plan);
+                model.addAttribute("message", "Preference Service Successful! ");
+            } else {
+                model.addAttribute("planSelected", plan);
+                model.addAttribute("Plan", plan);
                 model.addAttribute("message", "Preference Service Failed!");
-
-                return "viewpreferences";
             }
+        } catch (PreferenceAccessException | PreferenceProcessException pae) {
+            pae.printStackTrace();
+            model.addAttribute("planSelected", plan);
+            model.addAttribute("Plan", plan);
+            model.addAttribute("message", "Preference Service Failed!");
+            return "viewpreferences";
+        }
 
         return "viewpreferences";
     }
@@ -871,8 +946,8 @@ public class LoanCalculatorController implements ServletContextAware {
         }
         return prop;
     }
-    
-   private void addPreference(Preference pref, Integer id, String email, String name, String value) throws PreferenceAccessException{
+
+    private void addPreference(Preference pref, Integer id, String email, String name, String value) throws PreferenceAccessException {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
         pref.setId(id);
@@ -882,31 +957,31 @@ public class LoanCalculatorController implements ServletContextAware {
         pref.setFlag(true);
         pref.setActive("Y");
         prefService.createPreference(pref);
-   }
-   
-   private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
+    }
+
+    private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
         List<Preference> preferences;
         try {
             preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{oldEmail});
-            if(preferences != null){
-                    for(Preference p : preferences){
-                        prefService.removePreference(p);
-                        p.setEmailAddress(newEmail);
-                        if(p instanceof EmailReminderPreference){
-                            p.setValue(newEmail);
-                        }
-                        prefService.createPreference(p);
-                     }
+            if (preferences != null) {
+                for (Preference p : preferences) {
+                    prefService.removePreference(p);
+                    p.setEmailAddress(newEmail);
+                    if (p instanceof EmailReminderPreference) {
+                        p.setValue(newEmail);
+                    }
+                    prefService.createPreference(p);
+                }
             }
         } catch (PreferenceAccessException ex) {
             logger.error(ex.getMessage());
         }
-        
+
     }
-    
-//------------------------------------------------------------------------------------------------------------------------------------------------------    
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "/aggregateloan", method = RequestMethod.POST)
     public String loanAgg(
             @RequestParam("loanId") String loanId,
@@ -919,8 +994,8 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
 
-	if(email != null && email.equals(""))
-		email = emailCookie;
+        if (email != null && email.equals(""))
+            email = emailCookie;
 
         List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, email);
 
@@ -935,50 +1010,49 @@ public class LoanCalculatorController implements ServletContextAware {
             List<Loan> aggregatedLoans = new ArrayList<Loan>();
 
             List<Long> loanIdFromLoanRelationship = new ArrayList<Long>();
-            Long loanIdtoCheck=null;
-            Loan loanToCheck=null;
+            Long loanIdtoCheck = null;
+            Loan loanToCheck = null;
             boolean loannotfound;
             loanRelationship = searchLoanRelationship(loans);
 
             if (loanRelationship != null && loanRelationship.size() > 0) {
-                loanAgg = ((LoanRelationship)loanRelationship.get(0)).getLoanAgg();
+                loanAgg = ((LoanRelationship) loanRelationship.get(0)).getLoanAgg();
 
                 for (int counter = 0; counter < loanRelationship.size(); counter++) {
-                    loannotfound=true;
-                    loanIdtoCheck = ((LoanRelationship)loanRelationship.get(counter)).getLoanId();
+                    loannotfound = true;
+                    loanIdtoCheck = ((LoanRelationship) loanRelationship.get(counter)).getLoanId();
                     loanIdFromLoanRelationship.add(loanIdtoCheck);
 
                     for (int lnctr = 0; lnctr < loans.size(); lnctr++) {
-                        loanToCheck = (Loan)loans.get(lnctr);
-                        if ( loanIdtoCheck.equals(loanToCheck.getLoanId())) {
+                        loanToCheck = (Loan) loans.get(lnctr);
+                        if (loanIdtoCheck.equals(loanToCheck.getLoanId())) {
                             loannotfound = false;
-                            aggregatedLoans.add((Loan)loans.remove(lnctr));
+                            aggregatedLoans.add((Loan) loans.remove(lnctr));
                             break;
                         }
                     }
 
-                    if ( loannotfound && loanIdtoCheck != null) {
+                    if (loannotfound && loanIdtoCheck != null) {
                         List<Serializable> searchedLoan = searchLoanForAggregation(loanIdtoCheck.toString(), null, null, null, null, null, null);
 
-                        if ( searchedLoan != null) {
-                            aggregatedLoans.add((Loan)searchedLoan.get(0));
+                        if (searchedLoan != null) {
+                            aggregatedLoans.add((Loan) searchedLoan.get(0));
                         }
-                    }
-		    else if(loannotfound && email != null) {
+                    } else if (loannotfound && email != null) {
                         List<Serializable> searchedLoan = searchLoanForAggregation(null, null, null, null, null, null, email);
 
-                        if ( searchedLoan != null) {
-                            aggregatedLoans.add((Loan)searchedLoan.get(0));
+                        if (searchedLoan != null) {
+                            aggregatedLoans.add((Loan) searchedLoan.get(0));
                         }
                     }
 
                 }
 
-                try{
+                try {
                     aggregationSummary = loanWebService.aggregationSummary(aggregatedLoans, loanAgg.getStartDate());
 
-                    if ( aggregationSummary != null ) {
-                        model.addAttribute("totalAmount",aggregationSummary.getTotalAmount());
+                    if (aggregationSummary != null) {
+                        model.addAttribute("totalAmount", aggregationSummary.getTotalAmount());
                         model.addAttribute("amountPaid", aggregationSummary.getAmountPaid());
                         model.addAttribute("remainingAmount", aggregationSummary.getRemainingAmount());
                         model.addAttribute("remainingPercent", aggregationSummary.getRemainingPercent());
@@ -988,6 +1062,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();
                     model.addAttribute("message", "Calculate Summary Failed!");
+                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                    checkUserPrefernece(model, prefs);
                     return "aggregateloan";
                 }
 
@@ -1007,41 +1083,44 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("email", loanAgg.getEmail());
                 model.addAttribute("NoOfLoansInRelation", aggregatedLoans.size());
             }
-            if(loanAgg == null || loanAgg.getEmail() == null){
+            if (loanAgg == null || loanAgg.getEmail() == null) {
                 model.addAttribute("email", emailCookie);
             }
-
             model.addAttribute("message", "Loan Aggregation Created!");
         } else {
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            checkUserPrefernece(model, prefs);
             model.addAttribute("message", "No Record Found");
             return "aggregateloan";
         }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "aggregateloan";
     }
 
     @RequestMapping(value = "/aggregateloanask")
     public String aggregateloan(Model model,
-            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+                                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
         model.addAttribute("message", "Aggregate Loan");
-    	List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-    	ArrayList<String> prefVal = null, prefAttr = null;
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        ArrayList<String> prefVal = null, prefAttr = null;
 
-    	if(prefs != null){
-    	    prefVal = new ArrayList<String>(prefs.size());	
-    	    prefAttr = new ArrayList<String>(prefs.size());
-    	    int prefIdx = 0;
-    	    for(Preference pref : prefs){
-    		prefAttr.add(pref.getName());
-    		prefVal.add(pref.getValue());
-    	   }
-    	  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
-    		model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-    	}
-        
+        if (prefs != null) {
+            prefVal = new ArrayList<String>(prefs.size());
+            prefAttr = new ArrayList<String>(prefs.size());
+            int prefIdx = 0;
+            for (Preference pref : prefs) {
+                prefAttr.add(pref.getName());
+                prefVal.add(pref.getValue());
+            }
+            for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+                model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+        }
+
         return "aggregateloan";
     }
 
-    private java.util.List<Serializable> searchLoanRelationship(List<Serializable> loan){
+    private java.util.List<Serializable> searchLoanRelationship(List<Serializable> loan) {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         StringBuffer querySB = new StringBuffer();
         java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
@@ -1049,17 +1128,17 @@ public class LoanCalculatorController implements ServletContextAware {
         java.util.List<Serializable> loanRelationship = null;
         java.util.List<Serializable> loanRelationshipUsingLoanAgg = null;
         LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
-        for (int i=0;i<loan.size();i++) {
+        for (int i = 0; i < loan.size(); i++) {
             if (i == 0 && (i == loan.size() - 1)) {
                 querySB.append("?)");
-                queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
+                queryValList.add(Long.valueOf(((Loan) loan.get(i)).getLoanId()));
                 break;
             } else if (i < loan.size() - 1) {
                 querySB.append("?,");
-                queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
+                queryValList.add(Long.valueOf(((Loan) loan.get(i)).getLoanId()));
             } else if (i != 0 && (i == loan.size() - 1)) {
                 querySB.append("?)");
-                queryValList.add(Long.valueOf(((Loan)loan.get(i)).getLoanId()));
+                queryValList.add(Long.valueOf(((Loan) loan.get(i)).getLoanId()));
             }
         }
         queryVals = new Object[queryValList.size()];
@@ -1072,7 +1151,7 @@ public class LoanCalculatorController implements ServletContextAware {
             java.util.List<Object> queryValListForAgg = new java.util.ArrayList<Object>();
             querySBForAgg.append("la.loanAgg=?");
             if (loanRelationship != null && loanRelationship.size() > 0) {
-                queryValListForAgg.add(((LoanRelationship)loanRelationship.get(0)).getLoanAgg());
+                queryValListForAgg.add(((LoanRelationship) loanRelationship.get(0)).getLoanAgg());
                 queryValsForAgg = new Object[queryValListForAgg.size()];
                 queryValsForAgg = queryValListForAgg.toArray(queryValsForAgg);
                 loanRelationshipUsingLoanAgg = loanRelationshipService.findLoanRelation("select la from LoanRelationship la where " + querySBForAgg.toString(), queryValsForAgg);
@@ -1204,7 +1283,7 @@ public class LoanCalculatorController implements ServletContextAware {
         cal = Calendar.getInstance();
         try {
             cal.setTime(formatter.parse(startDate));
-        }catch(ParseException parseEx){
+        } catch (ParseException parseEx) {
             parseEx.printStackTrace();
         }
         //System.out.println(loanIds);
@@ -1291,6 +1370,8 @@ public class LoanCalculatorController implements ServletContextAware {
                     } catch (LoanAccessException lae) {
                         lae.printStackTrace();
                         model.addAttribute("message", "Calculate Loan Failed!");
+                        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                        checkUserPrefernece(model, prefs);
                         return "aggregateloan";
                     }
                     loanAggService.modifyLoanAgg(loanAgg);
@@ -1333,7 +1414,7 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("startDate", startDate);
             model.addAttribute("email", loanAgg.getEmail());
         }
-        if(loanAgg == null && loanAgg.getEmail() == null){
+        if (loanAgg == null && loanAgg.getEmail() == null) {
             model.addAttribute("email", emailCookie);
         }
         model.addAttribute("totalAmount", aggregationSummary.getTotalAmount());
@@ -1347,218 +1428,236 @@ public class LoanCalculatorController implements ServletContextAware {
         if (loanAggDetails == null && loanAggRemovedCounter == 0) {
             model.addAttribute("message", "Please select Loan For Aggregation!");
         }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         return "aggregateloan";
     }
-    
- @RequestMapping(value = "/logout")
+
+    @RequestMapping(value = "/logout")
     public String logout(Model model, SessionStatus status) {
         model.addAttribute("message", "Logout");
         status.setComplete();
         return "logout";
-    }    
+    }
 
- @RequestMapping(value = "/login")
-     public String login(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="password", defaultValue = "") String password,
-@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt, 
-@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan,
-HttpServletRequest request, HttpServletResponse response, Model model) {
-        if(emailCookie == null){
+    @RequestMapping(value = "/login")
+    public String login(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "password", defaultValue = "") String password,
+                        @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt,
+                        @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan,
+                        HttpServletRequest request, HttpServletResponse response, Model model) {
+        if (emailCookie == null) {
             model.addAttribute("message", "Register with preferences");
             model.addAttribute("reminderFrequency", reminderFrequency);
             model.addAttribute("Plan", plan);
             model.addAttribute("planSelected", plan);
-       	    
- 	    return "viewpreferences";
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            checkUserPrefernece(model, prefs);
+
+            return "viewpreferences";
+        }
+        if (emailCookie != null && !emailCookie.equals("")) {
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            ArrayList<String> prefVal = null, prefAttr = null;
+
+            if (prefs != null) {
+                prefVal = new ArrayList<String>(prefs.size());
+                prefAttr = new ArrayList<String>(prefs.size());
+                int prefIdx = 0;
+                for (Preference pref : prefs) {
+                    prefAttr.add(pref.getName());
+                    prefVal.add(pref.getValue());
+                }
+                for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
+                    model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+                    if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
+                        model.addAttribute("UserPreference", prefVal.get(prefIdx));
+                }
+            }
         }
         if (email != null && !email.equals("") && password != null && !password.equals("")) {
             model.addAttribute("message", "Login Form");
             model.addAttribute("userEmail", email);
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
-            if(emailPasswordFlag){
-              	response.addCookie(new Cookie("userEmail", email));
-              	response.addCookie(new Cookie("loginStatus", "Y"));
-              	request.getSession().setAttribute("loginStatus", "Y");
-              	request.getSession().setAttribute("planSelected", plan);
-	            model.addAttribute("planSelected", plan);
-				model.addAttribute("userEmail", email);
-				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-				ArrayList<String> prefVal = null, prefAttr = null;
-		
-				if(prefs != null){
-				    prefVal = new ArrayList<String>(prefs.size());	
-				    prefAttr = new ArrayList<String>(prefs.size());
-				    int prefIdx = 0;
-				    for(Preference pref : prefs){
-					prefAttr.add(pref.getName());
-					prefVal.add(pref.getValue());
-				   }
-				  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
-					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-				}
+            if (emailPasswordFlag) {
+                response.addCookie(new Cookie("userEmail", email));
+                response.addCookie(new Cookie("loginStatus", "Y"));
+                request.getSession().setAttribute("loginStatus", "Y");
+                request.getSession().setAttribute("planSelected", plan);
+                model.addAttribute("planSelected", plan);
+                model.addAttribute("userEmail", email);
+                if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
+                    model.addAttribute("message", "Aggregate Loan Report");
+                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                    checkUserPrefernece(model, prefs);
+                    return "aggregateloanreport";
 
-				if(plan	!= null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)){			
-					model.addAttribute("message", "Aggregate Loan Report");	
-					return "aggregateloanreport";
+                } else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
+                    model.addAttribute("message", "Amortize Loan");
+                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                    checkUserPrefernece(model, prefs);
+                    return "amortizeloan";
+                } else {
+                    return "index";
+                }
 
-				}else if(plan	!= null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)){
-					model.addAttribute("message", "Amortize Loan");				
-					return "amortizeloan";
-				}else{
-					return "index";
-				}
-
-            }else if(!loginAttempt.equals("0")){
-            	Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
-            	nextLoginAttempt++;
-              	response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
+            } else if (!loginAttempt.equals("0")) {
+                Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
+                nextLoginAttempt++;
+                response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
                 model.addAttribute("message", "Login Form");
-                
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                checkUserPrefernece(model, prefs);
                 return "loginwithrecaptcha";
             }
-    	}
-       
+        }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
         model.addAttribute("message", "Login Form");
         return "login";
-    }    
+    }
 
-@RequestMapping(value = "/resetpasswordask")
-  public String resetPassword(Model model) {
+    @RequestMapping(value = "/resetpasswordask")
+    public String resetPassword(Model model) {
         model.addAttribute("message", "Reset Password");
         return "resetpassword";
     }
 
- @RequestMapping(value = "/resetpassword")
-     public String resetPassword(@RequestParam(value="email", defaultValue = "") String email, @RequestParam(value="oldpassword", defaultValue = "") String oldpassword,
- @RequestParam(value="newpassword", defaultValue = "") String newpassword,
-@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
+    @RequestMapping(value = "/resetpassword")
+    public String resetPassword(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "oldpassword", defaultValue = "") String oldpassword,
+                                @RequestParam(value = "newpassword", defaultValue = "") String newpassword,
+                                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (email != null && !email.equals("") && oldpassword != null && !oldpassword.equals("") && newpassword != null && !newpassword.equals("")) {
             model.addAttribute("userEmail", email);
             model.addAttribute("oldpassword", oldpassword);
             model.addAttribute("newpassword", newpassword);
-            if(checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))	
-	            model.addAttribute("message", "Reset Password Successful!");
+            if (checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))
+                model.addAttribute("message", "Reset Password Successful!");
             else
-	            model.addAttribute("message", "Reset Password Failed!");
+                model.addAttribute("message", "Reset Password Failed!");
         }
         return "resetpassword";
     }
 
-private boolean updatePreferencePassword(String email, String newPassword) {
+    private boolean updatePreferencePassword(String email, String newPassword) {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
         List<Preference> preferences;
-	boolean passwordChanged = false;
+        boolean passwordChanged = false;
         try {
             preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?", new Object[]{email});
-            if(preferences != null){
-                    for(Preference p : preferences){
-                        if(p instanceof PasswordPreference){
-            				// Hash a password for the first time
-            				String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+            if (preferences != null) {
+                for (Preference p : preferences) {
+                    if (p instanceof PasswordPreference) {
+                        // Hash a password for the first time
+                        String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt());
 
-                            p.setValue(hashed);
-		                    prefService.modifyPreference(p);
-		                    passwordChanged = true;	
-		                    break;	
-                        }
-                     }
+                        p.setValue(hashed);
+                        prefService.modifyPreference(p);
+                        passwordChanged = true;
+                        break;
+                    }
+                }
             }
         } catch (PreferenceAccessException ex) {
             logger.error(ex.getMessage());
         }
-	return passwordChanged;	
+        return passwordChanged;
     }
-   
 
-@RequestMapping(value = "/forgetpasswordask")
-  public String forgetPassword(Model model) {
+
+    @RequestMapping(value = "/forgetpasswordask")
+    public String forgetPassword(Model model) {
         model.addAttribute("message", "Forget Password");
         return "forgetpassword";
     }
 
- @RequestMapping(value = "/forgetpassword")
-     public String forgetPassword(@RequestParam(value="email", defaultValue = "") String email,
-    		 					@RequestParam(value="password", defaultValue = "") String password,
-@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
-	 	model.addAttribute("message", "Forget Password Form");
-	    if (email != null && !email.equals("") && 
-	    		 password != null && !password.equals("") && 
-	    		 emailCookie != null && !emailCookie.equals("") &&
-	    		 email.equals(emailCookie)) {
-	         model.addAttribute("userEmail", email);
-	         model.addAttribute("password", password);
-		    if(updatePreferencePassword(email, password))	
-	            model.addAttribute("message", "Change Password Successful!");
-		    else
-	            model.addAttribute("message", "Change Password Failed!");
-	    }
+    @RequestMapping(value = "/forgetpassword")
+    public String forgetPassword(@RequestParam(value = "email", defaultValue = "") String email,
+                                 @RequestParam(value = "password", defaultValue = "") String password,
+                                 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("message", "Forget Password Form");
+        if (email != null && !email.equals("") &&
+                password != null && !password.equals("") &&
+                emailCookie != null && !emailCookie.equals("") &&
+                email.equals(emailCookie)) {
+            model.addAttribute("userEmail", email);
+            model.addAttribute("password", password);
+            if (updatePreferencePassword(email, password))
+                model.addAttribute("message", "Change Password Successful!");
+            else
+                model.addAttribute("message", "Change Password Failed!");
+        }
         return "forgetpassword";
     }
-	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
-	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-			        List<Preference> preferences;
-				boolean emailFlag = false, passwordFlag = false;
-				        try {
-				           preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{newEmail});
-							                if(preferences != null){
-										                    for(Preference p : preferences){
-													if(p.getEmailAddress().equals(newEmail))
-														emailFlag = true;
-													if(p instanceof PasswordPreference){
-														// Check that an unencrypted password matches one that has
-														// previously been hashed
-														if (BCrypt.checkpw(password, p.getValue()))
-															passwordFlag = true;
-														else
-															passwordFlag = false;
-													}
-													if(emailFlag && passwordFlag)
-														return true;
-												    }
-												    
-												    return false;							
-		    							}
-				        } catch (PreferenceAccessException ex) {
-                            logger.error(ex.getMessage());
-				        }
-				    return false;	
-	}
 
-	private List<Preference> getPreferencesByEmailAddress(String email) {
-	        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-			        List<Preference> preferences;
-				        try {
-				           preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{email});
-							                if(preferences != null){
-										return preferences;
-		    							}
-				        } catch (PreferenceAccessException ex) {
-				            logger.error(ex.getMessage());
-				        }
-				    return null;
-	}
+    private boolean checkPreferenceEmailAddress(String newEmail, String password) {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        List<Preference> preferences;
+        boolean emailFlag = false, passwordFlag = false;
+        try {
+            preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{newEmail});
+            if (preferences != null) {
+                for (Preference p : preferences) {
+                    if (p.getEmailAddress().equals(newEmail))
+                        emailFlag = true;
+                    if (p instanceof PasswordPreference) {
+                        // Check that an unencrypted password matches one that has
+                        // previously been hashed
+                        if (BCrypt.checkpw(password, p.getValue()))
+                            passwordFlag = true;
+                        else
+                            passwordFlag = false;
+                    }
+                    if (emailFlag && passwordFlag)
+                        return true;
+                }
 
-    @RequestMapping(value = "/aggregateloanreportask" , method = RequestMethod.GET)
+                return false;
+            }
+        } catch (PreferenceAccessException ex) {
+            logger.error(ex.getMessage());
+        }
+        return false;
+    }
+
+    private List<Preference> getPreferencesByEmailAddress(String email) {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+        List<Preference> preferences;
+        try {
+            preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?", new Object[]{email});
+            if (preferences != null) {
+                return preferences;
+            }
+        } catch (PreferenceAccessException ex) {
+            logger.error(ex.getMessage());
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/aggregateloanreportask", method = RequestMethod.GET)
     public String aggregateloanReport(@CookieValue(value = "userEmail", defaultValue = "") String userEmail, Model model, HttpServletResponse response, HttpServletRequest request) {
-       if(userEmail != null && !userEmail.equals("")){
-    			List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
-    			ArrayList<String> prefVal = null, prefAttr = null;
-    	
-    			if(prefs != null){
-    			    prefVal = new ArrayList<String>(prefs.size());	
-    			    prefAttr = new ArrayList<String>(prefs.size());
-    			    int prefIdx = 0;
-    			    for(Preference pref : prefs){
-    			    	prefAttr.add(pref.getName());
-    			    	prefVal.add(pref.getValue());
-    			   }
-    			  for(prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
-    				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-    			}
+        if (userEmail != null && !userEmail.equals("")) {
+            List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
+            ArrayList<String> prefVal = null, prefAttr = null;
+
+            if (prefs != null) {
+                prefVal = new ArrayList<String>(prefs.size());
+                prefAttr = new ArrayList<String>(prefs.size());
+                int prefIdx = 0;
+                for (Preference pref : prefs) {
+                    prefAttr.add(pref.getName());
+                    prefVal.add(pref.getValue());
+                }
+                for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+                    model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+            }
         }
         model.addAttribute("message", "Aggregate Loan Report");
+        List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
+
+        checkUserPrefernece(model, prefs);
         return "aggregateloanreport";
     }
 
@@ -1574,11 +1673,11 @@ private boolean updatePreferencePassword(String email, String newPassword) {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException, LoanAccessException {
 
- 	if(email != null && email.equals(""))
-		email = emailCookie;
+        if (email != null && email.equals(""))
+            email = emailCookie;
 
         List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, email);
-      
+
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
@@ -1594,7 +1693,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                 Object[] queryValsForAgg = null;
                 java.util.List<Object> queryValListForAgg = new java.util.ArrayList<Object>();
                 querySBForAgg.append("la.loanAgg=?");
-                queryValListForAgg.add(((LoanRelationship)loanRelationship.get(0)).getLoanAgg());
+                queryValListForAgg.add(((LoanRelationship) loanRelationship.get(0)).getLoanAgg());
                 queryValsForAgg = new Object[queryValListForAgg.size()];
                 queryValsForAgg = queryValListForAgg.toArray(queryValsForAgg);
                 try {
@@ -1603,7 +1702,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                     e.printStackTrace();
                 }
 
-                model.addAttribute("loanAggId",loanAgg.getLoanAggId());
+                model.addAttribute("loanAggId", loanAgg.getLoanAggId());
                 model.addAttribute("loanId", loanId);
                 model.addAttribute("numberOfYears", numOfYears);
                 model.addAttribute("loanAmt", loanAmt);
@@ -1613,7 +1712,7 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                 model.addAttribute("NoOfLoansInRelation", loanRelationshipforCount.size());
                 model.addAttribute("message", "Aggregate Loan Report");
 
-            }else {
+            } else {
                 model.addAttribute("message", "No Record Found");
                 model.addAttribute("loanId", loanId);
                 model.addAttribute("numberOfYears", numOfYears);
@@ -1622,40 +1721,60 @@ private boolean updatePreferencePassword(String email, String newPassword) {
                 model.addAttribute("state", state);
                 model.addAttribute("APR", airVal);
             }
-        }else {
-                model.addAttribute("message", "No Record Found");
-                return "aggregateloanreport";
-            }
+        } else {
+            model.addAttribute("message", "No Record Found");
             return "aggregateloanreport";
+        }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+
+        checkUserPrefernece(model, prefs);
+        return "aggregateloanreport";
     }
 
     @RequestMapping(value = "/generateReport", method = RequestMethod.GET)
-    public void generateJasperReportPDF(@RequestParam("loanAggId") String loanAggId,HttpServletResponse response,HttpServletRequest request ) {
+    public void generateJasperReportPDF(@RequestParam("loanAggId") String loanAggId, HttpServletResponse response, HttpServletRequest request) {
+        generateReport(loanAggId, null, response, request);
+    }
+
+    @RequestMapping(value = "/generateReportForEmail", method = RequestMethod.GET)
+    public void generateJasperReportForEmail(@RequestParam("userEmail") String userEmail, HttpServletResponse response, HttpServletRequest request) {
+        generateReport(null, userEmail, response, request);
+    }
+
+    private void generateReport(@RequestParam("loanAggId") String loanAggId, @RequestParam("userEmail") String userEmail, HttpServletResponse response, HttpServletRequest request) {
         JRPdfExporter exporter = new JRPdfExporter();
         Connection connection = null;
         HashMap jasperParameter = new HashMap();
-        jasperParameter.put("loanAggId",Double.valueOf(loanAggId));
-        logger.debug("loanAggId"+loanAggId);
-        try
-        {
+        if (loanAggId != null && !loanAggId.equals("")) {
+            jasperParameter.put("loanAggId", Double.valueOf(loanAggId));
+            logger.debug("loanAggId" + loanAggId);
+        } else if (userEmail != null && !userEmail.equals("")) {
+            jasperParameter.put("email", userEmail);
+            logger.debug("email" + userEmail);
+        }
+
+        try {
 
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-            BasicDataSource dbBean = (BasicDataSource)appCtx.getBean("dataSource");
+            BasicDataSource dbBean = (BasicDataSource) appCtx.getBean("dataSource");
 
-           Class.forName(dbBean.getDriverClassName());
+            Class.forName(dbBean.getDriverClassName());
             String postgresURL = dbBean.getUrl();
-            connection = DriverManager.getConnection(postgresURL,dbBean.getUsername(),dbBean.getPassword());
-            logger.debug("connection is null:"+connection==null);
-        }
-        catch(SQLException ex)
-        {
+            connection = DriverManager.getConnection(postgresURL, dbBean.getUsername(), dbBean.getPassword());
+            logger.debug("connection is null:" + connection == null);
+        } catch (SQLException ex) {
             logger.error(ex.getMessage());
         } catch (ClassNotFoundException ex) {
             logger.error(ex.getMessage());
         }
-        if(connection!=null) {
+        if (connection != null) {
             try {
-                String path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
+                String path = null;
+                if (loanAggId != null && !loanAggId.equals("")) {
+                    path = context.getRealPath("/WEB-INF/jasper/report1.jrxml");
+                } else if (userEmail != null && !userEmail.equals("")) {
+                    path = context.getRealPath("/WEB-INF/jasper/report2.jrxml");
+                }
                 logger.debug("jrxml path" + path);
                 JasperReport jasperReport = JasperCompileManager.compileReport(path);
                 JasperPrint jasperPrint;
@@ -1670,12 +1789,12 @@ private boolean updatePreferencePassword(String email, String newPassword) {
             } catch (Exception ex) {
                 logger.error("Error in generate report:" + ex.getMessage());
             } finally {
-		try{
-	    		connection.close();
-		}catch(SQLException ex){
-	                logger.error("Error in closing connection!" + ex.getMessage()); 
-		}
-	    }
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    logger.error("Error in closing connection!" + ex.getMessage());
+                }
+            }
         }
     }
 
@@ -1685,8 +1804,163 @@ private boolean updatePreferencePassword(String email, String newPassword) {
         exporter.setParameter(JRExporterParameter.OUTPUT_WRITER, writer);
         exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
         exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, "/servlets/image?image=");
-        exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS ,Boolean.TRUE);
+        exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
         exporter.exportReport();
     }
 
+    @RequestMapping(value = "/siteoffersask")
+    public String siteoffers(Model model,
+                             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+        model.addAttribute("message", "Site offers");
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "siteoffers";
+    }
+
+    @RequestMapping(value = "/siteoffers", method = RequestMethod.POST)
+    public String siteoffers(
+            @RequestParam("bankName") String bankName,
+            @RequestParam("linkUrl") String linkUrl,
+            @RequestParam("newsType") String newsType,
+            @RequestParam("loanType") String loanType,
+            @RequestParam("region") String region,
+            @RequestParam("offerStartDate") String offerStartDate,
+            @RequestParam("offerEndDate") String offerEndDate,
+            @RequestParam("offerAmount") String offerAmount,
+            @RequestParam("offerRate") String offerRate,
+            @RequestParam("newsTitle") String newsTitle,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws ParseException {
+        boolean allVal = false;
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar startDate = null;
+        Calendar endDate = null;
+        startDate = Calendar.getInstance();
+        endDate = Calendar.getInstance();
+        try {
+            startDate.setTime(formatter.parse(offerStartDate));
+            endDate.setTime(formatter.parse(offerEndDate));
+        } catch (ParseException parseEx) {
+            parseEx.printStackTrace();
+        }
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
+        if (newsType.equals("Bank Offer")) {
+            Offer offer = new Offer();
+            offer.setBankName(bankName);
+            offer.setLinkUrl(linkUrl);
+            offer.setNewsType(newsType);
+            offer.setLoanType(loanType);
+            offer.setRegion(region);
+            offer.setOfferStartDate(startDate);
+            offer.setOfferEndDate(endDate);
+            if (offerAmount != null && !offerAmount.equals("")) {
+                offer.setOfferAmount(Double.valueOf(offerAmount));
+            }
+            if (offerRate != null && !offerRate.equals("")) {
+                offer.setOfferRate(Double.valueOf(offerRate));
+            }
+            try {
+                siteOfferService.createNewsObject(offer);
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+                model.addAttribute("message", "Create Site Offer Failed!");
+                return "siteoffers";
+            }
+            model.addAttribute("siteoffers", offer);
+        } else if (newsType.equals("News Site")) {
+            Site site = new Site();
+            site.setBankName(bankName);
+            site.setLinkUrl(linkUrl);
+            site.setNewsType(newsType);
+            site.setLoanType(loanType);
+            site.setRegion(region);
+            site.setOfferStartDate(startDate);
+            site.setOfferEndDate(endDate);
+            if (newsTitle != null && !newsTitle.equals("")) {
+                site.setNewsTitle(newsTitle);
+            }
+            try {
+                siteOfferService.createNewsObject(site);
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+                model.addAttribute("message", "Create Site Offer Failed!");
+                return "siteoffers";
+            }
+        }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+
+        checkUserPrefernece(model, prefs);
+        model.addAttribute("message", "Create Site Offers");
+        return "siteoffers";
+    }
+
+    @RequestMapping(value = "/siteoffers", method = RequestMethod.GET)
+    public String siteoffers(
+            @RequestParam("region") String region,
+            @RequestParam("loanType") String loanType,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws ParseException {
+        searchSiteOffers(region, loanType, emailCookie, model);
+        return "bankoffersandnews";
+    }
+
+    private void searchSiteOffers(@RequestParam("region") String region, @RequestParam("loanType") String loanType, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
+        List<NewsObject> newsObjects = new ArrayList<NewsObject>();
+        List<NewsObject> newsarticle = new ArrayList<NewsObject>();
+        List<NewsObject> siteoffers = new ArrayList<NewsObject>();
+        StringBuffer querySB = new StringBuffer();
+        Calendar today = Calendar.getInstance();
+        List<Object> queryValList = new ArrayList<Object>();
+        Object[] queryVals = null;
+        boolean firstVal = false;
+        if (region != null && !region.equals("")) {
+            querySB.append("n.region=?");
+            firstVal = true;
+            queryValList.add(region);
+        }
+
+        if (loanType != null && !loanType.equals("")) {
+            if (firstVal)
+                querySB.append(" and n.loanType=?");
+            else {
+                querySB.append(" n.loanType=?");
+                firstVal = true;
+            }
+            queryValList.add(loanType);
+        }
+
+        if (firstVal) {
+            queryVals = new Object[queryValList.size()];
+            queryVals = queryValList.toArray(queryVals);
+            try {
+                newsObjects = siteOfferService.findNewsObject("select n from NewsObject n where " + querySB.toString(), queryVals);
+
+                if (newsObjects != null) {
+                    for (NewsObject n : newsObjects) {
+                        if (n.getNewsType().equals("Bank Offer")) {
+                            if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
+                                siteoffers.add(n);
+                            }
+                        } else if (n.getNewsType().equals("News Site")) {
+                            if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
+                                newsarticle.add(n);
+                            }
+                        }
+                    }
+                }
+            } catch (LoanAccessException ex) {
+                ex.printStackTrace();
+                model.addAttribute("message", "Search offers Failed!");
+            }
+            model.addAttribute("region", region);
+            model.addAttribute("loanType", loanType);
+            model.addAttribute("siteoffers", siteoffers);
+            model.addAttribute("newsarticle", newsarticle);
+        }
+    }
 }

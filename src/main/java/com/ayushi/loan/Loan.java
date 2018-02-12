@@ -6,6 +6,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 	private static final long serialVersionUID = 1L;
 	private Double amount, total, monthly;
 	private String lender;
+	private String region;
 	private String state;
 	private Double interestRate;
 	private Double apr;
@@ -21,6 +22,7 @@ public class Loan implements Serializable, Comparable<Loan> {
 		total = 0.0;
 		monthly = 0.0;
 		lender = "Bank";
+		region = "Brunswicks";
 		state = "NJ";
 		interestRate = 0.0;
 		apr = 0.0;
@@ -34,11 +36,12 @@ public class Loan implements Serializable, Comparable<Loan> {
 		email = "contact@loaninsight.online";
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom, String email){
+	public Loan(double mnthly, double amt, double tot, String lndr, String rn, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom, String email){
 		monthly = new Double(mnthly);
 		amount = new Double(amt);
 		total = new Double(tot);
 		lender = lndr;
+		region = rn;
 		state = st;
 		interestRate = new Double(intRate);
 		apr = new Double(Apr);
@@ -186,5 +189,13 @@ public class Loan implements Serializable, Comparable<Loan> {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 }

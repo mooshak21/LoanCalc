@@ -124,3 +124,31 @@ ALTER TABLE loan ADD COLUMN loan_denom character varying(100) NOT NULL DEFAULT '
 ALTER TABLE loan DROP COLUMN currency;
 ALTER TABLE pref ALTER COLUMN pref_value  SET DATA TYPE character varying(300);
 
+ALTER TABLE loan  ADD COLUMN region character varying(20) NOT NULL DEFAULT 'Brunswicks';
+
+-- DROP TABLE public.news_object;
+
+CREATE TABLE public.news_object
+(
+  link_url character varying(300) COLLATE pg_catalog."default" NOT NULL,
+  offer_amount double precision,
+  offer_end_date date NOT NULL,
+  offer_id bigint NOT NULL,
+  offer_rate double precision,
+  offer_start_date date NOT NULL,
+  refferer character varying(100) COLLATE pg_catalog."default" NOT NULL,
+  bank_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+  loan_type character varying(100) COLLATE pg_catalog."default" NOT NULL DEFAULT 'Home Loan'::character varying,
+  region character varying(100) COLLATE pg_catalog."default" NOT NULL DEFAULT 'USA'::character varying,
+  news_type character varying(20) COLLATE pg_catalog."default" NOT NULL,
+  discriminator character varying(255) COLLATE pg_catalog."default" NOT NULL,
+  news_title character varying(256) COLLATE pg_catalog."default",
+  CONSTRAINT news_object_pkey PRIMARY KEY (offer_id)
+)
+WITH (
+OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.news_object
+  OWNER to postgres;

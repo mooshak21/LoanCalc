@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ayushi.loan.NewsObject" table="news_object" polymorphism="implicit">
+
+        <composite-id>
+            <key-property name="offerId" column="offer_id" type="java.lang.Long"/>
+        </composite-id>
+
+        <discriminator>
+            <column name="DISCRIMINATOR"/>
+        </discriminator>
+
+        <property name="newsType" type="java.lang.String">
+            <column name="news_type" length="20" not-null="true" />
+        </property>
+        <property name="bankName" type="java.lang.String">
+            <column name="bank_name" length="100" not-null="true" />
+        </property>
+        <property name="linkUrl" type="java.lang.String">
+            <column name="link_url" length="300" not-null="true" />
+        </property>
+        <property name="loanType" type="java.lang.String">
+            <column name="loan_type" length="100" not-null="true" />
+        </property>
+        <property name="referer" type="java.lang.String">
+            <column name="refferer" length="100" not-null="true" />
+        </property>
+        <property name="region" type="java.lang.String">
+            <column name="region" length="100" not-null="true" />
+        </property>
+        <property name="offerAmount" type="java.lang.Double">
+            <column name="offer_amount" length="100" not-null="true" />
+        </property>
+
+        <property name="offerRate" type="java.lang.Double">
+            <column name="offer_rate" length="100" not-null="true" />
+        </property>
+        <property name="offerStartDate" type="java.util.Calendar">
+            <column name="offer_start_date" not-null="true" />
+        </property>
+        <property name="offerEndDate" type="java.util.Calendar">
+            <column name="offer_end_date" not-null="true"/>
+        </property>
+        <property name="newsTitle" type="java.lang.String">
+            <column name="news_title" length="256" />
+        </property>
+        <subclass name="com.ayushi.loan.Site" discriminator-value="NN"/>
+        <subclass name="com.ayushi.loan.Offer" discriminator-value="OF"/>
+    </class>
+</hibernate-mapping>

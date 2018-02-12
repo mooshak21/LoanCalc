@@ -70,6 +70,11 @@ function checkPasswords(theForm) {
                        <label for="thPreference">Time Horizon Preference: </label>
 		       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="${TimeHorizon}" min="0" max="100" step="0.01" id="thPreference">
                    </div>
+
+                    <div class="form-group">
+                        <label for="usPreference">User Preference: </label>
+                        <input class="form-control resetMe" type="text" name="userPreference" value="${User}" id="usPreference">
+                    </div>
                    
                    <div class="form-group">
                        <label for="email">Email: </label>

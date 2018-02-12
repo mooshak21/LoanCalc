@@ -90,6 +90,15 @@
        <put-attribute name="body" value="/WEB-INF/views/createloan.jsp"/>
      </definition>
 
+    <definition name="siteoffers" extends="loanappminimal.homepage">
+        <put-attribute name="title" value="Enter Site Offers and News "/>
+        <put-attribute name="body" value="/WEB-INF/views/siteoffers.jsp"/>
+    </definition>
+
+    <definition name="bankoffersandnews" extends="loanappminimal.homepage">
+        <put-attribute name="body" value="/WEB-INF/views/bankoffersandnews.jsp"/>
+    </definition>
+
      <definition name="viewpreferences" extends="loanappminimal.homepage">
        <put-attribute name="title" value="View/Edit Preferences"/>
        <put-attribute name="body" value="/WEB-INF/views/viewpreferences.jsp"/>

@@ -43,5 +43,6 @@
 	<subclass name="com.ayushi.loan.preferences.AirPreference" discriminator-value="LT"/>
 	<subclass name="com.ayushi.loan.preferences.PasswordPreference" discriminator-value="PW"/>
  	<subclass name="com.ayushi.loan.preferences.PlanPreference" discriminator-value="PL"/>
+        <subclass name="com.ayushi.loan.preferences.UserPreference" discriminator-value="US"/>
     </class>
 </hibernate-mapping>

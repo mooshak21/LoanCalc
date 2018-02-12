@@ -1,7 +1,4 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
-
-
 <!--            top menu on xs devices-->
          <nav class="navbar navbar-toggleable-md navbar-light bg-faded hidden-sm-up loanMenu" >
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" 
@@ -42,6 +39,11 @@
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanviewask">View Loans</a>
                 </li>
+                <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+                  <li class="nav-item">
+                      <a class="nav-link menuItemXs" href="/siteoffersask">Site Offers</a>
+                  </li>
+                </c:if>
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                   </li>
@@ -91,6 +93,12 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanviewask">View Loans</a>
             </li>
+
+            <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+                <li class="nav-item">
+                    <a class="nav-link menuItem" href="/siteoffersask">Site Offers</a>
+                </li>
+            </c:if>
             
            <li class="nav-item">
                 <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
