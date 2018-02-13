@@ -125,6 +125,8 @@
  .nisl_add_div {
      border: 1px solid #ddd;
      margin-bottom: 15px;
+     max-height: 240px;
+     overflow: auto;
  }
  .nisl_add_div table {
      margin-bottom: 0;
