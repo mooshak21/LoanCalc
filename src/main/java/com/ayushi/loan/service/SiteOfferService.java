@@ -15,5 +15,4 @@ public interface SiteOfferService {
     public void modifyNewsObject(NewsObject newsObject) throws LoanAccessException;
     public void removeNewsObject(NewsObject newsObject) throws LoanAccessException;
     public List<NewsObject> findNewsObject(String query, Object[] objVals) throws LoanAccessException;
-    void setSiteofferDao(com.ayushi.loan.dao.SiteOfferDao siteofferDao);
 }

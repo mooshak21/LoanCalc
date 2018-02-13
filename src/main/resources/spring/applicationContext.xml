@@ -143,15 +143,16 @@
         <property name="loanRelationshipDao" ref="loanRelationshipDao" />
     </bean>
 
-    <bean id="siteofferDao"
+    <bean id="siteOfferDao"
           class="com.ayushi.loan.dao.SiteOfferDao">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="SiteOfferService"
-          class="com.ayushi.loan.service.SiteOfferService">
-        <property name="siteofferDao" ref="siteofferDao" />
+          class="com.ayushi.loan.service.SiteOfferServiceImpl">
+        <property name="siteOfferDao" ref="siteOfferDao" />
     </bean>
+
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
