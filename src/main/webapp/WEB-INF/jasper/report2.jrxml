@@ -100,7 +100,7 @@ group by loan_type) as data ;]]>
 				</piePlot>
 			</pieChart>
 			<staticText>
-				<reportElement x="10" y="12" width="270" height="58" uuid="7a10dadb-f5b7-4c9e-8b09-6996fbf6812a"/>
+				<reportElement x="0" y="12" width="300" height="60" uuid="7a10dadb-f5b7-4c9e-8b09-6996fbf6812a"/>
 				<textElement textAlignment="Center">
 					<font size="32"/>
 					<paragraph spacingBefore="15"/>
