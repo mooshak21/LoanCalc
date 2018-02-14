@@ -72,13 +72,13 @@ group by loan_type) as data ;]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="68" splitType="Stretch"/>
+		<band height="50" splitType="Stretch"/>
 	</title>
 	<detail>
-		<band height="374" splitType="Stretch">
+		<band height="425" splitType="Stretch">
 			<pieChart>
 				<chart>
-					<reportElement x="0" y="82" width="300" height="287" uuid="863efccf-8c8d-4db0-89f6-9329000dd239"/>
+					<reportElement x="0" y="138" width="300" height="287" uuid="863efccf-8c8d-4db0-89f6-9329000dd239"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -100,15 +100,15 @@ group by loan_type) as data ;]]>
 				</piePlot>
 			</pieChart>
 			<staticText>
-				<reportElement x="0" y="12" width="300" height="60" uuid="7a10dadb-f5b7-4c9e-8b09-6996fbf6812a"/>
+				<reportElement x="23" y="62" width="250" height="64" uuid="7a10dadb-f5b7-4c9e-8b09-6996fbf6812a"/>
 				<textElement textAlignment="Center">
-					<font size="32"/>
+					<font size="28"/>
 					<paragraph spacingBefore="15"/>
 				</textElement>
 				<text><![CDATA[Debts By Category]]></text>
 			</staticText>
 		</band>
-		<band height="273">
+		<band height="230">
 			<componentElement>
 				<reportElement key="table 1" style="table 1" x="0" y="16" width="160" height="54" uuid="dede88b4-4a5c-42a1-ac8b-230030ea8539"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
