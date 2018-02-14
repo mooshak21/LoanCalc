@@ -27,14 +27,22 @@
                     </div>
 
                      <div class="form-group">
-                         <label for="region">Region: </label>
-                         <input class="form-control resetMe" type="text" name="region" value="${loan.region}" id="region" required="true">
+                         <label for="state">State: </label>
+                         <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state" required="true">
                      </div>
 
-                    <div class="form-group">
-                        <label for="state">State: </label>
-                         <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state" required="true">
-                    </div>
+                     <div class="form-group">
+                         <label for="region">Region:</label>
+                         <select class="form-control resetMe" name="region" required="true" id="region">
+                             <option value="">Choose Region</option>
+                             <option value="USA"  ${region == 'USA' ? 'selected' : ''}>USA</option>
+                             <option value="India"  ${region == 'India' ? 'selected' : ''}>India</option>
+                             <option value="Japan" ${region == 'Japan' ? 'selected' : ''}>Japan</option>
+                             <option value="China"  ${region == 'China' ? 'selected' : ''}>China</option>
+                             <option value="UK"  ${region == 'UK' ? 'selected' : ''}>UK</option>
+                             <option value="South Africa" ${region == 'South Africa' ? 'selected' : ''}>South Africa</option>
+                         </select>
+                     </div>
 
                     <div class="form-group">
                         <label for="interestRate">Annual Interest Rate: </label>
