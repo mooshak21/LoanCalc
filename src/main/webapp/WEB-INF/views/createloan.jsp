@@ -35,12 +35,12 @@
                          <label for="region">Region:</label>
                          <select class="form-control resetMe" name="region" required="true" id="region">
                              <option value="">Choose Region</option>
-                             <option value="USA"  ${region == 'USA' ? 'selected' : ''}>USA</option>
-                             <option value="India"  ${region == 'India' ? 'selected' : ''}>India</option>
-                             <option value="Japan" ${region == 'Japan' ? 'selected' : ''}>Japan</option>
-                             <option value="China"  ${region == 'China' ? 'selected' : ''}>China</option>
-                             <option value="UK"  ${region == 'UK' ? 'selected' : ''}>UK</option>
-                             <option value="South Africa" ${region == 'South Africa' ? 'selected' : ''}>South Africa</option>
+                             <option value="USA"  ${loan.region == 'USA' ? 'selected' : ''}>USA</option>
+                             <option value="India"  ${loan.region == 'India' ? 'selected' : ''}>India</option>
+                             <option value="Japan" ${loan.region == 'Japan' ? 'selected' : ''}>Japan</option>
+                             <option value="China"  ${loan.region == 'China' ? 'selected' : ''}>China</option>
+                             <option value="UK"  ${loan.region == 'UK' ? 'selected' : ''}>UK</option>
+                             <option value="South Africa" ${loan.region == 'South Africa' ? 'selected' : ''}>South Africa</option>
                          </select>
                      </div>
 
