@@ -76,6 +76,7 @@
                 <value>spring/LoanAgg.hbm.xml </value>
                 <value>spring/LoanRelationship.hbm.xml </value>
                 <value>spring/Preference.hbm.xml </value>
+                <value>spring/NewsObject.hbm.xml </value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -122,6 +123,7 @@
           class="com.ayushi.loan.service.PreferenceService">
         <property name="preferenceDao" ref="preferenceDao" />
     </bean>
+
     <bean id="loanAggDao"
           class="com.ayushi.loan.dao.LoanAggDao">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -140,6 +142,17 @@
           class="com.ayushi.loan.service.LoanRelationshipServiceImpl">
         <property name="loanRelationshipDao" ref="loanRelationshipDao" />
     </bean>
+
+    <bean id="siteOfferDao"
+          class="com.ayushi.loan.dao.SiteOfferDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="SiteOfferService"
+          class="com.ayushi.loan.service.SiteOfferServiceImpl">
+        <property name="siteOfferDao" ref="siteOfferDao" />
+    </bean>
+
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">

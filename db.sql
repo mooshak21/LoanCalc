@@ -150,3 +150,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.news_object
   OWNER to postgres;
+
+ALTER TABLE  news_object
+  ALTER COLUMN link_url TYPE character varying(700);
