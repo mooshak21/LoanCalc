@@ -1497,7 +1497,8 @@ public class LoanCalculatorController implements ServletContextAware {
                     checkUserPrefernece(model, prefs);
                     return "amortizeloan";
                 } else {
-                    searchLoanBasedOnEmail(emailCookie, model);
+                    searchLoanBasedOnEmail(email, model);
+                    logger.debug("Model on Search Loan Based on Email"+ model);
                     return "bankoffersandnews";
                 }
 
@@ -1532,8 +1533,10 @@ public class LoanCalculatorController implements ServletContextAware {
             queryVals = queryValList.toArray(queryVals);
             LoanService loanService = (LoanService) appCtx.getBean("loanService");
             loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
+            logger.debug("loans"+loans);
         } catch (LoanAccessException lae) {
             lae.printStackTrace();
+            logger.error(lae.getMessage());
             model.addAttribute("message", "Search Loan Failed!");
         }
         if (loans != null && loans.size() > 0) {
@@ -1990,8 +1993,11 @@ public class LoanCalculatorController implements ServletContextAware {
                         }
                     }
                 }
+                logger.debug("siteOffers"+siteoffers);
+                logger.debug("newsArticles"+newsarticle);
             } catch (LoanAccessException ex) {
                 ex.printStackTrace();
+                logger.error(ex);
                 model.addAttribute("message", "Search offers Failed!");
             }
             model.addAttribute("region", region);
