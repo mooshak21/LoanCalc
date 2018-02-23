@@ -5,10 +5,6 @@
  */
 package com.ayushi.loan.preferences;
 
-/**
- *
- * @author Daniel Gago
- */
 public class UserPreference extends Preference{
 
     public UserPreference() {

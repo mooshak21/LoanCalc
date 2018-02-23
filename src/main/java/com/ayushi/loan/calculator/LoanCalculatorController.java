@@ -77,32 +77,7 @@ public class LoanCalculatorController implements ServletContextAware {
             request.getCookies();
             return "login";
         } else {
-            ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-            StringBuffer querySB = new StringBuffer();
-            java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
-            Object[] queryVals = null;
-            java.util.List<Serializable> loans = null;
-            if (emailCookie != null && !emailCookie.equals("")) {
-                querySB.append("ln.email=?");
-                queryValList.add(emailCookie);
-            }
-            try {
-                queryVals = new Object[queryValList.size()];
-                queryVals = queryValList.toArray(queryVals);
-                LoanService loanService = (LoanService) appCtx.getBean("loanService");
-                loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
-            } catch (LoanAccessException lae) {
-                lae.printStackTrace();
-                model.addAttribute("message", "Search Loan Failed!");
-            }
-            if (loans != null && loans.size() > 0) {
-                Loan searchLoan = (Loan) loans.get(0);
-                model.addAttribute("region", searchLoan.getRegion());
-                model.addAttribute("loanType", searchLoan.getLoanType());
-                searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(), emailCookie, model);
-            }
-            List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
-            checkUserPrefernece(model, prefs1);
+            searchLoanBasedOnEmail(emailCookie, model);
             return "bankoffersandnews";
         }
     }
@@ -1522,9 +1497,9 @@ public class LoanCalculatorController implements ServletContextAware {
                     checkUserPrefernece(model, prefs);
                     return "amortizeloan";
                 } else {
-                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-                    checkUserPrefernece(model, prefs);
-                    return "index";
+                    searchLoanBasedOnEmail(email, model);
+                    logger.debug("Model on Search Loan Based on Email"+ model);
+                    return "bankoffersandnews";
                 }
 
             } else if (!loginAttempt.equals("0")) {
@@ -1541,6 +1516,37 @@ public class LoanCalculatorController implements ServletContextAware {
         checkUserPrefernece(model, prefs);
         model.addAttribute("message", "Login Form");
         return "login";
+    }
+
+    private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        StringBuffer querySB = new StringBuffer();
+        List<Object> queryValList = new ArrayList<Object>();
+        Object[] queryVals = null;
+        List<Serializable> loans = null;
+        if (emailCookie != null && !emailCookie.equals("")) {
+            querySB.append("ln.email=?");
+            queryValList.add(emailCookie);
+        }
+        try {
+            queryVals = new Object[queryValList.size()];
+            queryVals = queryValList.toArray(queryVals);
+            LoanService loanService = (LoanService) appCtx.getBean("loanService");
+            loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
+            logger.debug("loans"+loans);
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            logger.error(lae.getMessage());
+            model.addAttribute("message", "Search Loan Failed!");
+        }
+        if (loans != null && loans.size() > 0) {
+            Loan searchLoan = (Loan) loans.get(0);
+            model.addAttribute("region", searchLoan.getRegion());
+            model.addAttribute("loanType", searchLoan.getLoanType());
+            searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(), emailCookie, model);
+        }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs);
     }
 
     @RequestMapping(value = "/resetpasswordask")
@@ -1987,8 +1993,11 @@ public class LoanCalculatorController implements ServletContextAware {
                         }
                     }
                 }
+                logger.debug("siteOffers"+siteoffers);
+                logger.debug("newsArticles"+newsarticle);
             } catch (LoanAccessException ex) {
                 ex.printStackTrace();
+                logger.error(ex);
                 model.addAttribute("message", "Search offers Failed!");
             }
             model.addAttribute("region", region);
@@ -1998,3 +2007,4 @@ public class LoanCalculatorController implements ServletContextAware {
         }
     }
 }
+

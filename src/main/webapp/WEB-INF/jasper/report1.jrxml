@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="400" pageHeight="900" columnWidth="400" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="60640ff5-66db-442d-948f-be8c19884854">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="288"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -48,11 +48,12 @@
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString>
-			<![CDATA[Select loan_type,total,(total * 100 / SUM(total) OVER ()) AS percentage from (Select loan_type, sum(ln.loan_amt) as total from loan_relationship lr,loan ln,loanagg lg where lr.loan_agg_id=lg.loan_agg_id and ln.loan_id=lr.loan_id and lg.loan_agg_id =$P{loanAggId}
-group by loan_type) as data ;]]>
+			<![CDATA[Select loan_type,total,loan_denom,(total * 100 / SUM(total) OVER ()) AS percentage from (Select loan_type, sum(ln.loan_amt) as total,loan_denom from loan_relationship lr,loan ln,loanagg lg where lr.loan_agg_id=lg.loan_agg_id and ln.loan_id=lr.loan_id and lg.loan_agg_id =$P{loanAggId}
+group by loan_type,loan_denom) as data ;]]>
 		</queryString>
 		<field name="loan_type" class="java.lang.String"/>
 		<field name="total" class="java.lang.Double"/>
+		<field name="loan_denom" class="java.lang.String"/>
 		<field name="percentage" class="java.lang.Double"/>
 		<group name="loan_type">
 			<groupExpression><![CDATA[$F{loan_type}]]></groupExpression>
@@ -109,7 +110,7 @@ group by loan_type) as data ;]]>
 		</band>
 		<band height="273">
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="54" y="0" width="346" height="50" uuid="dede88b4-4a5c-42a1-ac8b-230030ea8539"/>
+				<reportElement key="table 1" style="table 1" x="26" y="0" width="332" height="50" uuid="dede88b4-4a5c-42a1-ac8b-230030ea8539"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="data" uuid="2d3d56e8-adbb-431a-837f-b9d450d62e1f">
 						<datasetParameter name="loanAggId">
@@ -117,21 +118,21 @@ group by loan_type) as data ;]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="102" uuid="8e80e9cd-554c-436d-8dc8-2d10527dcb01">
+					<jr:column width="98" uuid="8e80e9cd-554c-436d-8dc8-2d10527dcb01">
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="4df6716e-b124-4d32-ab01-3301d0bfb30e"/>
+								<reportElement x="3" y="0" width="94" height="30" uuid="4df6716e-b124-4d32-ab01-3301d0bfb30e"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Category]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField>
-								<reportElement x="12" y="0" width="90" height="20" uuid="c41a4745-5ef5-4ec5-a6c6-31e2ee5c9c6d"/>
-								<textElement>
-									<font size="14"/>
+								<reportElement x="4" y="0" width="90" height="20" uuid="c41a4745-5ef5-4ec5-a6c6-31e2ee5c9c6d"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{loan_type}]]></textFieldExpression>
 							</textField>
@@ -142,36 +143,57 @@ group by loan_type) as data ;]]>
 							<staticText>
 								<reportElement x="0" y="0" width="101" height="30" uuid="9bbfdafe-12fd-4b5d-bf61-f98c70d2c68e"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="false"/>
+									<font size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Amount]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField pattern="###0.00;-###0.00">
 								<reportElement x="11" y="0" width="90" height="20" uuid="5afd70d3-6031-4794-a5c9-3fb7f9e3fded"/>
-								<textElement>
-									<font size="14"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="d43b75d1-0dcb-4a70-9003-62146f96e903">
+					<jr:column width="90" uuid="49962c43-c181-4e87-8976-a373775844a3">
 						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="30" uuid="4df4e1d5-fba0-4e3d-8277-1e4506cc92d5"/>
+								<reportElement mode="Transparent" x="0" y="0" width="90" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="de807914-3aac-467e-802e-0a31823c4efd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<text><![CDATA[Denomination]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="692b43c8-2d41-4a61-baee-fd89567d30c7"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{loan_denom}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="67" uuid="d43b75d1-0dcb-4a70-9003-62146f96e903">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="67" height="30" uuid="4df4e1d5-fba0-4e3d-8277-1e4506cc92d5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font isBold="true"/>
+									<font size="12" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Pct %]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 							<textField pattern="###0.00">
-								<reportElement x="8" y="0" width="82" height="20" uuid="9375f66b-7f3b-4b70-86fe-889532c8c4f8"/>
-								<textElement>
-									<font size="14"/>
+								<reportElement x="0" y="0" width="67" height="30" uuid="9375f66b-7f3b-4b70-86fe-889532c8c4f8"/>
+								<textElement textAlignment="Center">
+									<font size="12"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{percentage}]]></textFieldExpression>
 							</textField>
