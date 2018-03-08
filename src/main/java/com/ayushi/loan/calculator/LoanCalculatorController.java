@@ -2004,6 +2004,13 @@ public class LoanCalculatorController implements ServletContextAware {
         }
     }
 
+
+    @RequestMapping(value = "/payment")
+    public String payment(Model model) {
+
+        return "payment";
+    }
+
     @RequestMapping(value = "/vieweditpayment", method = RequestMethod.POST)
     public String vieweditpayment(
             @RequestParam("paymentType") String paymentType,
