@@ -72,7 +72,7 @@
 
                     <div class="form-group">
                         <label for="payPalAuthPersonName">PayPal Password:</label>
-                        <input class="form-control resetMe" type="text" name="payPalPassword" value="${payPalPassword}" id="payPalPassword">
+                        <input class="form-control resetMe" type="password" name="payPalPassword" value="${payPalPassword}" id="payPalPassword">
                     </div>
 
 		<div class="card-block">
