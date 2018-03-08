@@ -23,7 +23,7 @@
 
                    <div class="form-group">
                        <label for="paypalAcctNum">PayPal Account Number:</label>
-                       <input class="form-control resetMe" type="number" name="paypalAcctNum" value="${payPalAccountNumber}" min="1" max="100" id="paypalAcctNum">
+                       <input class="form-control resetMe"  name="paypalAcctNum" value="${payPalAccountNumber}" id="paypalAcctNum">
                    </div>
 
                    <div class="form-group">
@@ -48,64 +48,15 @@
 
                    
                     <div class="form-group">
-                        <label for="paymentfreq">Payment Frequency: </label>
-                        <select  class="form-control resetMe" id="paymentfreq" name="paymentfreq">
-                            <c:if test="${paymentFrequency eq 'NoRemind'}">
+                        <label for="paymentFrequency">Payment Frequency: </label>
+                        <select  class="form-control resetMe" id="paymentFrequency" name="paymentFrequency">
                                 <option value="NoRemind" selected>No Remind</option>
                                 <option value="Weekly">Weekly</option>
                                 <option value="Monthly">Monthly</option>
                                 <option value="Quarterly" >Quarterly</option>
                                 <option value="Semi-Annually" >Semi-Annually</option>
                                 <option value="Annually" >Annually</option>
-                            </c:if>
-                            <c:if test="${paymentFrequency eq 'Weekly'}">
-                                <option value="NoRemind">No Remind</option>
-                                <option value="Weekly" selected>Weekly</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Quarterly" >Quarterly</option>
-                                <option value="Semi-Annually" >Semi-Annually</option>
-                                <option value="Annually" >Annually</option>
-                            </c:if>
-                            <c:if test="${paymentFrequency eq 'Monthly'}">
-                                 <option value="NoRemind">No Remind</option>
-                                <option value="Weekly" >Weekly</option>
-                                <option value="Monthly" selected>Monthly</option>
-                                <option value="Quarterly" >Quarterly</option>
-                                <option value="Semi-Annually" >Semi-Annually</option>
-                                <option value="Annually" >Annually</option>
-                            </c:if>
-                            <c:if test="${paymentFrequency eq 'Quarterly'}">
-                                 <option value="NoRemind">No Remind</option>
-                                <option value="Weekly" >Weekly</option>
-                                <option value="Monthly" >Monthly</option>
-                                <option value="Quarterly" selected>Quarterly</option>
-                                <option value="Semi-Annually" >Semi-Annually</option>
-                                <option value="Annually" >Annually</option>
-                            </c:if>
-                             <c:if test="${paymentFrequency eq 'Semi-Annually'}">
-                                 <option value="NoRemind">No Remind</option>
-                                <option value="Weekly" >Weekly</option>
-                                <option value="Monthly" >Monthly</option>
-                                <option value="Quarterly" >Quarterly</option>
-                                <option value="Semi-Annually" selected>Semi-Annually</option>
-                                <option value="Annually" >Annually</option>
-                            </c:if>
-                            <c:if test="${paymentFrequency eq 'Annually'}">
-                                 <option value="NoRemind">No Remind</option>
-                                <option value="Weekly" >Weekly</option>
-                                <option value="Monthly" >Monthly</option>
-                                <option value="Quarterly" >Quarterly</option>
-                                <option value="Semi-Annually">Semi-Annually</option>
-                                <option value="Annually" selected>Annually</option>
-                            </c:if>
-                            <c:if test="${paymentFrequency eq ''}">
-                                <option value="NoRemind" selected>No Remind</option>
-                                <option value="Weekly" >Weekly</option>
-                                <option value="Monthly" >Monthly</option>
-                                <option value="Quarterly" >Quarterly</option>
-                                <option value="Semi-Annually">Semi-Annually</option>
-                                <option value="Annually">Annually</option>
-                            </c:if>
+
                         </select>
                     </div>
 
