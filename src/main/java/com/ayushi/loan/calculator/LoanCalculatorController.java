@@ -1,5 +1,6 @@
 package com.ayushi.loan.calculator;
 
+import com.ayushi.loan.exception.*;
 import com.ayushi.loan.preferences.*;
 import com.ayushi.loan.service.*;
 import net.sf.jasperreports.engine.*;
@@ -35,10 +36,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ayushi.loan.*;
-import com.ayushi.loan.exception.EmailServiceException;
-import com.ayushi.loan.exception.LoanAccessException;
-import com.ayushi.loan.exception.PreferenceAccessException;
-import com.ayushi.loan.exception.PreferenceProcessException;
 
 import javax.servlet.http.Cookie;
 
@@ -2005,6 +2002,61 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("siteoffers", siteoffers);
             model.addAttribute("newsarticle", newsarticle);
         }
+    }
+
+    @RequestMapping(value = "/vieweditpayment", method = RequestMethod.POST)
+    public String vieweditpayment(
+            @RequestParam("paymentType") String paymentType,
+            @RequestParam("paypalAcctNum") String paypalAcctNum,
+            @RequestParam("paypalEmailAddress") String paypalEmailAddress,
+            @RequestParam("paymentStartDate") String paymentStartDate,
+            @RequestParam("paymentEndDate") String paymentEndDate,
+            @RequestParam("paymentAmount") Double paymentAmount,
+            @RequestParam("paymentFrequency") String paymentFrequency,
+            @RequestParam("balanceAmount") Double balanceAmount,
+            @RequestParam("payPalAuthPersonName") String payPalAuthPersonName,
+            @RequestParam("payPalPassword") String payPalPassword,
+            HttpServletRequest request, HttpServletResponse response, Model model) {
+
+
+
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        PaymentService paymentService = (PaymentService) appCtx.getBean("paymentService");
+
+        SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
+
+        try {
+            logger.info("Create Payment  "+paymentType);
+
+            if("PayPal".equals(paymentType)){
+
+                PayPalPayment payPalPayment=new PayPalPayment();
+                payPalPayment.setPayPalAccountNumber(paypalAcctNum);
+                payPalPayment.setPayPalAuthPersonName(payPalAuthPersonName);
+                payPalPayment.setPayPalEmailAddress(paypalEmailAddress);
+                payPalPayment.setBalanceAmount(balanceAmount);
+                payPalPayment.setPayPalPassword(payPalPassword);
+                payPalPayment.setPaymentAmount(paymentAmount);
+                payPalPayment.setPaymentStartDate(sdf.parse(paymentStartDate));
+                payPalPayment.setPaymentEndDate(sdf.parse(paymentEndDate));
+                payPalPayment.setPaymentFrequency(paymentFrequency);
+                payPalPayment.setPaymentType("PP");
+
+                paymentService.createPayment(payPalPayment);
+                model.addAttribute("message", "Create Payment Service Success!");
+
+            }else{
+
+            }
+
+
+        } catch (PaymentProcessException  | ParseException pae) {
+            pae.printStackTrace();
+            model.addAttribute("message", "Payment Service Failed!");
+            return "payment";
+        }
+
+        return "payment";
     }
 }
 
