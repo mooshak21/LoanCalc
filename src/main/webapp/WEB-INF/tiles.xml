@@ -149,4 +149,10 @@
     <definition name="aggregateloanreport" extends ="loanappminimal.aggregatereport">
         <put-attribute name="title" value="Loan Aggregation Report"/>
     </definition>
+
+    <definition name="payment" extends="loanappminimal.homepage">
+        <put-attribute name="title" value="View/Edit Payment"/>
+        <put-attribute name="body" value="/WEB-INF/views/payment.jsp"/>
+    </definition>
+
 </tiles-definitions>
