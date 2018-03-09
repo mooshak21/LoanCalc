@@ -125,8 +125,11 @@ ALTER TABLE loan DROP COLUMN currency;
 ALTER TABLE pref ALTER COLUMN pref_value  SET DATA TYPE character varying(300);
 
 ALTER TABLE loan  ADD COLUMN region character varying(20) NOT NULL DEFAULT 'North America';
+<<<<<<< HEAD
 
 -- DROP TABLE public.news_object;
+=======
+>>>>>>> 9659311a8277b0dd6c53d1ab644ac63bbbe30dbc
 
 CREATE TABLE public.news_object
 (
@@ -155,3 +158,25 @@ ALTER TABLE public.news_object
 
 ALTER TABLE  news_object
   ALTER COLUMN link_url TYPE character varying(700);
+
+
+-- Payment table
+  CREATE TABLE public.payment
+(
+    "PAYMENT_ID" bigint NOT NULL,
+    "PAYMENT_TYPE" character varying,
+    "PAYMENT_START_DATE" date,
+    "PAYMENT_END_DATE" date,
+    "PAYMENT_AMOUNT" double precision,
+    "PAYMENT_FREQUENCY" character varying,
+    "BALANCE_AMOUNT" double precision,
+    "PAYPAL_ACCOUNT_NUMBER" character varying,
+    "PAYPAL_EMAIL_ADDRESS" character varying,
+    "PAYPAL_AUTH_PERSON_NAME" character varying,
+    "PAYPAL_PASSWORD" character varying,
+    PRIMARY KEY ("PAYMENT_ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;

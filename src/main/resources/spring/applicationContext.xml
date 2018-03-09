@@ -77,6 +77,7 @@
                 <value>spring/LoanRelationship.hbm.xml </value>
                 <value>spring/Preference.hbm.xml </value>
                 <value>spring/NewsObject.hbm.xml </value>
+                <value>spring/Payment.hbm.xml </value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -151,6 +152,17 @@
     <bean id="SiteOfferService"
           class="com.ayushi.loan.service.SiteOfferServiceImpl">
         <property name="siteOfferDao" ref="siteOfferDao" />
+    </bean>
+
+
+    <bean id="paymentDao"
+          class="com.ayushi.loan.dao.PaymentDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="paymentService"
+          class="com.ayushi.loan.service.PaymentServiceImpl">
+        <property name="paymentDao" ref="paymentDao" />
     </bean>
 
 

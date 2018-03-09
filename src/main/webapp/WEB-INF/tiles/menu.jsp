@@ -48,7 +48,6 @@
 
 
 
-
     </c:if>
 	<c:if test="${(not empty userEmail) and (planSelected == '19.99')}">
                   <li class="nav-item">
@@ -60,9 +59,13 @@
                 </li>
         </c:if>
 
+                  <li class="nav-item">
+                      <a class="nav-link menuItem" href="/payment">Payment</a>
+                  </li>
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
                 </li>
+
 
 
 		  <li class="nav-item">
@@ -108,8 +111,6 @@
             </li>
 
 
-
-
  	</c:if>
             <c:if test="${(not empty userEmail) and (planSelected == '19.99')}">
            <li class="nav-item">
@@ -122,8 +123,13 @@
         </c:if>
 
             <li class="nav-item">
+                <a class="nav-link menuItem" href="/payment">Payment</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
+
 
 	    <li class="nav-item">
 	    	<a class="nav-link menuItem" href="/logout">Log out</a>
