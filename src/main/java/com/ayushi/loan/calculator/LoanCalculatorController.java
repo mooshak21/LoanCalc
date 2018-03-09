@@ -2038,6 +2038,7 @@ public class LoanCalculatorController implements ServletContextAware {
             if("PayPal".equals(paymentType)){
 
                 PayPalPayment payPalPayment=new PayPalPayment();
+                payPalPayment.setPaymentId(System.currentTimeMillis());
                 payPalPayment.setPayPalAccountNumber(paypalAcctNum);
                 payPalPayment.setPayPalAuthPersonName(payPalAuthPersonName);
                 payPalPayment.setPayPalEmailAddress(paypalEmailAddress);
