@@ -14,7 +14,7 @@
             <column name="DISCRIMINATOR" />
         </discriminator>
 
-        <property name="paymentFrequency" type="java.lang.String">
+        <property name="paymentType" type="java.lang.String">
             <column name="PAYMENT_TYPE"  not-null="true" />
         </property>
 
