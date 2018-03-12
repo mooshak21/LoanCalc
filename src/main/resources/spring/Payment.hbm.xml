@@ -11,8 +11,12 @@
         </id>
 
         <discriminator>
-            <column name="PAYMENT_TYPE" />
+            <column name="DISCRIMINATOR" />
         </discriminator>
+
+        <property name="paymentFrequency" type="java.lang.String">
+            <column name="PAYMENT_TYPE"  not-null="true" />
+        </property>
 
         <property name="paymentStartDate" type="java.util.Date">
             <column name="PAYMENT_START_DATE" not-null="true" />
