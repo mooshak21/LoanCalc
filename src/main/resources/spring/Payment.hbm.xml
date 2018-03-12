@@ -3,38 +3,42 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.ayushi.loan.Payment" table="payment" polymorphism="implicit">
+    <class name="com.ayushi.loan.Payment" table="payment">
 
         <id name="paymentId" type="java.lang.Long">
-            <column name="PAYMENT_ID" />
-            <generator class="assigned" />
+            <column name="PAYMENT_ID"/>
+            <generator class="assigned"/>
         </id>
 
         <discriminator>
-            <column name="PAYMENT_TYPE" />
+            <column name="DISCRIMINATOR"/>
         </discriminator>
 
+        <property name="paymentType" type="java.lang.String">
+            <column name="PAYMENT_TYPE" not-null="true"/>
+        </property>
+
         <property name="paymentStartDate" type="java.util.Date">
-            <column name="PAYMENT_START_DATE" not-null="true" />
+            <column name="PAYMENT_START_DATE" not-null="true"/>
         </property>
         <property name="paymentEndDate" type="java.util.Date">
             <column name="PAYMENT_END_DATE" not-null="true"/>
         </property>
         <property name="paymentAmount" type="java.lang.Double">
-            <column name="PAYMENT_AMOUNT"  not-null="true" />
+            <column name="PAYMENT_AMOUNT" not-null="true"/>
         </property>
         <property name="paymentFrequency" type="java.lang.String">
-            <column name="PAYMENT_FREQUENCY" length="300" not-null="true" />
+            <column name="PAYMENT_FREQUENCY" not-null="true"/>
         </property>
         <property name="balanceAmount" type="java.lang.Double">
-            <column name="BALANCE_AMOUNT"   />
+            <column name="BALANCE_AMOUNT"/>
         </property>
 
         <subclass name="com.ayushi.loan.PayPalPayment" discriminator-value="PP">
-            <property name="payPalAccountNumber" column="PAYPAL_ACCOUNT_NUMBER"/>
-            <property name="payPalEmailAddress" column="PAYPAL_EMAIL_ADDRESS"/>
-            <property name="payPalAuthPersonName" column="PAYPAL_AUTH_PERSON_NAME"/>
-            <property name="payPalPassword" column="PAYPAL_PASSWORD"/>
+            <property name="payPalAccountNumber" type="java.lang.String" column="PAYPAL_ACCOUNT_NUMBER"/>
+            <property name="payPalEmailAddress" type="java.lang.String" column="PAYPAL_EMAIL_ADDRESS"/>
+            <property name="payPalAuthPersonName" type="java.lang.String" column="PAYPAL_AUTH_PERSON_NAME"/>
+            <property name="payPalPassword" type="java.lang.String" column="PAYPAL_PASSWORD"/>
         </subclass>
 
     </class>

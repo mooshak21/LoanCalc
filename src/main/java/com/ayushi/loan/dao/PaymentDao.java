@@ -26,7 +26,7 @@ public class PaymentDao  {
 	public Serializable insert(Object o) throws PaymentProcessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			ht.saveOrUpdate(o);
+			ht.save(o);
 		}catch(DataAccessException dae){
 			throw new PaymentProcessException(dae);
 		}

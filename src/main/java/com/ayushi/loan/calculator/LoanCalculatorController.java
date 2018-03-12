@@ -2048,7 +2048,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 payPalPayment.setPaymentStartDate(sdf.parse(paymentStartDate));
                 payPalPayment.setPaymentEndDate(sdf.parse(paymentEndDate));
                 payPalPayment.setPaymentFrequency(paymentFrequency);
-                payPalPayment.setPaymentType("PP");
+                payPalPayment.setPaymentType(paymentType);
 
                 paymentService.createPayment(payPalPayment);
                 model.addAttribute("message", "Create Payment Service Success!");
