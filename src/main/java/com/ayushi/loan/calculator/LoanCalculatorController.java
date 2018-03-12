@@ -2018,9 +2018,9 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("paypalEmailAddress") String paypalEmailAddress,
             @RequestParam("paymentStartDate") String paymentStartDate,
             @RequestParam("paymentEndDate") String paymentEndDate,
-            @RequestParam("paymentAmount") Double paymentAmount,
+            @RequestParam("paymentAmount") String paymentAmount,
             @RequestParam("paymentFrequency") String paymentFrequency,
-            @RequestParam("balanceAmount") Double balanceAmount,
+            @RequestParam("balanceAmount") String balanceAmount,
             @RequestParam("payPalAuthPersonName") String payPalAuthPersonName,
             @RequestParam("payPalPassword") String payPalPassword,
             HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -2042,9 +2042,9 @@ public class LoanCalculatorController implements ServletContextAware {
                 payPalPayment.setPayPalAccountNumber(paypalAcctNum);
                 payPalPayment.setPayPalAuthPersonName(payPalAuthPersonName);
                 payPalPayment.setPayPalEmailAddress(paypalEmailAddress);
-                payPalPayment.setBalanceAmount(balanceAmount);
+                payPalPayment.setBalanceAmount(Double.valueOf(balanceAmount));
                 payPalPayment.setPayPalPassword(payPalPassword);
-                payPalPayment.setPaymentAmount(paymentAmount);
+                payPalPayment.setPaymentAmount(Double.valueOf(paymentAmount));
                 payPalPayment.setPaymentStartDate(sdf.parse(paymentStartDate));
                 payPalPayment.setPaymentEndDate(sdf.parse(paymentEndDate));
                 payPalPayment.setPaymentFrequency(paymentFrequency);
