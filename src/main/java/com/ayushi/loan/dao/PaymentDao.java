@@ -1,5 +1,6 @@
 package com.ayushi.loan.dao;
 
+import com.ayushi.loan.Payment;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.exception.PaymentProcessException;
 import org.hibernate.SessionFactory;
@@ -23,11 +24,12 @@ public class PaymentDao  {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
-	public Serializable insert(Object o) throws PaymentProcessException{
+	public Serializable insert(Payment o) throws PaymentProcessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.save(o);
 		}catch(DataAccessException dae){
+			dae.printStackTrace();
 			throw new PaymentProcessException(dae);
 		}
         return null;
