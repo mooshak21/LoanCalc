@@ -2045,8 +2045,12 @@ public class LoanCalculatorController implements ServletContextAware {
                 payPalPayment.setBalanceAmount(Double.valueOf(balanceAmount));
                 payPalPayment.setPayPalPassword(payPalPassword);
                 payPalPayment.setPaymentAmount(Double.valueOf(paymentAmount));
-                payPalPayment.setPaymentStartDate(sdf.parse(paymentStartDate));
-                payPalPayment.setPaymentEndDate(sdf.parse(paymentEndDate));
+                Calendar pmtStartDate = Calendar.getInstance();
+                pmtStartDate.setTime(sdf.parse(paymentStartDate));
+                payPalPayment.setPaymentStartDate(pmtStartDate);
+                Calendar pmtEndDate = Calendar.getInstance();
+                pmtEndDate.setTime(sdf.parse(paymentStartDate));
+                payPalPayment.setPaymentEndDate(pmtEndDate);
                 payPalPayment.setPaymentFrequency(paymentFrequency);
                 payPalPayment.setPaymentType(paymentType);
 

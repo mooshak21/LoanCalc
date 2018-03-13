@@ -1,6 +1,7 @@
 package com.ayushi.loan;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -11,8 +12,8 @@ public abstract class Payment implements Serializable {
     protected static final long serialVersionUID = 1L;
     private Long paymentId;
     private String paymentType;
-    private Date paymentStartDate;
-    private Date paymentEndDate;
+    private Calendar paymentStartDate;
+    private Calendar paymentEndDate;
     private Double paymentAmount;
     private String paymentFrequency;
     private Double balanceAmount;
@@ -20,7 +21,7 @@ public abstract class Payment implements Serializable {
     public Payment() {
     }
 
-    public Payment(Long paymentId, String paymentType, Date paymentStartDate, Date paymentEndDate, Double paymentAmount, String paymentFrequency, Double balanceAmount) {
+    public Payment(Long paymentId, String paymentType, Calendar paymentStartDate, Calendar paymentEndDate, Double paymentAmount, String paymentFrequency, Double balanceAmount) {
         this.paymentId = paymentId;
         this.paymentType = paymentType;
         this.paymentStartDate = paymentStartDate;
@@ -50,19 +51,19 @@ public abstract class Payment implements Serializable {
         this.paymentType = paymentType;
     }
 
-    public Date getPaymentStartDate() {
+    public Calendar getPaymentStartDate() {
         return paymentStartDate;
     }
 
-    public void setPaymentStartDate(Date paymentStartDate) {
+    public void setPaymentStartDate(Calendar paymentStartDate) {
         this.paymentStartDate = paymentStartDate;
     }
 
-    public Date getPaymentEndDate() {
+    public Calendar getPaymentEndDate() {
         return paymentEndDate;
     }
 
-    public void setPaymentEndDate(Date paymentEndDate) {
+    public void setPaymentEndDate(Calendar paymentEndDate) {
         this.paymentEndDate = paymentEndDate;
     }
 

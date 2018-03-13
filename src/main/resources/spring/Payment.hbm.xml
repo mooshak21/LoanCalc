@@ -18,10 +18,10 @@
             <column name="PAYMENT_TYPE" not-null="true"/>
         </property>
 
-        <property name="paymentStartDate" type="java.util.Date">
+        <property name="paymentStartDate" type="java.util.Calendar">
             <column name="PAYMENT_START_DATE" not-null="true"/>
         </property>
-        <property name="paymentEndDate" type="java.util.Date">
+        <property name="paymentEndDate" type="java.util.Calendar">
             <column name="PAYMENT_END_DATE" not-null="true"/>
         </property>
         <property name="paymentAmount" type="java.lang.Double">
