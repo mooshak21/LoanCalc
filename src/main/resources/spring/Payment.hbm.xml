@@ -15,7 +15,7 @@
         </discriminator>
 
         <property name="paymentType" type="java.lang.String">
-            <column name="PAYMENT_TYPE" not-null="true"/>
+            <column name="PAYMENT_TYPE" />
         </property>
 
         <property name="paymentStartDate" type="java.util.Calendar">
