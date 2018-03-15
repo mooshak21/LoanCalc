@@ -2108,7 +2108,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 // Charge_models
                 ChargeModels chargeModels = new com.paypal.api.payments.ChargeModels();
-                chargeModels.setType("INFINITE");
+                chargeModels.setType("SHIPPING");
                 chargeModels.setAmount(currency);
                 List<ChargeModels> chargeModelsList = new ArrayList<ChargeModels>();
                 chargeModelsList.add(chargeModels);
