@@ -2059,7 +2059,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 Plan plan = new Plan();
                 plan.setName("Ayushi Loan calculator");
                 plan.setDescription("LoanInsight Online");
-                plan.setType("fixed");
+                plan.setType("SHIPPING");
 
 // Payment_definitions
                 PaymentDefinition paymentDefinition = new PaymentDefinition();
