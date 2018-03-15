@@ -33,12 +33,12 @@
 
                    <div class="form-group">
                        <label for="paymentStartDate">Payment Start Date: </label>
-                        <input class="form-control resetMe" type="text" name="paymentStartDate" value="${paymentStartDate}" id="paymentStartDate">
+                        <input class="form-control resetMe" type="date" placeholder="dd-MM-yyyy" name="paymentStartDate" value="${paymentStartDate}" id="paymentStartDate">
                    </div>
 
                    <div class="form-group">
                        <label for="paymentEndDate">Payment End Date: </label>
-                       <input class="form-control resetMe" type="text" name="paymentEndDate" value="${paymentEndDate}" id="paymentEndDate">
+                       <input class="form-control resetMe" type="date" placeholder="dd-MM-yyyy" name="paymentEndDate" value="${paymentEndDate}" id="paymentEndDate">
                    </div>
 
                    <div class="form-group">
