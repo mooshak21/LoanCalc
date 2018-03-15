@@ -2098,7 +2098,7 @@ public class LoanCalculatorController implements ServletContextAware {
                  * which specifies the total number of billing cycles in the regular payment period. If you either do not specify a value or specify the value 0,
                  * the payments continue until PayPal (or the buyer) cancels or suspends the profile
                  */
-                paymentDefinition.setCycles("0");
+                paymentDefinition.setCycles("12");
 
 // Currency
                 Currency currency = new Currency();
