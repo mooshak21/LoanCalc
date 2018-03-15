@@ -11,17 +11,13 @@ public class PayPalPayment extends Payment {
     private String payPalEmailAddress;
     private String payPalAuthPersonName;
     private String payPalPassword;
+    private String payPalPlanId;
+    private String payPalAgreementId;
 
     public PayPalPayment() {
         super();
     }
 
-    public PayPalPayment(String payPalAccountNumber, String payPalEmailAddress, String payPalAuthPersonName, String payPalPassword) {
-        this.payPalAccountNumber = payPalAccountNumber;
-        this.payPalEmailAddress = payPalEmailAddress;
-        this.payPalAuthPersonName = payPalAuthPersonName;
-        this.payPalPassword = payPalPassword;
-    }
 
     public String getPayPalAccountNumber() {
         return payPalAccountNumber;
@@ -53,5 +49,22 @@ public class PayPalPayment extends Payment {
 
     public void setPayPalPassword(String payPalPassword) {
         this.payPalPassword = payPalPassword;
+    }
+
+
+    public String getPayPalPlanId() {
+        return payPalPlanId;
+    }
+
+    public void setPayPalPlanId(String payPalPlanId) {
+        this.payPalPlanId = payPalPlanId;
+    }
+
+    public String getPayPalAgreementId() {
+        return payPalAgreementId;
+    }
+
+    public void setPayPalAgreementId(String payPalAgreementId) {
+        this.payPalAgreementId = payPalAgreementId;
     }
 }

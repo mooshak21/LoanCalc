@@ -348,6 +348,12 @@
 			<version>9.4.1.v20170120</version>
 		</dependency>
 
+		<!-- Paypa REST SDK -->
+		<dependency>
+			<groupId>com.paypal.sdk</groupId>
+			<artifactId>rest-api-sdk</artifactId>
+			<version>LATEST</version>
+		</dependency>
 
 
 	</dependencies>

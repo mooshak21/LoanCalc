@@ -39,6 +39,8 @@
             <property name="payPalEmailAddress" type="java.lang.String" column="PAYPAL_EMAIL_ADDRESS"/>
             <property name="payPalAuthPersonName" type="java.lang.String" column="PAYPAL_AUTH_PERSON_NAME"/>
             <property name="payPalPassword" type="java.lang.String" column="PAYPAL_PASSWORD"/>
+            <property name="payPalPlanId" type="java.lang.String" column="PAYPAL_PLANID"/>
+            <property name="payPalAgreementId" type="java.lang.String" column="PAYPAL_AGREEMENTID"/>
         </subclass>
 
     </class>

@@ -3,6 +3,9 @@ package com.ayushi.loan.calculator;
 import com.ayushi.loan.exception.*;
 import com.ayushi.loan.preferences.*;
 import com.ayushi.loan.service.*;
+import com.paypal.api.payments.*;
+import com.paypal.api.payments.Currency;
+import com.paypal.base.rest.APIContext;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
@@ -19,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -40,8 +45,12 @@ import com.ayushi.loan.*;
 import javax.servlet.http.Cookie;
 
 import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.mindrot.jbcrypt.BCrypt;
+
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.PayPalRESTException;
 
 
 @Controller
@@ -58,6 +67,11 @@ public class LoanCalculatorController implements ServletContextAware {
 
     private static final Logger logger = Logger.getLogger(LoanCalculatorController.class);
 
+
+    // PayPal client ID and secret
+    String clientId = "ATA-TNQRo-8wO-APHyJVCruKLJe137gre0Tfbf8rDmN8a_e1B07kvHGe59NmwdfP91h-p5QzlIM77NCZ";
+    String clientSecret = "EBkWxJfwWu1ctf7QkpO-3RtPkzqMhWGhsh1g43iBixezH-xPtgL4q6KtJwNXUVjZlTFx-xpNp4WXaZeK";
+    private static APIContext paypalApicontext;
 
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
@@ -2012,7 +2026,7 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/vieweditpayment", method = RequestMethod.POST)
-    public String vieweditpayment(
+    public ModelAndView vieweditpayment(
             @RequestParam("paymentType") String paymentType,
             @RequestParam("paypalAcctNum") String paypalAcctNum,
             @RequestParam("paypalEmailAddress") String paypalEmailAddress,
@@ -2037,24 +2051,178 @@ public class LoanCalculatorController implements ServletContextAware {
 
             if("PayPal".equals(paymentType)){
 
-                PayPalPayment payPalPayment=new PayPalPayment();
-                payPalPayment.setPaymentId(System.currentTimeMillis());
-                payPalPayment.setPayPalAccountNumber(paypalAcctNum);
-                payPalPayment.setPayPalAuthPersonName(payPalAuthPersonName);
-                payPalPayment.setPayPalEmailAddress(paypalEmailAddress);
-                payPalPayment.setBalanceAmount(Double.valueOf(balanceAmount));
-                payPalPayment.setPayPalPassword(payPalPassword);
-                payPalPayment.setPaymentAmount(Double.valueOf(paymentAmount));
-                Calendar pmtStartDate = Calendar.getInstance();
-                pmtStartDate.setTime(sdf.parse(paymentStartDate));
-                payPalPayment.setPaymentStartDate(pmtStartDate);
-                Calendar pmtEndDate = Calendar.getInstance();
-                pmtEndDate.setTime(sdf.parse(paymentStartDate));
-                payPalPayment.setPaymentEndDate(pmtEndDate);
-                payPalPayment.setPaymentFrequency(paymentFrequency);
-                payPalPayment.setPaymentType(paymentType);
+                // Configure Paypal environemnt
+                if(context==null)
+                    paypalApicontext = new APIContext(clientId, clientSecret, "sandbox");
 
-                paymentService.createPayment(payPalPayment);
+                // Build Plan object
+                Plan plan = new Plan();
+                plan.setName("Ayushi Loan calculator");
+                plan.setDescription("LoanInsight Online");
+                plan.setType("fixed");
+
+// Payment_definitions
+                PaymentDefinition paymentDefinition = new PaymentDefinition();
+                paymentDefinition.setName("Regular Payments");
+                paymentDefinition.setType("REGULAR");
+
+                // Set the payment frequency based on user selection
+                if("NoRemind".equals(paymentFrequency)) {
+                    paymentDefinition.setFrequency("NONE");
+                    paymentDefinition.setFrequencyInterval("1");
+                }
+                else if("Weekly".equals(paymentFrequency)){
+                    paymentDefinition.setFrequency("WEEK");
+                    paymentDefinition.setFrequencyInterval("1");
+                }
+                else if("Monthly".equals(paymentFrequency)){
+                    paymentDefinition.setFrequency("MONTH");
+                    paymentDefinition.setFrequencyInterval("1");
+                }
+                else if("Quarterly".equals(paymentFrequency)){
+                    paymentDefinition.setFrequency("MONTH");
+                    // It specifies that payment will occur on ever 3 months
+                    paymentDefinition.setFrequencyInterval("3");
+                }
+                else if("Semi-Annually".equals(paymentFrequency)){
+                    paymentDefinition.setFrequency("MONTH");
+                    // It specifies that payment will occur on ever 6 months
+                    paymentDefinition.setFrequencyInterval("6");
+                }
+                else if("Annually".equals(paymentFrequency)){
+                    paymentDefinition.setFrequency("YEAR");
+                    paymentDefinition.setFrequencyInterval("6");
+                }
+
+                /**
+                 * which specifies the total number of billing cycles in the regular payment period. If you either do not specify a value or specify the value 0,
+                 * the payments continue until PayPal (or the buyer) cancels or suspends the profile
+                 */
+                paymentDefinition.setCycles("0");
+
+// Currency
+                Currency currency = new Currency();
+                currency.setCurrency("USD");
+                currency.setValue(paymentAmount);
+                paymentDefinition.setAmount(currency);
+
+// Charge_models
+                ChargeModels chargeModels = new com.paypal.api.payments.ChargeModels();
+                chargeModels.setType("SUBSCRIPTION");
+                chargeModels.setAmount(currency);
+                List<ChargeModels> chargeModelsList = new ArrayList<ChargeModels>();
+                chargeModelsList.add(chargeModels);
+                paymentDefinition.setChargeModels(chargeModelsList);
+
+// Payment_definition
+                List<PaymentDefinition> paymentDefinitionList = new ArrayList<PaymentDefinition>();
+                paymentDefinitionList.add(paymentDefinition);
+                plan.setPaymentDefinitions(paymentDefinitionList);
+
+// Merchant_preferences
+                MerchantPreferences merchantPreferences = new MerchantPreferences();
+                merchantPreferences.setSetupFee(currency);
+                merchantPreferences.setCancelUrl("http://ayushiloancalculatorapp.herokuapp.com/cancelPayPalPayment");
+                merchantPreferences.setReturnUrl("http://ayushiloancalculatorapp.herokuapp.com/confirmPayPalPayment");
+                merchantPreferences.setMaxFailAttempts("0");
+                merchantPreferences.setAutoBillAmount("YES");
+                merchantPreferences.setInitialFailAmountAction("CONTINUE");
+                plan.setMerchantPreferences(merchantPreferences);
+
+                // Create payment
+                Plan createdPlan = plan.create(paypalApicontext);
+                System.out.println("Created plan with id = " + createdPlan.getId());
+                System.out.println("Plan state = " + createdPlan.getState());
+
+                // Set up plan activate PATCH request
+                List<Patch> patchRequestList = new ArrayList<Patch>();
+                Map<String, String> value = new HashMap<String, String>();
+                value.put("state", "ACTIVE");
+
+                // Create update object to activate plan
+                Patch patch = new Patch();
+                patch.setPath("/");
+                patch.setValue(value);
+                patch.setOp("replace");
+                patchRequestList.add(patch);
+
+                // Activate plan
+                createdPlan.update(paypalApicontext, patchRequestList);
+                System.out.println("Plan state = " + createdPlan.getState());
+
+                //Create billing agreement
+
+                // Create new agreement
+                Agreement agreement = new Agreement();
+                agreement.setName("Base Agreement");
+                agreement.setDescription("Basic Agreement");
+
+                agreement.setStartDate(paymentStartDate);
+
+// Set plan ID
+              //  Plan plan = new Plan();
+               // plan.setId("P-0PK90852BK763535UTMSTGMQ");
+                agreement.setPlan(createdPlan);
+
+// Add payer details
+                Payer payer = new Payer();
+                payer.setPaymentMethod("paypal");
+                agreement.setPayer(payer);
+
+// Set shipping address information
+                ShippingAddress shipping = new ShippingAddress();
+                shipping.setLine1("111 First Street");
+                shipping.setCity("Saratoga");
+                shipping.setState("CA");
+                shipping.setPostalCode("95070");
+                shipping.setCountryCode("US");
+                agreement.setShippingAddress(shipping);
+
+                // Create agreement
+                try {
+                    agreement = agreement.create(paypalApicontext);
+
+                    for (Links links : agreement.getLinks()) {
+                        if ("approval_url".equals(links.getRel())) {
+                            URL url = new URL(links.getHref());
+
+                            // Before redirecting save details to the database
+                            PayPalPayment payPalPayment=new PayPalPayment();
+                            payPalPayment.setPaymentId(System.currentTimeMillis());
+                            payPalPayment.setPayPalAccountNumber(paypalAcctNum);
+                            payPalPayment.setPayPalAuthPersonName(payPalAuthPersonName);
+                            payPalPayment.setPayPalEmailAddress(paypalEmailAddress);
+                            payPalPayment.setBalanceAmount(Double.valueOf(balanceAmount));
+                            payPalPayment.setPayPalPassword(payPalPassword);
+                            payPalPayment.setPaymentAmount(Double.valueOf(paymentAmount));
+                            Calendar pmtStartDate = Calendar.getInstance();
+                            pmtStartDate.setTime(sdf.parse(paymentStartDate));
+                            payPalPayment.setPaymentStartDate(pmtStartDate);
+                            Calendar pmtEndDate = Calendar.getInstance();
+                            pmtEndDate.setTime(sdf.parse(paymentStartDate));
+                            payPalPayment.setPaymentEndDate(pmtEndDate);
+                            payPalPayment.setPaymentFrequency(paymentFrequency);
+                            payPalPayment.setPaymentType(paymentType);
+                            // Save the PayPal plan id
+                            payPalPayment.setPayPalPlanId(plan.getId());
+                            paymentService.createPayment(payPalPayment);
+                            System.out.println("Plan ID " + plan.getId());
+                            //REDIRECT USER TO url
+                            return new ModelAndView("redirect:" + links.getHref());
+
+                           // break;
+                        }
+                    }
+                } catch (PayPalRESTException e) {
+                    System.err.println(e.getDetails());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
+
                 model.addAttribute("message", "Create Payment Service Success!");
 
             }else{
@@ -2062,13 +2230,39 @@ public class LoanCalculatorController implements ServletContextAware {
             }
 
 
-        } catch (PaymentProcessException  | ParseException pae) {
+        } catch (PayPalRESTException | PaymentProcessException  | ParseException pae) {
             pae.printStackTrace();
             model.addAttribute("message", "Payment Service Failed!");
-            return "payment";
+            return new ModelAndView("payment");
         }
 
-        return "payment";
+        return new ModelAndView("payment");
     }
+
+
+    @RequestMapping(value = "/confirmPaypalPayment", method = RequestMethod.GET)
+    public String confirmPaypalPayment(
+            @RequestParam("token") String token,
+            HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        //token obtained when creating the agreement (following redirect)
+        Agreement agreement =  new Agreement();
+        agreement.setToken(token);
+
+        try {
+            Agreement activeAgreement = agreement.execute(paypalApicontext, agreement.getToken());
+            System.out.println("Plan ID " + activeAgreement.getPlan().getId());
+            System.out.println("Agreement created with ID " + activeAgreement.getId());
+
+            model.addAttribute("message", "Create Payment Service Success!");
+
+        } catch (PayPalRESTException e) {
+            System.err.println(e.getDetails());
+            model.addAttribute("message", "Payment Service Failed!");
+        }
+       return "payment";
+
+    }
+
 }
 
