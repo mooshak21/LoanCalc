@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c942a277-6019-4801-b140-6afd2c511277" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/LoanCalculator_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/LoanCalculator_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LoanCalculator.iml" afterPath="$PROJECT_DIR$/LoanCalculator.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/PayPalPayment.java" afterPath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/PayPalPayment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" afterPath="$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/spring/Payment.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/spring/Payment.hbm.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -67,8 +62,8 @@
       <file leaf-file-name="LoanCalculatorController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19604613">
-              <caret line="72" column="107" selection-start-line="72" selection-start-column="107" selection-end-line="72" selection-end-column="107" />
+            <state vertical-scroll-proportion="0.27182865">
+              <caret line="2054" column="35" selection-start-line="2054" selection-start-column="35" selection-end-line="2054" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -893,12 +888,12 @@
       <workItem from="1520847805776" duration="8122000" />
       <workItem from="1520921266798" duration="4827000" />
       <workItem from="1521017122690" duration="11376000" />
-      <workItem from="1521104818892" duration="5408000" />
+      <workItem from="1521104818892" duration="5740000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218355000" />
+    <option name="totallyTimeSpent" value="218687000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1463,8 +1458,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19604613">
-          <caret line="72" column="107" selection-start-line="72" selection-start-column="107" selection-end-line="72" selection-end-column="107" />
+        <state vertical-scroll-proportion="0.27182865">
+          <caret line="2054" column="35" selection-start-line="2054" selection-start-column="35" selection-end-line="2054" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

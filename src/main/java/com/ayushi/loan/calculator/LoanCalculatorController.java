@@ -2052,7 +2052,7 @@ public class LoanCalculatorController implements ServletContextAware {
             if("PayPal".equals(paymentType)){
 
                 // Configure Paypal environemnt
-                if(context==null)
+                if(paypalApicontext==null)
                     paypalApicontext = new APIContext(clientId, clientSecret, "sandbox");
 
                 // Build Plan object
