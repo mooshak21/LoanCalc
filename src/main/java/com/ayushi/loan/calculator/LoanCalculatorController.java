@@ -2167,7 +2167,7 @@ public class LoanCalculatorController implements ServletContextAware {
 // Set plan ID
                 Plan agreementPlan = new Plan();
                 plan.setId(createdPlan.getId());
-                agreement.setPlan(createdPlan);
+                agreement.setPlan(agreementPlan);
 
 // Add payer details
                 Payer payer = new Payer();
