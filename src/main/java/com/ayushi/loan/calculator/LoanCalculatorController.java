@@ -2148,7 +2148,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
                 // Activate plan
                 createdPlan.update(paypalApicontext, patchRequestList);
-                System.out.println("Plan state = " + createdPlan.getState());
+                System.out.println("Plan ID = " + createdPlan.getId());
 
                 //Create billing agreement
 
@@ -2162,8 +2162,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 agreement.setStartDate(payPalFormat.format(sdf.parse(paymentStartDate)));
 
 // Set plan ID
-              //  Plan plan = new Plan();
-               // plan.setId("P-0PK90852BK763535UTMSTGMQ");
+                Plan agreementPlan = new Plan();
+                plan.setId(createdPlan.getId());
                 agreement.setPlan(createdPlan);
 
 // Add payer details
@@ -2185,6 +2185,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     agreement = agreement.create(paypalApicontext);
 
                     for (Links links : agreement.getLinks()) {
+                        System.out.println(links.getHref());
                         if ("approval_url".equals(links.getRel())) {
                             URL url = new URL(links.getHref());
 
