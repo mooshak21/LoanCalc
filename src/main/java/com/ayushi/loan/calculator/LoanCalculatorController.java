@@ -2091,7 +2091,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 }
                 else if("Annually".equals(paymentFrequency)){
                     paymentDefinition.setFrequency("YEAR");
-                    paymentDefinition.setFrequencyInterval("6");
+                    paymentDefinition.setFrequencyInterval("1");
                 }
 
                 /**
