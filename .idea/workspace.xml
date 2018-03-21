@@ -62,8 +62,8 @@
       <file leaf-file-name="LoanCalculatorController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5848435">
-              <caret line="2169" column="47" selection-start-line="2169" selection-start-column="47" selection-end-line="2169" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.5568369">
+              <caret line="2168" column="29" selection-start-line="2168" selection-start-column="29" selection-end-line="2168" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -897,12 +897,12 @@
       <workItem from="1520921266798" duration="4827000" />
       <workItem from="1521017122690" duration="11376000" />
       <workItem from="1521104818892" duration="9565000" />
-      <workItem from="1521606348814" duration="6523000" />
+      <workItem from="1521606348814" duration="8443000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="229035000" />
+    <option name="totallyTimeSpent" value="230955000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1477,8 +1477,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ayushi/loan/calculator/LoanCalculatorController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5848435">
-          <caret line="2169" column="47" selection-start-line="2169" selection-start-column="47" selection-end-line="2169" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.5568369">
+          <caret line="2168" column="29" selection-start-line="2168" selection-start-column="29" selection-end-line="2168" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
