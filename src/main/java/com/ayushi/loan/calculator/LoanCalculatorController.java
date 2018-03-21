@@ -2157,7 +2157,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 agreement.setName("Base Agreement");
                 agreement.setDescription("Basic Agreement");
 
-                SimpleDateFormat payPalFormat=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+                SimpleDateFormat payPalFormat=new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZZZZ");
                 Date startDate=sdf.parse(paymentStartDate);
                 startDate.setHours(1);
                 startDate.setMinutes(20);
