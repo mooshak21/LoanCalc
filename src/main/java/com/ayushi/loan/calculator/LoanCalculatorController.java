@@ -2044,7 +2044,7 @@ public class LoanCalculatorController implements ServletContextAware {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         PaymentService paymentService = (PaymentService) appCtx.getBean("paymentService");
 
-        SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
         try {
             logger.info("Create Payment  "+paymentType);
@@ -2157,7 +2157,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 agreement.setName("Base Agreement");
                 agreement.setDescription("Basic Agreement");
 
-                SimpleDateFormat payPalFormat=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                SimpleDateFormat payPalFormat=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
                 agreement.setStartDate(payPalFormat.format(sdf.parse(paymentStartDate)));
 
