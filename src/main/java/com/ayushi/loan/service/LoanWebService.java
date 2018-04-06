@@ -31,7 +31,7 @@ public class LoanWebService implements LendingWebService {
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("")&& loanType != null && !loanType.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
-			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + 						"&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
+			Loan loanObject = restTemplate.getForObject("http://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + 						"&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
 			return loanObject;
 		}else{
 			return null;
