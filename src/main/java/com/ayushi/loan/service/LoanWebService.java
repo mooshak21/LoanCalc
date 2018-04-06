@@ -47,7 +47,7 @@ public class LoanWebService implements LendingWebService {
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
-			AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizeOn=" + amortizedOn, AmortizedLoan.class);
+			AmortizedLoan loanObject = restTemplate.getForObject("http://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizeOn=" + amortizedOn, AmortizedLoan.class);
 			return loanObject;
 		}else{
 			return null;
@@ -63,7 +63,7 @@ public class LoanWebService implements LendingWebService {
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
 				   && numOfYears != null && !numOfYears.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
-			AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizedOn=" + amortizedOn, AmortizedLoan.class);
+			AmortizedLoan loanObject = restTemplate.getForObject("http://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizedOn=" + amortizedOn, AmortizedLoan.class);
 			return loanObject;
 		}else{
 			return null;
@@ -89,7 +89,7 @@ public class LoanWebService implements LendingWebService {
 				org.apache.commons.codec.net.URLCodec codec = new org.apache.commons.codec.net.URLCodec();
 
 				//aggregationSummary = restTemplate.exchange("http://localhost:9999/aggregationSummary?startDate=" + str + "&loan="+ codec.encode(mapper.writeValueAsString(loan)), HttpMethod.GET, requestEntity, new ParameterizedTypeReference<AggregationSummary>() {});
-				aggregationSummary = restTemplate.postForObject("https://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?startDate=" + str, codec.encode(mapper.writeValueAsString(loan)), AggregationSummary.class);
+				aggregationSummary = restTemplate.postForObject("http://ayushiloancalculatorappws.herokuapp.com/aggregationSummary?startDate=" + str, codec.encode(mapper.writeValueAsString(loan)), AggregationSummary.class);
 				return aggregationSummary;
 			} catch (Exception e) {
 				e.printStackTrace();
