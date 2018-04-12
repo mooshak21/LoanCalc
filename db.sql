@@ -157,7 +157,7 @@ ALTER TABLE public.news_object
   OWNER to postgres;
 
 ALTER TABLE  news_object
-  ALTER COLUMN link_url TYPE character varying(700);
+  ALTER COLUMN link_url TYPE character varying(2000);
 
 
 -- Payment table
