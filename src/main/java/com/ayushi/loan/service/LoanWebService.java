@@ -1,12 +1,14 @@
 package com.ayushi.loan.service;
 
 import com.ayushi.loan.AggregationSummary;
+import com.ayushi.loan.calculator.LoanCalculatorController;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
 import com.ayushi.loan.AmortizedLoan;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,6 +22,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class LoanWebService implements LendingWebService {
+
+	private static final Logger logger = Logger.getLogger(LoanCalculatorController.class);
+
 	public Loan calculateLoan(Loan loan) throws LoanAccessException{
 		String airVal = new Double(loan.getAPR()).toString();
 		String lender = loan.getLender();
@@ -32,7 +37,9 @@ public class LoanWebService implements LendingWebService {
 				   && lender != null && !lender.equals("") && state != null && !state.equals("") && region != null && !region.equals("")
 				   && numOfYears != null && !numOfYears.equals("")&& loanType != null && !loanType.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
-			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + 						"&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
+			logger.info("Redirect to WS file");
+			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
+			logger.info("Came back with loanobject " + loanObject);
 			return loanObject;
 		}else{
 			return null;

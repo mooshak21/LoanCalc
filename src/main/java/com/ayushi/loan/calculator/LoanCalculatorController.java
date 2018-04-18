@@ -126,6 +126,9 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("email") String email,
             @RequestParam("numOfYears") String numOfYears,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+
+        logger.info("Create Load Function Call.");
+
         boolean allVal = false;
         Loan loanQryObject = new Loan();
         Loan loanObject = null;
@@ -140,12 +143,15 @@ public class LoanCalculatorController implements ServletContextAware {
             loanQryObject.setLoanType(loanType);
             loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
             loanQryObject.setAPR(Double.valueOf(airVal));
+            logger.info("Value set in loanQueryObject not null verification.");
         }
         if (allVal) {
+            logger.info("allValue become true.");
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
             LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
             try {
                 loanObject = loanWebService.calculateLoan(loanQryObject);
+                logger.info("Loan Calculation function call successfully.");
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
@@ -163,30 +169,37 @@ public class LoanCalculatorController implements ServletContextAware {
                     loanObject.setRegion(region);
                     loanObject.setLoanDenomination(loanDenomination);
                     loanObject.setEmail(email);
+                    logger.info("Create Loan function call with loanobject : "+loanObject);
                     loanService.createLoan(loanObject);
+                    logger.info("Create Loan successfully");
                 } catch (LoanAccessException lae) {
                     lae.printStackTrace();
                     List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                     checkUserPrefernece(model, prefs);
                     model.addAttribute("message", "Create Loan Failed!");
+                    logger.info("Create error in create model : "+model);
                     return "createloan";
                 }
                 LoanApp loanApp = new LoanApp(loanObject);
                 loanObject.setLoanApp(loanApp);
                 model.addAttribute("message", "Create Loan");
                 model.addAttribute("loan", loanObject);
+                logger.info("Loan app Add data on the model");
             } else {
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                 checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Create Loan Failed!");
+                logger.info("check prefrences generate the error.");
             }
         } else {
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
             checkUserPrefernece(model, prefs);
             model.addAttribute("message", "Create Loan : Required Parameters not entered!");
+            logger.info("Required Parameters not entered!");
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
+        logger.info("Loan created successfully.done");
         return "createloan";
     }
 
