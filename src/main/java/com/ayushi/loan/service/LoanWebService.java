@@ -25,10 +25,11 @@ public class LoanWebService implements LendingWebService {
 		String lender = loan.getLender();
 		String loanAmt = new Double(loan.getAmount()).toString();
 		String state = loan.getState();
+		String region = loan.getRegion();
 		String numOfYears = new Integer(loan.getNumberOfYears()).toString();
 		String loanType = loan.getLoanType();
 		if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
-				   && lender != null && !lender.equals("") && state != null && !state.equals("")
+				   && lender != null && !lender.equals("") && state != null && !state.equals("") && region != null && !region.equals("")
 				   && numOfYears != null && !numOfYears.equals("")&& loanType != null && !loanType.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
 			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + 						"&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
@@ -41,11 +42,12 @@ public class LoanWebService implements LendingWebService {
 		String airVal = new Double(loan.getAPR()).toString();
 		String lender = loan.getLender();
 		String loanAmt = new Double(loan.getAmount()).toString();
+		String region = loan.getRegion();
 		String state = loan.getState();
 		String numOfYears = new Integer(loan.getNumberOfYears()).toString(); 
 		if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("")
-				   && numOfYears != null && !numOfYears.equals("")){
+				&& region != null && !region.equals("") && numOfYears != null && !numOfYears.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
 			AmortizedLoan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/amortizeloan?airVal=" + 						airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears + 					"&amortizeOn=" + amortizedOn, AmortizedLoan.class);
 			return loanObject;
