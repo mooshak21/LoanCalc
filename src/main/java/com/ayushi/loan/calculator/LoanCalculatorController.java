@@ -1441,15 +1441,17 @@ public class LoanCalculatorController implements ServletContextAware {
         if (loanAgg == null && loanAgg.getEmail() == null) {
             model.addAttribute("email", emailCookie);
         }
-        model.addAttribute("totalAmount", aggregationSummary.getTotalAmount());
-        model.addAttribute("amountPaid", aggregationSummary.getAmountPaid());
-        model.addAttribute("remainingAmount", aggregationSummary.getRemainingAmount());
-        model.addAttribute("remainingPercent", aggregationSummary.getRemainingPercent());
-        model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
-        model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
-        model.addAttribute("startDateForSummary", startDate);
-        model.addAttribute("NoOfLoansInRelation", loans1.size());
-        if (loanAggDetails == null && loanAggRemovedCounter == 0) {
+		if(aggregationSummary != null){
+			model.addAttribute("totalAmount", aggregationSummary.getTotalAmount());
+			model.addAttribute("amountPaid", aggregationSummary.getAmountPaid());
+			model.addAttribute("remainingAmount", aggregationSummary.getRemainingAmount());
+			model.addAttribute("remainingPercent", aggregationSummary.getRemainingPercent());
+			model.addAttribute("maximumNumOfYears", aggregationSummary.getMaximumNumOfYear());
+			model.addAttribute("payoff", formatter.format(aggregationSummary.getPayoffDate().getTime()));
+			model.addAttribute("startDateForSummary", startDate);
+			model.addAttribute("NoOfLoansInRelation", loans1.size());
+		}
+		if (loanAggDetails == null && loanAggRemovedCounter == 0) {
             model.addAttribute("message", "Please select Loan For Aggregation!");
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
