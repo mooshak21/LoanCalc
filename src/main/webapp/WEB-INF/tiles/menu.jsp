@@ -60,7 +60,7 @@
         </c:if>
 
                   <li class="nav-item">
-                      <a class="nav-link menuItem" href="/payment">Payment</a>
+                      <a class="nav-link menuItemXs" href="/payment">Payment</a>
                   </li>
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
