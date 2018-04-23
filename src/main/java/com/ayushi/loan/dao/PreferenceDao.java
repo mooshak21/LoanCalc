@@ -8,6 +8,7 @@ import com.ayushi.loan.Loan;
 import java.util.List;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.preferences.Preference;
+import org.springframework.transaction.annotation.Transactional;
 
 public class PreferenceDao {
 	private SessionFactory sessionFactory;	
@@ -21,6 +22,7 @@ public class PreferenceDao {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public void insert(Object o) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
