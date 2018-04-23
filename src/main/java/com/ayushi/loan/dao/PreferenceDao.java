@@ -9,6 +9,8 @@ import java.util.List;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.preferences.Preference;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+ 
 
 public class PreferenceDao {
 	private SessionFactory sessionFactory;	
