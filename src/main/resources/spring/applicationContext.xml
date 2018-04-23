@@ -87,7 +87,16 @@
             </props>
         </property>
     </bean>
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 
+	        <property name="sessionFactory" ref="sessionFactory" />
+
+	</bean>
+
+
+
+
+      <tx:annotation-driven transaction-manager="txManager" />
     <bean id="emailService"
           class="com.ayushi.loan.service.LoanEmailGeneratorServiceImpl">
         <property name="emailFrom" value="${email.from}" />
