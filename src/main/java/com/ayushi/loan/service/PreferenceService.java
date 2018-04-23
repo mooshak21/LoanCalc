@@ -24,7 +24,7 @@ public class PreferenceService implements PreferenceAttributeService {
 		this.preferenceDao = preferenceDao;
 	}
 
-	public void setPreferenceDao(PreferenceDao preferenceDao)
+	public void setPreferenceDao(PreferenceDao preferenceDao){
 		this.preferenceDao = preferenceDao;
 	}
 
