@@ -128,10 +128,10 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <bean id="preferenceService"
+<!--    <bean id="preferenceService"
           class="com.ayushi.loan.service.PreferenceService">
         <property name="preferenceDao" ref="preferenceDao" />
-    </bean>
+    </bean>-->
 
     <bean id="loanAggDao"
           class="com.ayushi.loan.dao.LoanAggDao">
