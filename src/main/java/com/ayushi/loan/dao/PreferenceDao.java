@@ -25,7 +25,7 @@ public class PreferenceDao {
 		return sessionFactory;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public void insert(Object o) throws PreferenceAccessException{
+	public void insert(Preference o) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.saveOrUpdate(o);
@@ -45,7 +45,7 @@ public class PreferenceDao {
 		}
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public void update(Object o) throws PreferenceAccessException{
+	public void update(Preference o) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.saveOrUpdate(o);
@@ -54,7 +54,7 @@ public class PreferenceDao {
 		}
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public void remove(Object o) throws PreferenceAccessException {
+	public void remove(Preference o) throws PreferenceAccessException {
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
 			ht.delete(o);
