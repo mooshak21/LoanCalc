@@ -6,7 +6,7 @@ import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.preferences.Preference;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import java.io.Serializable;
 import java.util.List;
