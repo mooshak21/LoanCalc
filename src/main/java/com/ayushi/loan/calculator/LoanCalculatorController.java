@@ -928,6 +928,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     pref -> pref.getFlag() && pref.getActive().equals("Y"));
             if (preferences != null && preferences.size() > 0) {
                 for (Preference p : preferences) {
+		    System.out.println("Email Address is " + p.getEmailAddress());
                     prefService.createPreference(p);
                 }
                 if (userPreference != null && !userPreference.equals("")) {
