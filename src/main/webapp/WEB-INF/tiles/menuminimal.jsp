@@ -51,6 +51,9 @@
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/aggregateloanreportask">Aggregate Loan Report</a>
                 </li>
+            <li class="nav-item">
+                <a class="nav-link menuItemXs" href="/payment">Payment</a>
+            </li>
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
                 </li>
