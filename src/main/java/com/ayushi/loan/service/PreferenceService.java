@@ -24,6 +24,14 @@ public class PreferenceService implements PreferenceAttributeService {
 		this.preferenceDao = preferenceDao;
 	}
 
+	public void setPreferenceDao(PreferenceDao preferenceDao)
+		this.preferenceDao = preferenceDao;
+	}
+
+	public PreferenceDao getPreferenceDao(){
+		return this.preferenceDao;
+	}
+	
 	@Transactional
 	public void createPreference(Preference preference) throws PreferenceAccessException {
 		preferenceDao.insert(preference);
