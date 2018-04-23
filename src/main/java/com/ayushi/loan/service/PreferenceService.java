@@ -10,12 +10,10 @@ import com.ayushi.loan.preferences.CheckPreference;
 import java.util.function.Predicate;
 import com.ayushi.loan.preferences.Preference;
 import com.ayushi.loan.preferences.Preferences;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-@Service
 public class PreferenceService implements PreferenceAttributeService {
 	@Autowired
 	private PreferenceDao preferenceDao;
