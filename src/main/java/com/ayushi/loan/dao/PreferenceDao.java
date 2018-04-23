@@ -24,7 +24,7 @@ public class PreferenceDao {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
-	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void insert(Object o) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -34,7 +34,7 @@ public class PreferenceDao {
 		}
 
 	}
-	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void insert(Loan loan, List<Integer> prefIds) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -44,7 +44,7 @@ public class PreferenceDao {
 			throw new PreferenceAccessException(dae);
 		}
 	}
-	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void update(Object o) throws PreferenceAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -53,7 +53,7 @@ public class PreferenceDao {
 			throw new PreferenceAccessException(dae);
 		}
 	}
-	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void remove(Object o) throws PreferenceAccessException {
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
