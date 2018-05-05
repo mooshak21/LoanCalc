@@ -952,8 +952,8 @@ public class LoanCalculatorController implements ServletContextAware {
             return "viewpreferences";
         }
 
-        List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
-        checkUserPrefernece(model, prefs1);
+//        List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
+//        checkUserPrefernece(model, prefs1);
         return "viewpreferences";
     }
 
