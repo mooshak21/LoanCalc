@@ -8,7 +8,7 @@
 
         <composite-id>
             <key-property name="id" column="pref_id" type="java.lang.Integer"/>
-            <key-property name="emailAddress" column="pref_emailAddress" 
+            <key-property name="emailAddress" column="pref_emailaddress" 
                           type="java.lang.String" length="30" />
         </composite-id>
         
