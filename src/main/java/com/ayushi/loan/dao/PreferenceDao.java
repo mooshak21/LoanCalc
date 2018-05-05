@@ -26,7 +26,7 @@ public class PreferenceDao {
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void insert(Preference o) throws PreferenceAccessException{
-		Session session = sessFactory.openSession()
+		Session session = sessFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
 			session.saveOrUpdate(o);
