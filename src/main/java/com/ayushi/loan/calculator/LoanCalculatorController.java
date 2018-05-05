@@ -809,7 +809,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
         if (email != null && !email.isEmpty()) {
             EmailReminderPreference erPref = new EmailReminderPreference();
-            erPref.setId(5);
+            erPref.setId(System.currentTimeMillis());
             erPref.setEmailAddress(email);
             erPref.setName("EmailAddressReminder");
             erPref.setValue(email);
@@ -952,8 +952,8 @@ public class LoanCalculatorController implements ServletContextAware {
             return "viewpreferences";
         }
 
-//        List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
-//        checkUserPrefernece(model, prefs1);
+        List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
+        checkUserPrefernece(model, prefs1);
         return "viewpreferences";
     }
 
