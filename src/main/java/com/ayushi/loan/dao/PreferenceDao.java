@@ -26,13 +26,16 @@ public class PreferenceDao {
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void insert(Preference o) throws PreferenceAccessException{
-		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
+		Session session = sessFactory.openSession()
+		Transaction tx = session.beginTransaction();
 		try{
-			ht.saveOrUpdate(o);
+			session.saveOrUpdate(o);
+			session.flush();
 		}catch(DataAccessException dae){
 			throw new PreferenceAccessException(dae);
 		}
-
+		tx.commit();
+        	session.close();
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void insert(Loan loan, List<Integer> prefIds) throws PreferenceAccessException{

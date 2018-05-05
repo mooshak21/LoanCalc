@@ -809,7 +809,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
         if (email != null && !email.isEmpty()) {
             EmailReminderPreference erPref = new EmailReminderPreference();
-            erPref.setId(System.currentTimeMillis());
+            erPref.setId(5);
             erPref.setEmailAddress(email);
             erPref.setName("EmailAddressReminder");
             erPref.setValue(email);
