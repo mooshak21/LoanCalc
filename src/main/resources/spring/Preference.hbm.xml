@@ -30,7 +30,7 @@
         </property>
 
        <property name="emailAddress" type="java.lang.String">
-            <column name="pref_emailaddress" length="30" not-null="true" />
+            <column name="pref_emailaddress" length="50" not-null="true" />
         </property>
          
         <subclass name="com.ayushi.loan.preferences.LoanIdPreference" discriminator-value="LI"/>
