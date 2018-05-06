@@ -38,7 +38,7 @@ public class LoanDao implements LendingDao {
 		}
 		tx.commit();
         	session.close();
-		return o;
+		return null;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void update(Object o) throws LoanAccessException{
