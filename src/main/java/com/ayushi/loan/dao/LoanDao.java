@@ -27,7 +27,7 @@ public class LoanDao implements LendingDao {
 		return sessionFactory;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public Serializable insert(Loan o) throws LoanAccessException{
+	public Serializable insert(Object o) throws LoanAccessException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
