@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
-
+import com.ayushi.loan.Loan;
 import java.util.List;
 import com.ayushi.loan.exception.LoanAccessException;
 
