@@ -98,7 +98,7 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
         message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(amortizedLoan.getNumberOfYears()).append("</font></td>\n");
         message.append("</tr>\n");
         
-//        if(payOffAmount != null && payOffAmount > 0){
+        if(payOffAmount != null && payOffAmount > 0){
             message.append("<tr>\n");
             message.append("<td style='text-align:right'>Payoff Amount:($)</td>\n");
             message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(df.format(payOffAmount)).append("</font></td>\n");
@@ -108,7 +108,7 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
             message.append("<td style='text-align:right'>As of Payoff Date on:</td>\n");
             message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(payOffOn).append("</font></td>\n");
             message.append("</tr>\n");
-//        }
+        }
 
         message.append("</table>\n");
         message.append("</font>");
