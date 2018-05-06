@@ -2,7 +2,11 @@ package com.ayushi.loan.dao;
 
 import java.io.Serializable;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -22,15 +26,20 @@ public class LoanDao implements LendingDao {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
-	public Serializable insert(Object o) throws LoanAccessException{
-		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
+	public void insert(Loan o) throws LoanAccessException{
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		try{
-			ht.saveOrUpdate(o);
+			session.saveOrUpdate(o);
+			session.flush();
 		}catch(DataAccessException dae){
-			throw new LoanAccessException(dae);
+			throw new PreferenceAccessException(dae);
 		}
-        return null;
-    }
+		tx.commit();
+        	session.close();
+	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void update(Object o) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -39,6 +48,7 @@ public class LoanDao implements LendingDao {
 			throw new LoanAccessException(dae);
 		}
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void remove(Object o) throws LoanAccessException {
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -47,6 +57,7 @@ public class LoanDao implements LendingDao {
 			throw new LoanAccessException(dae);
 		}
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public List<Serializable> find(String query, Object[] objVals) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -58,6 +69,7 @@ public class LoanDao implements LendingDao {
 			throw new LoanAccessException(dae);
 		}
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public Object find(Class entityClass, Serializable o) throws LoanAccessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
