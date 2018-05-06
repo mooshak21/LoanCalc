@@ -34,7 +34,7 @@ public class LoanDao implements LendingDao {
 			session.saveOrUpdate(o);
 			session.flush();
 		}catch(DataAccessException dae){
-			throw new PreferenceAccessException(dae);
+			throw new LoanAccessException(dae);
 		}
 		tx.commit();
         	session.close();
