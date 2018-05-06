@@ -6,6 +6,8 @@ import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 import java.io.Serializable;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class LoanService implements LendingService {
 	private LoanDao loanDao;
