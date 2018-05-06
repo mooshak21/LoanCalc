@@ -96,7 +96,7 @@
 
 
 
-      <tx:annotation-driven transaction-manager="txManager" />
+      <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
     <bean id="emailService"
           class="com.ayushi.loan.service.LoanEmailGeneratorServiceImpl">
         <property name="emailFrom" value="${email.from}" />
