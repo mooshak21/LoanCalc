@@ -3,7 +3,6 @@ package com.ayushi.loan.service;
 import com.ayushi.loan.dao.PreferenceDao;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.exception.PreferenceProcessException;
-import com.ayushi.loan.Loan;
 import java.util.List;
 import java.io.Serializable;
 import com.ayushi.loan.preferences.CheckPreference;
@@ -52,9 +51,9 @@ public class PreferenceService implements PreferenceAttributeService {
             return (Preference) preferenceDao.find("select p from pref p where p.pref_emailAddress = ? and p.pref_id = ?", new Object[]{email,id}).get(0);
         }
 
-	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException {
-		preferenceDao.insert(loan, prefIds);
-	}
+//	public void addPreferences(Loan loan, List<Integer> prefIds) throws PreferenceAccessException {
+//		preferenceDao.insert(loan, prefIds);
+//	}
 
         public List<Preference> processPreferences(Preferences preferences, Predicate<Preference> tester) throws PreferenceProcessException{
 		return Preferences.processPreferencesWithPredicate(preferences.getPreferences(), tester);
