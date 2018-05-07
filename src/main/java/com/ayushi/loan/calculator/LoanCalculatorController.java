@@ -1337,7 +1337,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 loanAgg.setEmail(email);
                 loanAgg.setStartDate(cal);
                 loanAgg.setTerm(term);
-                loanAggId = ((Long) loanAggService.createLoanAgg(loanAgg)).toString();
+		Long loanAggIdLong = ((Long) loanAggService.createLoanAgg(loanAgg))
+                loanAggId = loanAggIdLong != null ? loanAggIdLong.toString();
             } catch (LoanAccessException lae) {
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                 checkUserPrefernece(model, prefs);
