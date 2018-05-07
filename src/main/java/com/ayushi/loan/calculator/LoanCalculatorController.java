@@ -1329,7 +1329,7 @@ public class LoanCalculatorController implements ServletContextAware {
         AggregationSummary aggregationSummary = new AggregationSummary();
         int loanAggRemovedCounter = 0;
 
-        if (StringUtils.isEmpty(loanAggId) && !"[]".equals(loanIds)) {
+        if (loanAggService != null && StringUtils.isEmpty(loanAggId) && !"[]".equals(loanIds)) {
             try {
                 loanAgg = new LoanAgg();
                 loanAgg.setName(name);
@@ -1345,7 +1345,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 return "aggregateloan";
             }
         }
-        if (StringUtils.isNotEmpty(loanAggId)) {
+        if (loanAggService != null && loanRelationshipService != null && StringUtils.isNotEmpty(loanAggId)) {
             try {
                 querySB.append("la.loanAggId=?");
                 queryValList.add(Long.valueOf(loanAggId));
@@ -1362,7 +1362,7 @@ public class LoanCalculatorController implements ServletContextAware {
                         }
                     }
                 }
-                if (!"[]".equals(loanIds)) {
+                if (loanRelationshipService != null && !"[]".equals(loanIds)) {
                     loanIds = loanIds.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
                     String[] loanId = loanIds.split(",");
 
@@ -1408,7 +1408,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 lae.printStackTrace();
             }
         }
-        if (!"[]".equals(loansId)) {
+        if (loanAggService != null && !"[]".equals(loansId)) {
             loansId = loansId.replaceAll("(\\[\")|(\"\\])", "").replaceAll("\",\"", ",");
             String[] loanId = loansId.split(",");
             try {
