@@ -124,7 +124,6 @@ ALTER TABLE loan ADD COLUMN loan_denom character varying(100) NOT NULL DEFAULT '
 ALTER TABLE loan DROP COLUMN currency;
 ALTER TABLE pref ALTER COLUMN pref_value  SET DATA TYPE character varying(300);
 ALTER TABLE pref ALTER COLUMN pref_emailaddress  SET DATA TYPE character varying(300);
-ALTER TABLE pref ALTER COLUMN pref_emailaddress  SET DATA TYPE character varying(300);
 
 ALTER TABLE loan  ADD COLUMN region character varying(20) NOT NULL DEFAULT 'North America';
 <<<<<<< HEAD
