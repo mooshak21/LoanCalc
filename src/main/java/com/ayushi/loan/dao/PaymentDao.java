@@ -6,6 +6,8 @@ import com.ayushi.loan.exception.PaymentProcessException;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -24,16 +26,20 @@ public class PaymentDao  {
 	public SessionFactory getSessionFactory(){
 		return sessionFactory;
 	}
-	public Serializable insert(Payment o) throws PaymentProcessException{
-		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
+	public void insert(Payment o) throws PreferenceAccessException{
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		try{
-			ht.save(o);
+			session.saveOrUpdate(o);
+			session.flush();
 		}catch(DataAccessException dae){
-			dae.printStackTrace();
-			throw new PaymentProcessException(dae);
+			throw new PreferenceAccessException(dae);
 		}
-        return null;
-    }
+		tx.commit();
+        	session.close();
+	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void update(Object o) throws PaymentProcessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -42,6 +48,7 @@ public class PaymentDao  {
 			throw new PaymentProcessException(dae);
 		}
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void remove(Object o) throws PaymentProcessException {
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -50,6 +57,7 @@ public class PaymentDao  {
 			throw new PaymentProcessException(dae);
 		}
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public List<Serializable> find(String query, Object[] objVals) throws PaymentProcessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
@@ -61,6 +69,7 @@ public class PaymentDao  {
 			throw new PaymentProcessException(dae);
 		}
 	}
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public Object find(Class entityClass, Serializable o) throws PaymentProcessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
