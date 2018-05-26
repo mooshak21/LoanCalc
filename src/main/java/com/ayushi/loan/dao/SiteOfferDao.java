@@ -2,11 +2,13 @@ package com.ayushi.loan.dao;
 
 import com.ayushi.loan.NewsObject;
 import com.ayushi.loan.exception.LoanAccessException;
-import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.util.List;
