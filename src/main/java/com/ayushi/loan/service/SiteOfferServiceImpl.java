@@ -28,7 +28,8 @@ public class SiteOfferServiceImpl  implements SiteOfferService {
 
     @Override
     public Serializable createNewsObject(NewsObject newsObject) throws LoanAccessException {
-        return siteOfferDao.insert(newsObject);
+        siteOfferDao.insert(newsObject);
+	return null;
     }
 
     @Override
