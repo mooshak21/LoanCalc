@@ -27,14 +27,14 @@ public class PaymentDao  {
 		return sessionFactory;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public void insert(Payment o) throws PreferenceAccessException{
+	public void insert(Payment o) throws PaymentProcessException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
 			session.saveOrUpdate(o);
 			session.flush();
 		}catch(DataAccessException dae){
-			throw new PreferenceAccessException(dae);
+			throw new PaymentProcessException(dae);
 		}
 		tx.commit();
         	session.close();

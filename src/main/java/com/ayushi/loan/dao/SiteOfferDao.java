@@ -2,8 +2,6 @@ package com.ayushi.loan.dao;
 
 import com.ayushi.loan.NewsObject;
 import com.ayushi.loan.exception.LoanAccessException;
-import com.ayushi.loan.exception.PreferenceAccessException;
-import com.ayushi.loan.preferences.Preference;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -33,14 +31,14 @@ public class SiteOfferDao {
     }
 
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public void insert(NewsObject o) throws PreferenceAccessException{
+	public void insert(NewsObject o) throws LoanAccessException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
 			session.saveOrUpdate(o);
 			session.flush();
 		}catch(DataAccessException dae){
-			throw new PreferenceAccessException(dae);
+			throw new LoanAccessException(dae);
 		}
 		tx.commit();
         	session.close();
