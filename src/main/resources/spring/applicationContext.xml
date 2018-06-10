@@ -84,8 +84,12 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-            </props>
-        </property>
+ 		<prop key="hibernate.c3p0.min_size">1</prop>
+		<prop key="hibernate.c3p0.max_size">20</prop>
+		<prop key="hibernate.c3p0.timeout">180</prop>
+		<prop key="hibernate.c3p0.max_statements">10</prop>           
+	   </props>
+	</property>
     </bean>
 	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 
