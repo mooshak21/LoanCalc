@@ -126,11 +126,8 @@ ALTER TABLE pref ALTER COLUMN pref_value  SET DATA TYPE character varying(300);
 ALTER TABLE pref ALTER COLUMN pref_emailaddress  SET DATA TYPE character varying(300);
 
 ALTER TABLE loan  ADD COLUMN region character varying(20) NOT NULL DEFAULT 'North America';
-<<<<<<< HEAD
 
 -- DROP TABLE public.news_object;
-=======
->>>>>>> 9659311a8277b0dd6c53d1ab644ac63bbbe30dbc
 
 CREATE TABLE public.news_object
 (

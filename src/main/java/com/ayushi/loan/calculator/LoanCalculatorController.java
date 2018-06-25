@@ -1571,7 +1571,7 @@ public class LoanCalculatorController implements ServletContextAware {
             Loan searchLoan = (Loan) loans.get(0);
             model.addAttribute("region", searchLoan.getRegion());
             model.addAttribute("loanType", searchLoan.getLoanType());
-            searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(), emailCookie, model);
+            searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(),null,null, emailCookie, model);
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
@@ -1895,7 +1895,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
         boolean allVal = false;
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Calendar startDate = null;
         Calendar endDate = null;
         startDate = Calendar.getInstance();
@@ -1967,13 +1967,13 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("loanType") String loanType,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
-        searchSiteOffers(region, loanType, emailCookie, model);
+        searchSiteOffers(region, loanType,null,null, emailCookie, model);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
         return "bankoffersandnews";
     }
 
-    private void searchSiteOffers(@RequestParam("region") String region, @RequestParam("loanType") String loanType, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+    private void searchSiteOffers(@RequestParam("region") String region, @RequestParam("loanType") String loanType,@RequestParam("offerStartDate") String offerStartDate,@RequestParam("offerEndDate") String offerEndDate, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
@@ -2001,6 +2001,43 @@ public class LoanCalculatorController implements ServletContextAware {
             }
             queryValList.add(loanType);
         }
+        if(offerEndDate!=null || offerStartDate!=null){
+            if(offerStartDate!=null && !offerStartDate.equals("")){
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar cal = null;
+                cal = Calendar.getInstance();
+                try {
+                    cal.setTime(formatter.parse(offerStartDate));
+                } catch (ParseException parseEx) {
+                    parseEx.printStackTrace();
+                }
+                if (firstVal)
+                    querySB.append(" and n.offerStartDate > ?");
+                else {
+                    querySB.append(" n.offerStartDate >?");
+                    firstVal = true;
+                }
+                queryValList.add(cal);
+            }
+
+            if(offerEndDate!=null && !offerEndDate.equals("")){
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar cal = null;
+                cal = Calendar.getInstance();
+                try {
+                    cal.setTime(formatter.parse(offerEndDate));
+                } catch (ParseException parseEx) {
+                    parseEx.printStackTrace();
+                }
+                if (firstVal)
+                    querySB.append(" and n.offerEndDate < ?");
+                else {
+                    querySB.append(" n.offerEndDate < ?");
+                    firstVal = true;
+                }
+                queryValList.add(cal);
+            }
+        }
 
         if (firstVal) {
             queryVals = new Object[queryValList.size()];
@@ -2011,11 +2048,19 @@ public class LoanCalculatorController implements ServletContextAware {
                 if (newsObjects != null) {
                     for (NewsObject n : newsObjects) {
                         if (n.getNewsType().equals("Bank Offer")) {
-                            if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
+                            if(offerEndDate==null || offerStartDate==null) {
+                                if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
+                                    siteoffers.add(n);
+                                }
+                            }else{
                                 siteoffers.add(n);
                             }
                         } else if (n.getNewsType().equals("News Site")) {
-                            if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
+                            if(offerEndDate==null || offerStartDate==null) {
+                                if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
+                                    newsarticle.add(n);
+                                }
+                            }else{
                                 newsarticle.add(n);
                             }
                         }
@@ -2032,9 +2077,34 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("loanType", loanType);
             model.addAttribute("siteoffers", siteoffers);
             model.addAttribute("newsarticle", newsarticle);
+            if(offerEndDate!=null){
+                model.addAttribute("offerEndDate", offerEndDate);
+            }
+
+            if(offerStartDate!=null){
+                model.addAttribute("offerStartDate", offerStartDate);
+            }
         }
     }
 
+    @RequestMapping(value = "/searchSiteoffersask")
+    public String searchSiteoffers(Model model,
+                             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+        model.addAttribute("message", "Site offers");
+        return "siteofferandnews";
+    }
+
+    @RequestMapping(value = "/searchsiteoffers", method = RequestMethod.GET)
+    public String searchSiteoffers(
+            @RequestParam("region") String region,
+            @RequestParam("loanType") String loanType,
+            @RequestParam("offerStartDate") String offerStartDate,
+            @RequestParam("offerEndDate") String offerEndDate,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws ParseException {
+        searchSiteOffers(region, loanType, offerStartDate,offerEndDate, emailCookie, model);
+        return "siteofferandnews";
+    }
 
     @RequestMapping(value = "/payment")
     public String payment(Model model) {
