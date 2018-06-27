@@ -24,7 +24,7 @@ public class LoanAggServiceImpl implements LoanAggService {
 	}
 
 	@Override
-	public Serializable createLoanAgg(LoanAgg loanAgg) throws LoanAccessException {
+	public LoanAgg createLoanAgg(LoanAgg loanAgg) throws LoanAccessException {
 		return loanAggDao.insert(loanAgg);
 	}
 

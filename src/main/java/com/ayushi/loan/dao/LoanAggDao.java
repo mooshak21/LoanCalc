@@ -1,5 +1,6 @@
 package com.ayushi.loan.dao;
 
+import com.ayushi.loan.LoanAgg;
 import com.ayushi.loan.exception.LoanAccessException;
 import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
@@ -8,10 +9,8 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 
 /**
@@ -46,27 +45,33 @@ public class LoanAggDao implements LendingDao {
     }
 
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public Serializable insert(Object o) throws LoanAccessException{
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		try{
-			session.saveOrUpdate(o);
-			session.flush();
-		}catch(DataAccessException dae){
-			throw new LoanAccessException(dae);
-		}
-		tx.commit();
-        	session.close();
-		return null;
-	}
+	public LoanAgg insert(Object o) throws LoanAccessException {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        HibernateTemplate ht = new HibernateTemplate(sessionFactory);
+        try {
+           session.saveOrUpdate(o);
+            session.flush();
+        } catch (DataAccessException dae) {
+            throw new LoanAccessException(dae);
+        }
+        tx.commit();
+        session.close();
+        return (LoanAgg) o;
+    }
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
     public void remove(Object o) throws LoanAccessException {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         HibernateTemplate ht = new HibernateTemplate(sessionFactory);
         try{
-            ht.delete(o);
+            session.delete(o);
+            session.flush();
         }catch(DataAccessException dae){
             throw new LoanAccessException(dae);
         }
+        tx.commit();
+        session.close();
     }
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
     public List<Serializable> find(String query, Object[] objVals) throws LoanAccessException{

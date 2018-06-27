@@ -33,7 +33,7 @@ public class SiteOfferDao {
     }
 
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public void insert(NewsObject o) throws LoanAccessException{
+	public NewsObject insert(NewsObject o) throws LoanAccessException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
@@ -44,6 +44,7 @@ public class SiteOfferDao {
 		}
 		tx.commit();
         	session.close();
+        	return o;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
     public void update(Object o) throws LoanAccessException {
@@ -57,12 +58,17 @@ public class SiteOfferDao {
 
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
     public void remove(Object o) throws LoanAccessException {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         HibernateTemplate ht = new HibernateTemplate(sessionFactory);
-        try {
-            ht.delete(o);
-        } catch (DataAccessException dae) {
+        try{
+            session.delete(o);
+            session.flush();
+        }catch(DataAccessException dae){
             throw new LoanAccessException(dae);
         }
+        tx.commit();
+        session.close();
     }
 
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)

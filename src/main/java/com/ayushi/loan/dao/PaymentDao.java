@@ -52,13 +52,19 @@ public class PaymentDao  {
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void remove(Object o) throws PaymentProcessException {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			ht.delete(o);
+			session.delete(o);
+			session.flush();
 		}catch(DataAccessException dae){
 			throw new PaymentProcessException(dae);
 		}
+		tx.commit();
+		session.close();
 	}
+
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public List<Serializable> find(String query, Object[] objVals) throws PaymentProcessException{
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);

@@ -60,12 +60,17 @@ public class PreferenceDao {
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void remove(Preference o) throws PreferenceAccessException {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		HibernateTemplate ht = new HibernateTemplate(sessionFactory);
 		try{
-			ht.delete(o);
+			session.delete(o);
+			session.flush();
 		}catch(DataAccessException dae){
 			throw new PreferenceAccessException(dae);
 		}
+		tx.commit();
+		session.close();
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public List<Preference> find(String query, Object[] objVals) throws PreferenceAccessException{

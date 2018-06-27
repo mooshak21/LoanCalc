@@ -12,7 +12,7 @@ import java.util.List;
 public interface SiteOfferService {
     public Serializable createNewsObject(NewsObject newsObject) throws LoanAccessException;
     public NewsObject retrieveNewsObject(NewsObject newsObject) throws LoanAccessException;
-    public void modifyNewsObject(NewsObject newsObject) throws LoanAccessException;
+    public NewsObject modifyNewsObject(NewsObject newsObject) throws LoanAccessException;
     public void removeNewsObject(NewsObject newsObject) throws LoanAccessException;
     public List<NewsObject> findNewsObject(String query, Object[] objVals) throws LoanAccessException;
 }

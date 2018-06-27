@@ -43,6 +43,9 @@
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/siteoffersask">Site Offers</a>
                   </li>
+                    <li class="nav-item">
+                        <a class="nav-link menuItemXs" href="/updatesiteoffersask">Update Site Offers</a>
+                    </li>
                 </c:if>
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
@@ -103,6 +106,9 @@
             <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
                 <li class="nav-item">
                     <a class="nav-link menuItem" href="/siteoffersask">Site Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menuItem" href="/updatesiteoffersask">Update Site Offers</a>
                 </li>
             </c:if>
             

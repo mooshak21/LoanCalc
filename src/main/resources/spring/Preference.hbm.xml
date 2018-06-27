@@ -8,7 +8,7 @@
 
         <composite-id>
             <key-property name="id" column="pref_id" type="java.lang.Integer"/>
-            <key-property name="emailAddress" column="pref_email_address" 
+            <key-property name="emailAddress" column="pref_emailAddress"
                           type="java.lang.String" length="30" />
         </composite-id>
         
@@ -29,10 +29,6 @@
             <column name="pref_description" length="50" not-null="true" />
         </property>
 
-       <property name="emailAddress" type="java.lang.String">
-            <column name="pref_emailaddress" length="50" not-null="true" />
-        </property>
-         
         <subclass name="com.ayushi.loan.preferences.LoanIdPreference" discriminator-value="LI"/>
         <subclass name="com.ayushi.loan.preferences.EmailReminderPreference" discriminator-value="ER"/>
         <subclass name="com.ayushi.loan.preferences.ReminderFrequencyPreference" discriminator-value="RF"/>

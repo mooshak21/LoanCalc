@@ -59,12 +59,17 @@ public class LoanRelationshipDao implements LendingDao {
 
     @Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
     public void remove(Object o) throws LoanAccessException {
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         HibernateTemplate ht = new HibernateTemplate(sessionFactory);
         try{
-            ht.delete(o);
+            session.delete(o);
+            session.flush();
         }catch(DataAccessException dae){
             throw new LoanAccessException(dae);
         }
+        tx.commit();
+        session.close();
     }
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
     public List<Serializable> find(String query, Object[] objVals) throws LoanAccessException{

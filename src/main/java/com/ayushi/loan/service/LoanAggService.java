@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface LoanAggService {
-	public Serializable createLoanAgg(LoanAgg loanAgg) throws LoanAccessException;
+	public LoanAgg createLoanAgg(LoanAgg loanAgg) throws LoanAccessException;
 	public LoanAgg retrieveLoanAgg(LoanAgg loanAgg) throws LoanAccessException;
 	public void modifyLoanAgg(LoanAgg loanAgg) throws LoanAccessException;
 	public void removeLoanAgg(LoanAgg loanAgg) throws LoanAccessException;

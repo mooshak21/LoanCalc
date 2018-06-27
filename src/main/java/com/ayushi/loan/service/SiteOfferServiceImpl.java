@@ -38,8 +38,8 @@ public class SiteOfferServiceImpl  implements SiteOfferService {
     }
 
     @Override
-    public void modifyNewsObject(NewsObject newsObject) throws LoanAccessException {
-        siteOfferDao.update(newsObject);
+    public NewsObject modifyNewsObject(NewsObject newsObject) throws LoanAccessException {
+        return siteOfferDao.insert(newsObject);
     }
 
     @Override
