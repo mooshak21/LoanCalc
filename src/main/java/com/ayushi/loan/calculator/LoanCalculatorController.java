@@ -459,6 +459,73 @@ public class LoanCalculatorController implements ServletContextAware {
         }
     }
 
+    @RequestMapping(value = "/deleteloan", method = RequestMethod.DELETE)
+    public String deleteloan(
+            @RequestParam("loanId") String loanId,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws ParseException {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        List<Serializable> loans = new ArrayList<>();
+        LoanService loanService = (LoanService) appCtx.getBean("loanService");
+        try {
+            loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?", new Object[]{new Long(loanId)});
+           } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            model.addAttribute("message", "Search Site Offer Failed!");
+        }
+        try {
+            if(loans!=null && loans.size()!=0){
+                loanService.removeLoan(loans.get(0));
+            }
+        } catch (LoanAccessException e) {
+            e.printStackTrace();
+        }
+        return "searchloan";
+    }
+
+    @RequestMapping(value = "/updateloan", method = RequestMethod.POST)
+    public String updateloan(
+            @RequestParam("loanId") String loanId,
+            @RequestParam("airVal") String airVal,
+            @RequestParam("lender") String lender,
+            @RequestParam("loanAmt") String loanAmt,
+            @RequestParam("state") String state,
+            @RequestParam("numOfYears") String numOfYears,
+            @RequestParam("loanType") String loanType,
+            @RequestParam("amortizeOn") String amortizeOn,
+            @RequestParam("payoffOn") String payoffOn,
+            @RequestParam("email") String email,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws LoanAccessException {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        Loan loanQryObject = new Loan();
+        loanQryObject.setLoanId(Long.valueOf(loanId));
+        loanQryObject.setAmount(Double.valueOf(loanAmt));
+        loanQryObject.setLender(lender);
+        loanQryObject.setState(state);
+        loanQryObject.setLoanType(loanType);
+        loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
+        loanQryObject.setAPR(Double.valueOf(airVal));
+        loanQryObject.setEmail(email);
+        LoanService loanService = (LoanService) appCtx.getBean("loanService");
+        Loan loan = loanService.createLoan(loanQryObject);
+        AmortizedLoan loanObject = new AmortizedLoan();
+        loanObject.setLoanId(loan.getLoanId());
+        loanObject.setLoanType(loan.getLoanType());
+        loanObject.setAmount(loan.getAmount());
+        loanObject.setAPR(loan.getAPR());
+        loanObject.setInterest(loan.getInterest());
+        loanObject.setEmail(loan.getEmail());
+        loanObject.setLender(loan.getLender());
+        loanObject.setState(loan.getState());
+        loanObject.setNumberOfYears(loan.getNumberOfYears());
+        model.addAttribute("message", "Updated Loan");
+        model.addAttribute("amortizeloan", loanObject);
+        model.addAttribute("amortizeOn", amortizeOn);
+        model.addAttribute("payoffOn" , payoffOn);
+        logger.info("Updated Loan");
+        return "searchloan";
+    }
 
     //--------------------------------------------------------------------------------------------------------------
 
@@ -1440,7 +1507,7 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("startDate", startDate);
             model.addAttribute("email", loanAgg.getEmail());
         }
-        if (loanAgg == null && loanAgg.getEmail() == null) {
+        if (loanAgg == null) {
             model.addAttribute("email", emailCookie);
         }
         if (aggregationSummary != null) {

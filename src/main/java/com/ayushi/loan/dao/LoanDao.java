@@ -14,7 +14,7 @@ import com.ayushi.loan.exception.LoanAccessException;
 
 import java.util.Collections;
 
-public class LoanDao implements LendingDao {
+public class LoanDao {
 	private SessionFactory sessionFactory;	
 	
 	public LoanDao (SessionFactory sessFactory){
@@ -27,7 +27,7 @@ public class LoanDao implements LendingDao {
 		return sessionFactory;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
-	public Serializable insert(Object o) throws LoanAccessException{
+	public Loan insert(Loan o) throws LoanAccessException{
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try{
@@ -38,7 +38,7 @@ public class LoanDao implements LendingDao {
 		}
 		tx.commit();
         	session.close();
-		return null;
+			return o;
 	}
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = false)
 	public void update(Object o) throws LoanAccessException{

@@ -11,12 +11,17 @@
               <h5>${message}</h5>
             </div>
             <div class="card-block">
-                <form name="loanForm" id="loanform" action="/searchloan" method="POST" 
-                      onsubmit='if((loanForm.loanId.value != "") || (loanForm.loanAmt.value != ""  || loanForm.numOfYears.value != "" || loanForm.lender.value != "" || loanForm.state.value != "" || loanForm.airVal.value != "") || (loanForm.email.value != "")){ return true;}else { message.innerHTML="Please enter LoanId or at least Loan Amount, Number of Years, Lender, State, APR or email address"; loanForm.loanAmt.focus(); return false;}'>
-                    <div class="form-group">
+                <c:if test="${empty amortizeloan}">
+                <form name="loanForm" id="loanform" action="/searchloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
+                    </c:if>
+                    <c:if test="${not empty amortizeloan}">
+                    <form name="loanForm" id="loanform" action="/updateloan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""  && loanForm.numOfYears.value == "" && loanForm.lender.value == "" && loanForm.state.value == "" && loanForm.airVal.value == ""){ alert("Please enter at least Loan Amount, Number of Years, Lender, State, APR"); loanForm.loanAmt.focus(); return false;}'>
+                        </c:if>
+                <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
                         <input class="form-control resetMe" type="number" name="loanAmt" value="${amortizeloan.amount}" min="1" max="9999999999" id="loanAmount">
-                   </div>
+                        <input type="hidden" name="loanId" value="${amortizeloan.loanId}" id="loanId">
+                </div>
 
                    <div class="form-group">
                        <label for="numberOfYears">Number of Years:</label>
@@ -59,24 +64,48 @@
                        <label for="email">Email: </label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email">
 				   </div>
-                  
-                    
+                    <c:if test="${loanId ne null && loanId > 0}">
+                        <button type="button" class="btn btn-default float-left" style="margin-left: 5px" onclick="location.href = '/quickview'">Quick View ${LoanId}</button>
+                    </c:if>
+                    <c:if test="${empty amortizeloan}">
                         <input type="submit" class="btn btn-default float-left" value="Submit"/>
-                        <c:if test="${loanId ne null && loanId > 0}">
-                                <button type="button" class="btn btn-default float-left" style="margin-left: 5px" onclick="location.href = '/quickview'">Quick View ${LoanId}</button>
-                        </c:if>
-                        <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
+                    </c:if>
+                    <c:if test="${not empty loans}">
+                        <input type="submit" class="btn btn-default float-left" value="Update"/>
+                    </c:if>
+                    <c:if test="${not empty loans}">
+                        <input type="button" class="btn btn-default float-right" value="Delete" onclick="setDeleteValue(${amortizeloan.loanId})"/>
+                    </c:if>
+                    <c:if test="${empty amortizeloan}">
+                        <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
+                    </c:if>
                     
                 </form>    
             </div>
         </div>
      </div>
 
-<script>
+<script type="text/javascript">
 function resetForm() {
     $( document ).ready(function() {
         $(".resetMe").val("");
     });
     
+}
+
+function setDeleteValue(value) {
+    var x = confirm("Are you sure you want to delete?");
+    if (x) {
+        $.ajax({
+            url: "/deleteloan?loanId=" + value,
+            type: 'DELETE',
+            cache: false,
+            success: function (html) {
+                alert("Deleted Successfully");
+                resetForm();
+                window.location.reload(true);
+            }
+        });
+    }
 }
 </script>

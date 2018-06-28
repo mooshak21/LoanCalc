@@ -9,6 +9,6 @@ public interface LendingService {
 	public void createLoan(Loan loan) throws LoanAccessException;
 	public Loan retrieveLoan(Loan loan) throws LoanAccessException;
 	public void modifyLoan(Loan loan) throws LoanAccessException;
-	public void removeLoan(Loan loan) throws LoanAccessException;
+	public void removeLoan(Serializable loan) throws LoanAccessException;
 	public List<Serializable> findLoan(String query, Object[] objVals) throws LoanAccessException;
 }

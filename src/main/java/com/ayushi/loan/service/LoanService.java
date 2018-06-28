@@ -1,15 +1,12 @@
 package com.ayushi.loan.service;
 
 import com.ayushi.loan.dao.LoanDao;
-import com.ayushi.loan.service.LendingService;
 import com.ayushi.loan.exception.LoanAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
 import java.io.Serializable;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class LoanService implements LendingService {
+public class LoanService {
 	private LoanDao loanDao;
 
 	public LoanService(LoanDao loanDao){
@@ -21,8 +18,8 @@ public class LoanService implements LendingService {
 	public LoanDao getLoanDao(){
 		return loanDao;
 	}
-	public void createLoan(Loan loan) throws LoanAccessException {
-		loanDao.insert(loan);
+	public Loan createLoan(Loan loan) throws LoanAccessException {
+		return loanDao.insert(loan);
 	}
 	public Loan retrieveLoan(Loan loan) throws LoanAccessException {
 		return (Loan)loanDao.find(Loan.class, loan);
@@ -30,7 +27,7 @@ public class LoanService implements LendingService {
 	public void modifyLoan(Loan loan) throws LoanAccessException {
 		loanDao.update(loan);
 	}
-	public void removeLoan(Loan loan) throws LoanAccessException {
+	public void removeLoan(Serializable loan) throws LoanAccessException {
 		loanDao.remove(loan);
 	}
 	public List<Serializable> findLoan(String query, Object[] objVals) throws LoanAccessException {
