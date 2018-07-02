@@ -32,7 +32,7 @@
                          <select class="form-control resetMe" name="newsType" required="true" id="newsType" >
                          <option value="">Choose News Type</option>
                          <option value="Bank Offer" ${newsObject.newsType == 'Bank Offer' ? 'selected' : ''}>Bank Offer</option>
-                         <option value="News Site"  ${newsObject.loanType == 'News Site' ? 'selected' : ''}>News Site</option>
+                         <option value="News Site"  ${newsObject.newsType == 'News Site' ? 'selected' : ''}>News Site</option>
                      </select>
                      </div>
                      <div class="form-group">

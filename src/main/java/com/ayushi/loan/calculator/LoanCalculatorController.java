@@ -2213,12 +2213,10 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("newsTitle") String newsTitle,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         NewsObject newsObject = null;
-        Calendar startDate = null;
-        Calendar endDate = null;
-        startDate = Calendar.getInstance();
-        endDate = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
         try {
             startDate.setTime(formatter.parse(offerStartDate));
             endDate.setTime(formatter.parse(offerEndDate));

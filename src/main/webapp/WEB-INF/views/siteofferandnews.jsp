@@ -37,12 +37,12 @@
                 </div>
                 <div class="form-group">
                     <label for="offerStartDate">Offer Start Date: </label>
-                    <input class="form-control resetMe" type="text" name="offerStartDate" value="${offerStartDate}" id="offerStartDate" placeholder="yyyy-MM-dd">
+                    <input class="form-control resetMe" type="text" name="offerStartDate" value="${offerStartDate}" id="offerStartDate" placeholder="MM/dd/yyyy">
                 </div>
 
                 <div class="form-group">
                     <label for="offerEndDate">Offer End Date: </label>
-                    <input class="form-control resetMe" type="text" name="offerEndDate" value="${offerEndDate}" id="offerEndDate" placeholder="yyyy-MM-dd">
+                    <input class="form-control resetMe" type="text" name="offerEndDate" value="${offerEndDate}" id="offerEndDate" placeholder="MM/dd/yyyy">
                 </div>
                 <div class="btnss-div">
                     <input type="submit" class="btn btn-default float-left" value="Submit"/>
