@@ -1953,7 +1953,7 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("message", "Site offers");
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
-        return "searchsiteoffers";
+        return "updatesiteofferandnews";
     }
 
     @RequestMapping(value = "/siteoffers", method = RequestMethod.POST)
@@ -2037,18 +2037,9 @@ public class LoanCalculatorController implements ServletContextAware {
         return "siteoffers";
     }
 
-    @RequestMapping(value = "/updatesiteoffers", method = RequestMethod.POST)
+    @RequestMapping(value = "/updatesiteoffers", method = RequestMethod.GET)
     public String updatesiteoffers(
-            @RequestParam("bankName") String bankName,
-            @RequestParam("linkUrl") String linkUrl,
-            @RequestParam("newsType") String newsType,
-            @RequestParam("loanType") String loanType,
-            @RequestParam("region") String region,
-            @RequestParam("offerStartDate") String offerStartDate,
-            @RequestParam("offerEndDate") String offerEndDate,
-            @RequestParam("offerAmount") String offerAmount,
-            @RequestParam("offerRate") String offerRate,
-            @RequestParam("newsTitle") String newsTitle,
+            @RequestParam("offerId") String offerId,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
@@ -2058,124 +2049,15 @@ public class LoanCalculatorController implements ServletContextAware {
         java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
         Object[] queryVals = null;
         boolean firstVal = false;
+        querySB.append("ln.offerId=?");
+        queryValList.add(Long.valueOf(offerId));
 
-        if (bankName != null && !bankName.equals("")) {
-            querySB.append("ln.bankName=?");
-            firstVal = true;
-            queryValList.add(bankName);
-            newsObject.setBankName(bankName);
-        }
-
-        if (linkUrl != null && !linkUrl.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.linkUrl=?");
-            else {
-                querySB.append(" ln.linkUrl=?");
-                firstVal = true;
-            }
-            queryValList.add(linkUrl);
-            newsObject.setLinkUrl(linkUrl);
-        }
-        if (newsType != null && !newsType.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.newsType=?");
-            else {
-                querySB.append(" ln.newsType=?");
-                firstVal = true;
-            }
-
-            queryValList.add(newsType);
-            newsObject.setNewsType(newsType);
-        }
-        if (loanType != null && !loanType.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.loanType=?");
-            else {
-                querySB.append(" ln.loanType=?");
-                firstVal = true;
-            }
-            queryValList.add(loanType);
-            newsObject.setLoanType(loanType);
-        }
-        if (region != null && !region.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.region=?");
-            else {
-                querySB.append(" ln.region=?");
-                firstVal = true;
-            }
-            queryValList.add(region);
-            newsObject.setRegion(region);
-        }
-        if (offerStartDate != null && !offerStartDate.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.offerStartDate=?");
-            else {
-                querySB.append(" ln.offerStartDate=?");
-                firstVal = true;
-            }
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar cal = null;
-            cal = Calendar.getInstance();
-            cal.setTime(formatter.parse(offerStartDate));
-            queryValList.add(offerStartDate);
-            newsObject.setOfferStartDate(cal);
-        }
-
-        if (offerEndDate != null && !offerEndDate.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.offerEndDate=?");
-            else {
-                querySB.append(" ln.offerEndDate=?");
-                firstVal = true;
-            }
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar cal = null;
-            cal = Calendar.getInstance();
-            cal.setTime(formatter.parse(offerEndDate));
-            queryValList.add(offerEndDate);
-            newsObject.setOfferEndDate(cal);
-        }
-
-        if (offerAmount != null && !offerAmount.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.offerAmount=?");
-            else {
-                querySB.append(" ln.offerAmount=?");
-                firstVal = true;
-            }
-            queryValList.add(Double.valueOf(offerAmount));
-            newsObject.setOfferAmount(Double.valueOf(offerAmount));
-        }
-
-        if (offerRate != null && !offerRate.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.offerRate=?");
-            else {
-                querySB.append(" ln.offerRate=?");
-                firstVal = true;
-            }
-            queryValList.add(Double.valueOf(offerRate));
-            newsObject.setOfferRate(Double.valueOf(offerRate));
-        }
-
-        if (newsTitle != null && !newsTitle.equals("")) {
-            if (firstVal)
-                querySB.append(" and ln.newsTitle=?");
-            else {
-                querySB.append(" ln.newsTitle=?");
-                firstVal = true;
-            }
-            queryValList.add(newsTitle);
-            newsObject.setNewsTitle(newsTitle);
-        }
-        if (firstVal) {
             queryVals = new Object[queryValList.size()];
             queryVals = queryValList.toArray(queryVals);
             List<NewsObject> newsObjects = null;
             SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
             try {
-                newsObjects = siteOfferService.findNewsObject("select ln from NewsObject ln where " + querySB.toString(), queryVals);
+                newsObjects = siteOfferService.findNewsObject("select ln from NewsObject ln where  " + querySB.toString(), queryVals);
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
                 model.addAttribute("message", "Search Site Offer Failed!");
@@ -2186,7 +2068,6 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("offerStartDate",format1.format(newsObjects.get(0).getOfferStartDate().getTime()));
                 model.addAttribute("offerEndDate",format1.format(newsObjects.get(0).getOfferEndDate().getTime()));
                 model.addAttribute("userEmail", emailCookie);
-            }
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
             checkUserPrefernece(model, prefs);
             return "searchsiteoffers";
@@ -2459,6 +2340,16 @@ public class LoanCalculatorController implements ServletContextAware {
             Model model, HttpServletRequest request) throws ParseException {
         searchSiteOffers(region, loanType, offerStartDate, offerEndDate, emailCookie, model);
         return "siteofferandnews";
+    }
+
+    @RequestMapping(value = "/updatesearchsiteoffers", method = RequestMethod.GET)
+    public String updatesearchsiteoffers(
+            @RequestParam("region") String region,
+            @RequestParam("loanType") String loanType,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            Model model, HttpServletRequest request) throws ParseException {
+        searchSiteOffers(region, loanType, null, null, emailCookie, model);
+        return "updatesiteofferandnews";
     }
 
     @RequestMapping(value = "/payment")
