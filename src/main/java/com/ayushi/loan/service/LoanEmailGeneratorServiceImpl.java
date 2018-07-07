@@ -135,8 +135,6 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
         String color;
         for(Integer key : amortizedLoan.getEntries().keySet()){
             LoanEntry le = amortizedLoan.getEntries().get(key);
-	    if(le != null){
-	
 	        if(lineNumber%2 == 0) color=colorDark; else color=colorlight;
 
 	        message.append("<tr>\n");
@@ -148,7 +146,6 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
             	message.append("</tr>\n");       
 
             	lineNumber++;
-	   }
         }
 
         message.append("</tbody>\n");
