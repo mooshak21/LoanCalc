@@ -135,17 +135,20 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
         String color;
         for(Integer key : amortizedLoan.getEntries().keySet()){
             LoanEntry le = amortizedLoan.getEntries().get(key);
-            if(lineNumber%2 == 0) color=colorDark; else color=colorlight;
+	    if(le != null){
+	
+	        if(lineNumber%2 == 0) color=colorDark; else color=colorlight;
 
-            message.append("<tr>\n");
-            message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(sdf.format(le.getDateEntry().getTime())).append("</td>\n");
-            message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getPrincipal())).append("</td>\n");
-            message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getInterest())).append("</td>\n");
-            message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getLoanAmount())).append("</td>\n");
-            message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getMonthly())).append("</td>\n");
-            message.append("</tr>\n");       
+	        message.append("<tr>\n");
+        	message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(sdf.format(le.getDateEntry().getTime())).append("</td>\n");
+            	message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getPrincipal())).append("</td>\n");
+            	message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getInterest())).append("</td>\n");
+            	message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getLoanAmount())).append("</td>\n");
+            	message.append("<td style='border: solid 1px #b0b0b0; background-color: ").append(color).append("'>").append(df.format(le.getMonthly())).append("</td>\n");
+            	message.append("</tr>\n");       
 
-            lineNumber++;
+            	lineNumber++;
+	   }
         }
 
         message.append("</tbody>\n");
