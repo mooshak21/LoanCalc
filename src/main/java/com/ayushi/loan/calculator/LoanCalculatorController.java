@@ -510,17 +510,25 @@ public class LoanCalculatorController implements ServletContextAware {
         LoanService loanService = (LoanService) appCtx.getBean("loanService");
         Loan loan = loanService.createLoan(loanQryObject);
         AmortizedLoan loanObject = new AmortizedLoan();
-        loanObject.setLoanId(loan.getLoanId());
-        loanObject.setLoanType(loan.getLoanType());
-        loanObject.setAmount(loan.getAmount());
-        loanObject.setAPR(loan.getAPR());
-        loanObject.setInterest(loan.getInterest());
-        loanObject.setEmail(loan.getEmail());
-        loanObject.setLender(loan.getLender());
-        loanObject.setState(loan.getState());
-        loanObject.setNumberOfYears(loan.getNumberOfYears());
-        model.addAttribute("message", "Updated Loan");
-        model.addAttribute("amortizeloan", loanObject);
+        LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
+        try {
+            loanObject = loanWebService.amortizeLoan(loanQryObject, amortizeOn);
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            model.addAttribute("message", "Amortize Loan Failed!");
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            checkUserPrefernece(model, prefs);
+            return "amortizeloan";
+        }
+
+        if (loanObject != null) {
+            LoanApp loanApp = new LoanApp(loanObject);
+            loanObject.setLoanApp(loanApp);
+            model.addAttribute("amortizeloan", loanObject);
+            model.addAttribute("message", "Updated Loan");
+        } else {
+            model.addAttribute("message", "Amortize Loan Failed!");
+        }
         model.addAttribute("amortizeOn", amortizeOn);
         model.addAttribute("payoffOn" , payoffOn);
         logger.info("Updated Loan");
@@ -1971,7 +1979,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             Model model, HttpServletRequest request) throws ParseException {
         boolean allVal = false;
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         Calendar startDate = null;
         Calendar endDate = null;
         startDate = Calendar.getInstance();
@@ -2239,7 +2247,7 @@ public class LoanCalculatorController implements ServletContextAware {
         }
         if (offerEndDate != null || offerStartDate != null) {
             if (offerStartDate != null && !offerStartDate.equals("")) {
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Calendar cal = null;
                 cal = Calendar.getInstance();
                 try {
@@ -2257,7 +2265,7 @@ public class LoanCalculatorController implements ServletContextAware {
             }
 
             if (offerEndDate != null && !offerEndDate.equals("")) {
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Calendar cal = null;
                 cal = Calendar.getInstance();
                 try {

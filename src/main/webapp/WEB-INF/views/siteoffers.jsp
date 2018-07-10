@@ -54,12 +54,12 @@
 
                      <div class="form-group">
                          <label for="offerStartDate">Offer Start Date: </label>
-                         <input class="form-control resetMe" type="text" name="offerStartDate" value="${newsObject.offerStartDate}" id="offerStartDate" required="true">
+                         <input class="form-control resetMe" placeholder="MM/dd/yyyy"  name="offerStartDate" value="${newsObject.offerStartDate}" id="offerStartDate" required="true">
                      </div>
 
                      <div class="form-group">
                          <label for="offerEndDate">Offer End Date: </label>
-                         <input class="form-control resetMe" type="text" name="offerEndDate" value="${newsObject.offerEndDate}" id="offerEndDate" required="true">
+                         <input class="form-control resetMe" placeholder="MM/dd/yyyy" name="offerEndDate" value="${newsObject.offerEndDate}" id="offerEndDate" required="true">
                      </div>
 
                      <div class="form-group">
