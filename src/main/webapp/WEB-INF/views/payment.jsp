@@ -12,7 +12,7 @@
                 <form name="paymentForm" id="paymentform" action="/vieweditpayment" method="POST" >
 
                     <div class="form-group">
-                        <label for="paymentType">Reminder Frequency: </label>
+                        <label for="paymentType">Payment Type: </label>
                         <select  class="form-control resetMe" id="paymentType" name="paymentType">
 
                                 <option value="PayPal" selected>PayPal</option>
