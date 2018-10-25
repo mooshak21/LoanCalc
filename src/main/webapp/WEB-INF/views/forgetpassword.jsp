@@ -11,11 +11,11 @@
             <div class="card-block">
                 <form name="loginForm" id="loginform" action="/forgetpassword" method="POST">
                    <div class="form-group">
-                       <label for="email">Email: </label>
+                       <label for="email">Email:*</label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
 		   			</div>
 		   			<div class="form-group">
-                       <label for="password">Password: </label>
+                       <label for="password">Password:*</label>
                        <input class="form-control resetMe" type="text" name="password" value="${password}" id="password" required="true">
                    </div>
 		   			

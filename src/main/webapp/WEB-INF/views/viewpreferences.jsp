@@ -77,17 +77,17 @@ function checkPasswords(theForm) {
                     </div>
                    
                    <div class="form-group">
-                       <label for="email">Email: </label>
+                       <label for="email">Email:*</label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
                    </div>
 
                    <div class="form-group">
-                       <label for="password">Password: </label>
+                       <label for="password">Password:*</label>
                        <input class="form-control resetMe" type="text" name="password" value="" id="password" required="true">
                    </div>
                    
                    <div class="form-group">
-                       <label for="confirmpassword">Confirm Password: </label>
+                       <label for="confirmpassword">Confirm Password:*</label>
                        <input class="form-control resetMe" type="text" name="confirmpassword" value="" id="confirmpassword" required="true">
                    </div>
                    

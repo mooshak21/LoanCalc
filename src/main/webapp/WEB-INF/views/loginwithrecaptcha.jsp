@@ -30,18 +30,18 @@
             <div class="card-block">
                 <form name="loginForm" id="loginform" action="/login" method="POST" onload="onload();">
                    <div class="form-group">
-                       <label for="email">Email: </label>
+                       <label for="email">Email:*</label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
 		   </div>
                 <div class="form-group">
-                       <label for="password">Password: </label>
+                       <label for="password">Password:*</label>
                        <input class="form-control resetMe" type="password" name="password" value="${Password}" id="password" required="true">
                    </div>
 			<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or <a href="/resetpasswordask">reset password</a></p>
 			<p>or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>   
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
-				   Name: (required) <input id="field" name="field">
+				   Name:* (required) <input id="field" name="field">
      				<div id='recaptcha' class="g-recaptcha"
 						class="g-recaptcha"
 						data-sitekey="6LfeXDwUAAAAAJqiCnXGP9rW7H5suSjve8JBHIbx"

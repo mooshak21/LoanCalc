@@ -12,27 +12,27 @@
             <div class="card-block">
                  <form name="loanForm" id="loanform" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
                      <div class="form-group">
-                        <label for="loanAmount">Loan Amount:</label>
+                        <label for="loanAmount">Loan Amount:*</label>
                          <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount" required="true">
                     </div>
 
                     <div class="form-group">
-                        <label for="numberOfYears">Number of Years:</label>
+                        <label for="numberOfYears">Number of Years:*</label>
                         <input class="form-control resetMe" type="number" name="numOfYears" value="${loan.numberOfYears}" min="1" max="100" id="numberOfYears" required="true">
                     </div>
 
                     <div class="form-group">
-                        <label for="lender">Lender:</label>
+                        <label for="lender">Lender:*</label>
                         <input class="form-control resetMe" type="text" name="lender" value="${loan.lender}" id="lender" required="true">
                     </div>
 
                      <div class="form-group">
-                         <label for="state">State: </label>
+                         <label for="state">State:*</label>
                          <input class="form-control resetMe" type="text" name="state" value="${loan.state}" id="state" required="true">
                      </div>
 
                      <div class="form-group">
-                         <label for="region">Region:</label>
+                         <label for="region">Region:*</label>
                          <select class="form-control resetMe" name="region" required="true" id="region">
                              <option value="">Choose Region</option>
                              <option value="USA"  ${loan.region == 'USA' ? 'selected' : ''}>USA</option>
@@ -45,16 +45,16 @@
                      </div>
 
                     <div class="form-group">
-                        <label for="interestRate">Annual Interest Rate: </label>
+                        <label for="interestRate">Annual Interest Rate:*</label>
                         <input class="form-control resetMe" type="number" name="airVal" value="${loan.APR}" min="0" max="100" step="0.01" id="interestRate" required="true">
                     </div>
                    <div class="form-group">
-                       <label for="email">Email: </label>
+                       <label for="email">Email:*</label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
 		   </div>
 
                      <div class="form-group">
-                         <label for="loanType">Loan Type:</label>
+                         <label for="loanType">Loan Type:*</label>
                          <select class="form-control resetMe" name="loanType" required="true" id="loanType" >
                              <option value="">Choose a Loan Type</option>
                              <option value="Student Loan"  ${loan.loanType == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
@@ -63,7 +63,7 @@
                          </select>
                      </div>
                      <div class="form-group">
-                         <label for="loanDenomination">Loan Denomination:</label>
+                         <label for="loanDenomination">Loan Denomination:*</label>
                          <select class="form-control resetMe" name="loanDenomination" required="true" id="loanDenomination" >
                              <option value="">Choose a Loan Denomination</option>
                              <option value="USD"  ${loan.loanDenomination == 'USD' ? 'selected' : ''}>USD</option>

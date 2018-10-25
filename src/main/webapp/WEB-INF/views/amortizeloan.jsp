@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="amortize">Amortize on Date: </label>
+                        <label for="amortize">Amortize on Date:*</label>
                         <input class="form-control resetMe" type="text" name="amortizeOn" value="${amortizeOn}" id="amortize">	
                     </div>
                    

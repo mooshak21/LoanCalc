@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="email">Loanee Email Address:</label>
+                        <label for="email">Loanee Email Address:*</label>
                         <input class="form-control resetMe" type="email" name="email" value="${email}" required="true" id="email">
                     </div>
 

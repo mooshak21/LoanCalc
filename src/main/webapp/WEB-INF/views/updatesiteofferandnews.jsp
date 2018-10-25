@@ -13,7 +13,7 @@
                 <form name="siteForm" id="siteform" action="/updatesearchsiteoffers" method="GET"
                       onload='if(siteForm.region.value == ""){ alert("Please choose region"); siteForm.region.focus(); return false;}'>
                     <div class="form-group">
-                        <label for="region">Region:</label>
+                        <label for="region">Region:*</label>
                         <select class="form-control resetMe" name="region" required="true" id="region">
                             <option value="">Choose Region</option>
                             <option value="USA"  ${region == 'USA' ? 'selected' : ''}>USA</option>
@@ -26,7 +26,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="loanType">Loan Type:</label>
+                        <label for="loanType">Loan Type:*</label>
                         <select class="form-control resetMe" name="loanType" required="true" id="loanType">
                             <option value="">Choose a Loan Type</option>
                             <option value="Student Loan"  ${loanType == 'Student Loan' ? 'selected' : ''}>Student Loan
