@@ -54,7 +54,7 @@ import com.paypal.base.rest.PayPalRESTException;
 
 
 @Controller
-@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus", "planSelected"})
+@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus", "Plan"})
 public class LoanCalculatorController implements ServletContextAware {
 
     protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99";
@@ -496,6 +496,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("payoffOn") String payoffOn,
             @RequestParam("email") String email,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws LoanAccessException {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         Loan loanQryObject = new Loan();
@@ -531,6 +532,7 @@ public class LoanCalculatorController implements ServletContextAware {
         }
         model.addAttribute("amortizeOn", amortizeOn);
         model.addAttribute("payoffOn" , payoffOn);
+        model.addAttribute("Plan" , plan);
         logger.info("Updated Loan");
         return "searchloan";
     }
@@ -1582,11 +1584,17 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("userEmail", email);
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if (emailPasswordFlag) {
+                List<Preference> preferences = getPreferencesByEmailAddress(email);
+                for(Preference preference: preferences){
+                   if(preference.getType().equals("Plan")){
+                       plan =preference.getValue();
+                   }
+                }
                 response.addCookie(new Cookie("userEmail", email));
                 response.addCookie(new Cookie("loginStatus", "Y"));
                 request.getSession().setAttribute("loginStatus", "Y");
-                request.getSession().setAttribute("planSelected", plan);
-                model.addAttribute("planSelected", plan);
+                request.getSession().setAttribute("Plan", plan);
+                model.addAttribute("Plan",plan);
                 model.addAttribute("userEmail", email);
                 if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
                     model.addAttribute("message", "Aggregate Loan Report");

@@ -87,7 +87,7 @@
                     <c:if test="${not empty loans}">
                         <input type="button" style="margin: 1px" class="btn btn-default float-left" value="Search" onclick="searchPage()"/>
                     </c:if>
-                    <c:if test="${not empty loans}">
+                    <c:if test="${(not empty loans) and ((Plan == '9.99') or (Plan == '19.99'))}">
                         <input type="submit" class="btn btn-default float-left" value="Update"/>
                     </c:if>
                     <c:if test="${not empty loans}">

@@ -18,9 +18,11 @@
 	        <li class="nav-item">
 	          <a class="nav-link menuItemXs" href="/login">Login</a>
 		</li>
+        <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
 		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/quickview">Quick View Loan</a>
                 </li>
+        </c:if>
 		<li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
@@ -31,7 +33,7 @@
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanamortizeask">Amortize Loan</a>
                 </li>
-
+        <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpayoffask">Payoff Loan</a>
                 </li>
@@ -39,6 +41,7 @@
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanviewask">View Loans</a>
                 </li>
+        </c:if>
                 <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/siteoffersask">Site Offers</a>
@@ -46,7 +49,11 @@
                     <li class="nav-item">
                         <a class="nav-link menuItemXs" href="/updatesiteoffersask">Update Site Offers</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link menuItemXs" href="/searchSiteoffersask">Search Site Offers</a>
+                    </li>
                 </c:if>
+        <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
                   <li class="nav-item">
                       <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                   </li>
@@ -54,12 +61,12 @@
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/aggregateloanreportask">Aggregate Loan Report</a>
                 </li>
-                  <li class="nav-item">
-                      <a class="nav-link menuItemXs" href="/searchSiteoffersask">Search Site Offers</a>
-                  </li>
+        </c:if>
+        <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
                 <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/payment">Payment</a>
                  </li>
+        </c:if>
                 <li class="nav-item">
                   <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
                 </li>
@@ -79,10 +86,11 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
-	            
-	   <li class="nav-item">
+        <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+	        <li class="nav-item">
                   <a class="nav-link menuItem" href="/quickview">Quick View Loan</a>
             </li>
+        </c:if>
            <li class="nav-item">
               <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
             </li>
@@ -94,7 +102,7 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanamortizeask">Amortize Loan</a>
             </li>
-            
+            <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanpayoffask">Payoff Loan</a>
             </li>
@@ -102,7 +110,7 @@
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanviewask">View Loans</a>
             </li>
-
+            </c:if>
             <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
                 <li class="nav-item">
                     <a class="nav-link menuItem" href="/siteoffersask">Site Offers</a>
@@ -110,8 +118,11 @@
                 <li class="nav-item">
                     <a class="nav-link menuItem" href="/updatesiteoffersask">Update Site Offers</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menuItem" href="/searchSiteoffersask">Search Site Offers</a>
+                </li>
             </c:if>
-            
+            <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
            <li class="nav-item">
                 <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
             </li>
@@ -119,15 +130,12 @@
             <li class="nav-item">
                 <a class="nav-link menuItem" href="/aggregateloanreportask">Aggregate Loan Report</a>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="/searchSiteoffersask">Search Site Offers</a>
-            </li>
-
+            </c:if>
+            <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
             <li class="nav-item">
                 <a class="nav-link menuItem" href="/payment">Payment</a>
             </li>
-
+            </c:if>
             <li class="nav-item">
               <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
             </li>
