@@ -821,7 +821,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("email") String email,
             @RequestParam("password") String password,
             @RequestParam("reminderfreq") String reminderFreq,
-            @RequestParam("plan") String plan,
+            @RequestParam("Plan") String plan,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -842,7 +842,7 @@ public class LoanCalculatorController implements ServletContextAware {
         if (plan != null && !plan.equals("")) {
             planPreference = plan;
             model.addAttribute("Plan", plan);
-            response.addCookie(new Cookie("plan", plan));
+            response.addCookie(new Cookie("Plan", plan));
         }
 
         if (email != null && !email.equals("")) {
