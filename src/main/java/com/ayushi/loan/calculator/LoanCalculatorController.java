@@ -1572,7 +1572,7 @@ public class LoanCalculatorController implements ServletContextAware {
     @RequestMapping(value = "/login")
     public String login(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "password", defaultValue = "") String password,
                         @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt,
-                        @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan,
+                        @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "Plan", defaultValue = "") String plan,
                         HttpServletRequest request, HttpServletResponse response, Model model) {
         if (emailCookie == null) {
             model.addAttribute("message", "Register with preferences");
