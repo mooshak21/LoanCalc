@@ -156,12 +156,14 @@ public class LoanCalculatorController implements ServletContextAware {
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-                for(Preference preference: prefs){
-                    if(preference.getType().equals("Plan")){
-                        plan =preference.getValue();
+                if(prefs != null) {
+                    for (Preference preference : prefs) {
+                        if (preference.getType().equals("Plan")) {
+                            plan = preference.getValue();
+                        }
                     }
+                    model.addAttribute("Plan", plan);
                 }
-                model.addAttribute("Plan", plan);
                 checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Calculate Loan Failed!");
                 return "createloan";
@@ -209,12 +211,14 @@ public class LoanCalculatorController implements ServletContextAware {
             logger.info("Required Parameters not entered!");
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        for(Preference preference: prefs){
-            if(preference.getType().equals("Plan")){
-                plan =preference.getValue();
+        if(prefs != null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
             }
+            model.addAttribute("Plan", plan);
         }
-        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         logger.info("Loan created successfully.done");
         return "createloan";
@@ -231,12 +235,14 @@ public class LoanCalculatorController implements ServletContextAware {
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("amortizeOn", calTodayStr);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        for(Preference preference: prefs){
-            if(preference.getType().equals("Plan")){
-                plan =preference.getValue();
+        if(prefs != null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
             }
+            model.addAttribute("Plan", plan);
         }
-        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         return "amortizeloan";
     }
@@ -319,12 +325,14 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("payoffOn", calTodayStr);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        for(Preference preference: prefs){
-            if(preference.getType().equals("Plan")){
-                plan =preference.getValue();
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
             }
+            model.addAttribute("Plan", plan);
         }
-        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         return "searchloan";
     }
@@ -357,12 +365,14 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("payoffOn", calTodayStr);
         model.addAttribute("amortizeOn", calTodayStr);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        for(Preference preference: prefs){
-            if(preference.getType().equals("Plan")){
-                plan =preference.getValue();
+        if(prefs !=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
             }
+            model.addAttribute("Plan", plan);
         }
-        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         return "searchloan";
     }
@@ -505,12 +515,14 @@ public class LoanCalculatorController implements ServletContextAware {
             return "searchloan";
         } else {
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-            for(Preference preference: prefs){
-                if(preference.getType().equals("Plan")){
-                    plan =preference.getValue();
+            if(prefs != null) {
+                for (Preference preference : prefs) {
+                    if (preference.getType().equals("Plan")) {
+                        plan = preference.getValue();
+                    }
                 }
+                model.addAttribute("Plan", plan);
             }
-            model.addAttribute("Plan", plan);
             checkUserPrefernece(model, prefs);
             model.addAttribute("message", "Search Loan: " + " Loan Parameters Not Selected!");
             return "searchloan";
@@ -1740,10 +1752,12 @@ public class LoanCalculatorController implements ServletContextAware {
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if (emailPasswordFlag) {
                 List<Preference> preferences = getPreferencesByEmailAddress(email);
-                for(Preference preference: preferences){
-                   if(preference.getType().equals("Plan")){
-                       plan =preference.getValue();
-                   }
+                if(preferences != null) {
+                    for (Preference preference : preferences) {
+                        if (preference.getType().equals("Plan")) {
+                            plan = preference.getValue();
+                        }
+                    }
                 }
                 response.addCookie(new Cookie("userEmail", email));
                 response.addCookie(new Cookie("loginStatus", "Y"));
