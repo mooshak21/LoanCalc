@@ -54,7 +54,7 @@ import com.paypal.base.rest.PayPalRESTException;
 
 
 @Controller
-@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus", "Plan"})
+@SessionAttributes({"loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus", "planSelected", "Plan"})
 public class LoanCalculatorController implements ServletContextAware {
 
     protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99";
@@ -76,7 +76,7 @@ public class LoanCalculatorController implements ServletContextAware {
     @RequestMapping(value = "/")
     public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
                        @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
-                       @CookieValue(value = "plan", defaultValue = "") String plan,
+                       @CookieValue(value = "Plan", defaultValue = "") String plan,
                        Model model, HttpServletRequest request) {
         model.addAttribute("reminderFrequency", reminderFrequency);
         model.addAttribute("Plan", plan);
@@ -125,7 +125,8 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("loanDenomination") String loanDenomination,
             @RequestParam("email") String email,
             @RequestParam("numOfYears") String numOfYears,
-            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
 
         logger.info("Create Load Function Call.");
 
@@ -157,6 +158,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                 checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Calculate Loan Failed!");
+                model.addAttribute("Plan", plan);
                 return "createloan";
             }
                     /*GsonBuilder gsonb = new GsonBuilder();
@@ -177,6 +179,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                     checkUserPrefernece(model, prefs);
                     model.addAttribute("message", "Create Loan Failed!");
+                    model.addAttribute("Paln", plan);
                     logger.info("Create error in create model : " + model);
                     return "createloan";
                 }
@@ -184,17 +187,20 @@ public class LoanCalculatorController implements ServletContextAware {
                 loanObject.setLoanApp(loanApp);
                 model.addAttribute("message", "Create Loan");
                 model.addAttribute("loan", loanObject);
+                model.addAttribute("Plan", plan);
                 logger.info("Loan app Add data on the model");
             } else {
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                 checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Create Loan Failed!");
+                model.addAttribute("Plan", plan);
                 logger.info("check prefrences generate the error.");
             }
         } else {
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
             checkUserPrefernece(model, prefs);
             model.addAttribute("message", "Create Loan : Required Parameters not entered!");
+            model.addAttribute("Plan", plan);
             logger.info("Required Parameters not entered!");
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
@@ -284,12 +290,13 @@ public class LoanCalculatorController implements ServletContextAware {
 //-------------------------------------------------------------------------------------------------------------------------------------	         
 
     @RequestMapping(value = "/loansearchask")
-    public String loansearchask(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+    public String loansearchask(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,@CookieValue(value = "Plan", defaultValue = "") String plan) {
         model.addAttribute("message", "Search Loan");
         java.util.Calendar calToday = java.util.Calendar.getInstance();
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("payoffOn", calTodayStr);
+        model.addAttribute("Plan", plan);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
         return "searchloan";
@@ -336,6 +343,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("amortizeOn") String amortizeOn,
             @RequestParam("payoffOn") String payoffOn,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         AmortizedLoan loanObject = new AmortizedLoan();
@@ -414,6 +422,7 @@ public class LoanCalculatorController implements ServletContextAware {
             } catch (LoanAccessException lae) {
                 lae.printStackTrace();
                 model.addAttribute("message", "Search Loan Failed!");
+                model.addAttribute("Plan", plan);
             }
             if (loans != null && loans.size() > 0) {
                 total = loans.size();
@@ -447,6 +456,7 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("payoffAmt", payoffAmt);
             model.addAttribute("amortizeOn", amortizeOn);
             model.addAttribute("userEmail", emailCookie);
+            model.addAttribute("Plan", plan);
 
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
             checkUserPrefernece(model, prefs);
@@ -619,7 +629,8 @@ public class LoanCalculatorController implements ServletContextAware {
     //------------------------------------------------------------------------------------------------------------------------------               
     @RequestMapping(value = "/quickview")
     public String quickView(Model model, @CookieValue(value = "loanId", defaultValue = "") String loanId,
-                            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+                            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                            @CookieValue(value = "Plan", defaultValue = "") String plan) {
         if (loanId != null && !loanId.equals("")) {
             List<Serializable> loans = new ArrayList<>();
             ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
@@ -638,6 +649,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     model.addAttribute("amortizeloan", amortizeLoan);
                     model.addAttribute("loans", loans);
                     model.addAttribute("loanId", loanId);
+                    model.addAttribute("Plan", plan);
                     model.addAttribute("message", "Search Loan in Quick View");
                 }
             } catch (LoanAccessException lae) {
@@ -645,6 +657,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
                 checkUserPrefernece(model, prefs);
                 model.addAttribute("message", "Loan no longer available!");
+                model.addAttribute("Plan", plan);
             }
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
@@ -656,9 +669,11 @@ public class LoanCalculatorController implements ServletContextAware {
     //-----------------------------------------------------------------
     @RequestMapping(value = "/loanviewask")
     public String loanviewask(@CookieValue(value = "loanId", defaultValue = "") String loanId,
-                              @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+                              @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                              @CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
         model.addAttribute("message", "View Loans");
         model.addAttribute("loanId", loanId);
+        model.addAttribute("Plan", plan);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
         return "viewloans";
@@ -669,6 +684,7 @@ public class LoanCalculatorController implements ServletContextAware {
     public String viewloanentries(@PathVariable int pageid, Model model,
                                   @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
                                   @CookieValue(value = "loanId", defaultValue = "") String loanId,
+                                  @CookieValue(value = "Plan", defaultValue = "") String plan,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         int total = 12;
@@ -693,6 +709,7 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("amortizeOn", calTodayStr);
         model.addAttribute("loanId", loanId);
         model.addAttribute("message", "View Loans");
+        model.addAttribute("Plan", plan);
         List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs1);
         return "viewloans";
@@ -703,6 +720,7 @@ public class LoanCalculatorController implements ServletContextAware {
     public String viewloan(@PathVariable int pageid, Model model,
                            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
                            @CookieValue(value = "loanId", defaultValue = "") String loanId,
+                           @CookieValue(value = "Plan", defaultValue = "") String plan,
                            HttpServletRequest request,
                            HttpServletResponse response) {
         int total = 1;
@@ -727,6 +745,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("payoffAmt", !payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null) ? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
                 model.addAttribute("amortizeloan", al);
                 model.addAttribute("loanId", loanId);
+                model.addAttribute("Plan", plan);
                 al.setLoanId(loan.getLoanId());
             }
         }
@@ -764,7 +783,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
     //----------------------------------------------------------------------------------------------------------------------
     @RequestMapping(value = "/loanpreferenceviewask")
-    public String loanpreferenceviewask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "plan", defaultValue = "") String plan, Model model) {
+    public String loanpreferenceviewask(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
         model.addAttribute("message", "Edit Preferences");
         model.addAttribute("reminderFrequency", reminderFrequency);
         model.addAttribute("Plan", plan);
@@ -1090,12 +1109,14 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("airVal") String airVal,
             @RequestParam("email") String email,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws ParseException {
 
         if (email != null && email.equals(""))
             email = emailCookie;
 
         List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, email);
+        model.addAttribute("Plan", plan);
 
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
@@ -1198,8 +1219,9 @@ public class LoanCalculatorController implements ServletContextAware {
 
     @RequestMapping(value = "/aggregateloanask")
     public String aggregateloan(Model model,
-                                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie) {
+                                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,@CookieValue(value = "Plan", defaultValue = "") String plan) {
         model.addAttribute("message", "Aggregate Loan");
+        model.addAttribute("Plan", plan);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         ArrayList<String> prefVal = null, prefAttr = null;
 
@@ -1371,7 +1393,9 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("loanIds") String loanIds,
             @RequestParam("loansId") String loansId,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws ParseException {
+        model.addAttribute("Plan", plan);
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         List<Serializable> loanAggDetails = null;
         List<Loan> loans1 = new ArrayList<Loan>();
@@ -1594,6 +1618,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 response.addCookie(new Cookie("loginStatus", "Y"));
                 request.getSession().setAttribute("loginStatus", "Y");
                 request.getSession().setAttribute("Plan", plan);
+                request.getSession().setAttribute("planSelected", plan);
+                model.addAttribute("planSelected", plan);
                 model.addAttribute("Plan",plan);
                 model.addAttribute("userEmail", email);
                 if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
@@ -1669,11 +1695,13 @@ public class LoanCalculatorController implements ServletContextAware {
     @RequestMapping(value = "/resetpassword")
     public String resetPassword(@RequestParam(value = "email", defaultValue = "") String email, @RequestParam(value = "oldpassword", defaultValue = "") String oldpassword,
                                 @RequestParam(value = "newpassword", defaultValue = "") String newpassword,
-                                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, HttpServletRequest request, HttpServletResponse response, Model model) {
+                                @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                                @CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request, HttpServletResponse response, Model model) {
         if (email != null && !email.equals("") && oldpassword != null && !oldpassword.equals("") && newpassword != null && !newpassword.equals("")) {
             model.addAttribute("userEmail", email);
             model.addAttribute("oldpassword", oldpassword);
             model.addAttribute("newpassword", newpassword);
+            model.addAttribute("Plan", plan);
             if (checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))
                 model.addAttribute("message", "Reset Password Successful!");
             else
@@ -1783,7 +1811,8 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/aggregateloanreportask", method = RequestMethod.GET)
-    public String aggregateloanReport(@CookieValue(value = "userEmail", defaultValue = "") String userEmail, Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String aggregateloanReport(@CookieValue(value = "userEmail", defaultValue = "") String userEmail,
+                                      @CookieValue(value = "Plan", defaultValue = "") String plan,Model model, HttpServletResponse response, HttpServletRequest request) {
         if (userEmail != null && !userEmail.equals("")) {
             List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
             ArrayList<String> prefVal = null, prefAttr = null;
@@ -1801,6 +1830,7 @@ public class LoanCalculatorController implements ServletContextAware {
             }
         }
         model.addAttribute("message", "Aggregate Loan Report");
+        model.addAttribute("Plan", plan);
         List<Preference> prefs = getPreferencesByEmailAddress(userEmail);
         checkUserPrefernece(model, prefs);
         return "aggregateloanreport";
@@ -1816,6 +1846,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("APR") String airVal,
             @RequestParam("email") String email,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws ParseException, LoanAccessException {
 
         if (email != null && email.equals(""))
@@ -1823,7 +1854,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
         List<Serializable> loans = searchLoanForAggregation(loanId, loanAmt, lender, state, numOfYears, airVal, email);
 
-
+        model.addAttribute("Paln", plan);
         if (loans != null && loans.size() > 0) {
             java.util.List<Serializable> loanRelationship = null;
             java.util.List<Serializable> loanRelationshipforCount = null;

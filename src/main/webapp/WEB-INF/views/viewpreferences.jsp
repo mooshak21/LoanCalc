@@ -154,8 +154,8 @@ function checkPasswords(theForm) {
                     </div>
                    
                    <div class="form-group">
-                        <label for="plan">Plan: </label>
-                        <select  class="form-control resetMe" id="plan" name="plan">
+                        <label for="Plan">Plan: </label>
+                        <select  class="form-control resetMe" id="Plan" name="Plan">
                             <c:if test="${Plan eq ''}">
                                 <option value="0.0" selected>Free</option>
                                 <option value="9.99">Lite</option>
