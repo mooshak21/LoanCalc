@@ -891,15 +891,13 @@ public class LoanCalculatorController implements ServletContextAware {
             }
             for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
                 model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-            if(prefs!=null) {
                 for (Preference preference : prefs) {
                     if (preference.getType().equals("Plan")) {
                         plan = preference.getValue();
                     }
                 }
-                model.addAttribute("Plan", plan);
             }
-        }
+        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         return "viewpreferences";
     }
@@ -1752,13 +1750,11 @@ public class LoanCalculatorController implements ServletContextAware {
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if (emailPasswordFlag) {
                 List<Preference> preferences = getPreferencesByEmailAddress(email);
-                if(preferences != null) {
                     for (Preference preference : preferences) {
                         if (preference.getType().equals("Plan")) {
                             plan = preference.getValue();
                         }
                     }
-                }
                 response.addCookie(new Cookie("userEmail", email));
                 response.addCookie(new Cookie("loginStatus", "Y"));
                 request.getSession().setAttribute("loginStatus", "Y");
