@@ -221,6 +221,12 @@ public class LoanCalculatorController implements ServletContextAware {
         String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/" + calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
         model.addAttribute("amortizeOn", calTodayStr);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        for(Preference preference: prefs){
+            if(preference.getType().equals("Plan")){
+                plan =preference.getValue();
+            }
+        }
+        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         return "amortizeloan";
     }
@@ -353,7 +359,6 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) {
-        model.addAttribute("Plan", plan);
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         AmortizedLoan loanObject = new AmortizedLoan();
         int total = 0;
@@ -467,10 +472,22 @@ public class LoanCalculatorController implements ServletContextAware {
             model.addAttribute("userEmail", emailCookie);
 
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            for(Preference preference: prefs){
+                if(preference.getType().equals("Plan")){
+                    plan =preference.getValue();
+                }
+            }
+            model.addAttribute("Plan", plan);
             checkUserPrefernece(model, prefs);
             return "searchloan";
         } else {
             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            for(Preference preference: prefs){
+                if(preference.getType().equals("Plan")){
+                    plan =preference.getValue();
+                }
+            }
+            model.addAttribute("Plan", plan);
             checkUserPrefernece(model, prefs);
             model.addAttribute("message", "Search Loan: " + " Loan Parameters Not Selected!");
             return "searchloan";
@@ -671,6 +688,12 @@ public class LoanCalculatorController implements ServletContextAware {
             }
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        for (Preference preference : prefs) {
+            if (preference.getType().equals("Plan")) {
+                   plan = preference.getValue();
+            }
+        }
+        model.addAttribute("Plan",plan);
         checkUserPrefernece(model, prefs);
         return "viewloans";
     }
