@@ -88,7 +88,7 @@ public class LoanCalculatorController implements ServletContextAware {
             request.getCookies();
             return "login";
         } else {
-            searchLoanBasedOnEmail(emailCookie, plan, model);
+            searchLoanBasedOnEmail(emailCookie, model);
             return "bankoffersandnews";
         }
     }
@@ -827,7 +827,6 @@ public class LoanCalculatorController implements ServletContextAware {
     @RequestMapping(value = "/viewloanexcel/{loanid}")
     public String loanviewexcel(@PathVariable long loanid, RedirectAttributes redirectAttributes,
                                 @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                                @CookieValue(value = "Plan", defaultValue = "") String plan,
                                 Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("message", "View Loan in EXCEL");
         List<Loan> loans = (List<Loan>) request.getSession().getAttribute("loans");
@@ -847,12 +846,6 @@ public class LoanCalculatorController implements ServletContextAware {
             }
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        for (Preference preference : prefs) {
-            if (preference.getType().equals("Plan")) {
-                plan = preference.getValue();
-            }
-        }
-        model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         return "viewloan";
     }
@@ -1760,7 +1753,7 @@ public class LoanCalculatorController implements ServletContextAware {
                     checkUserPrefernece(model, prefs);
                     return "amortizeloan";
                 } else {
-                    searchLoanBasedOnEmail(email,plan, model);
+                    searchLoanBasedOnEmail(email, model);
                     logger.debug("Model on Search Loan Based on Email" + model);
                     return "bankoffersandnews";
                 }
@@ -1796,7 +1789,7 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                                        @CookieValue(value = "Plan", defaultValue = "") String plan,Model model) {
+                                        Model model) {
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         StringBuffer querySB = new StringBuffer();
         List<Object> queryValList = new ArrayList<Object>();
@@ -1821,7 +1814,7 @@ public class LoanCalculatorController implements ServletContextAware {
             Loan searchLoan = (Loan) loans.get(0);
             model.addAttribute("region", searchLoan.getRegion());
             model.addAttribute("loanType", searchLoan.getLoanType());
-            searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(), null, null, emailCookie,plan,  model);
+            searchSiteOffers(searchLoan.getRegion(), searchLoan.getLoanType(), null, null, emailCookie,  model);
         }
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         checkUserPrefernece(model, prefs);
@@ -2466,7 +2459,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws ParseException {
-        searchSiteOffers(region, loanType, null, null, emailCookie,plan, model);
+        searchSiteOffers(region, loanType, null, null, emailCookie, model);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         for (Preference preference : prefs) {
             if (preference.getType().equals("Plan")) {
@@ -2482,15 +2475,9 @@ public class LoanCalculatorController implements ServletContextAware {
                                   @RequestParam("loanType") String loanType,
                                   @RequestParam("offerStartDate") String offerStartDate,
                                   @RequestParam("offerEndDate") String offerEndDate,
-                                  @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-                                  @CookieValue(value = "Plan", defaultValue = "") String plan,Model model) {
+                                  @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,Model model) {
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        for (Preference preference : prefs) {
-            if (preference.getType().equals("Plan")) {
-                plan = preference.getValue();
-            }
-        }
-        model.addAttribute("Plan", plan);
+
         checkUserPrefernece(model, prefs);
         ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
         SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
@@ -2619,7 +2606,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws ParseException {
-        searchSiteOffers(region, loanType, offerStartDate, offerEndDate, emailCookie,plan, model);
+        searchSiteOffers(region, loanType, offerStartDate, offerEndDate, emailCookie, model);
         return "siteofferandnews";
     }
 
@@ -2630,7 +2617,7 @@ public class LoanCalculatorController implements ServletContextAware {
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             @CookieValue(value = "Plan", defaultValue = "") String plan,
             Model model, HttpServletRequest request) throws ParseException {
-        searchSiteOffers(region, loanType, null, null, emailCookie,plan, model);
+        searchSiteOffers(region, loanType, null, null, emailCookie, model);
         return "updatesiteofferandnews";
     }
 
