@@ -2604,7 +2604,7 @@ public class LoanCalculatorController implements ServletContextAware {
             }
             queryValList.add(loanType);
         }
- /*       if (offerEndDate != null || offerStartDate != null) {
+        if (offerEndDate != null || offerStartDate != null) {
             if (offerStartDate != null && !offerStartDate.equals("")) {
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Calendar cal = null;
@@ -2640,7 +2640,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 }
                 queryValList.add(cal);
             }
-        }*/
+        }
 
         if (firstVal) {
             queryVals = new Object[queryValList.size()];
@@ -2651,21 +2651,21 @@ public class LoanCalculatorController implements ServletContextAware {
                 if (newsObjects != null) {
                     for (NewsObject n : newsObjects) {
                         if (n.getNewsType().equals("Bank Offer")) {
-                            /*if (offerEndDate == null || offerStartDate == null) {
+                            if (offerEndDate == null || offerStartDate == null) {
                                 if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
                                     siteoffers.add(n);
                                 }
-                            } else {*/
+                            } else {
                                 siteoffers.add(n);
-                            //}
+                            }
                         } else if (n.getNewsType().equals("News Site")) {
-                            /*if (offerEndDate == null || offerStartDate == null) {
+                            if (offerEndDate == null || offerStartDate == null) {
                                 if (n.getOfferEndDate().after(today) || n.getOfferEndDate().equals(today)) {
                                     newsarticle.add(n);
                                 }
-                            } else {*/
+                            } else {
                                 newsarticle.add(n);
-                            //}
+                            }
                         }
                     }
                 }
