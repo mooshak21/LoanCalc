@@ -2604,7 +2604,7 @@ public class LoanCalculatorController implements ServletContextAware {
             }
             queryValList.add(loanType);
         }
-        if (offerEndDate != null || offerStartDate != null) {
+ /*       if (offerEndDate != null || offerStartDate != null) {
             if (offerStartDate != null && !offerStartDate.equals("")) {
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Calendar cal = null;
@@ -2617,7 +2617,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 if (firstVal)
                     querySB.append(" and n.offerStartDate > ?");
                 else {
-                    querySB.append(" n.offerStartDate >?");
+                    querySB.append(" n.offerStartDate > ?");
                     firstVal = true;
                 }
                 queryValList.add(cal);
@@ -2640,7 +2640,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 }
                 queryValList.add(cal);
             }
-        }
+        }*/
 
         if (firstVal) {
             queryVals = new Object[queryValList.size()];
