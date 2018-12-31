@@ -2649,7 +2649,7 @@ public class LoanCalculatorController implements ServletContextAware {
                 if (firstVal)
                     querySB.append(" and n.offerStartDate > ?");
                 else {
-                    querySB.append(" n.offerStartDate >?");
+                    querySB.append(" n.offerStartDate > ?");
                     firstVal = true;
                 }
                 queryValList.add(cal);
