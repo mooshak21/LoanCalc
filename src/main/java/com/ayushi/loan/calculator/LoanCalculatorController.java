@@ -1771,9 +1771,23 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/logout")
-    public String logout(Model model, SessionStatus status) {
+    public String logout(Model model, SessionStatus status, HttpServletResponse response,
+                         @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt,
+                         @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "Plan", defaultValue = "") String plan) {
+        model.addAttribute("userEmail", "");
+        model.addAttribute("Plan", "");
         model.addAttribute("message", "Logout");
         status.setComplete();
+
+        Cookie userEmailCookie = new Cookie("userEmail", "");
+        userEmailCookie.setMaxAge(0);
+
+        Cookie loginStatusCookie = new Cookie("loginStatus", "N");
+        loginStatusCookie.setMaxAge(0);
+
+        response.addCookie(userEmailCookie);
+        response.addCookie(loginStatusCookie);
+
         return "logout";
     }
 
@@ -1906,6 +1920,8 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("Plan", plan);
         checkUserPrefernece(model, prefs);
         model.addAttribute("message", "Login Form");
+        logger.info("Selected plan :" +plan);
+        System.out.println("Selected plan :" +plan);
         return "login";
     }
 
