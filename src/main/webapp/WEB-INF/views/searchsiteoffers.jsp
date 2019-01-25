@@ -50,6 +50,9 @@
                          <select class="form-control resetMe" name="region" required="true" id="region" >
                              <option value="">Choose Region</option>
                              <option value="USA"  ${newsObject.region == 'USA' ? 'selected' : ''}>USA</option>
+                             <option value="Mex"  ${newsObject.region == 'Mex' ? 'selected' : ''}>Mexico</option>
+                             <option value="Can"  ${newsObject.region == 'Can' ? 'selected' : ''}>Canada</option>
+                             <option value="Euro"  ${newsObject.region == 'Euro' ? 'selected' : ''}>Europe</option>
                              <option value="India"  ${newsObject.region == 'India' ? 'selected' : ''}>India</option>
                              <option value="Japan" ${newsObject.region == 'Japan' ? 'selected' : ''}>Japan</option>
                              <option value="China"  ${newsObject.region == 'China' ? 'selected' : ''}>China</option>
