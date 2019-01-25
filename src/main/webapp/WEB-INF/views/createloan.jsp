@@ -36,6 +36,9 @@
                          <select class="form-control resetMe" name="region" required="true" id="region">
                              <option value="">Choose Region</option>
                              <option value="USA"  ${loan.region == 'USA' ? 'selected' : ''}>USA</option>
+                             <option value="Mex"  ${loan.region == 'Mex' ? 'selected' : ''}>Mexico</option>
+                             <option value="Can"  ${loan.region == 'Can' ? 'selected' : ''}>Canada</option>
+                             <option value="Euro"  ${loan.region == 'Euro' ? 'selected' : ''}>Europe</option>
                              <option value="India"  ${loan.region == 'India' ? 'selected' : ''}>India</option>
                              <option value="Japan" ${loan.region == 'Japan' ? 'selected' : ''}>Japan</option>
                              <option value="China"  ${loan.region == 'China' ? 'selected' : ''}>China</option>
