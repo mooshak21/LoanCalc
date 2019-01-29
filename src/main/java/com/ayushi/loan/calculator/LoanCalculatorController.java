@@ -1771,7 +1771,7 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/logout")
-    public String logout(Model model, SessionStatus status, HttpServletResponse response,
+    public String logout(Model model, SessionStatus status, HttpServletResponse response, HttpServletRequest request,
                          @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt,
                          @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "Plan", defaultValue = "") String plan) {
         model.addAttribute("userEmail", "");
@@ -1791,7 +1791,7 @@ public class LoanCalculatorController implements ServletContextAware {
         response.addCookie(userEmailCookie);
         response.addCookie(loginStatusCookie);
        	response.addCookie(planCookie); 
-       
+        request.getSession().invalidate();
 
         return "logout";
     }
