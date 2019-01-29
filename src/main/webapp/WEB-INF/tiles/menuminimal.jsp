@@ -18,12 +18,12 @@
             <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/login">Login</a>
             </li>
-            <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+            <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/quickview">Quick View Loan</a>
                 </li>
             </c:if>
-            <c:if test="${(not empty userEmail) and ((Plan == '0.0') or (Plan == '9.99') or (Plan == '19.99'))}">
+            <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '0.0' or sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/loansearchask">Search Loan</a>
                 </li>
@@ -35,7 +35,7 @@
                     <a class="nav-link menuItemXs" href="/loanamortizeask">Amortize Loan</a>
                 </li>
             </c:if>
-            <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+            <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/loanpayoffask">Payoff Loan</a>
                 </li>
@@ -44,7 +44,7 @@
                     <a class="nav-link menuItemXs" href="/loanviewask">View Loans</a>
                 </li>
             </c:if>
-            <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+            <c:if test="${sessionScope.loginStatus eq 'Y' and sessionScope.UserPreference eq 'Admin'}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/siteoffersask">Site Offers</a>
                 </li>
@@ -55,7 +55,7 @@
                     <a class="nav-link menuItemXs" href="/searchSiteoffersask">Search Site Offers</a>
                 </li>
             </c:if>
-            <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
+            <c:if test="${sessionScope.loginStatus eq 'Y' and sessionScope.Plan eq '19.99'}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/aggregateloanask">Aggregate Loan</a>
                 </li>
@@ -64,7 +64,7 @@
                     <a class="nav-link menuItemXs" href="/aggregateloanreportask">Aggregate Loan Report</a>
                 </li>
             </c:if>
-            <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+            <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/payment">Payment</a>
                 </li>
@@ -80,33 +80,33 @@
     </div>
 </nav>
 
-<!--       aside menu -->
-        <ul class="nav flex-column hidden-xs-down">
-            <li class="nav-item">
-              <a class="nav-link active" href="/" id="menuHome">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/login">Login</a>
-	    </li>
-        <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
-	        <li class="nav-item">
-                  <a class="nav-link menuItem" href="/quickview">Quick View Loan</a>
-            </li>
-        </c:if>
-        <c:if test="${(not empty userEmail) and ((Plan == '0.0') or (Plan == '9.99') or (Plan == '19.99'))}">
-            <li class="nav-item">
-              <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
-            </li>
+<!-- aside menu -->
+<ul class="nav flex-column hidden-xs-down">
+    <li class="nav-item">
+        <a class="nav-link active" href="/" id="menuHome">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link menuItem" href="/login">Login</a>
+    </li>
+    <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/quickview">Quick View Loan</a>
+        </li>
+    </c:if>
+    <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '0.0' or sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/loansearchask">Search Loan</a>
+        </li>
 
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="/createloan">Enter Loan</a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/createloan">Enter Loan</a>
+        </li>
 
-            <li class="nav-item">
-                <a class="nav-link menuItem" href="/loanamortizeask">Amortize Loan</a>
-            </li>
-        </c:if>
-    <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/loanamortizeask">Amortize Loan</a>
+        </li>
+    </c:if>
+    <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
         <li class="nav-item">
             <a class="nav-link menuItem" href="/loanpayoffask">Payoff Loan</a>
         </li>
@@ -115,7 +115,7 @@
             <a class="nav-link menuItem" href="/loanviewask">View Loans</a>
         </li>
     </c:if>
-    <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+    <c:if test="${sessionScope.loginStatus eq 'Y' and sessionScope.UserPreference eq 'Admin'}">
         <li class="nav-item">
             <a class="nav-link menuItem" href="/siteoffersask">Site Offers</a>
         </li>
@@ -126,7 +126,7 @@
             <a class="nav-link menuItem" href="/searchSiteoffersask">Search Site Offers</a>
         </li>
     </c:if>
-    <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
+    <c:if test="${sessionScope.loginStatus eq 'Y' and sessionScope.Plan eq '19.99'}">
         <li class="nav-item">
             <a class="nav-link menuItem" href="/aggregateloanask">Aggregate Loan</a>
         </li>
@@ -135,7 +135,7 @@
             <a class="nav-link menuItem" href="/aggregateloanreportask">Aggregate Loan Report</a>
         </li>
     </c:if>
-    <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+    <c:if test="${sessionScope.loginStatus eq 'Y' and (sessionScope.Plan eq '9.99' or sessionScope.Plan eq '19.99')}">
         <li class="nav-item">
             <a class="nav-link menuItem" href="/payment">Payment</a>
         </li>
