@@ -83,7 +83,10 @@
 <!--       aside menu -->
         <ul class="nav flex-column hidden-xs-down">
             <li class="nav-item">
-              <a class="nav-link active" href="/" id="menuHome">Home</a>
+              <a class="nav-link active" href="/" id="menuHome">Home
+              <input type="hidden" name="hdnUserEmail" value="${userEmail}">
+              <input type="hidden" name="hdnUserPlan" value="${Plan}">
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
