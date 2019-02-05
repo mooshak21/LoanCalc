@@ -360,6 +360,7 @@ public class LoanCalculatorController implements ServletContextAware {
             }
         }
         model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
         checkUserPrefernece(model, prefs);
         return "searchloan";
     }
