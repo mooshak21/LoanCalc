@@ -95,17 +95,20 @@ public class LoanCalculatorController implements ServletContextAware {
 
 
     @RequestMapping(value = "/createloan", method = RequestMethod.GET)
-    public String createloan(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, Model model) {
+    public String createloan(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                             @CookieValue(value = "Plan", defaultValue = "") String plan,Model model) {
         model.addAttribute("message", "Enter Loan for Amortization Schedule");
         model.addAttribute("userEmail", emailCookie);
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         if(prefs != null) {
             for (Preference preference : prefs) {
                 if (preference.getType().equals("Plan")) {
-                    model.addAttribute("Plan", preference.getValue());
+                    plan = preference.getValue();
                 }
             }
         }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
         checkUserPrefernece(model, prefs);
         return "createloan";
     }
@@ -277,8 +280,8 @@ public class LoanCalculatorController implements ServletContextAware {
                     plan = preference.getValue();
                 }
             }
-            model.addAttribute("Plan", plan);
         }
+        model.addAttribute("Plan", plan);
         model.addAttribute("userEmail", emailCookie);
         checkUserPrefernece(model, prefs);
         return "amortizeloan";
