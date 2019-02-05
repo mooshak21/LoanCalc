@@ -2355,8 +2355,8 @@ public class LoanCalculatorController implements ServletContextAware {
                     plan = preference.getValue();
                 }
             }
-            model.addAttribute("Plan", plan);
         }
+        model.addAttribute("Plan", plan);
         model.addAttribute("userEmail", emailCookie);
         checkUserPrefernece(model, prefs);
         return "siteoffers";
@@ -2374,8 +2374,9 @@ public class LoanCalculatorController implements ServletContextAware {
                     plan = preference.getValue();
                 }
             }
-            model.addAttribute("Plan", plan);
         }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
         checkUserPrefernece(model, prefs);
         return "updatesiteofferandnews";
     }
