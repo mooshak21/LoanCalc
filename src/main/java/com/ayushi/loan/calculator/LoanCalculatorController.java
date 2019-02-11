@@ -381,20 +381,22 @@ public class LoanCalculatorController implements ServletContextAware {
     }
 
     private void checkUserPrefernece(Model model, List<Preference> prefs) {
-        ArrayList<String> prefVal;
-        ArrayList<String> prefAttr;
+//        ArrayList<String> prefVal;
+//        ArrayList<String> prefAttr;
         if (prefs != null) {
-            prefVal = new ArrayList<String>(prefs.size());
-            prefAttr = new ArrayList<String>(prefs.size());
-            int prefIdx = 0;
+//            prefVal = new ArrayList<String>(prefs.size());
+//            prefAttr = new ArrayList<String>(prefs.size());
+//            int prefIdx = 0;
             for (Preference pref : prefs) {
-                prefAttr.add(pref.getName());
-                prefVal.add(pref.getValue());
+//                prefAttr.add(pref.getName());
+//                prefVal.add(pref.getValue());
+                if (pref.getName().equals("UserPreference") && pref.getValue().equals("Admin"))
+                    model.addAttribute("UserPreference", pref.getValue());
             }
-            for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
-                if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
-                    model.addAttribute("UserPreference", prefVal.get(prefIdx));
-            }
+//            for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
+//                if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
+//                    model.addAttribute("UserPreference", prefVal.get(prefIdx));
+//            }
         }
     }
 
@@ -1838,52 +1840,52 @@ public class LoanCalculatorController implements ServletContextAware {
                         @CookieValue(value = "userEmail", defaultValue = "") String emailCookie, @CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt,
                         @CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency, @CookieValue(value = "Plan", defaultValue = "") String plan,
                         HttpServletRequest request, HttpServletResponse response, Model model) {
-        if (emailCookie == null) {
-            model.addAttribute("message", "Register with preferences");
-            model.addAttribute("reminderFrequency", reminderFrequency);
-            model.addAttribute("planSelected", plan);
-            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-            if(prefs!=null) {
-                for (Preference preference : prefs) {
-                    if (preference.getType().equals("Plan")) {
-                        plan = preference.getValue();
-                    }
-                }
-            }
-            model.addAttribute("Plan", plan);
-            checkUserPrefernece(model, prefs);
-            return "viewpreferences";
-        }
-        if (emailCookie != null && !emailCookie.equals("")) {
-            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-            if(prefs!=null) {
-                for (Preference preference : prefs) {
-                    if (preference.getType().equals("Plan")) {
-                        plan = preference.getValue();
-                    }
-                }
-            }
-            model.addAttribute("Plan", plan);
-            ArrayList<String> prefVal = null, prefAttr = null;
-
-            if (prefs != null) {
-                prefVal = new ArrayList<String>(prefs.size());
-                prefAttr = new ArrayList<String>(prefs.size());
-                int prefIdx = 0;
-                for (Preference pref : prefs) {
-                    prefAttr.add(pref.getName());
-                    prefVal.add(pref.getValue());
-                }
-                for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
-                    model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-                    if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
-                        model.addAttribute("UserPreference", prefVal.get(prefIdx));
-                }
-            }
-        }
+//        if (emailCookie == null || "".equals(emailCookie)) {
+//            model.addAttribute("message", "Register with preferences");
+//            model.addAttribute("reminderFrequency", reminderFrequency);
+//            model.addAttribute("planSelected", plan);
+//            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+//            if(prefs!=null) {
+//                for (Preference preference : prefs) {
+//                    if (preference.getType().equals("Plan")) {
+//                        plan = preference.getValue();
+//                    }
+//                }
+//            }
+//            model.addAttribute("Plan", plan);
+//            checkUserPrefernece(model, prefs);
+//            return "viewpreferences";
+//        }
+//        if (emailCookie != null && !emailCookie.equals("")) {
+//            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+//            if(prefs!=null) {
+//                for (Preference preference : prefs) {
+//                    if (preference.getType().equals("Plan")) {
+//                        plan = preference.getValue();
+//                    }
+//                }
+//            }
+//            model.addAttribute("Plan", plan);
+//            ArrayList<String> prefVal = null, prefAttr = null;
+//
+//            if (prefs != null) {
+//                prefVal = new ArrayList<String>(prefs.size());
+//                prefAttr = new ArrayList<String>(prefs.size());
+//                int prefIdx = 0;
+//                for (Preference pref : prefs) {
+//                    prefAttr.add(pref.getName());
+//                    prefVal.add(pref.getValue());
+//                }
+//                for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
+//                    model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+//                    if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
+//                        model.addAttribute("UserPreference", prefVal.get(prefIdx));
+//                }
+//            }
+//        }
         if (email != null && !email.equals("") && password != null && !password.equals("")) {
             model.addAttribute("message", "Login Form");
-            model.addAttribute("userEmail", email);
+//            model.addAttribute("userEmail", email);
             boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
             if (emailPasswordFlag) {
                 List<Preference> preferences = getPreferencesByEmailAddress(email);
@@ -1905,30 +1907,30 @@ public class LoanCalculatorController implements ServletContextAware {
                 model.addAttribute("userEmail", email);
                 if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
                     model.addAttribute("message", "Aggregate Loan Report");
-                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-                    if(prefs!=null) {
-                        for (Preference preference : prefs) {
-                            if (preference.getType().equals("Plan")) {
-                                plan = preference.getValue();
-                            }
-                        }
-                    }
-                    model.addAttribute("Plan", plan);
-                    checkUserPrefernece(model, prefs);
+//                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+//                    if(prefs!=null) {
+//                        for (Preference preference : prefs) {
+//                            if (preference.getType().equals("Plan")) {
+//                                plan = preference.getValue();
+//                            }
+//                        }
+//                    }
+//                    model.addAttribute("Plan", plan);
+                    checkUserPrefernece(model, preferences);
                     return "aggregateloanreport";
 
                 } else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
                     model.addAttribute("message", "Amortize Loan");
-                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-                    if(prefs!=null) {
-                        for (Preference preference : prefs) {
-                            if (preference.getType().equals("Plan")) {
-                                plan = preference.getValue();
-                            }
-                        }
-                    }
-                    model.addAttribute("Plan", plan);
-                    checkUserPrefernece(model, prefs);
+//                    List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+//                    if(prefs!=null) {
+//                        for (Preference preference : prefs) {
+//                            if (preference.getType().equals("Plan")) {
+//                                plan = preference.getValue();
+//                            }
+//                        }
+//                    }
+//                    model.addAttribute("Plan", plan);
+                    checkUserPrefernece(model, preferences);
                     return "amortizeloan";
                 } else {
                     searchLoanBasedOnEmail(email,plan, model);
@@ -1941,31 +1943,31 @@ public class LoanCalculatorController implements ServletContextAware {
                 nextLoginAttempt++;
                 response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
                 model.addAttribute("message", "Login Form");
-                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-                if(prefs!=null) {
-                    for (Preference preference : prefs) {
-                        if (preference.getType().equals("Plan")) {
-                            plan = preference.getValue();
-                        }
-                    }
-                }
-                model.addAttribute("Plan", plan);
-                checkUserPrefernece(model, prefs);
+//                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+//                if(prefs!=null) {
+//                    for (Preference preference : prefs) {
+//                        if (preference.getType().equals("Plan")) {
+//                            plan = preference.getValue();
+//                        }
+//                    }
+//                }
+//                model.addAttribute("Plan", plan);
+//                checkUserPrefernece(model, prefs);
                 return "loginwithrecaptcha";
             }
         }
-        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-        if (prefs != null) {
-            for (Preference preference : prefs) {
-                if (preference.getType().equals("Plan")) {
-                    plan = preference.getValue();
-                }
-            }
-        }
+//        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+//        if (prefs != null) {
+//            for (Preference preference : prefs) {
+//                if (preference.getType().equals("Plan")) {
+//                    plan = preference.getValue();
+//                }
+//            }
+//        }
 
-        model.addAttribute("userEmail", emailCookie);
-        model.addAttribute("Plan", plan);
-        checkUserPrefernece(model, prefs);
+//        model.addAttribute("userEmail", emailCookie);
+//        model.addAttribute("Plan", plan);
+//        checkUserPrefernece(model, prefs);
         model.addAttribute("message", "Login Form");
         logger.info("Selected plan :" +plan);
         System.out.println("Selected plan :" +plan);
@@ -3157,6 +3159,14 @@ public class LoanCalculatorController implements ServletContextAware {
         }
         return "payment";
 
+    }
+
+    private void setPreferences(Model model,List<Preference> prefs){
+        if (prefs != null) {
+            for (Preference preference : prefs) {
+                model.addAttribute(preference.getName(), preference.getValue());
+            }
+        }
     }
 
 }
