@@ -45,21 +45,21 @@
     -->
     <context:component-scan base-package="com.ayushi.loan">
     </context:component-scan>
-    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-        <property name="driverClassName" value="${database.driverClassName}"/>
-        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
-        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" id="dataSource">
+        <property name="driverClass" value="${database.driverClassName}"/>
+        <property name="jdbcUrl" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+        <property name="user" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
         <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
-        <property name="testOnBorrow" value="true"/>
-        <property name="testOnReturn" value="true"/>
-        <property name="testWhileIdle" value="true"/>
-<!--        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>-->
-        <property name="timeBetweenEvictionRunsMillis" value="18000"/>
-        <property name="numTestsPerEvictionRun" value="3"/>
-        <!--<property name="minEvictableIdleTimeMillis" value="1800000"/>-->
-        <property name="minEvictableIdleTimeMillis" value="18000"/>
-        <property name="validationQuery" value="SELECT version();"/>
-	<property name="removeAbandoned" value="true"/>    
+        <!--<property name="testOnBorrow" value="true"/>-->
+        <!--<property name="testOnReturn" value="true"/>-->
+        <!--<property name="testWhileIdle" value="true"/>-->
+<!--&lt;!&ndash;        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>&ndash;&gt;-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="18000"/>-->
+        <!--<property name="numTestsPerEvictionRun" value="3"/>-->
+        <!--&lt;!&ndash;<property name="minEvictableIdleTimeMillis" value="1800000"/>&ndash;&gt;-->
+        <!--<property name="minEvictableIdleTimeMillis" value="18000"/>-->
+        <!--<property name="validationQuery" value="SELECT version();"/>-->
+	<!--<property name="removeAbandoned" value="true"/>    -->
     </bean>
 
     <bean class="java.net.URI" id="dbUrl">
