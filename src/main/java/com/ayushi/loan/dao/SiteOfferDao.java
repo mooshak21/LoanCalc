@@ -67,7 +67,7 @@ public class SiteOfferDao extends HibernateDaoSupport {
         Session session = sessionFactory.getCurrentSession();
         try {
             session.delete(o);
-            session.flush();
+//            session.flush();
         } catch (DataAccessException dae) {
             throw new LoanAccessException(dae);
         }
