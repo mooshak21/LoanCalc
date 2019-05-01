@@ -179,3 +179,45 @@ WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
+
+
+ALTER TABLE loan ADD COLUMN username character varying(100) NOT NULL DEFAULT 'ayushi';
+ALTER TABLE loan ADD COLUMN vehicle_model character varying(50);
+ALTER TABLE loan ADD COLUMN vehicle_make character varying(50);
+ALTER TABLE loan ADD COLUMN vehicle_year character varying(50);
+ALTER TABLE loan ADD COLUMN vin character varying(50);
+ALTER TABLE loan ADD COLUMN address character varying(100);
+ALTER TABLE loan ADD COLUMN city character varying(100);
+ALTER TABLE loan ADD COLUMN country character varying(100);
+ALTER TABLE loan ADD COLUMN zipcode character varying(50)
+
+CREATE TABLE public.equity_external_calculator
+(
+  link_url character varying(300) COLLATE pg_catalog."default" NOT NULL,
+	external_calculator_id bigint NOT NULL,
+  loan_type character varying(100) COLLATE pg_catalog."default" NOT NULL DEFAULT 'Home Loan'::character varying,
+  region character varying(100) COLLATE pg_catalog."default" NOT NULL DEFAULT 'USA'::character varying,
+  CONSTRAINT equity_external_calculator_pkey PRIMARY KEY (external_calculator_id)
+)
+WITH (
+OIDS = FALSE
+)
+TABLESPACE pg_default
+
+CREATE TABLE public.equity
+(
+equity_id bigint NOT NULL,
+loan_id bigint NOT NULL,
+email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+loan_type character varying(100) COLLATE pg_catalog."default" NOT NULL DEFAULT 'Home Loan'::character varying,
+loan_balance_amount double precision not null,
+equity_value double precision not null,
+remaining_year integer not null,
+asset_value double precision not null,
+valuation_date date NOT NULL,
+  CONSTRAINT equity_pkey PRIMARY KEY (equity_id)
+)
+WITH (
+OIDS = FALSE
+)
+TABLESPACE pg_default
