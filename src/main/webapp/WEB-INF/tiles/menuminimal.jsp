@@ -39,6 +39,10 @@
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/loanamortizeask">Amortize Loan</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menuItemXs" href="/calculateEquityask">Calculate Equity</a>
+                </li>
             </c:if>
             <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
                 <li class="nav-item">
@@ -58,6 +62,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/searchSiteoffersask">Search Site Offers</a>
+                </li>
+            </c:if>
+            <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+                <li class="nav-item">
+                    <a class="nav-link menuItemXs" href="/externalLinksask">Equity External Calculator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menuItemXs" href="/updateExternalLinksask">Update Equity External Calculator</a>
                 </li>
             </c:if>
             <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
@@ -115,6 +127,10 @@
             <li class="nav-item">
                 <a class="nav-link menuItem" href="/loanamortizeask">Amortize Loan</a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="/calculateEquityask">Calculate Equity</a>
+            </li>
         </c:if>
     <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
         <li class="nav-item">
@@ -134,6 +150,14 @@
         </li>
         <li class="nav-item">
             <a class="nav-link menuItem" href="/searchSiteoffersask">Search Site Offers</a>
+        </li>
+    </c:if>
+    <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/externalLinksask">Equity External Calculator</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link menuItem" href="/updateExternalLinksask">Update Equity External Calculator</a>
         </li>
     </c:if>
     <c:if test="${(not empty userEmail) and (Plan == '19.99')}">

@@ -17,6 +17,16 @@ public class Loan implements Serializable, Comparable<Loan> {
 	private LoanApp loanApp;
 	private Double principal, interest;
 	private String email;
+	private String name;
+	private String vehicleModel;
+	private String vehicleMake;
+	private String vehicleYear;
+	private String vin;
+	private String address;
+	private String city;
+	private String country;
+	private String zipcode;
+
 	public Loan(){
 		amount = 0.0;
 		total = 0.0;
@@ -34,9 +44,19 @@ public class Loan implements Serializable, Comparable<Loan> {
 		loanType = "Home Loan";
 		loanDenomination = "USD";
 		email = "contact@loaninsight.online";
+		name = "ayushi";
+		vehicleModel = null;
+		vehicleMake = null;
+		vehicleYear = null;
+		vin = null;
+		address = null;
+		city = null;
+		country = null;
+		zipcode = null;
 	}
 
-	public Loan(double mnthly, double amt, double tot, String lndr, String rn, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom, String email){
+	public Loan(double mnthly, double amt, double tot, String lndr, String rn, String st, double intRate, double Apr, int numYears, double interestPayment, Long loanIdNo, String loantype, String loanDenom, String email,
+				String name, String vehicleModel, String vehicleMake,String vehicleYear,String vin, String address, String city, String country, String zipcode){
 		monthly = new Double(mnthly);
 		amount = new Double(amt);
 		total = new Double(tot);
@@ -58,6 +78,15 @@ public class Loan implements Serializable, Comparable<Loan> {
 		loanType = loantype;
 		loanDenomination = loanDenom;
 		this.email = email;
+		this.name = name;
+		this.vehicleModel = vehicleModel;
+		this.vehicleMake =  vehicleMake;
+		this.vehicleYear = vehicleYear;
+		this.vin = vin;
+		this.address = address;
+		this.city = city;
+		this.country = country;
+		this.zipcode = zipcode;
 	}
 	public void setLoanApp(LoanApp lnApp){
 		loanApp = lnApp;
@@ -197,5 +226,77 @@ public class Loan implements Serializable, Comparable<Loan> {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getVehicleModel() {
+		return vehicleModel;
+	}
+
+	public void setVehicleModel(String vehicleModel) {
+		this.vehicleModel = vehicleModel;
+	}
+
+	public String getVehicleMake() {
+		return vehicleMake;
+	}
+
+	public void setVehicleMake(String vehicleMake) {
+		this.vehicleMake = vehicleMake;
+	}
+
+	public String getVehicleYear() {
+		return vehicleYear;
+	}
+
+	public void setVehicleYear(String vehicleYear) {
+		this.vehicleYear = vehicleYear;
+	}
+
+	public String getVin() {
+		return vin;
+	}
+
+	public void setVin(String vin) {
+		this.vin = vin;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 }

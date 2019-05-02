@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ayushi.loan.Equity" table="equity" polymorphism="implicit">
+
+        <composite-id>
+            <key-property name="equityId" column="equity_id" type="java.lang.Long"/>
+        </composite-id>
+
+        <property name="loanId" type="java.lang.Long">
+            <column name="loan_id" not-null="true" />
+        </property>
+        <property name="loanType" type="java.lang.String">
+            <column name="loan_type" length="100" not-null="true" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" length="100" not-null="true" />
+        </property>
+        <property name="loanBalanceAmount" type="java.lang.Double">
+            <column name="loan_balance_amount" length="20" not-null="true" />
+        </property>
+        <property name="remainingYear" type="java.lang.Integer">
+            <column name="remaining_year" length="20" not-null="true" />
+        </property>
+        <property name="equityValue" type="java.lang.Double">
+            <column name="equity_value" length="20" not-null="true" />
+        </property>
+        <property name="assetValue" type="java.lang.Double">
+            <column name="asset_value" length="20" not-null="true" />
+        </property>
+        <property name="valuationDate" type="java.util.Calendar">
+            <column name="valuation_date"/>
+        </property>
+    </class>
+</hibernate-mapping>

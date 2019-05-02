@@ -15,8 +15,8 @@ public class AmortizedLoan extends Loan {
 		super();
 	}
 
-	public AmortizedLoan(String amortizeOnDate, double mnthly, double amt, double tot, String lndr,String region, String st, double intRate, double Apr, int numYears, double interestPayment,Long loanIdNo, String loantype, String loanDenom, String email){
-		super(mnthly, amt, tot, lndr, region, st, intRate, Apr, numYears, interestPayment,loanIdNo,loantype, loanDenom, email);
+	public AmortizedLoan(String amortizeOnDate, double mnthly, double amt, double tot, String lndr,String region, String st, double intRate, double Apr, int numYears, double interestPayment,Long loanIdNo, String loantype, String loanDenom, String email,String name, String vehicleModel, String vehicleMake,String vehicleYear,String vin, String address, String city, String country, String zipcode){
+		super(mnthly, amt, tot, lndr, region, st, intRate, Apr, numYears, interestPayment,loanIdNo,loantype, loanDenom, email,name,vehicleModel,vehicleMake,vehicleYear,vin,address,city,country, zipcode);
 		int maxCmpPeriod = numYears*12, cmpPeriod = 1;
 		Calendar dateLastEntry = null;
 		amortizedloanAmt = amt;

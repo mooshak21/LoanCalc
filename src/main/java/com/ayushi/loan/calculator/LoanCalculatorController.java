@@ -142,6 +142,15 @@ public class LoanCalculatorController implements ServletContextAware {
             @RequestParam("loanDenomination") String loanDenomination,
             @RequestParam("email") String email,
             @RequestParam("numOfYears") String numOfYears,
+            @RequestParam("name")String name,
+            @RequestParam("vehicleModel") String vehicleModel,
+            @RequestParam("vehicleMake") String vehicleMake,
+            @RequestParam("vehicleYear") String vehicleYear,
+            @RequestParam("vin") String vin,
+            @RequestParam("address") String address,
+            @RequestParam("city") String city,
+            @RequestParam("country") String country,
+            @RequestParam("zipcode") String zipcode,
             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
             @CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
 
@@ -152,7 +161,8 @@ public class LoanCalculatorController implements ServletContextAware {
         Loan loanObject = null;
         if (loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
                 && lender != null && !lender.equals("") && region != null && !region.equals("") && state != null && !state.equals("")
-                && numOfYears != null && !numOfYears.equals("") && loanType != null && !loanType.equals("") && loanDenomination != null && !loanDenomination.equals("")) {
+                && numOfYears != null && !numOfYears.equals("") && loanType != null && !loanType.equals("") && loanDenomination != null && !loanDenomination.equals("")
+                && name !=null && !name.equals("")) {
             allVal = true;
             loanQryObject.setAmount(Double.valueOf(loanAmt));
             loanQryObject.setLender(lender);
@@ -161,6 +171,7 @@ public class LoanCalculatorController implements ServletContextAware {
             loanQryObject.setLoanType(loanType);
             loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
             loanQryObject.setAPR(Double.valueOf(airVal));
+            loanQryObject.setName(name);
             logger.info("Value set in loanQueryObject not null verification.");
         }
         if (allVal) {
@@ -195,6 +206,19 @@ public class LoanCalculatorController implements ServletContextAware {
                     loanObject.setRegion(region);
                     loanObject.setLoanDenomination(loanDenomination);
                     loanObject.setEmail(email);
+                    loanObject.setName(name);
+                    if(loanType.equals("Auto Loan")){
+                        loanObject.setVehicleMake(vehicleMake);
+                        loanObject.setVehicleModel(vehicleModel);
+                        loanObject.setVehicleYear(vehicleYear);
+                        loanObject.setVin(vin);
+                    }else if(loanType.equals("Home Loan")){
+                        loanObject.setAddress(address);
+                        loanObject.setCity(city);
+                        loanObject.setState(state);
+                        loanObject.setCountry(country);
+                        loanObject.setZipcode(zipcode);
+                    }
                     logger.info("Create Loan function call with loanobject : " + loanObject);
                     loanService.createLoan(loanObject);
                     logger.info("Create Loan successfully");
@@ -517,7 +541,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 total = loans.size();
                 Loan searchloan = (Loan) loans.get(0);
                 if (searchloan != null) {
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail());
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail(),searchloan.getName()
+                    ,null,null,null,null,null,null,null,null);
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
@@ -768,7 +793,8 @@ public class LoanCalculatorController implements ServletContextAware {
                 loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?", new Object[]{new Long(loanId)});
                 if (loans != null && loans.size() > 0) {
                     Loan searchloan = (Loan) loans.get(0);
-                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail());
+                    AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(), searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail(),
+                            searchloan.getName(),null,null,null,null,null,null,null,null);
                     LoanApp loanApp = new LoanApp(amortizeLoan);
                     amortizeLoan.setLoanApp(loanApp);
                     amortizeLoan.setLoanId(searchloan.getLoanId());
@@ -899,7 +925,8 @@ public class LoanCalculatorController implements ServletContextAware {
             Loan loan = (Loan) loans.get(pageid - 1);
             if (amortizeOn != null) {
                 al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(), loan.getRegion(), loan.getState(),
-                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0, loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail());
+                        loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0, loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail(),
+                        loan.getName(),null,null,null,null,null,null,null,null);
                 model.addAttribute("payoffAmt", !payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null) ? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
                 model.addAttribute("amortizeloan", al);
                 model.addAttribute("loanId", loanId);
@@ -3159,4 +3186,271 @@ public class LoanCalculatorController implements ServletContextAware {
 
     }
 
+    @RequestMapping(value = "/externalLinksask")
+    public String externalLink(Model model,
+                             @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                             @CookieValue(value = "Plan", defaultValue = "") String plan) {
+        model.addAttribute("message", "Equity External Calculator");
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+        }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "externalLinks";
+    }
+
+    @RequestMapping(value = "/externalLinks", method = RequestMethod.POST)
+    public String externalCalculator(
+            @RequestParam("linkUrl") String linkUrl,
+            @RequestParam("loanType") String loanType,
+            @RequestParam("region") String region,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
+            Model model, HttpServletRequest request) throws ParseException {
+
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean("EquityExternalCalculatorService");
+            EquityExternalCalculator equityExternalCalculator = new EquityExternalCalculator();
+            equityExternalCalculator.setLinkUrl(linkUrl);
+            equityExternalCalculator.setLoanType(loanType);
+            equityExternalCalculator.setRegion(region);
+            try {
+                externalCalculatorService.createEquityExternalCalculator(equityExternalCalculator);
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                if(prefs!=null) {
+                    for (Preference preference : prefs) {
+                        if (preference.getType().equals("Plan")) {
+                            plan = preference.getValue();
+                        }
+                    }
+                    model.addAttribute("Plan", plan);
+                }
+                checkUserPrefernece(model, prefs);
+                model.addAttribute("message", "Create External Link Failed!");
+                return "externalLinks";
+            }
+            model.addAttribute("externalLinks", equityExternalCalculator);
+             List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+             if(prefs!=null) {
+                for (Preference preference : prefs) {
+                    if (preference.getType().equals("Plan")) {
+                        plan = preference.getValue();
+                    }
+                }
+                model.addAttribute("Plan", plan);
+                }
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        model.addAttribute("message", "Create External Calculator ");
+        return "externalLinks";
+    }
+
+    @RequestMapping(value = "/updateExternalLinksask")
+    public String updateExternalLinksask(Model model,
+                                   @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                                   @CookieValue(value = "Plan", defaultValue = "") String plan) {
+        model.addAttribute("message", "Site offers");
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+        }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "updateExternalLinks";
+    }
+
+    @RequestMapping(value = "/updateSearchExternalLinks", method = RequestMethod.GET)
+    public String updateSearchExternalLinks(
+            @RequestParam("region") String region,
+            @RequestParam("loanType") String loanType,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
+            Model model, HttpServletRequest request) throws ParseException {
+        model.addAttribute("userEmail", emailCookie);
+        model.addAttribute("Plan", plan);
+
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean("EquityExternalCalculatorService");
+        List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<EquityExternalCalculator>();
+        StringBuffer querySB = new StringBuffer();
+        List<Object> queryValList = new ArrayList<Object>();
+        Object[] queryVals = null;
+        boolean firstVal = false;
+        if (region != null && !region.equals("")) {
+            querySB.append("n.region=?");
+            firstVal = true;
+            queryValList.add(region);
+        }
+        if (loanType != null && !loanType.equals("")) {
+            if (firstVal)
+                querySB.append(" and n.loanType=?");
+            else {
+                querySB.append(" n.loanType=?");
+                firstVal = true;
+            }
+            queryValList.add(loanType);
+        }
+
+        if (firstVal) {
+            queryVals = new Object[queryValList.size()];
+            queryVals = queryValList.toArray(queryVals);
+            try {
+                equityExternalCalculators = externalCalculatorService.findEquityExternalCalculator("select n from EquityExternalCalculator n where " + querySB.toString(), queryVals);
+                if (equityExternalCalculators != null) {
+                    model.addAttribute("equityExternalCalculators", equityExternalCalculators);
+                }
+                 } catch (LoanAccessException ex) {
+                    ex.printStackTrace();
+                    logger.error(ex);
+                    model.addAttribute("message", "Search offers Failed!");
+                }
+
+            }
+        model.addAttribute("region", region);
+        model.addAttribute("loanType", loanType);
+        return "updateExternalLinks";
+    }
+
+    @RequestMapping(value = "/updateExternalLinks", method = RequestMethod.GET)
+    public String updateExternalLinks(
+            @RequestParam("externalCalculatorId") String externalCalculatorId,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
+            Model model, HttpServletRequest request) throws ParseException {
+
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        EquityExternalCalculator equityExternalCalculator = new EquityExternalCalculator();
+        StringBuffer querySB = new StringBuffer();
+        java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
+        Object[] queryVals = null;
+        boolean firstVal = false;
+        querySB.append("ln.externalCalculatorId=?");
+        queryValList.add(Long.valueOf(externalCalculatorId));
+
+        queryVals = new Object[queryValList.size()];
+        queryVals = queryValList.toArray(queryVals);
+        List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<>();
+        EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean("EquityExternalCalculatorService");
+        try {
+            equityExternalCalculators = externalCalculatorService.findEquityExternalCalculator("select ln from EquityExternalCalculator ln where  " + querySB.toString(), queryVals);
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            model.addAttribute("message", "Search Equity External Calculator Failed!");
+        }
+        if (equityExternalCalculators != null && equityExternalCalculators.size() !=0) {
+            model.addAttribute("equityExternalCalculator", equityExternalCalculators.get(0));
+            model.addAttribute("region", equityExternalCalculators.get(0).getRegion());
+            model.addAttribute("loanType", equityExternalCalculators.get(0).getLoanType());
+            model.addAttribute("linkUrl", equityExternalCalculators.get(0).getLinkUrl());
+            model.addAttribute("externalCalculatorId", equityExternalCalculators.get(0).getExternalCalculatorId());
+            model.addAttribute("userEmail", emailCookie);
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            if(prefs!=null) {
+                for (Preference preference : prefs) {
+                    if (preference.getType().equals("Plan")) {
+                        plan = preference.getValue();
+                    }
+                }
+                model.addAttribute("Plan", plan);
+            }
+            checkUserPrefernece(model, prefs);
+            return "searchExternalLinks";
+        } else {
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            if(prefs!=null) {
+                for (Preference preference : prefs) {
+                    if (preference.getType().equals("Plan")) {
+                        plan = preference.getValue();
+                    }
+                }
+                model.addAttribute("Plan", plan);
+            }
+            model.addAttribute("userEmail", emailCookie);
+            checkUserPrefernece(model, prefs);
+            model.addAttribute("message", "Search External Links");
+            return "searchExternalLinks";
+        }
+    }
+
+
+    @RequestMapping(value = "/updateExternalCalculatorValues", method = RequestMethod.POST)
+    public String updateExternalCalculatorValues(
+            @RequestParam("externalCalculatorId") String externalCalculatorId,
+            @RequestParam("linkUrl") String linkUrl,
+            @RequestParam("loanType") String loanType,
+            @RequestParam("region") String region,
+            @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+            @CookieValue(value = "Plan", defaultValue = "") String plan,
+            Model model, HttpServletRequest request) throws ParseException {
+        EquityExternalCalculator equityExternalCalculator = new EquityExternalCalculator();
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean("EquityExternalCalculatorService");
+
+        equityExternalCalculator.setExternalCalculatorId(Long.valueOf(externalCalculatorId));
+        equityExternalCalculator.setLinkUrl(linkUrl);;
+        equityExternalCalculator.setLoanType(loanType);
+        equityExternalCalculator.setRegion(region);
+        EquityExternalCalculator equityExternalCalculator1 = new EquityExternalCalculator();
+        try {
+             equityExternalCalculator1 = externalCalculatorService.modifyEquityExternalCalculator(equityExternalCalculator);
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+            if(prefs!=null) {
+                for (Preference preference : prefs) {
+                    if (preference.getType().equals("Plan")) {
+                        plan = preference.getValue();
+                    }
+                }
+                model.addAttribute("Plan", plan);
+            }
+            checkUserPrefernece(model, prefs);
+            model.addAttribute("message", "Update Equity External Calculator failed!");
+        }
+        model.addAttribute("equityExternalCalculator", equityExternalCalculator1);
+
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+            model.addAttribute("Plan", plan);
+        }
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        model.addAttribute("message", "Update Equity External Calculator");
+        return "searchExternalLinks";
+    }
+
+    @RequestMapping(value = "/calculateEquityask")
+    public String calculateEquityask(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,@CookieValue(value = "Plan", defaultValue = "") String plan) {
+        model.addAttribute("message", "Search Loan");
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+        }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "equityCalculation";
+    }
 }

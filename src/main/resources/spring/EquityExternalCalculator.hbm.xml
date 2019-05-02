@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ayushi.loan.EquityExternalCalculator" table="equity_external_calculator" polymorphism="implicit">
+
+        <composite-id>
+            <key-property name="externalCalculatorId" column="external_calculator_id" type="java.lang.Long"/>
+        </composite-id>
+
+        <property name="linkUrl" type="java.lang.String">
+            <column name="link_url" length="300" not-null="true" />
+        </property>
+        <property name="loanType" type="java.lang.String">
+            <column name="loan_type" length="100" not-null="true" />
+        </property>
+        <property name="region" type="java.lang.String">
+            <column name="region" length="100" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

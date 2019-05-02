@@ -111,6 +111,23 @@
         <put-attribute name="body" value="/WEB-INF/views/searchsiteoffers.jsp"/>
     </definition>
 
+    <definition name="externalLinks" extends="loanappminimal.homepage">
+        <put-attribute name="title" value="Enter Equity External Calculator Links "/>
+        <put-attribute name="body" value="/WEB-INF/views/externalLinks.jsp"/>
+    </definition>
+
+    <definition name="updateExternalLinks" extends="loanappminimal.homepage">
+        <put-attribute name="body" value="/WEB-INF/views/updateExternalLinks.jsp"/>
+    </definition>
+
+    <definition name="searchExternalLinks" extends="loanappminimal.homepage">
+        <put-attribute name="body" value="/WEB-INF/views/searchExternalLinks.jsp"/>
+    </definition>
+
+    <definition name="equityCalculation" extends="loanappminimal.homepage">
+        <put-attribute name="body" value="/WEB-INF/views/equityCalculation.jsp"/>
+    </definition>
+
      <definition name="viewpreferences" extends="loanappminimal.homepage">
        <put-attribute name="title" value="View/Edit Preferences"/>
        <put-attribute name="body" value="/WEB-INF/views/viewpreferences.jsp"/>

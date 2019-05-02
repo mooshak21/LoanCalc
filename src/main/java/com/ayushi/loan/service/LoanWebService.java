@@ -33,12 +33,13 @@ public class LoanWebService implements LendingWebService {
 		String region = loan.getRegion();
 		String numOfYears = new Integer(loan.getNumberOfYears()).toString();
 		String loanType = loan.getLoanType();
+		String name = loan.getName();
 		if(loanAmt != null && !loanAmt.equals("") && airVal != null && !airVal.equals("")
 				   && lender != null && !lender.equals("") && state != null && !state.equals("") && region != null && !region.equals("")
-				   && numOfYears != null && !numOfYears.equals("")&& loanType != null && !loanType.equals("")){
+				   && numOfYears != null && !numOfYears.equals("")&& loanType != null && !loanType.equals("")&& name != null && !name.equals("")){
 			RestTemplate restTemplate = new RestTemplate();
 			logger.info("Redirect to WS file");
-			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType, Loan.class);
+			Loan loanObject = restTemplate.getForObject("https://ayushiloancalculatorappws.herokuapp.com/calculateloan?airVal=" + airVal + "&lender=" + lender + "&loanAmt=" + loanAmt + "&state=" + state + "&numOfYears=" + numOfYears+ "&loanType=" + loanType+ "&name=" + name, Loan.class);
 			logger.info("Came back with loanobject " + loanObject);
 			return loanObject;
 		}else{

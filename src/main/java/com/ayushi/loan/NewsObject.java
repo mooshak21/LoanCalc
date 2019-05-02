@@ -37,7 +37,7 @@ public abstract  class NewsObject implements Serializable {
     }
 
     public NewsObject(){
-        this.offerId = System.currentTimeMillis();;
+        this.offerId = System.currentTimeMillis();
         this.linkUrl = "contact@loaninsight.online";
         this.referer = "www.loaninsight.online/";
         this.bankName = "Watermark";

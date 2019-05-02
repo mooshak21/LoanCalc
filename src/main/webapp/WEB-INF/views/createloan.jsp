@@ -12,6 +12,10 @@
             <div class="card-block">
                  <form name="loanForm" id="loanform" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
                      <div class="form-group">
+                         <label for="loanAmount">Name:*</label>
+                         <input class="form-control resetMe" type="text" name="name" value="${loan.name}" id="name" required="true">
+                     </div>
+                     <div class="form-group">
                         <label for="loanAmount">Loan Amount:*</label>
                          <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount" required="true">
                     </div>
@@ -58,12 +62,44 @@
 
                      <div class="form-group">
                          <label for="loanType">Loan Type:*</label>
-                         <select class="form-control resetMe" name="loanType" required="true" id="loanType" >
+                         <select class="form-control" name="loanType" required="true" id="loanType" onchange="java_script_:show(this.options[this.selectedIndex].value)">
                              <option value="">Choose a Loan Type</option>
                              <option value="Student Loan"  ${loan.loanType == 'Student Loan' ? 'selected' : ''}>Student Loan</option>
                              <option value="Auto Loan"  ${loan.loanType == 'Auto Loan' ? 'selected' : ''}>Auto Loan</option>
-                             <option value="Home Loan" ${loan.loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
+                             <option value="Home Loan"  ${loan.loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
                          </select>
+                     </div>
+                     <div class="form-group" id="hiddenDiv">
+                         <label for="state">Address:</label>
+                         <input class="form-control resetMe" type="text" name="address" value="${loan.address}">
+                     </div>
+                     <div class="form-group" id="city">
+                         <label for="state">City:</label>
+                         <input class="form-control resetMe" type="text" name="city" value="${loan.city}">
+                     </div>
+                     <div class="form-group" id="country">
+                         <label for="state">Country:</label>
+                         <input class="form-control resetMe" type="text" name="country" value="${loan.country}">
+                     </div>
+                     <div class="form-group" id="zipcode">
+                         <label for="state">Zipcode:</label>
+                         <input class="form-control resetMe" type="text" name="zipcode" value="${loan.zipcode}">
+                     </div>
+                     <div class="form-group" id="vehicleModel">
+                         <label for="state">Model:</label>
+                         <input class="form-control resetMe" type="text" name="vehicleModel" value="${loan.vehicleModel}">
+                     </div>
+                     <div class="form-group" id="vehicleMake">
+                         <label for="state">Make:</label>
+                         <input class="form-control resetMe" type="text" name="vehicleMake" value="${loan.vehicleMake}">
+                     </div>
+                     <div class="form-group" id="vehicleYear">
+                         <label for="state">Year:</label>
+                         <input class="form-control resetMe" type="text" name="vehicleYear" value="${loan.vehicleYear}">
+                     </div>
+                     <div class="form-group" id="vin">
+                         <label for="state">VIN:</label>
+                         <input class="form-control resetMe" type="text" name="vin" value="${loan.vin}">
                      </div>
                      <div class="form-group">
                          <label for="loanDenomination">Loan Denomination:*</label>
@@ -116,13 +152,21 @@
                 </div>
             </div>
         </div>
-   </c:if> 
-             
-<script>
+   </c:if>
+
+<script type="text/javascript">
 function resetForm() {
     $( document ).ready(function() {
         $(".resetMe").val("");
     });
     
+}
+function show(aval) {
+    if (aval == "Auto Loan") {
+        document.getElementById("hiddenDiv").style.display='block';
+    }
+    else{
+        document.getElementById("hiddenDiv").style.display='none';
+    }
 }
 </script>
