@@ -77,6 +77,8 @@
                 <value>spring/LoanRelationship.hbm.xml </value>
                 <value>spring/Preference.hbm.xml </value>
                 <value>spring/NewsObject.hbm.xml </value>
+                <value>spring/EquityExternalCalculator.hbm.xml </value>
+                <value>spring/Equity.hbm.xml </value>
                 <value>spring/Payment.hbm.xml </value>
             </list>
         </property>
@@ -166,6 +168,25 @@
         <property name="siteOfferDao" ref="siteOfferDao" />
     </bean>
 
+    <bean id="externalCalculatorDao"
+          class="com.ayushi.loan.dao.ExternalCalculatorDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="EquityExternalCalculatorService"
+          class="com.ayushi.loan.service.EquityExternalCalculatorServiceImpl">
+        <property name="externalCalculatorDao" ref="externalCalculatorDao" />
+    </bean>
+
+    <bean id="equityDao"
+          class="com.ayushi.loan.dao.EquityDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="EquityService"
+          class="com.ayushi.loan.service.EquityServiceImpl">
+        <property name="equityDao" ref="equityDao" />
+    </bean>
 
     <bean id="paymentDao"
           class="com.ayushi.loan.dao.PaymentDao">
