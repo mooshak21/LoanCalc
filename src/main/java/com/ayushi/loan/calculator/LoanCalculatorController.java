@@ -3315,7 +3315,7 @@ public class LoanCalculatorController implements ServletContextAware {
                  } catch (LoanAccessException ex) {
                     ex.printStackTrace();
                     logger.error(ex);
-                    model.addAttribute("message", "Search offers Failed!");
+                    model.addAttribute("message", "Search equity external link Failed!");
                 }
 
             }
@@ -3439,7 +3439,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
     @RequestMapping(value = "/calculateEquityask")
     public String calculateEquityask(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,@CookieValue(value = "Plan", defaultValue = "") String plan) {
-        model.addAttribute("message", "Search Loan");
+        model.addAttribute("message", "Equity Calculation");
         List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
         if(prefs!=null) {
             for (Preference preference : prefs) {
@@ -3452,5 +3452,183 @@ public class LoanCalculatorController implements ServletContextAware {
         model.addAttribute("userEmail", emailCookie);
         checkUserPrefernece(model, prefs);
         return "equityCalculation";
+    }
+
+    @RequestMapping(value = "/calculateEquity")
+    public String calculateEquity(Model model,
+                                  @RequestParam("loanId") String loanId,
+                                  @RequestParam("loanStartDate") String loanStartDate,
+                                  @RequestParam("valuationDate") String valuationDate,
+                                  @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                                  @CookieValue(value = "Plan", defaultValue = "") String plan)  throws ParseException{
+        model.addAttribute("message", "Equity Calculation");
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        List<Serializable> loans = new ArrayList<>();
+        LoanService loanService = (LoanService) appCtx.getBean("loanService");
+        model.addAttribute("Plan", plan);
+        try {
+            loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?", new Object[]{new Long(loanId)});
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            model.addAttribute("message", "Search loan for equity Failed!");
+        }
+        if(loans!=null && loans.size()!=0) {
+                Loan searchLoan = (Loan) loans.get(0);
+                model.addAttribute("loanId", searchLoan.getLoanId());
+                model.addAttribute("loanType", searchLoan.getLoanType());
+                model.addAttribute("assetValue", searchLoan.getAmount());
+                model.addAttribute("valuationDate", valuationDate);
+                AmortizedLoan amortizeLoan = new AmortizedLoan(loanStartDate, searchLoan.getMonthly(), searchLoan.getAmount(), searchLoan.getTotal(), searchLoan.getLender(), searchLoan.getRegion(), searchLoan.getState(), searchLoan.getInterestRate(), searchLoan.getAPR(), searchLoan.getNumberOfYears(), 0, searchLoan.getLoanId(), searchLoan.getLoanType(), searchLoan.getLoanDenomination(), searchLoan.getEmail(),searchLoan.getName()
+                        ,null,null,null,null,null,null,null,null);
+                LoanApp loanApp = new LoanApp(amortizeLoan);
+                amortizeLoan.setLoanApp(loanApp);
+                String todaysDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+                Double payoffAmt = amortizeLoan.getPayoffAmount(searchLoan.getAmount(), loanStartDate);
+                model.addAttribute("loanBalanceAmount", payoffAmt);
+                Calendar first = Calendar.getInstance();
+                Calendar last = Calendar.getInstance();
+                Calendar valuation = Calendar.getInstance();
+                first.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(loanStartDate));
+                last.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(todaysDate));
+                valuation.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(valuationDate));
+
+                int diff = last.get(Calendar.YEAR) - first.get(Calendar.YEAR);
+                if (first.get(Calendar.MONTH) > last.get(Calendar.MONTH) ||
+                        (first.get(Calendar.MONTH) == last.get(Calendar.MONTH) && first.get(Calendar.DATE) > last.get(Calendar.DATE))) {
+                 diff--;
+                }
+            model.addAttribute("remainingYear", searchLoan.getNumberOfYears() - diff);
+            model.addAttribute("equityValue", searchLoan.getAmount()- payoffAmt);
+            EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean("EquityExternalCalculatorService");
+            List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<EquityExternalCalculator>();
+            Equity equity = new Equity();
+            EquityService equityService = (EquityService) appCtx.getBean("EquityService");
+
+            equity.setAssetValue(searchLoan.getAmount());
+            equity.setRemainingYear(searchLoan.getNumberOfYears() - diff);
+            equity.setEmail(emailCookie);
+            equity.setEquityValue(searchLoan.getAmount()- payoffAmt);
+            equity.setLoanBalanceAmount(payoffAmt);
+            equity.setLoanId(searchLoan.getLoanId());
+            equity.setValuationDate(valuation);
+            equity.setLoanType(searchLoan.getLoanType());
+
+            Equity equity1 = new Equity();
+            try {
+                equity1 = equityService.createEquity(equity);
+                sendEquityEmail(emailCookie,equity1, valuationDate);
+            } catch (LoanAccessException lae) {
+                lae.printStackTrace();
+                List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+                if(prefs!=null) {
+                    for (Preference preference : prefs) {
+                        if (preference.getType().equals("Plan")) {
+                            plan = preference.getValue();
+                        }
+                    }
+                    model.addAttribute("Plan", plan);
+                }
+                checkUserPrefernece(model, prefs);
+                model.addAttribute("message", "Create Equity failed!");
+            }
+            StringBuffer querySB = new StringBuffer();
+            List<Object> queryValList = new ArrayList<Object>();
+            Object[] queryVals = null;
+            boolean firstVal = false;
+            if (searchLoan.getRegion() != null && !searchLoan.getRegion().equals("")) {
+                querySB.append("n.region=?");
+                firstVal = true;
+                queryValList.add(searchLoan.getRegion());
+            }
+            if (searchLoan.getLoanType() != null && !searchLoan.getLoanType().equals("")) {
+                if (firstVal)
+                    querySB.append(" and n.loanType=?");
+                else {
+                    querySB.append(" n.loanType=?");
+                    firstVal = true;
+                }
+                queryValList.add(searchLoan.getLoanType());
+            }
+
+            if (firstVal) {
+                queryVals = new Object[queryValList.size()];
+                queryVals = queryValList.toArray(queryVals);
+                try {
+                    equityExternalCalculators = externalCalculatorService.findEquityExternalCalculator("select n from EquityExternalCalculator n where " + querySB.toString(), queryVals);
+                    if (equityExternalCalculators != null && equityExternalCalculators.size()!=0) {
+                        model.addAttribute("linkUrl", equityExternalCalculators.get(0).getLinkUrl());
+                    }
+                } catch (LoanAccessException ex) {
+                    ex.printStackTrace();
+                    logger.error(ex);
+                    model.addAttribute("message", "Search offers Failed!");
+                }
+
+            }
+        }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+        }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "searchedEquity";
+    }
+    public static Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.US);
+        cal.setTime(date);
+        return cal;
+    }
+
+    public int sendEquityEmail(String email, Equity equity, String valuationDate)
+    {
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        Properties prop = getProperties("spring/email.properties");
+
+        if (email != null && !email.isEmpty()) {
+
+            LoanEmailGeneratorService emailService = (LoanEmailGeneratorService) appCtx.getBean("emailService");
+            String message = null;
+            String subject = null;
+
+            if (equity != null) {
+                if (valuationDate != null) {
+                    message = emailService.buildEquityMessage(equity, valuationDate);
+                }else{
+                    String todaysDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+                    message = emailService.buildEquityMessage(equity, todaysDate);
+                }
+                subject = prop.getProperty("email.subject") + equity.getLoanId();
+            }
+
+            if (message != null && subject != null) {
+                try {
+                    emailService.sendMail(email, subject, message);
+                    List<Preference> prefs = getPreferencesByEmailAddress(email);
+                    int loanidPrefId = -1;
+                    if (prefs != null) {
+                        for (Preference pref : prefs) {
+                            if (pref.getName().equals("LoanId")) {
+                                loanidPrefId = pref.getId();
+                                break;
+                            }
+                        }
+                        if (loanidPrefId == -1)
+                            loanidPrefId = prefs.size() + 1;
+                    }
+                    addPreference(new LoanIdPreference(), loanidPrefId, email, "LoanId", equity.getEmail());
+                } catch (EmailServiceException ex) {
+                    logger.error(ex.getMessage());
+                } catch (PreferenceAccessException ex) {
+                    logger.error(ex.getMessage());
+                }
+            }
+        }
+        return 1;
     }
 }

@@ -6,6 +6,7 @@
 package com.ayushi.loan.service;
 
 import com.ayushi.loan.AmortizedLoan;
+import com.ayushi.loan.Equity;
 import com.ayushi.loan.Loan;
 import com.ayushi.loan.exception.EmailServiceException;
 
@@ -17,4 +18,5 @@ public interface LoanEmailGeneratorService {
     public String buildMessage(AmortizedLoan amortizedLoan, Double payOffAmount, String payOffOn);
     public void sendMail(String emailTo, String subject, String message) throws EmailServiceException;
     public String buildMessage(Loan loan);
+    public String buildEquityMessage(Equity equity, String valuationDate);
 }

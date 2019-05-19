@@ -75,7 +75,7 @@
                                 <table class="table table-hover table-bordered">
                                     <tr>
                                     <c:forEach begin="1" end="${amortizeloan.entries.size() / 12}" step="1" varStatus="status">
-                                          <td><a href='/viewloanentries/${status.index}'</a>${status.index}</td>  
+                                          <td><a href='/viewloanentries/${status.index}'></a>${status.index}</td>
                                     </c:forEach>
                                     </tr>
                                 </table>

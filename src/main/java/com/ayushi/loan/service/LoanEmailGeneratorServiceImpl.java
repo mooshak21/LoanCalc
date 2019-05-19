@@ -6,6 +6,7 @@
 package com.ayushi.loan.service;
 
 import com.ayushi.loan.AmortizedLoan;
+import com.ayushi.loan.Equity;
 import com.ayushi.loan.Loan;
 import com.ayushi.loan.LoanEntry;
 import com.ayushi.loan.exception.EmailServiceException;
@@ -249,6 +250,71 @@ public class LoanEmailGeneratorServiceImpl implements LoanEmailGeneratorService{
       
         return message.toString();
        
+    }
+
+    @Override
+    public String buildEquityMessage(Equity equity, String valuationDate) {
+        StringBuilder message = new StringBuilder();
+        message.append("<html>\n");
+
+        //---------------------------------------   header   ----------------------------------------------
+        message.append("<div style='background-color: #d7dde4; border-bottom-color: #78bd2e; border-bottom-width: 5px; border-bottom-style: solid; position: relative; width: 520px; margin-left: auto; margin-right: auto; padding-left: 30px; padding-top:1px '>\n");
+        message.append("<h1 style='font: bold'>").append(headerTitle).append("</h1>\n");
+        message.append("<p><font size='2'>").append(headerSubTitle).append("</font></p>\n");
+        message.append("</div>\n");
+
+        //-------------------------------------  Equity Detail table  ------------------------------------------------
+        message.append("<div  style='width: 550px; margin-left: auto; margin-right: auto;padding-top: 15px'>\n");
+        message.append("<font size='2'>");
+        message.append("<table style='width: 550px; margin-left: auto; margin-right: auto; border-style: solid; border-width: 1px'>\n");
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Loan Id: </td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(equity.getLoanId()).append("</font></td>\n");
+        message.append("</tr>\n");
+
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Loan Type:</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(equity.getLoanType()).append("</font></td>\n");
+        message.append("</tr>\n");
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Asset Amount($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(equity.getAssetValue()).append("</font></td>\n");
+        message.append("</tr>\n");
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Loan Balance Amount:($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(equity.getLoanBalanceAmount()).append("</font></td>\n");
+        message.append("</tr>\n");
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Remaining Year:</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(equity.getRemainingYear()).append("</font></td>\n");
+        message.append("</tr>\n");
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Equity Value($)</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(equity.getEquityValue()).append("</font></td>\n");
+        message.append("</tr>\n");
+
+        message.append("<tr>\n");
+        message.append("<td style='text-align:right'>Valuation Date:</td>\n");
+        message.append("<td style='padding-left: 5px'><font color='#78bd2e'>").append(valuationDate).append("</font></td>\n");
+        message.append("</tr>\n");
+
+        message.append("</table>\n");
+        message.append("</font>");
+        message.append("</div>\n");
+        //------------------------------------------------Footer------------------------------------------------------
+        message.append("<div style='background-color: #d7dde4; width: 580px; margin-left: auto; margin-right: auto; margin-top: 5px; padding: 2px 0 2px 30px'>\n");
+        message.append("<bold><font size='4'>").append(footerTitle).append("</font></bold>\n");
+        message.append("<p><font size='2'>").append(footerSubTitle).append("</font></p>");
+        message.append("</div>\n");
+        message.append("</html>");
+
+        return message.toString();
     }
 
     @Override

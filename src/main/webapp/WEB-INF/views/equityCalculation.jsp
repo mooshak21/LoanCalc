@@ -16,18 +16,22 @@
             <h5>${message}</h5>
         </div>
         <div class="card-block">
-            <form name="loanForm" id="loanform" action="/loan" method="POST" onsubmit='if(loanForm.loanAmt.value == ""){ alert("Please enter a Loan Amount"); loanForm.loanAmt.focus(); return false;}'>
+            <form name="equityForm" id="equityform" action="/calculateEquity" method="POST" onsubmit='if(equityForm.loanType.value == ""){ alert("Please enter Loan Type"); loanForm.loanAmt.focus(); return false;}'>
                 <div class="form-group">
-                    <label for="loanAmount">Name:*</label>
-                    <input class="form-control resetMe" type="text" name="name" value="${loan.name}" id="name" required="true">
+                    <label for="loanId">Loan Id:*</label>
+                    <input class="form-control resetMe" type="number" name="loanId" value="${loanId}"
+                           id="loanId" required="true">
                 </div>
-
-
                 <div class="form-group">
-                    <label for="loanAmount">Loan Amount:*</label>
-                    <input class="form-control resetMe" type="number" name="loanAmt" value="${loan.amount}" min="1" max="9999999999" id="loanAmount" required="true">
+                    <label for="valuationDate">Loan Start Date:*</label>
+                    <input class="form-control resetMe" type="text" name="loanStartDate" value="${loanStartDate}"
+                           id="loanStartDate" required="true">
                 </div>
-
+                <div class="form-group">
+                    <label for="valuationDate">Valuation Date:*</label>
+                    <input class="form-control resetMe" type="text" name="valuationDate" value="${valuationDate}"
+                           id="valuationDate" required="true">
+                </div>
                 <input type="submit" class="btn btn-default float-left" value="Submit"/>
                 <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
 
