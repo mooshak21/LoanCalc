@@ -3482,23 +3482,23 @@ public class LoanCalculatorController implements ServletContextAware {
                         ,null,null,null,null,null,null,null,null);
                 LoanApp loanApp = new LoanApp(amortizeLoan);
                 amortizeLoan.setLoanApp(loanApp);
-                String todaysDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
-                Double payoffAmt = amortizeLoan.getPayoffAmount(searchLoan.getAmount(), loanStartDate);
-                model.addAttribute("loanBalanceAmount", payoffAmt);
-                Calendar first = Calendar.getInstance();
-                Calendar last = Calendar.getInstance();
-                Calendar valuation = Calendar.getInstance();
-                first.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(loanStartDate));
-                last.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(todaysDate));
-                valuation.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(valuationDate));
-
-                int diff = last.get(Calendar.YEAR) - first.get(Calendar.YEAR);
-                if (first.get(Calendar.MONTH) > last.get(Calendar.MONTH) ||
+            String todaysDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+            Calendar first = Calendar.getInstance();
+            Calendar last = Calendar.getInstance();
+            Calendar valuation = Calendar.getInstance();
+            first.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(loanStartDate));
+            last.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(todaysDate));
+            valuation.setTime(java.text.SimpleDateFormat.getDateInstance(java.text.DateFormat.SHORT, java.util.Locale.US).parse(valuationDate));
+            List<LoanEntry> loanEntries = amortizeLoan.getLoanEntries();
+            int loanSize = loanEntries.size() -1;
+            model.addAttribute("loanBalanceAmount", loanEntries.get(loanSize).getLoanAmount());
+            int diff = last.get(Calendar.YEAR) - first.get(Calendar.YEAR);
+            if (first.get(Calendar.MONTH) > last.get(Calendar.MONTH) ||
                         (first.get(Calendar.MONTH) == last.get(Calendar.MONTH) && first.get(Calendar.DATE) > last.get(Calendar.DATE))) {
-                 diff--;
-                }
+                diff--;
+            }
             model.addAttribute("remainingYear", searchLoan.getNumberOfYears() - diff);
-            model.addAttribute("equityValue", searchLoan.getAmount()- payoffAmt);
+            model.addAttribute("equityValue", searchLoan.getAmount()- loanEntries.get(loanSize).getLoanAmount());
             EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean("EquityExternalCalculatorService");
             List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<EquityExternalCalculator>();
             Equity equity = new Equity();
@@ -3507,8 +3507,8 @@ public class LoanCalculatorController implements ServletContextAware {
             equity.setAssetValue(searchLoan.getAmount());
             equity.setRemainingYear(searchLoan.getNumberOfYears() - diff);
             equity.setEmail(emailCookie);
-            equity.setEquityValue(searchLoan.getAmount()- payoffAmt);
-            equity.setLoanBalanceAmount(payoffAmt);
+            equity.setEquityValue(searchLoan.getAmount()- loanEntries.get(loanSize).getLoanAmount());
+            equity.setLoanBalanceAmount(loanEntries.get(loanSize).getLoanAmount());
             equity.setLoanId(searchLoan.getLoanId());
             equity.setValuationDate(valuation);
             equity.setLoanType(searchLoan.getLoanType());
