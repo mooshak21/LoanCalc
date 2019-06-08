@@ -58,7 +58,7 @@
                    <div class="form-group">
                        <label for="email">Email:*</label>
                        <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
-		   </div>
+		             </div>
 
                      <div class="form-group">
                          <label for="loanType">Loan Type:*</label>
@@ -69,7 +69,7 @@
                              <option value="Home Loan"  ${loan.loanType == 'Home Loan' ? 'selected' : ''}>Home Loan</option>
                          </select>
                      </div>
-                     <div class="form-group" id="hiddenDiv">
+                     <div class="form-group" id="address">
                          <label for="state">Address:</label>
                          <input class="form-control resetMe" type="text" name="address" value="${loan.address}">
                      </div>
@@ -161,12 +161,89 @@ function resetForm() {
     });
     
 }
+
+var list1 = document.querySelectorAll('div#address');
+var list2 = document.querySelectorAll('div#city');
+var list3 = document.querySelectorAll('div#country');
+var list4 = document.querySelectorAll('div#zipcode');
+var list5 = document.querySelectorAll('div#vehicleModel');
+var list6 = document.querySelectorAll('div#vehicleMake');
+var list7 = document.querySelectorAll('div#vehicleYear');
+var list8 = document.querySelectorAll('div#vin');
+for (var j = 0; j < list1.length; j++) {
+    list1[j].style.display = 'none';
+    list2[j].style.display = 'none';
+    list3[j].style.display = 'none';
+    list4[j].style.display = 'none';
+    list5[j].style.display = 'none';
+    list6[j].style.display = 'none';
+    list7[j].style.display = 'none';
+    list8[j].style.display = 'none';
+}
+
 function show(aval) {
-    if (aval == "Auto Loan") {
-        document.getElementById("hiddenDiv").style.display='block';
+    if (aval == "Home Loan") {
+        var list1 = document.querySelectorAll('div#vehicleModel');
+        var list2 = document.querySelectorAll('div#vehicleMake');
+        var list3 = document.querySelectorAll('div#vehicleYear');
+        var list4 = document.querySelectorAll('div#vin');
+        var list5 = document.querySelectorAll('div#address');
+        var list6 = document.querySelectorAll('div#city');
+        var list7 = document.querySelectorAll('div#country');
+        var list8 = document.querySelectorAll('div#zipcode');
+
+        for (var j = 0; j < list1.length; j++) {
+            list1[j].style.display = 'none';
+            list2[j].style.display = 'none';
+            list3[j].style.display = 'none';
+            list4[j].style.display = 'none';
+            list5[j].style.display = 'block';
+            list6[j].style.display = 'block';
+            list7[j].style.display = 'block';
+            list8[j].style.display = 'block';
+        }
+
     }
-    else{
-        document.getElementById("hiddenDiv").style.display='none';
+    else if(aval == "Auto Loan"){
+        /*document.getElementById("hiddenDiv").style.display='none';*/
+        var list1 = document.querySelectorAll('div#address');
+        var list2 = document.querySelectorAll('div#city');
+        var list3 = document.querySelectorAll('div#country');
+        var list4 = document.querySelectorAll('div#zipcode');
+        var list5 = document.querySelectorAll('div#vehicleModel');
+        var list6 = document.querySelectorAll('div#vehicleMake');
+        var list7 = document.querySelectorAll('div#vehicleYear');
+        var list8 = document.querySelectorAll('div#vin');
+        for (var j = 0; j < list1.length; j++) {
+            list1[j].style.display = 'none';
+            list2[j].style.display = 'none';
+            list3[j].style.display = 'none';
+            list4[j].style.display = 'none';
+            list5[j].style.display = 'block';
+            list6[j].style.display = 'block';
+            list7[j].style.display = 'block';
+            list8[j].style.display = 'block';
+        }
+    }else if(aval == "Student Loan"){
+        /*document.getElementById("hiddenDiv").style.display='none';*/
+        var list1 = document.querySelectorAll('div#address');
+        var list2 = document.querySelectorAll('div#city');
+        var list3 = document.querySelectorAll('div#country');
+        var list4 = document.querySelectorAll('div#zipcode');
+        var list5 = document.querySelectorAll('div#vehicleModel');
+        var list6 = document.querySelectorAll('div#vehicleMake');
+        var list7 = document.querySelectorAll('div#vehicleYear');
+        var list8 = document.querySelectorAll('div#vin');
+        for (var j = 0; j < list1.length; j++) {
+            list1[j].style.display = 'none';
+            list2[j].style.display = 'none';
+            list3[j].style.display = 'none';
+            list4[j].style.display = 'none';
+            list5[j].style.display = 'none';
+            list6[j].style.display = 'none';
+            list7[j].style.display = 'none';
+            list8[j].style.display = 'none';
+        }
     }
 }
 </script>

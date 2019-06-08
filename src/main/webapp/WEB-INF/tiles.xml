@@ -128,6 +128,10 @@
         <put-attribute name="body" value="/WEB-INF/views/equityCalculation.jsp"/>
     </definition>
 
+    <definition name="equityHistory" extends="loanappminimal.homepage">
+        <put-attribute name="body" value="/WEB-INF/views/equityHistory.jsp"/>
+    </definition>
+
     <definition name="searchedEquity" extends="loanappminimal.homepage">
         <put-attribute name="body" value="/WEB-INF/views/searchedEquity.jsp"/>
     </definition>

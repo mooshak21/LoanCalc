@@ -43,6 +43,10 @@
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/calculateEquityask">Calculate Equity</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menuItemXs" href="/equityHistoryask">Equity History</a>
+                </li>
             </c:if>
             <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
                 <li class="nav-item">
@@ -130,6 +134,10 @@
 
             <li class="nav-item">
                 <a class="nav-link menuItem" href="/calculateEquityask">Calculate Equity</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link menuItem" href="/equityHistoryask">Equity History</a>
             </li>
         </c:if>
     <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">

@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -3630,5 +3631,69 @@ public class LoanCalculatorController implements ServletContextAware {
             }
         }
         return 1;
+    }
+
+    @RequestMapping(value = "/equityHistoryask")
+    public String equityHistoryask(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,@CookieValue(value = "Plan", defaultValue = "") String plan) {
+        model.addAttribute("message", "Equity Calculation");
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+        if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+        }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "equityHistory";
+    }
+
+    @RequestMapping(value = "/equityHistory")
+    public String calculateEquity(Model model,
+                                  @RequestParam("loanId") String loanId,
+                                  @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+                                  @CookieValue(value = "Plan", defaultValue = "") String plan)  throws ParseException {
+        model.addAttribute("message", "Equity History");
+        ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+        List<Serializable> equity = new ArrayList<>();
+        EquityService equityService = (EquityService) appCtx.getBean("EquityService");
+        model.addAttribute("Plan", plan);
+        try {
+            equity = equityService.findEquity("select eq from Equity eq where eq.loanId = ?", new Object[]{new Long(loanId)});
+        } catch (LoanAccessException lae) {
+            lae.printStackTrace();
+            model.addAttribute("message", "Search loan for equity Failed!");
+        }
+        if(equity!=null && equity.size()>0) {
+            List<Map<String, Object>> entries = new ArrayList<>();
+            for (int i=0;i<equity.size();i++) {
+                Equity equity1 = (Equity) equity.get(i);
+               Map<String , Object> map = new HashMap<String, Object>();
+                DecimalFormat df = new DecimalFormat("#.##");
+                map.put("equityValue",  Double.valueOf(df.format(equity1.getEquityValue())));
+                SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+                String formatted = format1.format(equity1.getValuationDate().getTime());
+                map.put("ValuationDate",formatted);
+                Double percent = (equity1.getEquityValue() / equity1.getAssetValue()) * 100;
+                map.put("equityPercent",Double.valueOf(df.format(percent)));
+                entries.add(map);
+            }
+            model.addAttribute("loanId", loanId);
+            model.addAttribute("equityHistory", entries);
+        }
+        List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+         if(prefs!=null) {
+            for (Preference preference : prefs) {
+                if (preference.getType().equals("Plan")) {
+                    plan = preference.getValue();
+                }
+            }
+        }
+        model.addAttribute("Plan", plan);
+        model.addAttribute("userEmail", emailCookie);
+        checkUserPrefernece(model, prefs);
+        return "equityHistory";
     }
 }
