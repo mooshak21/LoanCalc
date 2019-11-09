@@ -3176,6 +3176,20 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	}
 
+	@RequestMapping(value = "/cancelPayPalPayment", method = GET)
+	public String cancelPaypalPayment(@RequestParam(name = "paymentId", defaultValue = "") String paymentId,
+			@RequestParam(name = "token", defaultValue = "") String token,
+			@RequestParam(name = "PayerID", defaultValue = "") String payerId, Model model) {
+		System.out.println("paymentId = " + paymentId);
+		System.out.println("payerId = " + payerId);
+		System.out.println("token = " + token);
+		String message = "Payment is Fail "+"paymentId = " + paymentId + "payerId = " + payerId + "token = " + token;
+
+		System.out.println(message);
+		model.addAttribute("message", message);
+		return "payment_cancle";
+	}
+
 	@RequestMapping(value = "/externalLinksask")
 	public String externalLink(Model model, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan) {

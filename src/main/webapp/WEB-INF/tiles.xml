@@ -195,6 +195,7 @@
     <definition name="payment_message" extends="loanappminimal.homepage">
         <put-attribute name="title" value="View/Edit Payment"/>
         <put-attribute name="body" value="/WEB-INF/views/payment_message.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/payment_cancle.jsp"/>
     </definition>
 
 </tiles-definitions>
