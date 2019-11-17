@@ -189,7 +189,7 @@ ALTER TABLE loan ADD COLUMN vin character varying(50);
 ALTER TABLE loan ADD COLUMN address character varying(100);
 ALTER TABLE loan ADD COLUMN city character varying(100);
 ALTER TABLE loan ADD COLUMN country character varying(100);
-ALTER TABLE loan ADD COLUMN zipcode character varying(50)
+ALTER TABLE loan ADD COLUMN zipcode character varying(50);
 
 CREATE TABLE public.equity_external_calculator
 (
@@ -202,7 +202,7 @@ CREATE TABLE public.equity_external_calculator
 WITH (
 OIDS = FALSE
 )
-TABLESPACE pg_default
+TABLESPACE pg_default;
 
 CREATE TABLE public.equity
 (
@@ -220,4 +220,4 @@ valuation_date date NOT NULL,
 WITH (
 OIDS = FALSE
 )
-TABLESPACE pg_default
+TABLESPACE pg_default;
