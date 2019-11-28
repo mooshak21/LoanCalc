@@ -24,9 +24,21 @@ public class PaymentServiceImpl implements PaymentService {
 
 	private PaymentDao paymentDao;
 
-	private String clientId = "ATA-TNQRo-8wO-APHyJVCruKLJe137gre0Tfbf8rDmN8a_e1B07kvHGe59NmwdfP91h-p5QzlIM77NCZ";
+	//// Developer Testing credentials
+	// private String clientId =
+	//// "ATA-TNQRo-8wO-APHyJVCruKLJe137gre0Tfbf8rDmN8a_e1B07kvHGe59NmwdfP91h-p5QzlIM77NCZ";
+	//
+	// private String clientSecret =
+	//// "EBkWxJfwWu1ctf7QkpO-3RtPkzqMhWGhsh1g43iBixezH-xPtgL4q6KtJwNXUVjZlTFx-xpNp4WXaZeK";
+	//
+	// private String mode = "sandbox";
 
-	private String clientSecret = "EBkWxJfwWu1ctf7QkpO-3RtPkzqMhWGhsh1g43iBixezH-xPtgL4q6KtJwNXUVjZlTFx-xpNp4WXaZeK";
+	// Production credentials
+	private String clientId = "AQC1pJyvsgMVFQ388LIzqMBfd6d-TfryYzhEntL4kbj5K7J_GIMkJDQH1LRgKBOTH675HLGcp2AZ31Yj";
+
+	private String clientSecret = "EDQqhjxnGjA2__lSZTbIxwshCN5eeADQahHUb9IDIAQtYnFAjT4flesPKNdEsXHdabk7Ixhb1OhPc1U0";
+
+	private String mode = "live";
 
 	// private String payPalCancelUrl =
 	// "http://localhost:8080/cancelPayPalPayment";
@@ -36,8 +48,6 @@ public class PaymentServiceImpl implements PaymentService {
 	// "http://localhost:8080/confirmPaypalPayment";
 
 	private String payPalReturnUrl = "http://ayushiloancalculatorapp.herokuapp.com/confirmPaypalPayment";
-
-	private String mode = "sandbox";
 
 	public PaymentServiceImpl(PaymentDao paymentDao) {
 		this.paymentDao = paymentDao;
