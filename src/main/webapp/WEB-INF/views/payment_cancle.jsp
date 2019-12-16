@@ -8,9 +8,11 @@
 	<div class="card col-10 col-md-8 cardBody">
 		<div class="card-header">
 			<br>${message}</br>
-			<br>The subscription will be enabled for FREE plan as you have cancelled payment option which apply to LITE/PREMIUM plans.</br>
 		</div>
-		<div class="card-block"></div>
+		<div class="card-block">
+			<br>The subscription will be enabled for FREE plan </br>
+			<br>as you have cancelled payment option which apply to LITE/PREMIUM plans.</br>
+		</div>
 	</div>
 </div>
 
