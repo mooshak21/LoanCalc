@@ -96,12 +96,12 @@
 						value="${Plan}" id="plan" disabled="disabled">
 				</div>
 
-				<div class="card-block"></div>
-
 				<input type="submit" class="btn btn-default float-left"
 					value="Submit" />
-				<input type="button" class="btn btn-default float-right"
-					value="Reset" onclick="resetForm()" />
+<%--				<input type="button" class="btn btn-default float-right"
+					value="Reset" onclick="resetForm()" /> --%>
+				<div class="card-block">Please proceed to payment of the subscription plan as chosen above by clicking submit button!</div>
+
 			</form>
 		</div>
 	</div>
