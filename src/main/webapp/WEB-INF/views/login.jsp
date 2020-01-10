@@ -34,8 +34,8 @@ In loan amortization schedule, the principal increases and interest
 <br>reduces over the amortization time period achieving full amortization at the 
 <br>end of the loan period.
 <br>
-The loan amortization schedule can be viewed online in web browser & mobile 
-<br>browser and email sent to the user.
+The loan amortization schedule can be viewed online in web browser
+<br>& mobile browser and email sent to the user.
 <br>
 On the dashboard, the loans are displayed in a pie chart showing the 
 <br>percentage of amounts of loans for the user.
@@ -88,13 +88,13 @@ This calculator provides a way to calculate the equity of the loan of loan type
 It calculates the equity based on the home/auto value and home/auto loan 
 <br>amoritization.
 <br>
-The equity schedule can be viewed online in web browser and mobile browser.
+The equity schedule can be viewed online in web browser & mobile browser.
 <br>
 This option is available in Lite and Premium plans.
 <br>
-Link: <a href="https://www.loaninsight.online" target="_blank"><img src="http://www.loaninsight.online/views/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
-<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="http://www.loaninsight.online/views/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
-<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="http://www.loaninsight.online/views/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
+Link: <a href="https://www.loaninsight.online" target="_blank"><img src="loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
+<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="google-play.png" alt="LoanInsightOnline" width="140"></img></a>
+<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
             </div>
         </div>
     </div>
