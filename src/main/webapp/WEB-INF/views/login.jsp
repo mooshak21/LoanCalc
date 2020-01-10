@@ -68,9 +68,9 @@ This calculator provides a way to consolidate the payments of the loans of
 <br>
 The user can enroll in annual plan of Premium plan.
 <br>
-Depending on these plan enrolled, the features are displayed and restricted/enhanced.
-<br>
-To get training on the features, go to YouTube videos for Loan Insight Online.
+Depending on these plan enrolled, the features are displayed and restricted/
+<br>enhanced.
+<br>To get training on the features, go to YouTube videos for Loan Insight Online.
 <br>
 Training Videos: 
 <br><a href="https://www.youtube.com/watch?v=V-aJhYUHxX8" target="_blank">FREE Desktop Version</a>
@@ -85,15 +85,16 @@ Training Videos:
 This calculator provides a way to calculate the equity of the loan of loan type 
 <br>either Auto Loan or Home Loan.
 <br>
-It calculates the equity based on the home/auto value and home/auto loan amoritization.
+It calculates the equity based on the home/auto value and home/auto loan 
+<br>amoritization.
 <br>
 The equity schedule can be viewed online in web browser and mobile browser.
 <br>
 This option is available in Lite and Premium plans.
 <br>
-Link: <a href="https://www.loaninsight.online" target="_blank"><img src="/WEB-INF/views/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
-<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="/WEB-INF/views/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
-<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="/WEB-INF/views/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
+Link: <a href="https://www.loaninsight.online" target="_blank"><img src="http://www.loaninsight.online/views/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
+<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="http://www.loaninsight.online/views/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
+<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="http://www.loaninsight.online/views/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
             </div>
         </div>
     </div>
