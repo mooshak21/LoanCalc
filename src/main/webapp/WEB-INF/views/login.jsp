@@ -27,21 +27,29 @@
 		<div>
 			     <br>1.	Loan Amortization Calculator
 <br>
-This calculator provides a way to calculate amortization of loan for the following loan types – Auto Loan, Student Loan, Home Loan.
+This calculator provides a way to calculate amortization of 
+<br>loan for the following loan types – Auto Loan, Student Loan, Home Loan.
 <br>
-In loan amortization schedule, the principal increases and interest reduces over the amortization time period achieving full amortization at the end of the loan period.
+In loan amortization schedule, the principal increases and interest 
+<br>reduces over the amortization time period achieving full amortization at the 
+<br>end of the loan period.
 <br>
-The loan amortization schedule can be viewed online in web browser and mobile browser and email sent to the user.
+The loan amortization schedule can be viewed online in web browser and mobile 
+<br>browser and email sent to the user.
 <br>
-On the dashboard, the loans are displayed in a pie chart showing the percentage of amounts of loans for the user.
+On the dashboard, the loans are displayed in a pie chart showing the 
+<br>percentage of amounts of loans for the user.
 <br>
-On the dashboard, different links are displayed to do research on loans from different banks based on region selected by the user.
+On the dashboard, different links are displayed to do research on loans from 
+<br>different banks based on region selected by the user.
 <br>
-There is an option to last view of stored loan based on preference of the event of sending email to user. This is available in Lite plan.
+There is an option to last view of stored loan based on preference of the 
+<br>event of sending email to user. This is available in Lite plan.
 <br>
 The user can enroll in annual plan of Free/Lite/Premium plans.
 <br>
-Depending on these plan enrolled, the features are displayed and restricted/enhanced.
+Depending on these plan enrolled, the features are displayed and 
+<br>restricted/enhanced.
 <br>
 To get training on the features, go to YouTube videos for Loan Insight Online.
 <br>
@@ -55,7 +63,8 @@ Training Videos:
 <br><br>
 2.	Loan Aggregation and Consolidation Calculator
 <br>
-This calculator provides a way to consolidate the payments of the loans of different loan types – Auto Loan, Student Loan and Home Loan.
+This calculator provides a way to consolidate the payments of the loans of 
+<br>different loan types – Auto Loan, Student Loan and Home Loan.
 <br>
 The user can enroll in annual plan of Premium plan.
 <br>
@@ -73,7 +82,8 @@ Training Videos:
 <br><br>
 3.	Equity Calculator
 <br>
-This calculator provides a way to calculate the equity of the loan of loan type either Auto Loan or Home Loan.
+This calculator provides a way to calculate the equity of the loan of loan type 
+<br>either Auto Loan or Home Loan.
 <br>
 It calculates the equity based on the home/auto value and home/auto loan amoritization.
 <br>
@@ -81,9 +91,9 @@ The equity schedule can be viewed online in web browser and mobile browser.
 <br>
 This option is available in Lite and Premium plans.
 <br>
-Link: <a href="https://www.loaninsight.online" target="_blank"><img src="views/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
-<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="views/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
-<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="views/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
+Link: <a href="https://www.loaninsight.online" target="_blank"><img src="/WEB-INF/views/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
+<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="/WEB-INF/views/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
+<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="/WEB-INF/views/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
             </div>
         </div>
     </div>
