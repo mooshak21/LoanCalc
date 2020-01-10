@@ -34,7 +34,7 @@ In loan amortization schedule, the principal increases and interest
 <br>reduces over the amortization time period achieving full amortization at the 
 <br>end of the loan period.
 <br>
-The loan amortization schedule can be viewed online in web browser and mobile 
+The loan amortization schedule can be viewed online in web browser & mobile 
 <br>browser and email sent to the user.
 <br>
 On the dashboard, the loans are displayed in a pie chart showing the 
