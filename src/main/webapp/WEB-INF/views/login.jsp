@@ -23,7 +23,9 @@
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
                 </form>
-			     <p>1.	Loan Amortization Calculator
+		</div>
+		<div>
+			     <br>1.	Loan Amortization Calculator
 <br>
 This calculator provides a way to calculate amortization of loan for the following loan types – Auto Loan, Student Loan, Home Loan.
 <br>
@@ -79,9 +81,9 @@ The equity schedule can be viewed online in web browser and mobile browser.
 <br>
 This option is available in Lite and Premium plans.
 <br>
-Link: <a href="https://www.loaninsight.online" target="_blank"><img src="loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
-<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="google-play.png" alt="LoanInsightOnline" width="140"></img></a>
-<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
+Link: <a href="https://www.loaninsight.online" target="_blank"><img src="views/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
+<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="views/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
+<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="views/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
             </div>
         </div>
     </div>
