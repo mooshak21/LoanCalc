@@ -92,9 +92,9 @@ The equity schedule can be viewed online in web browser & mobile browser.
 <br>
 This option is available in Lite and Premium plans.
 <br>
-Link: <a href="https://www.loaninsight.online" target="_blank"><img src="loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
-<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="google-play.png" alt="LoanInsightOnline" width="140"></img></a>
-<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
+Link: <a href="https://www.loaninsight.online" target="_blank"><img src="https://www.loaninsight.online/resources/loaninsightonline.jpg" alt="LoanInsightOnline" height="140" width="140"></img></a>
+<a href="https://play.google.com/store/apps/details?id=online.loaninsight.loaninsight&hl=en" target="_blank"><img src="https://www.loaninsight.online/resources/google-play.png" alt="LoanInsightOnline" width="140"></img></a>
+<a href="https://apps.apple.com/in/app/ayushiloaninsight/id1449417267" target="_blank"><img src="https://www.loaninsight.online/resources/apple-app.png" alt="LoanInsightOnline" width="140"></img></a>
             </div>
         </div>
     </div>
