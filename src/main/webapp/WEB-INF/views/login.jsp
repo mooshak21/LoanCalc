@@ -24,7 +24,7 @@
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
                 </form>
 		</div>
-		<div>
+		<div class="card-header">
 			     <br>1.	Loan Amortization Calculator
 <br>
 This calculator provides a way to calculate amortization of 
