@@ -83,12 +83,12 @@ function checkPasswords(theForm) {
 
                    <div class="form-group">
                        <label for="password">Password:*</label>
-                       <input class="form-control resetMe" type="text" name="password" value="" id="password" required="true">
+                       <input class="form-control resetMe" type="password" name="password" value="" id="password" required="true">
                    </div>
                    
                    <div class="form-group">
                        <label for="confirmpassword">Confirm Password:*</label>
-                       <input class="form-control resetMe" type="text" name="confirmpassword" value="" id="confirmpassword" required="true">
+                       <input class="form-control resetMe" type="password" name="confirmpassword" value="" id="confirmpassword" required="true">
                    </div>
                    
                     <div class="form-group">
