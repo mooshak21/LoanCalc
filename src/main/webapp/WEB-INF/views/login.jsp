@@ -28,7 +28,7 @@
 			     <br>1.	Loan Amortization Calculator
 <br>
 This calculator provides a way to calculate amortization of 
-<br>loan for the following loan types – Auto Loan, Student Loan, Home Loan.
+<br>loan for the following loan types \– Auto Loan, Student Loan, Home Loan.
 <br>
 In loan amortization schedule, the principal increases and interest 
 <br>reduces over the amortization time period achieving full amortization at the 
@@ -64,7 +64,7 @@ Training Videos:
 2.	Loan Aggregation and Consolidation Calculator
 <br>
 This calculator provides a way to consolidate the payments of the loans of 
-<br>different loan types – Auto Loan, Student Loan and Home Loan.
+<br>different loan types \– Auto Loan, Student Loan and Home Loan.
 <br>
 The user can enroll in annual plan of Premium plan.
 <br>
