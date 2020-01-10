@@ -64,7 +64,13 @@ public class LoanCalculatorController implements ServletContextAware {
 	String clientId = "ATA-TNQRo-8wO-APHyJVCruKLJe137gre0Tfbf8rDmN8a_e1B07kvHGe59NmwdfP91h-p5QzlIM77NCZ";
 	String clientSecret = "EBkWxJfwWu1ctf7QkpO-3RtPkzqMhWGhsh1g43iBixezH-xPtgL4q6KtJwNXUVjZlTFx-xpNp4WXaZeK";
 	private static APIContext paypalApicontext;
-
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+   	 registry.addResourceHandler("/resources/**")
+		 .addResourceLocations("/resources/","classpath:/other-resources/");
+	}
+	
 	@RequestMapping(value = "/")
 	public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
