@@ -1278,6 +1278,19 @@ public class LoanCalculatorController implements ServletContextAware {
 		prefService.createPreference(pref);
 	}
 
+	private void modifyPreference(Preference pref, Integer id, String email, String name, String value)
+			throws PreferenceAccessException {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		pref.setId(id);
+		pref.setEmailAddress(email);
+		pref.setName(name);
+		pref.setValue(value);
+		pref.setFlag(true);
+		pref.setActive("Y");
+		prefService.modifyPreference(pref);
+	}
+
 	private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
@@ -3179,7 +3192,9 @@ public class LoanCalculatorController implements ServletContextAware {
 	@RequestMapping(value = "/cancelPayPalPayment", method = GET)
 	public String cancelPaypalPayment(@RequestParam(name = "paymentId", defaultValue = "") String paymentId,
 			@RequestParam(name = "token", defaultValue = "") String token,
-			@RequestParam(name = "PayerID", defaultValue = "") String payerId, Model model) {
+			@RequestParam(name = "PayerID", defaultValue = "") String payerId,
+			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
 		System.out.println("paymentId = " + paymentId);
 		System.out.println("payerId = " + payerId);
 		System.out.println("token = " + token);
@@ -3187,6 +3202,15 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		System.out.println(message);
 		model.addAttribute("message", message);
+		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+		if (prefs != null) {
+			for (Preference preference : prefs) {
+				if (preference.getType().equals("Plan")) {
+					Preference planPref = preference;
+					if(!plan.equals(planPref.getValue()))
+						modifyPreference(planPref, preference.getId(), "Plan", "0.0");
+				}
+			}		
 		return "payment_cancle";
 	}
 
