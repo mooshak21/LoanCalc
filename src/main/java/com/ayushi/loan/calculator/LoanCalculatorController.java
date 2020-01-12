@@ -3210,7 +3210,8 @@ public class LoanCalculatorController implements ServletContextAware {
 					if(!plan.equals(planPref.getValue()))
 						modifyPreference(planPref, preference.getId(), "Plan", "0.0");
 				}
-			}		
+			}
+		}		
 		return "payment_cancle";
 	}
 
