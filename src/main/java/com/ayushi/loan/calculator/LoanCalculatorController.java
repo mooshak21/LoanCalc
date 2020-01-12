@@ -3202,16 +3202,20 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		System.out.println(message);
 		model.addAttribute("message", message);
-		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-		if (prefs != null) {
-			for (Preference preference : prefs) {
-				if (preference.getType().equals("Plan")) {
-					Preference planPref = preference;
-					if(plan.equals(planPref.getValue()))
-						modifyPreference(planPref, new Integer(preference.getId()), emailCookie, new String("Plan"), new String("0.0"));
+		List<Preference> prefs = null;
+		try{
+			prefs = getPreferencesByEmailAddress(emailCookie);
+		catch(PreferenceAccessException pae){
+			if (prefs != null) {
+				for (Preference preference : prefs) {
+					if (preference.getType().equals("Plan")) {
+						Preference planPref = preference;
+						if(plan.equals(planPref.getValue()))
+							modifyPreference(planPref, new Integer(preference.getId()), emailCookie, new String("Plan"), new String("0.0"));
+					}
 				}
-			}
-		}		
+			}		
+		}
 		return "payment_cancle";
 	}
 
