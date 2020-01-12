@@ -3205,7 +3205,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		List<Preference> prefs = null;
 		try{
 			prefs = getPreferencesByEmailAddress(emailCookie);
-		catch(PreferenceAccessException pae){
+		
+		}catch(PreferenceAccessException pae){
 			if (prefs != null) {
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) {
