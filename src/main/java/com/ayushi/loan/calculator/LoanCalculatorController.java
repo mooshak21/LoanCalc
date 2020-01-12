@@ -3207,8 +3207,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			for (Preference preference : prefs) {
 				if (preference.getType().equals("Plan")) {
 					Preference planPref = preference;
-					if(!plan.equals(planPref.getValue()))
-						modifyPreference(planPref, preference.getId(), "Plan", "0.0");
+					if(plan.equals(planPref.getValue()))
+						modifyPreference(planPref, new Integer(preference.getId()), "Plan", "0.0");
 				}
 			}
 		}		
