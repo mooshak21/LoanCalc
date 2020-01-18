@@ -2,8 +2,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><tiles:getAsString name="title"/></title>
+    <title><tiles:getAsString name="title"/> - What Does Loan Calculator Do? Loan Insight Online</title>
     <meta charset="utf-8">
+    <meta name="msvalidate.01" content="646C3210A2A53AAF46DC02368A427A9A" />
+    <meta name="google-site-verification" content="KtkwGbyKU3M4D4VG71NNX2f-WRNde4ph5hz8Q0HwELI" />
+    <meta name="description" content="LoanInsight Online- Ayushi Loan Calculator is to calculate the loan payments in terms of interest and principal of monthly payment and build an amortization schedule.">
+    <meta name="keywords" content="loan insight,loan research,equity calculator,home loan calculates,loan insight software,online loan calculator,consolidation calculator,loan calculates software,loan amortization schedule,loan amortization calculator,loan insight online software,loan amortization schedule calculator,loan aggregation and consolidation calculator">
+    <link rel="icon" href="loan-fav.png" type="image/png" sizes="16x16">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
 
@@ -53,6 +59,14 @@
             </div>
 
         </div>
+ <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156464584-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-156464584-1');
+</script>
   </body>
 </html>
