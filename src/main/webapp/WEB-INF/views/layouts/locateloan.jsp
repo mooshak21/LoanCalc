@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><tiles:getAsString name="title"/> - What Does Loan Calculator Do? Loan Insight Online</title>
+    <title>Loan Insight Online | What Does Loan Calculator Do?</title>
     <meta charset="utf-8">
+<!--    SEO Tools-->
     <meta name="msvalidate.01" content="646C3210A2A53AAF46DC02368A427A9A" />
     <meta name="google-site-verification" content="KtkwGbyKU3M4D4VG71NNX2f-WRNde4ph5hz8Q0HwELI" />
     <meta name="description" content="LoanInsight Online- Ayushi Loan Calculator is to calculate the loan payments in terms of interest and principal of monthly payment and build an amortization schedule.">
@@ -15,6 +16,8 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
+         <!-- Include Font Awesome Stylesheet  -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>

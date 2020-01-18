@@ -2,8 +2,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><tiles:getAsString name="title"/> - What Does Loan Calculator Do? Loan Insight Online
-</title>
+    <title>Loan Insight Online | What Does Loan Calculator Do?</title>
     <meta charset="utf-8">
 <!--    SEO Tools-->
     <meta name="msvalidate.01" content="646C3210A2A53AAF46DC02368A427A9A" />
@@ -16,7 +15,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" ><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <!-- Include Font Awesome Stylesheet  -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
