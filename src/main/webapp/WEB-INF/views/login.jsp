@@ -91,7 +91,7 @@ used to tailor the ads to your localization and/or general preferences, thereby 
  
  
 6.	Contact Customer Support
-  				</textarea?
+  				</textarea>
 		</div>
 		<div class="card-header">
 			     <br>1.	Loan Amortization Calculator

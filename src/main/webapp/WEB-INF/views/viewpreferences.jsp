@@ -252,7 +252,7 @@ used to tailor the ads to your localization and/or general preferences, thereby 
  
  
 6.	Contact Customer Support
-  				</textarea?
+  				</textarea>
                 </form>
             </div>
         </div>
