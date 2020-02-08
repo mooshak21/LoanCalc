@@ -33,7 +33,7 @@
                 </form>
 		</div>
 		<div class="card-header">
-				<label for="cookies">Cookie Policy:</label>
+				<p>Cookie Policy:</p>
 				<textarea id="cookiepolicy" rows="4" cols="100">
 COOKIES POLICY 
  
