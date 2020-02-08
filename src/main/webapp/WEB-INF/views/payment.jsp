@@ -102,7 +102,8 @@
 
 				<input type="submit" class="btn btn-default float-left"
 					value="Submit" />
-				<textarea id="privacy" rows="4" cols="50">
+				<label for="Privacy">Privacy Policy:>/label>
+				<textarea id="privacy" rows="4" cols="100">
 Please take a minute to read the following policy so you understand how we use the personal information we ask you to submit. If you use any of Ayushi Software Services Group's services, you agree to these terms.
 Our commitment to privacy 
 Your privacy is important to us. To better protect your privacy, we provide this notice explaining our online information practices and the choices you can make about the way your information is collected and used. To make this notice easy to find, we make it available from our footer navigation that is found on every page of our website. When you register at Ayushi Software Services Group, we ask you for personal information. We use this information to process your orders, conduct account verifications, and to communicate with you about the status of your orders. We also use your email address to send you newsletters you are subscribed to during registration, as well as messages about Ayushi Software Services Group special offers, promotional announcements and consumer surveys. Occasionally, we send our customers special offers and promotional information via postal mail, using the shipping address provided. If you no longer want to receive the newsletters or other announcements simply unsubscribe by checking the unsubscribe links.

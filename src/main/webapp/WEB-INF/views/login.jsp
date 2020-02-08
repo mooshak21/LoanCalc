@@ -33,6 +33,67 @@
                 </form>
 		</div>
 		<div class="card-header">
+				<label for="cookies">Cookie Policy:</label>
+				<textarea id="cookiepolicy" rows="4" cols="100">
+COOKIES POLICY 
+ 
+This Cookies Policy forms part of our general Privacy Policy. 
+ 
+This Cookies Policy will give you clear and explicit information about the technologies we use on our website, as well as your rights to restrict this use. 
+ 
+1.	Introduction 
+ 
+1.1. Our website uses cookies to manage our users’ use of the website and to understand how people use our website in order for us to improve it. 
+1.2. By ticking the box of our popup Cookies Policy window or by continuing browsing our site, you hereby consent to our use of cookies as defined in this Cookies Policy. If you do not consent to the use of Cookies, you may block or disable them using your browser settings, the opt-out links set out in this Cookies Policy. However, blocking all cookies may have a negative impact on your use of this website. 
+ 
+2.	Cookies 
+ 
+2.1. A cookie is small text file that is placed on your computer upon your visit on certain websites. The text file can be read by the website will help identifying you when you return on the website. 
+ 
+2.2. There are two types of cookies: 
+a)	‘persistent’ cookies remain on your computer and will remain valid until either the user deletes it or upon its expiry date, 
+b)	‘session cookies’ are deleted as soon as the web browser is closed. 
+ 
+2.3. Cookies can be used for technical reasons of the website, for analytics and for connecting with third party sites 
+ 
+3.	Our Cookies 
+ 
+3.1. We use session cookies that are deleted as soon as the web browser is closed. 
+ 
+3.2. We use ‘Analytical Cookies’ which allow the entity that is responsible for them to monitor and analyze the behavior of web users to which they are linked. The information gathered through these cookies is used for measuring the activity of web sites, applications or platforms and for profiling user navigation on such sites, applications and platforms, in order to make improvements based on the analysis of data of users who use the service. 
+ 
+3.3. We use ‘Advertising cookies’ to support our Website. We will send these advertisers information including your IP address, the time at which you visited the website, the browser you used to visit our Website, the unique ID number the cookie has given your browser, and in some cases, whether you have a Flash installed. These are 
+used to tailor the ads to your localization and/or general preferences, thereby tempting to prevent showing irrelevant ads or ads you may have already seen. 
+ 
+3.4. We use ‘Targeting cookies’ that are used to deliver content that best suits you and your interests. It can be used for targeted advertising / offers, limiting ad serving or measuring the effectiveness of a promotional campaign. We may use these cookies to remember the sites you visit, in order to determine which e-marketing channels are more efficient and allow us to reward partners and external websites. 
+ 
+3.5. We will not share personal information collected from our cookies with any third party except as set out in this Cookies Policy 
+ 
+ 
+4.	Third Party Cookies 
+ 
+4.1. We use the Analytical cookies of Google Analytics service to analyze the use of our website and keep track of visitors. Google Analytics generate statistical and other information about our website’s use. Details and privacy policy of Google analytics cookies can be found here: Google Analytics 
+ 
+4.2. We use Advertising cookies of Google DoubleClick service to support our Website and provide users with relevant adverts. Details and privacy policy of Google DoubleClick cookies can be found here: DoubleClick 
+ 
+
+5.	Blocking or Deleting Cookies 
+ 
+5.1. You may refuse to accept cookies or delete cookies already stored on your computer through the settings of your web browser. 
+•	Google Chrome 
+•	Firefox 
+•	Internet Explorer 10 
+•	Safari 
+ 
+5.2.	Blocking and deleting cookies may have a negative impact upon the usability of our website and you might be prevented from using all the features available on our website. 
+ 
+5.3.	By continuing to browse our Website, you hereby consent to this Cookies Policy regardless of your browser settings. 
+ 
+ 
+6.	Contact Customer Support
+  				</textarea?
+		</div>
+		<div class="card-header">
 			     <br>1.	Loan Amortization Calculator
 <br>
 This calculator provides a way to calculate amortization of 
