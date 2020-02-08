@@ -194,8 +194,7 @@ function checkPasswords(theForm) {
 
                   <input type="submit" class="btn btn-default float-left" value="Submit"/>
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
-		<div class="card-block">
-				<textarea id="cookiepolicy" rows="4" cols="50">
+		<textarea id="cookiepolicy" rows="4" cols="50">
 COOKIES POLICY 
  
 This Cookies Policy forms part of our general Privacy Policy. 
@@ -253,7 +252,6 @@ used to tailor the ads to your localization and/or general preferences, thereby 
  
 6.	Contact Customer Support
   				</textarea>
-            </div>
                 </form>
             </div>
         </div>
