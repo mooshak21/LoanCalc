@@ -196,7 +196,7 @@ function checkPasswords(theForm) {
                   <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
 		<div class="card-block">
 				<p>Cookie Policy:</p>
-				<textarea id="cookiepolicy" rows="4" cols="100">
+				<textarea id="cookiepolicy" rows="4" cols="50">
 COOKIES POLICY 
  
 This Cookies Policy forms part of our general Privacy Policy. 
