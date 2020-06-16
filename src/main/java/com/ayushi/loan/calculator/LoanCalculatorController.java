@@ -1175,7 +1175,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			lpwdPref.setName("Password");
 			lpwdPref.setEmailAddress(email);
 			// Hash a password for the first time
-			String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt());
+			String bpasswordPreference = b"passwordPreference;
+			String hashed = BCrypt.hashpw(bpasswordPreference, BCrypt.gensalt(15));
 
 			lpwdPref.setValue(hashed);
 			lpwdPref.setFlag(true);
@@ -2139,7 +2140,9 @@ public class LoanCalculatorController implements ServletContextAware {
 						// Check that an unencrypted password matches one that
 						// has
 						// previously been hashed
-						if (BCrypt.checkpw(password, p.getValue()))
+						String bpassword = b"password;
+						String bpValue = b"p.getValue();
+						if (BCrypt.checkpw(bpassword, bpValue))
 							passwordFlag = true;
 						else
 							passwordFlag = false;
