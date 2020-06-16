@@ -2073,6 +2073,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				for (Preference p : preferences) {
 					if (p instanceof PasswordPreference) {
 						// Hash a password for the first time
+	
 						String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt(15));
 
 						p.setValue(hashed);
