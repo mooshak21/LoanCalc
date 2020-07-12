@@ -31,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService{
         if(user == null)
             throw new UsernameNotFoundException("Invalid username or password.");
         else
-            return new UserDetails(user.getUserName(), user.getPassword(),user.isEnabled()==1?true:false,true,true,true, mapToGrantedAuthorities(user.getRoleList()),user.getFirstName(),user.getLastName());
+            return new User(user.getUserName(), user.getPassword(),user.isEnabled()==1?true:false,true,true,true, mapToGrantedAuthorities(user.getRoleList()),user.getFirstName(),user.getLastName());
 
     }
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
