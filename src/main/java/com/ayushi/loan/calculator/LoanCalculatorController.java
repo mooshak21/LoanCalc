@@ -48,7 +48,7 @@ import com.paypal.base.rest.PayPalRESTException;
 @Controller
 @SessionAttributes({ "loan", "amortizeloan", "payoffOn", "payoffAmt", "amortizeOn", "userEmail", "loans", "loginStatus",
 		"planSelected", "Plan" })
-public class LoanCalculatorController extends ServletContextAware {
+public class LoanCalculatorController implements ServletContextAware {
 
 	protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99";
 
