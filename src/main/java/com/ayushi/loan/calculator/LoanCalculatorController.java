@@ -1921,20 +1921,19 @@ public class LoanCalculatorController implements ServletContextAware {
 			List<Preference> preferences = null;		
 			if(!password.equals("ignore"))
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
-			else
-				emailPasswordIgnoreFlag = true;
-
-			if (emailPasswordIgnoreFlag || emailPasswordFlag) {
-					preferences = getPreferencesByEmailAddress(email);
-					for (Preference preference : preferences) {
-						if (preference.getType().equals("Plan")) 
-							plan = preference.getValue();
-						
-						if (preference.getType().equals("UserPreference")) 
-							request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
-						
-					}
+				if(!emailPasswordFlag)
+					return "login";
 			}
+			preferences = getPreferencesByEmailAddress(email);
+			for (Preference preference : preferences) {
+				if (preference.getType().equals("Plan")) 
+					plan = preference.getValue();
+					
+				if (preference.getType().equals("UserPreference")) 
+					request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
+						
+			}
+			
 			response.addCookie(new Cookie("userEmail", email));
 			response.addCookie(new Cookie("loginStatus", "Y"));
 			request.getSession().setAttribute("loginStatus", "Y");
