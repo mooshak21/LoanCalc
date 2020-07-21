@@ -1886,7 +1886,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("message", "Register with preferences");
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("planSelected", plan);
-			String plan = getPlan(emailCookie);
+			plan = getPlan(emailCookie);
 			model.addAttribute("Plan", plan);
 			checkUserPrefernece(model, prefs);
 			return "viewpreferences";
@@ -1942,14 +1942,14 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("userEmail", email);
 			if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
 					model.addAttribute("message", "Aggregate Loan Report");
-					String plan = getPlan(emailCookie);
+					plan = getPlan(emailCookie);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "aggregateloanreport";
 
 			} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
 					model.addAttribute("message", "Amortize Loan");
-					String plan = getPlan(emailCookie);
+					plan = getPlan(emailCookie);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "amortizeloan";
@@ -1969,7 +1969,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
 		}
-		String plan = getPlan(emailCookie);
+		plan = getPlan(emailCookie);
 		model.addAttribute("userEmail", emailCookie);
 		model.addAttribute("Plan", plan);
 		checkUserPrefernece(model, prefs);
