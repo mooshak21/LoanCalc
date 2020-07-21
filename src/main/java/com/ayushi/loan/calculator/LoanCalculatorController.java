@@ -1915,11 +1915,11 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
-			boolean emailPasswordIgnoreFlag = False, emailPasswordFlag = False;
+			boolean emailPasswordIgnoreFlag, emailPasswordFlag;
 			if(!password.equals("Ignore"))
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 			else
-				emailPasswordIgnoreFlag = True;
+				emailPasswordIgnoreFlag = true;
 
 			if (emailPasswordIgnoreFlag || emailPasswordFlag) {
 					List<Preference> preferences = getPreferencesByEmailAddress(email);
