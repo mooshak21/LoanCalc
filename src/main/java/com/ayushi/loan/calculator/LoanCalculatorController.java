@@ -1883,6 +1883,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		if (emailCookie == null) {
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Register with preferences");
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("planSelected", plan);
@@ -1892,7 +1893,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			return "viewpreferences";
 		}
 		if (emailCookie != null && !emailCookie.equals("")) {
-			String plan = getPlan(emailCookie);
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			plan = getPlan(emailCookie);
 			model.addAttribute("Plan", plan);
 			ArrayList<String> prefVal = null, prefAttr = null;
 
@@ -1912,6 +1914,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 		}
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
 			boolean emailPasswordIgnoreFlag, emailPasswordFlag;
@@ -1960,6 +1963,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 			
 		} else if (!loginAttempt.equals("0")) {
+				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
 				nextLoginAttempt++;
 				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
@@ -1969,6 +1973,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
 		}
+		List<Preference> prefs = getPreferencesByEmailAddress(email);
 		plan = getPlan(emailCookie);
 		model.addAttribute("userEmail", emailCookie);
 		model.addAttribute("Plan", plan);
