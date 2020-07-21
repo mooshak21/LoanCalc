@@ -73,7 +73,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("Plan", plan);
 		model.addAttribute("userEmail", emailCookie);
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-//		checkUserPrefernece(model, prefs);
+		checkUserPrefernece(model, prefs);
 		if (prefs != null) {
 			for (Preference preference : prefs) {
 				if (preference.getType().equals("Plan")) {
@@ -1915,26 +1915,28 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
-			boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
-			if (emailPasswordFlag) {
-				List<Preference> preferences = getPreferencesByEmailAddress(email);
-				for (Preference preference : preferences) {
-					if (preference.getType().equals("Plan")) {
-						plan = preference.getValue();
+			if(!password.equals("Ignore")){
+				boolean emailPasswordFlag = checkPreferenceEmailAddress(email, password);
+				if (emailPasswordFlag) {
+					List<Preference> preferences = getPreferencesByEmailAddress(email);
+					for (Preference preference : preferences) {
+						if (preference.getType().equals("Plan")) {
+							plan = preference.getValue();
+						}
+						if (preference.getType().equals("UserPreference")) {
+							request.getSession().setAttribute("UserPreference", preference.getValue());
+						}
 					}
-					if (preference.getType().equals("UserPreference")) {
-						request.getSession().setAttribute("UserPreference", preference.getValue());
-					}
-				}
-				response.addCookie(new Cookie("userEmail", email));
-				response.addCookie(new Cookie("loginStatus", "Y"));
-				request.getSession().setAttribute("loginStatus", "Y");
-				request.getSession().setAttribute("Plan", plan);
-				request.getSession().setAttribute("planSelected", plan);
-				model.addAttribute("planSelected", plan);
-				model.addAttribute("Plan", plan);
-				model.addAttribute("userEmail", email);
-				if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
+			}
+			response.addCookie(new Cookie("userEmail", email));
+			response.addCookie(new Cookie("loginStatus", "Y"));
+			request.getSession().setAttribute("loginStatus", "Y");
+			request.getSession().setAttribute("Plan", plan);
+			request.getSession().setAttribute("planSelected", plan);
+			model.addAttribute("planSelected", plan);
+			model.addAttribute("Plan", plan);
+			model.addAttribute("userEmail", email);
+			if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
 					model.addAttribute("message", "Aggregate Loan Report");
 					List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 					if (prefs != null) {
@@ -1948,7 +1950,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					checkUserPrefernece(model, prefs);
 					return "aggregateloanreport";
 
-				} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
+			} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
 					model.addAttribute("message", "Amortize Loan");
 					List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 					if (prefs != null) {
@@ -1961,13 +1963,13 @@ public class LoanCalculatorController implements ServletContextAware {
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "amortizeloan";
-				} else {
+			} else {
 					searchLoanBasedOnEmail(email, plan, model);
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
-				}
+			}
 
-			} else if (!loginAttempt.equals("0")) {
+		} else if (!loginAttempt.equals("0")) {
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
 				nextLoginAttempt++;
 				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
