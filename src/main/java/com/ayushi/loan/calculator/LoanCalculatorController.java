@@ -1916,20 +1916,21 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
 			boolean emailPasswordIgnoreFlag, emailPasswordFlag;
+			List<Preference> preferences = null;		
 			if(!password.equals("Ignore"))
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 			else
 				emailPasswordIgnoreFlag = true;
 
 			if (emailPasswordIgnoreFlag || emailPasswordFlag) {
-					List<Preference> preferences = getPreferencesByEmailAddress(email);
+					preferences = getPreferencesByEmailAddress(email);
 					for (Preference preference : preferences) {
-						if (preference.getType().equals("Plan")) {
+						if (preference.getType().equals("Plan")) 
 							plan = preference.getValue();
-						}
-						if (preference.getType().equals("UserPreference")) {
+						
+						if (preference.getType().equals("UserPreference")) 
 							request.getSession().setAttribute("UserPreference", preference.getValue());
-						}
+						
 					}
 			}
 			response.addCookie(new Cookie("userEmail", email));
@@ -1972,7 +1973,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
 			}
-
+			
 		} else if (!loginAttempt.equals("0")) {
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
 				nextLoginAttempt++;
