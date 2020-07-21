@@ -1934,7 +1934,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 			}
 			
-			response.addCookie(new Cookie("userEmail", email));
+			response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : emailCookie));
 			response.addCookie(new Cookie("loginStatus", "Y"));
 			request.getSession().setAttribute("loginStatus", "Y");
 			request.getSession().setAttribute("Plan", plan);
@@ -1956,7 +1956,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					checkUserPrefernece(model, prefs);
 					return "amortizeloan";
 			} else {
-					searchLoanBasedOnEmail(email, plan, model);
+					searchLoanBasedOnEmail(emailCookie, plan, model);
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
 			}
