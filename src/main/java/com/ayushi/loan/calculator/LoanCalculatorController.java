@@ -1861,7 +1861,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "logout";
 	}
 
-	private getPlan(String email){
+	private String getPlan(String email){
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			String plan = null;
 			if (prefs != null) {
