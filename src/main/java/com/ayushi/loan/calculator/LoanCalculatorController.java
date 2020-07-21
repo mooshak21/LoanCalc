@@ -1924,17 +1924,17 @@ public class LoanCalculatorController implements ServletContextAware {
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 				if(!emailPasswordFlag)
 					return "login";
-			}
-			preferences = getPreferencesByEmailAddress(email);
-			for (Preference preference : preferences) {
-				if (preference.getType().equals("Plan")) 
-					plan = preference.getValue();
+			}else{
+				preferences = getPreferencesByEmailAddress(email);
+				for (Preference preference : preferences) {
+					if (preference.getType().equals("Plan")) 
+						plan = preference.getValue();
 					
-				if (preference.getType().equals("UserPreference")) 
-					request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
+					if (preference.getType().equals("UserPreference")) 
+						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
 						
+				}
 			}
-			
 			response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : emailCookie));
 			response.addCookie(new Cookie("loginStatus", "Y"));
 			request.getSession().setAttribute("loginStatus", "Y");
@@ -1945,19 +1945,19 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("userEmail", email);
 			if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
 					model.addAttribute("message", "Aggregate Loan Report");
-					plan = getPlan(emailCookie);
+					plan = getPlan(email);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "aggregateloanreport";
 
 			} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
 					model.addAttribute("message", "Amortize Loan");
-					plan = getPlan(emailCookie);
+					plan = getPlan(email);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "amortizeloan";
 			} else {
-					searchLoanBasedOnEmail(emailCookie, plan, model);
+					searchLoanBasedOnEmail(email, plan, model);
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
 			}
