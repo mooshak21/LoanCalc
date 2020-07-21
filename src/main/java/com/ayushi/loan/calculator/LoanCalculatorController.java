@@ -1968,7 +1968,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				nextLoginAttempt++;
 				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
 				model.addAttribute("message", "Login Form");
-				String plan = getPlan(emailCookie);
+				plan = getPlan(emailCookie);
 				model.addAttribute("Plan", plan);
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
