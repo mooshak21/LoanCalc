@@ -1982,7 +1982,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			logger.info("Selected plan :" + plan);
 			return "login";
 		}
-		return "login";
 	}
 
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
