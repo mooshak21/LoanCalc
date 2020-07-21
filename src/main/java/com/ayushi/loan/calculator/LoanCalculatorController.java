@@ -1861,6 +1861,19 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "logout";
 	}
 
+	private getPlan(String email){
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			String plan = null;
+			if (prefs != null) {
+				for (Preference preference : prefs) {
+					if (preference.getType().equals("Plan")) {
+						plan = preference.getValue();
+					}
+				}
+			}
+			return plan;
+	}
+
 	@RequestMapping(value = "/login")
 	public String login(@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password,
@@ -1873,27 +1886,13 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("message", "Register with preferences");
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("planSelected", plan);
-			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-			if (prefs != null) {
-				for (Preference preference : prefs) {
-					if (preference.getType().equals("Plan")) {
-						plan = preference.getValue();
-					}
-				}
-			}
+			String plan = getPlan(emailCookie);
 			model.addAttribute("Plan", plan);
 			checkUserPrefernece(model, prefs);
 			return "viewpreferences";
 		}
 		if (emailCookie != null && !emailCookie.equals("")) {
-			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-			if (prefs != null) {
-				for (Preference preference : prefs) {
-					if (preference.getType().equals("Plan")) {
-						plan = preference.getValue();
-					}
-				}
-			}
+			String plan = getPlan(emailCookie);
 			model.addAttribute("Plan", plan);
 			ArrayList<String> prefVal = null, prefAttr = null;
 
@@ -1943,28 +1942,14 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("userEmail", email);
 			if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
 					model.addAttribute("message", "Aggregate Loan Report");
-					List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-					if (prefs != null) {
-						for (Preference preference : prefs) {
-							if (preference.getType().equals("Plan")) {
-								plan = preference.getValue();
-							}
-						}
-					}
+					String plan = getPlan(emailCookie);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "aggregateloanreport";
 
 			} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
 					model.addAttribute("message", "Amortize Loan");
-					List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-					if (prefs != null) {
-						for (Preference preference : prefs) {
-							if (preference.getType().equals("Plan")) {
-								plan = preference.getValue();
-							}
-						}
-					}
+					String plan = getPlan(emailCookie);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "amortizeloan";
@@ -1979,34 +1964,18 @@ public class LoanCalculatorController implements ServletContextAware {
 				nextLoginAttempt++;
 				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
 				model.addAttribute("message", "Login Form");
-				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-				if (prefs != null) {
-					for (Preference preference : prefs) {
-						if (preference.getType().equals("Plan")) {
-							plan = preference.getValue();
-						}
-					}
-				}
+				String plan = getPlan(emailCookie);
 				model.addAttribute("Plan", plan);
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
 			}
 		}
-		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-		if (prefs != null) {
-			for (Preference preference : prefs) {
-				if (preference.getType().equals("Plan")) {
-					plan = preference.getValue();
-				}
-			}
-		}
-
+		String plan = getPlan(emailCookie);
 		model.addAttribute("userEmail", emailCookie);
 		model.addAttribute("Plan", plan);
 		checkUserPrefernece(model, prefs);
 		model.addAttribute("message", "Login Form");
 		logger.info("Selected plan :" + plan);
-		System.out.println("Selected plan :" + plan);
 		return "login";
 	}
 
