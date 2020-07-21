@@ -1972,14 +1972,16 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("Plan", plan);
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
+		}else{
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			plan = getPlan(emailCookie);
+			model.addAttribute("userEmail", emailCookie);
+			model.addAttribute("Plan", plan);
+			checkUserPrefernece(model, prefs);
+			model.addAttribute("message", "Login Form");
+			logger.info("Selected plan :" + plan);
+			return "login";
 		}
-		List<Preference> prefs = getPreferencesByEmailAddress(email);
-		plan = getPlan(emailCookie);
-		model.addAttribute("userEmail", emailCookie);
-		model.addAttribute("Plan", plan);
-		checkUserPrefernece(model, prefs);
-		model.addAttribute("message", "Login Form");
-		logger.info("Selected plan :" + plan);
 		return "login";
 	}
 
