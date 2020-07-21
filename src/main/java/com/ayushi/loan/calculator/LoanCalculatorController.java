@@ -1973,7 +1973,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
 		}else{
-			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 			plan = getPlan(emailCookie);
 			model.addAttribute("userEmail", emailCookie);
 			model.addAttribute("Plan", plan);
