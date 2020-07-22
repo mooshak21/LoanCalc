@@ -1978,7 +1978,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 			plan = getPlan(emailCookie);
 			model.addAttribute("userEmail", emailCookie);
-			model.addAttribute("Plan", plan ? plan : "");
+			model.addAttribute("Plan", plan != null ? plan : "");
 			checkUserPrefernece(model, prefs);
 			model.addAttribute("message", "Login Form");
 			logger.info("Selected plan :" + plan);
