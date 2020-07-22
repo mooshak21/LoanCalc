@@ -1924,7 +1924,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 				if(!emailPasswordFlag)
 					return "login";
-			}else{
+			}
 				preferences = getPreferencesByEmailAddress(email);
 				for (Preference preference : preferences) {
 					if (preference.getType().equals("Plan")) 
@@ -1934,34 +1934,32 @@ public class LoanCalculatorController implements ServletContextAware {
 						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
 						
 				}
-			}
-			response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : emailCookie));
-			response.addCookie(new Cookie("loginStatus", "Y"));
-			request.getSession().setAttribute("loginStatus", "Y");
-			request.getSession().setAttribute("Plan", plan);
-			request.getSession().setAttribute("planSelected", plan);
-			model.addAttribute("planSelected", plan);
-			model.addAttribute("Plan", plan);
-			model.addAttribute("userEmail", email);
-			if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
+				response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : emailCookie));
+				response.addCookie(new Cookie("loginStatus", "Y"));
+				request.getSession().setAttribute("loginStatus", "Y");
+				request.getSession().setAttribute("Plan", plan);
+				request.getSession().setAttribute("planSelected", plan);
+				model.addAttribute("planSelected", plan);
+				model.addAttribute("Plan", plan);
+				model.addAttribute("userEmail", email);
+				if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.PREMIUM_PLAN)) {
 					model.addAttribute("message", "Aggregate Loan Report");
 					plan = getPlan(email);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "aggregateloanreport";
 
-			} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
+				} else if (plan != null && !plan.equals("") && plan.equals(LoanCalculatorController.LITE_PLAN)) {
 					model.addAttribute("message", "Amortize Loan");
 					plan = getPlan(email);
 					model.addAttribute("Plan", plan);
 					checkUserPrefernece(model, prefs);
 					return "amortizeloan";
-			} else {
+				} else {
 					searchLoanBasedOnEmail(email, plan, model);
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
-			}
-			
+				}
 		} else if (!loginAttempt.equals("0")) {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
