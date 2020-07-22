@@ -1926,6 +1926,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					return "login";
 			}else 
 				emailPasswordFlag = true;
+
 			if(emailPasswordFlag){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) 
@@ -1961,7 +1962,8 @@ public class LoanCalculatorController implements ServletContextAware {
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
 				}
-			}
+			}else
+				return "login";
 		} else if (!loginAttempt.equals("0")) {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
