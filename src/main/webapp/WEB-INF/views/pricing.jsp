@@ -2,7 +2,7 @@
 <body>
 <table>
 	<tr>
-		<td><img src="loaninsight-pricing.jpg"/><td>
+		<td><img src="http://www.loaninsight.online/loaninsight-pricing.jpg"/><td>
 	</tr>
 </table>
 </body>
