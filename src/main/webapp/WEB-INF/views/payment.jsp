@@ -102,7 +102,7 @@
 
 				<input type="submit" class="btn btn-default float-left"
 					value="Submit" />
-				<label for="Privacy">Privacy Policy:>/label>
+				<label for="Privacy">Privacy Policy:</label>
 				<textarea id="privacy" rows="4" cols="100">
 Please take a minute to read the following policy so you understand how we use the personal information we ask you to submit. If you use any of Ayushi Software Services Group's services, you agree to these terms.
 Our commitment to privacy 
