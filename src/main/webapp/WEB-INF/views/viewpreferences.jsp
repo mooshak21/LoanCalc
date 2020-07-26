@@ -98,7 +98,7 @@ function ValidateEmail(mail)
                    
                    <div class="form-group">
                        <label for="email">Email:*</label>
-                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true" onblur="return ValidateEmail(this);">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true" onblur="if(ValidateEmail(this)){ return;} else {this.focus();}">
                    </div>
 
                    <div class="form-group">
