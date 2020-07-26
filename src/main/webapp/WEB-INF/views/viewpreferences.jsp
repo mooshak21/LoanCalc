@@ -36,7 +36,7 @@ function checkPasswords(theForm) {
             <div class="card-block">
                 <form name="loanForm" id="loanform" action="/vieweditpreferences" method="POST" onsubmit='return checkPasswords(this);'>
                    
-                   <div class="form-group">
+<!--                   <div class="form-group">
                        <label for="loanAmount">Loan Amount:</label>
                         <input class="form-control resetMe" type="number" name="loanAmt" value="${Amount}" min="1" max="9999999999" id="loanAmount">
                    </div>
@@ -79,7 +79,7 @@ function checkPasswords(theForm) {
                        <label for="thPreference">Time Horizon Preference: </label>
 		       <input class="form-control resetMe" type="number" name="timeHorizonPreference" value="${TimeHorizon}" min="0" max="100" step="0.01" id="thPreference">
                    </div>
-
+-->
                     <div class="form-group">
                         <label for="usPreference">User Preference: </label>
                         <input class="form-control resetMe" type="text" name="userPreference" value="${User}" id="usPreference">

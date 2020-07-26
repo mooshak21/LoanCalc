@@ -1001,13 +1001,14 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = "/vieweditpreferences", method = RequestMethod.POST)
-	public String vieweditpreferences(@RequestParam("airVal") String airVal, @RequestParam("lender") String lender,
+	public String vieweditpreferences(
+/*			@RequestParam("airVal") String airVal, @RequestParam("lender") String lender,
 			@RequestParam("loanAmt") String loanAmt, @RequestParam("state") String state,
 			@RequestParam("numOfYears") String numOfYears,
 			@RequestParam("locationPreference") String locationPreference,
 			@RequestParam("webServicePreference") String webServicePreference,
 			@RequestParam("riskTolerancePreference") String riskTolerancePreference,
-			@RequestParam("timeHorizonPreference") String timeHorizonPreference,
+			@RequestParam("timeHorizonPreference") String timeHorizonPreference,*/
 			@RequestParam("userPreference") String userPreference, @RequestParam("email") String email,
 			@RequestParam("password") String password, @RequestParam("reminderfreq") String reminderFreq,
 			@RequestParam("Plan") String plan, @CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
@@ -1016,7 +1017,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		String numberOfYearsPreference = null, amountPreference = null, airPreference = null, lenderPreference = null,
 				statePreference = null, passwordPreference = null, planPreference = null;
 		boolean allVal = false;
-		if (loanAmt != null && !loanAmt.equals(""))
+/*		if (loanAmt != null && !loanAmt.equals(""))
 			amountPreference = loanAmt;
 		if (airVal != null && !airVal.equals(""))
 			airPreference = airVal;
@@ -1025,7 +1026,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (state != null && !state.equals(""))
 			statePreference = state;
 		if (numOfYears != null && !numOfYears.equals(""))
-			numberOfYearsPreference = numOfYears;
+			numberOfYearsPreference = numOfYears;*/
 		if (password != null && !password.equals(""))
 			passwordPreference = password;
 		if (plan != null && !plan.equals("")) {
@@ -1051,7 +1052,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
 		List<Preference> prefList = new ArrayList<Preference>();
 
-		if (locationPreference != null && !locationPreference.equals("")) {
+/*		if (locationPreference != null && !locationPreference.equals("")) {
 			LocationPreference locPref = new LocationPreference();
 			locPref.setId(1);
 			locPref.setName("Location");
@@ -1091,7 +1092,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			thPref.setActive("Y");
 			prefList.add(thPref);
 		}
-
+*/
 		if (email != null && !email.isEmpty()) {
 			EmailReminderPreference erPref = new EmailReminderPreference();
 			erPref.setId(5);
@@ -1114,7 +1115,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			prefList.add(rfPref);
 		}
 
-		if (amountPreference != null && !amountPreference.equals("")) {
+/*		if (amountPreference != null && !amountPreference.equals("")) {
 			AmountPreference lamtPref = new AmountPreference();
 			lamtPref.setId(7);
 			lamtPref.setName("Amount");
@@ -1169,7 +1170,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			prefList.add(lstPref);
 		}
 
-		if (passwordPreference != null && !passwordPreference.equals("")) {
+*/		if (passwordPreference != null && !passwordPreference.equals("")) {
 			PasswordPreference lpwdPref = new PasswordPreference();
 			lpwdPref.setId(12);
 			lpwdPref.setName("Password");
