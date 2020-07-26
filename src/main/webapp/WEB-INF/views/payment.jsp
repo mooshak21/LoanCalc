@@ -99,7 +99,8 @@
 				<div class="card-block">
 					<br>Please proceed to payment of the subscription plan</br> 
 					<br>as chosen above by clicking submit button!</br></div>
-
+				</div>
+				<div>
 				<input type="submit" class="btn btn-default float-left"
 					value="Submit" />
 				<label for="Privacy">Privacy Policy:</label>
