@@ -103,7 +103,7 @@
 					value="Submit" />
 				</div>
 				<div class="card-header">
-					<label for="Privacy">Privacy Policy:</label>
+					<p>Privacy Policy:</p>
 					<textarea id="privacy" rows="4" cols="100">
 Please take a minute to read the following policy so you understand how we use the personal information we ask you to submit. If you use any of Ayushi Software Services Group's services, you agree to these terms.
 Our commitment to privacy 
