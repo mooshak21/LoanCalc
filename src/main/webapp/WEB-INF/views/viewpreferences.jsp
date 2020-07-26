@@ -20,7 +20,6 @@ function ValidateEmail(mail)
   {
     return (true)
   }
-    alert("Email format is invalid!");	
     return (false)
 }
 
