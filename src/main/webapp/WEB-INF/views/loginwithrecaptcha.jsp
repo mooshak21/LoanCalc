@@ -16,6 +16,16 @@
     var element = document.getElementById('submit');
     element.onclick = validate;
   }
+
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))
+  {
+    return (true)
+  }
+    return (false)
+}
+
 </script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -31,7 +41,7 @@
                 <form name="loginForm" id="loginform" action="/login" method="POST" onload="onload();">
                    <div class="form-group">
                        <label for="email">Email:*</label>
-                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true" onblur="if(ValidateEmail(this)){ return;} else {this.focus();}">
 		   </div>
                 <div class="form-group">
                        <label for="password">Password:*</label>

@@ -1,4 +1,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<script>
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))
+  {
+    return (true)
+  }
+    return (false)
+}
+</script>
+
 
 <c:if test="${userEmail eq mull}">
     <c:set var="userEmail" value="tertertert"/>
@@ -14,7 +25,7 @@
                             <div class="form-group">
                                 <div class="input-group justify-content-center">
                                     <input class="form-control col-md-8" type="email" id="email" name="email" 
-                                           value="${userEmail}" title="Send Me by eMail" placeholder="Insert eMail">
+                                           value="${userEmail}" title="Send Me by eMail" placeholder="Insert eMail" onblur="if(ValidateEmail(this)){ return;} else {this.focus();}">
                                     <button type="submit" class="btn btn-default input-group-addon" data-toggle="tooltip" data-placement="top" title="Send Me by eMail">></button>
                                  </div>
                             </div>
