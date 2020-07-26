@@ -13,6 +13,16 @@ function checkPasswords(theForm) {
         return true;
     }
 }
+
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))
+  {
+    return (true)
+  }
+    return (false)
+}
+
 //-->
 </script> 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -87,7 +97,7 @@ function checkPasswords(theForm) {
                    
                    <div class="form-group">
                        <label for="email">Email:*</label>
-                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true" onBlur="return ValidateEmail(theForm.email);">
                    </div>
 
                    <div class="form-group">
