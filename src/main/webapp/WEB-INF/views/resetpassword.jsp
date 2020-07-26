@@ -1,3 +1,13 @@
+<script>
+function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value))
+  {
+    return (true)
+  }
+    return (false)
+}
+</script>
 
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +22,7 @@
                 <form name="loginForm" id="loginform" action="/resetpassword" method="POST">
                    <div class="form-group">
                        <label for="email">Email: </label>
-                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true">
+                       <input class="form-control resetMe" type="email" name="email" value="${userEmail}" id="email" required="true" onblur="if(ValidateEmail(this)){ return;} else {this.focus();}">
 		   </div>
                 <div class="form-group">
                        <label for="oldpassword">Old Password: </label>
