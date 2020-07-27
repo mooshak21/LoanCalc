@@ -9,10 +9,10 @@
 				<td>Pricing</a><td>
 			</tr>
 			<tr>
-			<td>Lite Plan</a></td><td>$9.9/Year</td>
+			<td>Lite Plan</td><td><img src="css/loaninsight - lite.jpg"/></td>
 			</tr>
 			<tr>
-			<td>Premium Plan</td><td>$19.99/Year</td>
+			<td>Premium Plan</td><td><img src="css/loaninsight - premium.jpg"/></td>
 			</tr>
 			<tr colspan="2">
 				<td><a href="/loanpreferenceviewask">Register</a><td>
