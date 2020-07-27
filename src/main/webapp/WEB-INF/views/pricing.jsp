@@ -9,10 +9,13 @@
 				<td>Pricing</a><td>
 			</tr>
 			<tr>
-			<td><a href="/loanpreferenceviewask">Lite Plan - $9.9/Year</a><td>
+			<td>Lite Plan</a></td><td>$9.9/Year</td>
 			</tr>
 			<tr>
-			<td><a href="/loanpreferenceviewask">Premium Plan - $19.99/Year</a><td>
+			<td>Premium Plan</td><td>$19.99/Year</td>
+			</tr>
+			<tr colspan="2">
+				<td><a href="/loanpreferenceviewask">Register</a><td>
 			</tr>
 		</table>
 	   </div>
