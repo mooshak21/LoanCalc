@@ -5,14 +5,14 @@
         <div class="card col-10 col-md-8 cardBody">
             <div class="text-center center-block"">
 		<table>
-			<tr>
-			<td><a href="/loanpreferenceviewask"><i class="fa fa-apple fa-3x social"><img src="css/loaninsight-pricing - lite.jpg"/></i></a><td>
-			</tr>
-			<tr>
-			<td><a href="/loanpreferenceviewask"><i class="fa fa-apple fa-3x social"><img src="css/loaninsight-pricing - premium.jpg"/></i></a><td>
-			</tr>
 			<tr colspan="2">
-				<td><a href="/loanpreferenceviewask">Register</a><td>
+				<td>Pricing</a><td>
+			</tr>
+			<tr>
+			<td><a href="/loanpreferenceviewask">Lite Plan - $9.9/Year</a><td>
+			</tr>
+			<tr>
+			<td><a href="/loanpreferenceviewask">Premium Plan - $19.99/Year</a><td>
 			</tr>
 		</table>
 	   </div>
