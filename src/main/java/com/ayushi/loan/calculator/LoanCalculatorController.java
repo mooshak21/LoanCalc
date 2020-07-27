@@ -1019,6 +1019,37 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "viewpreferences";
 	}
 
+
+	// ----------------------------------------------------------------------------------------------------------------------
+	@RequestMapping(value = "/loanpreferenceviewasktoregister")
+	public String loanpreferenceviewasktoregister(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
+			@RequestParam("plan") String plan, Model model) {
+		model.addAttribute("message", "Edit Preferences");
+		model.addAttribute("reminderFrequency", reminderFrequency);
+
+		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+		ArrayList<String> prefVal = null, prefAttr = null;
+
+		if (prefs != null) {
+			prefVal = new ArrayList<String>(prefs.size());
+			prefAttr = new ArrayList<String>(prefs.size());
+			int prefIdx = 0;
+			for (Preference pref : prefs) {
+				prefAttr.add(pref.getName());
+				prefVal.add(pref.getValue());
+			}
+			for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++)
+				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+		}
+		model.addAttribute("Plan", plan);
+		model.addAttribute("userEmail", emailCookie);
+		checkUserPrefernece(model, prefs);
+		return "viewpreferences";
+	}
+
+
+
 	@RequestMapping(value = "/vieweditpreferences", method = RequestMethod.POST)
 	public String vieweditpreferences(
 /*			@RequestParam("airVal") String airVal, @RequestParam("lender") String lender,
