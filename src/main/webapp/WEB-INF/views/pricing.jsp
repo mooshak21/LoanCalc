@@ -15,7 +15,7 @@
 			<tr colspan="2"> 
 			<td>Premium Plan</td></tr>
 			<tr>
-			<td><img style="max-width:100%;" src="css/loaninsight-pricing - premium.jpg" alt="Premium Plan" title="Premium Plan/></td>
+			<td><img style="max-width:100%;" src="css/loaninsight-pricing - premium.jpg" alt="Premium Plan" title="Premium Plan"/></td>
 			</tr>
 			<tr colspan="2">
 				<td><a href="/loanpreferenceviewask">Register</a><td>
