@@ -3,13 +3,13 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
    <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
-            <div class="card-header">
+            <div class="text-center center-block"">
 		<table>
 			<tr>
-			<td><a href="/loanpreferenceviewask"><img src="css/loaninsight-pricing - lite.jpg"/></a><td>
+			<td><a href="/loanpreferenceviewask"><i class="fa fa-apple fa-3x social"><img src="css/loaninsight-pricing - lite.jpg"/></i></a><td>
 			</tr>
 			<tr>
-			<td><a href="/loanpreferenceviewask"><img src="css/loaninsight-pricing - premium.jpg"/></a><td>
+			<td><a href="/loanpreferenceviewask"><i class="fa fa-apple fa-3x social"><img src="css/loaninsight-pricing - premium.jpg"/></i></a><td>
 			</tr>
 			<tr colspan="2">
 				<td><a href="/loanpreferenceviewask">Register</a><td>
