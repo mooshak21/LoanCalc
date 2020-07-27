@@ -6,7 +6,7 @@
             <div class="card-header">
 		<table>
 			<tr>
-			<td><a href="/loanpreferenceviewask"><img src="css/loaninsight-pricing.jpg" width="825" height="750"/></a><td>
+			<td><a href="/loanpreferenceviewask"><img src="css/loaninsight-pricing.jpg"/></a><td>
 			</tr>
 			<tr colspan="3">
 				<td><a href="/loanpreferenceviewask">Register</a><td>
