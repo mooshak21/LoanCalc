@@ -8,7 +8,7 @@
 			<tr>
 			<td><a href="/loanpreferenceviewask"><img src="css/loaninsight-pricing.jpg"/></a><td>
 			</tr>
-			<tr colspan="3">
+			<tr colspan="2">
 				<td><a href="/loanpreferenceviewask">Register</a><td>
 			</tr>
 		</table>
