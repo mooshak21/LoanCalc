@@ -2014,8 +2014,18 @@ public class LoanCalculatorController implements ServletContextAware {
 					logger.debug("Model on Search Loan Based on Email" + model);
 					return "bankoffersandnews";
 				}
-			}else
+			}else{
+				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+				plan = getPlan(emailCookie);
+				model.addAttribute("userEmail", emailCookie);
+				model.addAttribute("Plan", plan != null ? plan : "");
+				checkUserPrefernece(model, prefs);
+				model.addAttribute("message", "Login Form");
+				logger.info("Selected plan :" + plan);
+
 				return "login";
+
+			}
 		} else if (!loginAttempt.equals("0")) {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
@@ -3249,8 +3259,10 @@ public class LoanCalculatorController implements ServletContextAware {
 					Preference planPref = preference;
 					try{
 						Integer prefId = new Integer(preference.getId());
+						String freePlan = new String("0.0");
 						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
-						modifyPreference(planPref, prefId, emailCookie, new String("Plan"), new String("0.0"));
+						modifyPreference(planPref, prefId, emailCookie, new String("Plan"), freePlan);
+						model.addAttribute("plan", freePlan);
 						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
 					}catch(PreferenceAccessException pae){
 						pae.printStackTrace();
