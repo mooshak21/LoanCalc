@@ -42,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	// private String payPalCancelUrl =
 	// "http://localhost:8080/cancelPayPalPayment";
-	private String payPalCancelUrl = "http://ayushiloancalculatorapp.herokuapp.com/cancelPayPalPayment";
+	private String payPalCancelUrl = "http://www.loaninsight.online/cancelPayPalPayment";
 
 	// private String payPalReturnUrl =
 	// "http://localhost:8080/confirmPaypalPayment";
