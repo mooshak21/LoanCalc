@@ -996,7 +996,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		ArrayList<String> prefVal = null, prefAttr = null;
-
+		String planRef = null;
 		if (prefs != null) {
 			prefVal = new ArrayList<String>(prefs.size());
 			prefAttr = new ArrayList<String>(prefs.size());
@@ -1009,11 +1009,11 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
 			for (Preference preference : prefs) {
 				if (preference.getType().equals("Plan")) {
-					plan = preference.getValue();
+					planRef = preference.getValue();
 				}
 			}
 		}
-		model.addAttribute("Plan", plan);
+		model.addAttribute("Plan", planRef != null ? planRef : plan);
 		model.addAttribute("userEmail", emailCookie);
 		checkUserPrefernece(model, prefs);
 		return "viewpreferences";
