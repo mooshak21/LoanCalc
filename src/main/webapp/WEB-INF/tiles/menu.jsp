@@ -64,7 +64,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link menuItemXs" href="/loanpreferenceviewask">Register</a>
+                <a class="nav-link menuItemXs" href="/loanpreferenceviewasktoregister">Register</a>
             </li>
 
 	    <li class="nav-item">
@@ -122,7 +122,7 @@
     </c:if>
 
     <li class="nav-item">
-        <a class="nav-link menuItem" href="/loanpreferenceviewask">Register</a>
+        <a class="nav-link menuItem" href="/loanpreferenceviewasktoregister">Register</a>
     </li>
 
     <li class="nav-item">
