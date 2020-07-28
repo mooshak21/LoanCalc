@@ -24,7 +24,7 @@ public interface PaymentService {
 	public List<Serializable> findPayment(String query, Object[] objVals) throws PaymentProcessException;
 
 	// Vatsal Code
-	public String createPayment(double amount);
+	public String createPayment(String email, double amount);
 
 	public String completePayment(PayPalModel payPalModel);
 
