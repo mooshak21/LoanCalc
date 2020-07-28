@@ -1299,7 +1299,10 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("userEmail", emailCookie);
 		checkUserPrefernece(model, prefs1);
 		if (Double.valueOf(plan) > 0.0) {
-			return "payment";
+			if(userPreference != null && userPreference.equals(""))
+				return "payment";
+			else
+				return "viewpreferences";
 		}
 
 		return "viewpreferences";
