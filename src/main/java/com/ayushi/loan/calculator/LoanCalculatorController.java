@@ -3196,7 +3196,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("Plan", plan1);
 		}
 		model.addAttribute("userEmail", emailCookie);
-		String papelPaymentUrl = paymentService.createPayment(Double.valueOf(plan1));
+		String papelPaymentUrl = paymentService.createPayment(emailCookie, Double.valueOf(plan1));
 		if (!papelPaymentUrl.isEmpty()) {
 			return new ModelAndView("redirect:" + papelPaymentUrl);
 		}
@@ -3243,8 +3243,8 @@ public class LoanCalculatorController implements ServletContextAware {
 	public String cancelPaypalPayment(@RequestParam(name = "paymentId", defaultValue = "") String paymentId,
 			@RequestParam(name = "token", defaultValue = "") String token,
 			@RequestParam(name = "PayerID", defaultValue = "") String payerId,
-			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletResponse response, Model model) {
+			@RequestParam(value = "email", defaultValue = "") String email,
+			@RequestParam(value = "Plan", defaultValue = "") String plan, HttpServletResponse response, Model model) {
 		System.out.println("paymentId = " + paymentId);
 		System.out.println("payerId = " + payerId);
 		System.out.println("token = " + token);
@@ -3253,7 +3253,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		System.out.println(message);
 		model.addAttribute("message", message);
 		List<Preference> prefs = null;
-		prefs = getPreferencesByEmailAddress(emailCookie);
+		prefs = getPreferencesByEmailAddress(email);
 		
 		if (prefs != null) {
 			for (Preference preference : prefs) {

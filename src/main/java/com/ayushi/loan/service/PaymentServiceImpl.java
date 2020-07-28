@@ -87,7 +87,7 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	// Vatsal Code
-	public String createPayment(double sum) {
+	public String createPayment(String email, double sum) {
 		Amount amount = new Amount();
 		amount.setCurrency("USD");
 		amount.setTotal(String.valueOf(sum));
