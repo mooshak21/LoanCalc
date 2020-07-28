@@ -1340,6 +1340,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		pref.setFlag(true);
 		pref.setActive("Y");
 		prefService.modifyPreference(pref);
+		System.out.println("Plan Found is " + id + ":" + value);
 	}
 
 	private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
@@ -3247,7 +3248,10 @@ public class LoanCalculatorController implements ServletContextAware {
 				if (preference.getType().equals("Plan")) {
 					Preference planPref = preference;
 					try{
-						modifyPreference(planPref, new Integer(preference.getId()), emailCookie, new String("Plan"), new String("0.0"));
+						Integer prefId = new Integer(preference.getId());
+						System.out.println("Plan Found is " + prefId + ":" + planRef.getValue());
+						modifyPreference(planPref, , emailCookie, new String("Plan"), new String("0.0"));
+						System.out.println("Plan Found is " + prefId + ":" + planRef.getValue());
 					}catch(PreferenceAccessException pae){
 						pae.printStackTrace();
 						model.addAttribute("message", "Plan Not Changed!");
