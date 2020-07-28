@@ -3248,7 +3248,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		System.out.println("paymentId = " + paymentId);
 		System.out.println("payerId = " + payerId);
 		System.out.println("token = " + token);
-		String message = "Payment is Fail "+"paymentId = " + paymentId + "payerId = " + payerId + "token = " + token;
+		String message = "Payment is Fail "+"paymentId = " + paymentId + "payerId = " + payerId + "token = " + token + " for " + emailCookie + " plan " + plan;
 
 		System.out.println(message);
 		model.addAttribute("message", message);
@@ -3265,6 +3265,7 @@ public class LoanCalculatorController implements ServletContextAware {
 							modifyPreference(planPref, prefId, emailCookie, "Plan", freePlan);
 							model.addAttribute("plan", freePlan);
 							response.addCookie(new Cookie("Plan", freePlan));
+							model.addAttribute("message", message + " and Plan Changed to " + freePlan);
 						}catch(PreferenceAccessException pae){
 							pae.printStackTrace();
 							model.addAttribute("message", "Plan Not Changed!");
