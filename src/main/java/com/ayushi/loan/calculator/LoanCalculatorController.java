@@ -1271,10 +1271,12 @@ public class LoanCalculatorController implements ServletContextAware {
 				}
 				model.addAttribute("planSelected", plan);
 				model.addAttribute("Plan", plan);
+				response.addCookie("Plan", plan);
 				model.addAttribute("message", "Preference Service Successful! ");
 			} else {
 				model.addAttribute("planSelected", plan);
 				model.addAttribute("Plan", plan);
+				response.addCookie("Plan", plan);
 				model.addAttribute("message", "Preference Service Failed!");
 			}
 		} catch (PreferenceAccessException | PreferenceProcessException pae) {
