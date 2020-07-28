@@ -2020,15 +2020,15 @@ public class LoanCalculatorController implements ServletContextAware {
 					return "bankoffersandnews";
 				}
 			}else{
+	    		    if(emailCookie != null){
 				plan = getPlan(emailCookie);
 				model.addAttribute("userEmail", emailCookie);
 				model.addAttribute("Plan", plan != null ? plan : "");
 				checkUserPrefernece(model, prefs);
 				model.addAttribute("message", "Login Form");
 				logger.info("Selected plan :" + plan);
-
-				return "login";
-
+			    }
+			    return "login";
 			}
 		} else if (!loginAttempt.equals("0")) {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
@@ -2041,13 +2041,16 @@ public class LoanCalculatorController implements ServletContextAware {
 				checkUserPrefernece(model, prefs);
 				return "loginwithrecaptcha";
 		}else{
-			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-			plan = getPlan(emailCookie);
-			model.addAttribute("userEmail", emailCookie);
-			model.addAttribute("Plan", plan != null ? plan : "");
-			checkUserPrefernece(model, prefs);
+			if(emailCookie != null){
+				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+				plan = getPlan(emailCookie);
+				model.addAttribute("userEmail", emailCookie);
+				model.addAttribute("Plan", plan != null ? plan : "");
+				checkUserPrefernece(model, prefs);
+				logger.info("Selected plan :" + plan);
+			}
+
 			model.addAttribute("message", "Login Form");
-			logger.info("Selected plan :" + plan);
 			return "login";
 		}
 	}
