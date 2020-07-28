@@ -3244,7 +3244,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(name = "token", defaultValue = "") String token,
 			@RequestParam(name = "PayerID", defaultValue = "") String payerId,
 			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
+			@CookieValue(value = "Plan", defaultValue = "") String plan, HttServletResponse response, Model model) {
 		System.out.println("paymentId = " + paymentId);
 		System.out.println("payerId = " + payerId);
 		System.out.println("token = " + token);
@@ -3265,6 +3265,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
 						modifyPreference(planPref, prefId, emailCookie, new String("Plan"), freePlan);
 						model.addAttribute("plan", freePlan);
+						response.addCookie(new Cookie("Plan", freePlan));
 						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
 					}catch(PreferenceAccessException pae){
 						pae.printStackTrace();
