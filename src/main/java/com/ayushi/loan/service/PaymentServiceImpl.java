@@ -47,7 +47,7 @@ public class PaymentServiceImpl implements PaymentService {
 	// private String payPalReturnUrl =
 	// "http://localhost:8080/confirmPaypalPayment";
 
-	private String payPalReturnUrl = "http://ayushiloancalculatorapp.herokuapp.com/confirmPaypalPayment";
+	private String payPalReturnUrl = "http://www.loaninsight.online/confirmPaypalPayment";
 
 	public PaymentServiceImpl(PaymentDao paymentDao) {
 		this.paymentDao = paymentDao;
