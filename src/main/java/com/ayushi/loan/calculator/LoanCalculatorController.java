@@ -3244,7 +3244,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(name = "token", defaultValue = "") String token,
 			@RequestParam(name = "PayerID", defaultValue = "") String payerId,
 			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
-			@CookieValue(value = "Plan", defaultValue = "") String plan, HttServletResponse response, Model model) {
+			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletResponse response, Model model) {
 		System.out.println("paymentId = " + paymentId);
 		System.out.println("payerId = " + payerId);
 		System.out.println("token = " + token);
