@@ -1979,7 +1979,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			}else 
 				emailPasswordFlag = true;
 
-			if(emailPasswordFlag){
+			if(emailPasswordFlag && prefs){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) 
 						plan = preference.getValue();
