@@ -2015,7 +2015,6 @@ public class LoanCalculatorController implements ServletContextAware {
 					return "bankoffersandnews";
 				}
 			}else{
-				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				plan = getPlan(emailCookie);
 				model.addAttribute("userEmail", emailCookie);
 				model.addAttribute("Plan", plan != null ? plan : "");
