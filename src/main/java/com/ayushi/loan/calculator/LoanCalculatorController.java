@@ -3251,7 +3251,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						Integer prefId = new Integer(preference.getId());
 						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
 						modifyPreference(planPref, prefId, emailCookie, new String("Plan"), new String("0.0"));
-						System.out.println("Plan Found is " + prefId + ":" + planRef.getValue());
+						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
 					}catch(PreferenceAccessException pae){
 						pae.printStackTrace();
 						model.addAttribute("message", "Plan Not Changed!");
