@@ -3243,8 +3243,8 @@ public class LoanCalculatorController implements ServletContextAware {
 	public String cancelPaypalPayment(@RequestParam(name = "paymentId", defaultValue = "") String paymentId,
 			@RequestParam(name = "token", defaultValue = "") String token,
 			@RequestParam(name = "PayerID", defaultValue = "") String payerId,
-			@RequestParam(value = "email", defaultValue = "") String email,
-			@RequestParam(value = "Plan", defaultValue = "") String plan, HttpServletResponse response, Model model) {
+			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletResponse response, Model model) {
 		System.out.println("paymentId = " + paymentId);
 		System.out.println("payerId = " + payerId);
 		System.out.println("token = " + token);
@@ -3253,23 +3253,23 @@ public class LoanCalculatorController implements ServletContextAware {
 		System.out.println(message);
 		model.addAttribute("message", message);
 		List<Preference> prefs = null;
-		prefs = getPreferencesByEmailAddress(email);
+		prefs = getPreferencesByEmailAddress(emailCookie);
 		
 		if (prefs != null) {
 			for (Preference preference : prefs) {
 				if (preference.getType().equals("Plan")) {
 					Preference planPref = preference;
-					try{
-						Integer prefId = new Integer(preference.getId());
-						String freePlan = new String("0.0");
-						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
-						modifyPreference(planPref, prefId, email, new String("Plan"), freePlan);
-						model.addAttribute("plan", freePlan);
-						response.addCookie(new Cookie("Plan", freePlan));
-						System.out.println("Plan Found is " + prefId + ":" + planPref.getValue());
-					}catch(PreferenceAccessException pae){
-						pae.printStackTrace();
-						model.addAttribute("message", "Plan Not Changed!");
+					if(!planPref.getValue().equals(plan)){
+						try{
+							Integer prefId = new Integer(planPref.getId());
+							String freePlan = new String("0.0");
+							modifyPreference(planPref, prefId, emailCookie, new String("Plan"), freePlan);
+							model.addAttribute("plan", freePlan);
+							response.addCookie(new Cookie("Plan", freePlan));
+						}catch(PreferenceAccessException pae){
+							pae.printStackTrace();
+							model.addAttribute("message", "Plan Not Changed!");
+						}
 					}
 				}
 			}
