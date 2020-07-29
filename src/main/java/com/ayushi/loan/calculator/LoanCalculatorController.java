@@ -527,6 +527,17 @@ public class LoanCalculatorController implements ServletContextAware {
 			queryValList.add(loanType);
 			loanObject.setLoanType(loanType);
 		}
+		if(emailCookie != null && !emailCookie.equals("")) {
+			if (firstVal)
+				querySB.append(" and ln.email=?");
+			else {
+				querySB.append(" ln.email=?");
+				firstVal = true;
+			}
+			queryValList.add(emailCookie);
+			loanObject.setEmail(emailCookie);
+		}
+
 		if (firstVal) {
 			queryVals = new Object[queryValList.size()];
 			queryVals = queryValList.toArray(queryVals);
