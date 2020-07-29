@@ -43,7 +43,7 @@ function ValidateEmail(mail)
 		</div>
 		<div class="card-header">
 				<p>Cookie Policy:</p>
-				<textarea id="cookiepolicy" rows="4" cols="100">
+				<textarea id="cookiepolicy" rows="4" cols="70">
 COOKIES POLICY 
  
 This Cookies Policy forms part of our general Privacy Policy. 
