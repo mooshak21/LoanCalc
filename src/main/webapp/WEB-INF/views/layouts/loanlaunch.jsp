@@ -63,7 +63,7 @@
                   </div>
             </div>
           
-            <div class="row hidden-sm-up" style="min-height: 80%">
+            <div class="row" style="height: auto">
                   <div class="col-12 loanBody">
                      <tiles:insertAttribute name="body" />
                   </div>
