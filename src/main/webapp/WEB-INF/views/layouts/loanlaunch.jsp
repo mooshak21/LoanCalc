@@ -68,13 +68,7 @@
                      <tiles:insertAttribute name="body" />
                   </div>
             </div>
-           
-            <div class="row hidden-xs-down" style="min-height: 80%">
-                  <div class="col-sm-9 loanBody">
-                     <tiles:insertAttribute name="body" />
-                  </div>
-            </div>
-               
+                        
             <div class="row" style="height: auto">
                   <div class="col loanFooter">
                      <tiles:insertAttribute name="footer" />
