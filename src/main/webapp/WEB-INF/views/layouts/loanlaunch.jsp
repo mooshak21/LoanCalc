@@ -64,9 +64,7 @@
             </div>
           
            <div class="row" style="min-height: 80%">
-                   <div class="col-12 loanBody">
-                     <tiles:insertAttribute name="body" />
-                  </div>
+                      <tiles:insertAttribute name="body" />
             </div>
                         
             <div class="row" style="height: auto">
