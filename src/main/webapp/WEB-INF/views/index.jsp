@@ -40,31 +40,30 @@
               <input type="hidden" name="hdnUserPref" value="${UserPreference}">
              </li>	
            <li><a href="">HOME</a></li>
-           <li><a href="">SEARCH LOAN</a></li>
-           <li><a href="">CREATE EQUITY</a></li>
-           <li><a href="">ENTER LOAN</a></li>
-           <li><a href="">AMORTIZE LOAN</a></li>
-           <li><a href="">EQUITY HISTORY</a></li>
+           <li><a href="/loansearchask">SEARCH LOAN</a></li>
+           <li><a href="/createloan">ENTER LOAN</a></li>
+           <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
+           <li><a href="Equity History">EQUITY HISTORY</a></li>
            <li><a href="">REGISTER</a></li>
-           <li><a href="">PRICING</a></li>
-           <li><a href="">LOGIN</a></li>
+           <li><a href="/pricing">PRICING</a></li>
+           <li><a href="/login">LOGIN</a></li>
+           <li><a href="/logout">LOGOUT</a></li>
          </ul>
         </div>
       </nav>
 
       <ul class="sidenav" id="mobile-demo">
         <li><a href="">HOME</a></li>
-        <li><a href="">SEARCH LOAN</a></li>
-        <li><a href="">CREATE EQUITY</a></li>
-        <li><a href="">ENTER LOAN</a></li>
-        <li><a href="">AMORTIZE LOAN</a></li>
+        <li><a href="/loansearchask">SEARCH LOAN</a></li>
+         <li><a href="/createloan">ENTER LOAN</a></li>
+        <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
         <li><a href="">EQUITY HISTORY</a></li>
-        <li><a href="">PRICING</a></li>
+        <li><a href="/pricing">PRICING</a></li>
         <li><a href="">REGISTER</a></li>
-        <li><a href="">LOGIN</a></li>
+        <li><a href="/login">LOGIN</a></li>
+        <li><a href="/logout">LOGIN</a></li>
       </ul>
     </header>
-
     <section class="loansegment">
       <div class="slider">
         <ul class="slides">
