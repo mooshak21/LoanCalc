@@ -69,28 +69,28 @@
       <div class="slider">
         <ul class="slides">
           <li>
-            <img src="css/a1.jpg"> <!-- random image -->
+            <img style="max-width:100%;" src="css/a1.jpg"> <!-- random image -->
             <div class="caption left-align">
               <h3>Giving you the <b>FREEDOM</b> </h3>
               <h5 class="light grey-text text-lighten-3">Enter loan for loan amortization schedule</h5>
             </div>
           </li>
           <li>
-            <img src="css/b1.jpg"> <!-- random image -->
+            <img style="max-width:100%;" src="css/b1.jpg"> <!-- random image -->
             <div class="caption left-align">
               <h3>The <b>SOLUTION</b> you seek </h3>
               <h5 class="light grey-text text-lighten-3">Auto Loan, Student Loan, Home Loan and more</h5>
             </div>
           </li>
           <li>
-            <img src="css/c1.jpg"> <!-- random image -->
+            <img style="max-width:100%;" src="css/c1.jpg"> <!-- random image -->
             <div class="caption left-align">
               <h3><b>CALCULATE</b> your loan payments </h3>
               <h5 class="light grey-text text-lighten-3">Based on interest and principal of monthly payment</h5>
             </div>
           </li>
           <li>
-            <img src="css/d1.jpg"> <!-- random image -->
+            <img style="max-width:100%;" src="css/d1.jpg"> <!-- random image -->
             <div class="caption left-align">
               <h3><b>SUBSCRIBE</b> to various our plan </h3>
               <h5 class="light grey-text text-lighten-3">Free, Lite, Premium</h5>
