@@ -1,0 +1,245 @@
+* {
+  font-family: 'Poppins', sans-serif; }
+
+body::-webkit-scrollbar {
+  width: 4px;
+  height: 3px; }
+
+body::-webkit-scrollbar-thumb {
+  background: lightgrey;
+  border-radius: 3px; }
+
+header {
+  background: transparent !important; }
+  header nav {
+    width: 90%;
+    margin: auto;
+    background: transparent !important;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+    header nav a.brand-logo {
+      font-size: 18px;
+      font-weight: bolder;
+      color: #fff; }
+    header nav ul {
+      margin-top: 20px; }
+      header nav ul li {
+        line-height: 33px;
+        border-radius: 3px; }
+        header nav ul li a {
+          font-size: 12px;
+          color: #fff;
+          -webkit-transition: 0.4s;
+          -o-transition: 0.4s;
+          transition: 0.4s;
+          font-weight: bold;
+          padding-left: 12px;
+          padding-right: 12px;
+          border-radius: 3px;
+          letter-spacing: 1.1px; }
+        header nav ul li a:hover {
+          color: purple;
+          background: #fff;
+          -webkit-transition: 0.4s;
+          -o-transition: 0.4s;
+          transition: 0.4s; }
+
+.loansegment {
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+  width: 100%;
+  height: 100vh; }
+  .loansegment .slider {
+    height: 670px !important; }
+    .loansegment .slider .slides {
+      height: inherit !important; }
+      .loansegment .slider .slides li div {
+        margin-top: 40px; }
+        .loansegment .slider .slides li div h3 {
+          font-weight: bold;
+          font-size: 60px;
+          margin-top: 40px; }
+          .loansegment .slider .slides li div h3 b {
+            color: purple;
+            font-size: 65px; }
+          .loansegment .slider .slides li div h3 h5 {
+            font-size: 30px; }
+  .loansegment .loan {
+    position: relative;
+    top: -290px;
+    z-index: 10;
+    overflow: hidden;
+    height: 280px; }
+    .loansegment .loan .loans {
+      text-align: center;
+      border-top: 2px dashed lightgrey;
+      border-bottom: 2px dashed lightgrey; }
+      .loansegment .loan .loans p.btn {
+        color: #fff;
+        border-radius: 24px;
+        background: rgba(140, 0, 140, 0.7);
+        border-left: 10px;
+        border-right: 10px;
+        height: 42px;
+        border: 2px solid #fff;
+        letter-spacing: 3px;
+        margin-left: 20px;
+        margin-right: 20px;
+        font-weight: bold; }
+      .loansegment .loan .loans a:hover {
+        background: #fff;
+        color: purple;
+        border: 2px solid #fff; }
+
+#dropdown100 {
+  width: 190px !important;
+  background: #eee;
+  height: 185px !important;
+  border-radius: 4px;
+  -webkit-box-shadow: 3px 5px 17px black;
+  box-shadow: 3px 5px 17px black; }
+  #dropdown100 li {
+    margin-top: 0px !important;
+    padding-top: 10px;
+    min-height: 35px;
+    background: #eee;
+    border-bottom: 1px solid lightgrey; }
+    #dropdown100 li a {
+      color: purple !important;
+      font-size: 12px;
+      padding-bottom: 0px !important;
+      padding-top: 0px !important;
+      line-height: 14px;
+      font-weight: bold;
+      -webkit-transition: 0.6;
+      -o-transition: 0.6;
+      transition: 0.6; }
+    #dropdown100 li a:hover {
+      background: #fff !important;
+      opacity: 0.6; }
+  #dropdown100 li:hover {
+    background: #fff !important;
+    -webkit-transition: 0.6;
+    -o-transition: 0.6;
+    transition: 0.6; }
+
+#dropdown200 {
+  width: 180px !important;
+  background: #fff;
+  height: 150px !important;
+  border-radius: 4px;
+  -webkit-box-shadow: 3px 5px 17px black;
+  box-shadow: 3px 5px 17px black; }
+  #dropdown200 li {
+    margin-top: 0px !important;
+    padding-top: 10px;
+    min-height: 30px;
+    background: #eee;
+    border-bottom: 1px solid lightgrey; }
+    #dropdown200 li a {
+      color: purple !important;
+      font-size: 12px;
+      padding-bottom: 0px !important;
+      padding-top: 0px !important;
+      line-height: 10px;
+      font-weight: bold;
+      -webkit-transition: 0.6;
+      -o-transition: 0.6;
+      transition: 0.6; }
+    #dropdown200 li a:hover {
+      -webkit-transform: scale(1) !important;
+      -ms-transform: scale(1) !important;
+      transform: scale(1) !important;
+      background: #fff !important;
+      opacity: 0.6; }
+  #dropdown200 li:hover {
+    background: #fff !important;
+    -webkit-transition: 0.6;
+    -o-transition: 0.6;
+    transition: 0.6; }
+
+#dropdown300 {
+  width: 200px !important;
+  background: #fff;
+  height: 210px !important;
+  border-radius: 4px;
+  overflow: hidden !important;
+  -webkit-box-shadow: 3px 5px 17px black;
+  box-shadow: 3px 5px 17px black; }
+  #dropdown300 li {
+    margin-top: 0px !important;
+    padding-top: 10px;
+    min-height: 30px;
+    background: #eee;
+    border-bottom: 1px solid lightgrey; }
+    #dropdown300 li a {
+      color: purple !important;
+      font-size: 12px;
+      padding-bottom: 0px !important;
+      padding-top: 0px !important;
+      line-height: 5px;
+      font-weight: bold;
+      -webkit-transition: 0.6;
+      -o-transition: 0.6;
+      transition: 0.6; }
+    #dropdown300 li a:hover {
+      -webkit-transform: scale(1) !important;
+      -ms-transform: scale(1) !important;
+      transform: scale(1) !important;
+      background: #fff !important;
+      opacity: 0.6; }
+  #dropdown300 li:hover {
+    background: #fff !important;
+    -webkit-transition: 0.6;
+    -o-transition: 0.6;
+    transition: 0.6; }
+
+.sidenav {
+  background: purple; }
+  .sidenav li a {
+    color: #fff; }
+
+@media screen and (max-width: 1200px) {
+  header nav {
+    width: 98%; }
+    header nav ul li a {
+      font-size: 12px; } }
+
+.loansegment .slider .slides li div h3 {
+  font-size: 30px; }
+  .loansegment .slider .slides li div h3 b {
+    font-size: 35px; }
+
+.loansegment .slider .slides li div h5 {
+  font-size: 20px; }
+
+@media screen and (max-width: 700px) {
+  header nav {
+    width: 100%; }
+  .loansegment .slider .slides li div h3 {
+    font-size: 30px; }
+    .loansegment .slider .slides li div h3 b {
+      font-size: 35px; }
+  .loansegment .slider .slides li div h5 {
+    font-size: 20px; } }
+
+@media screen and (max-width: 500px) {
+  .loansegment .loan .loans {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    padding-top: 20px; }
+  header nav a.brand-logo {
+    font-size: 16px;
+    width: 80%;
+    text-align: center; }
+  #dropdown100 {
+    width: 70% !important;
+    margin: auto !important;
+    text-align: center; } }
