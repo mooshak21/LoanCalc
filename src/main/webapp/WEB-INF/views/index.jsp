@@ -19,7 +19,7 @@
     <!--Import Google Icon Font-->
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
           <!--Import materialize.css-->
-          <link type="text/css" rel="stylesheet" href="/WEB-INF//WEB-INF/css/materialize.min.css"  media="screen,projection"/>
+          <link type="text/css" rel="stylesheet" href="/WEB-INF/css/materialize.min.css"  media="screen,projection"/>
           <link type="text/css" rel="stylesheet" href="/WEB-INF/css/index.css"  media="screen,projection"/>
           <script type="text/javascript" src="/WEB-INF/css/jquery.min.js"></script>
 
