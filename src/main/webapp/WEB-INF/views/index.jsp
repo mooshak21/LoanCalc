@@ -126,7 +126,7 @@
          
                   <!-- Premium Only -->
              <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
-             	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
+             	<p class="btn dropdown-trigger" data-target='dropdown400'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
                         <li><a href="/loanpayoffask">Payoff Loan</a></li>
