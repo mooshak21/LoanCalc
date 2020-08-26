@@ -33,7 +33,6 @@
          <a href="#!" class="brand-logo">Loan Insight Calculator</a>
          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
          <ul class="right hide-on-med-and-down">
-           <li><a href="">HOME</a></li>
            <li>SEARCH LOAN</li>
            <li>ENTER LOAN</li>
            <li>AMORTIZE LOAN</li>
@@ -44,9 +43,8 @@
          </ul>
         </div>
       </nav>
-
+    	
       <ul class="sidenav" id="mobile-demo">
-           <li><a href="">HOME</a></li>
            <li>SEARCH LOAN</li>
            <li>ENTER LOAN</li>
            <li>AMORTIZE LOAN</li>
@@ -117,10 +115,10 @@
              <!-- Premium Only -->
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
-                        <li><a href="/quickview">Quick View Loan</a></li>
-                        <li><a href="/loanpayoffask">Payoff Loan</a></li>
-                       <li><a href="/loanviewask">View Loans</a></li>
-                       <li><a href="/payment">Payment</a></li>                                      
+                        <li>Quick View Loan</li>
+                        <li>Payoff Loan</li>
+                       <li>View Loans</li>
+                       <li>Payment</li>                                      
                        <li>Aggregate Loan</li>
                        <li>Aggregate Loan Report</li>
                     </ul>
