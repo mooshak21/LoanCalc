@@ -40,26 +40,26 @@
               <input type="hidden" name="hdnUserPref" value="${UserPreference}">
              </li>	
            <li><a href="">HOME</a></li>
-           <li><a href="/loansearchask">SEARCH LOAN</a></li>
-           <li><a href="/createloan">ENTER LOAN</a></li>
-           <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
-            <li><a href="/loanpreferenceviewask">REGISTER</a></li>
-           <li><a href="/pricing">PRICING</a></li>
-           <li><a href="/login">LOGIN</a></li>
-           <li><a href="/logout">LOGOUT</a></li>
+           <li>SEARCH LOAN</li>
+           <li>ENTER LOAN</li>
+           <li>AMORTIZE LOAN</li>
+            <li>REGISTER</li>
+           <li>PRICING</li>
+           <li>LOGIN</li>
+           <li>LOGOUT</li>
          </ul>
         </div>
       </nav>
 
       <ul class="sidenav" id="mobile-demo">
-        <li><a href="">HOME</a></li>
-        <li><a href="/loansearchask">SEARCH LOAN</a></li>
-         <li><a href="/createloan">ENTER LOAN</a></li>
-        <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
-         <li><a href="/pricing">PRICING</a></li>
-        <li><a href="/loanpreferenceviewask">REGISTER</a></li>
-        <li><a href="/login">LOGIN</a></li>
-        <li><a href="/logout">LOGOUT</a></li>
+           <li><a href="">HOME</a></li>
+           <li>SEARCH LOAN</li>
+           <li>ENTER LOAN</li>
+           <li>AMORTIZE LOAN</li>
+            <li>REGISTER</li>
+           <li>PRICING</li>
+           <li>LOGIN</li>
+           <li>LOGOUT</li>
       </ul>
     </header>
 
@@ -100,40 +100,33 @@
 
       <div class="loan">
           <div class="loans">
-          <!-- Admin button to be displayed if admin is logged In -->
-            <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+              <!-- Free Only -->
              <p  class='btn dropdown-trigger' data-target='dropdown100'> Admin</p>
-						<ul id='dropdown100' class='dropdown-content'>
-                         <li><a href="/siteoffersask">Site Offers</a></li>
-                         <li><a href="/searchSiteoffersask">Search Site Offers</a></li>
-                         <li><a href="/updatesiteoffersask">Update Site Offers</a></li>
-                         <li><a href="/externalLinksask">Equity External Calculator</a></li>
-                         <li><a href="/updateExternalLinksask">Update Equity External Calculator</a></li>
+			<ul id='dropdown100' class='dropdown-content'>
+                         <li>Site Offers</li>
+                         <li>Search Site Offers</li>
+                         <li>Update Site Offers</li>
+                         <li>Equity External Calculator</li>
+                         <li>Update Equity External Calculator</li>
                         </ul>
-             </c:if>
       
               <!-- Lite & Premium Only -->
-             <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
             	<p class="btn dropdown-trigger" data-target='dropdown300'>Lite</p>
                      <ul id='dropdown300' class='dropdown-content'>
-                       <li><a href="/quickview">Quick View Loan</a></li>
-                        <li><a href="/loanpayoffask">Payoff Loan</a></li>
-                       <li><a href="/loanviewask">View Loans</a></li>
-                       <li><a href="/payment">Payment</a></li>
+                       <li>Quick View Loan</li>
+                        <li>Payoff Loan</li>
+                       <li>View Loans</li>
+                       <li>Payment</li>
                         
                     </ul>
-             </c:if>
              
              <!-- Premium Only -->
-             <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                       
-                       <li><a href="/aggregateloanask">Aggregate Loan</a></li>
-                       <li><a href="/aggregateloanreportask">Aggregate Loan Report</a></li>
+                       <li>Aggregate Loan</li>
+                       <li>Aggregate Loan Report</li>
                     </ul>
-               
-             </c:if>
                
           </div>
       </div>
