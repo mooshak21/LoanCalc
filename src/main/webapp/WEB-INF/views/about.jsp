@@ -33,25 +33,15 @@
          <a href="#!" class="brand-logo">Loan Insight Calculator</a>
          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
          <ul class="right hide-on-med-and-down">
-           <li>SEARCH LOAN</li>
-           <li>ENTER LOAN</li>
-           <li>AMORTIZE LOAN</li>
-            <li>REGISTER</li>
-           <li>PRICING</li>
-           <li>LOGIN</li>
-           <li>LOGOUT</li>
+           <li><a href="">HOME</a></li>
+
          </ul>
         </div>
       </nav>
     	
       <ul class="sidenav" id="mobile-demo">
-           <li>SEARCH LOAN</li>
-           <li>ENTER LOAN</li>
-           <li>AMORTIZE LOAN</li>
-            <li>REGISTER</li>
-           <li>PRICING</li>
-           <li>LOGIN</li>
-           <li>LOGOUT</li>
+           <li><a href="">HOME</a></li>
+
       </ul>
     </header>
 
