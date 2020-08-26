@@ -204,6 +204,43 @@ header {
     -o-transition: 0.6;
     transition: 0.6; }
 
+#dropdown400 {
+  width: 200px !important;
+  background: #fff;
+  height: auto !important;
+  border-radius: 4px;
+  overflow: hidden !important;
+  -webkit-box-shadow: 3px 5px 17px black;
+  box-shadow: 3px 5px 17px black; }
+  #dropdown400 li {
+    margin-top: 0px !important;
+    padding-top: 10px;
+    min-height: 30px;
+    background: #eee;
+    border-bottom: 1px solid lightgrey; }
+    #dropdown400 li a {
+      color: purple !important;
+      font-size: 12px;
+      padding-bottom: 0px !important;
+      padding-top: 0px !important;
+      line-height: 5px;
+      font-weight: bold;
+      -webkit-transition: 0.6;
+      -o-transition: 0.6;
+      transition: 0.6;
+      text-decoration: none; }
+    #dropdown400 li a:hover {
+      -webkit-transform: scale(1) !important;
+      -ms-transform: scale(1) !important;
+      transform: scale(1) !important;
+      background: #fff !important;
+      opacity: 0.6; }
+  #dropdown400 li:hover {
+    background: #fff !important;
+    -webkit-transition: 0.6;
+    -o-transition: 0.6;
+    transition: 0.6; }
+
 .sidenav {
   background: purple; }
   .sidenav li a {

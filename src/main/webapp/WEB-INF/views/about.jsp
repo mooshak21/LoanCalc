@@ -92,7 +92,15 @@
 
       <div class="loan">
           <div class="loans">
-              <!-- Free Only -->
+            <p  class='btn dropdown-trigger' data-target='dropdown400'> Free</p>
+	<ul id='dropdown400' class='dropdown-content'>
+           <li>Search Loan</li>
+	   <li>Enter Loan</li>
+           <li>Amortize Loan</li>
+            <li>Register</li>
+           <li>Pricing</li>
+ 	</ul>
+              <!-- Admin Only -->
              <p  class='btn dropdown-trigger' data-target='dropdown100'> Admin</p>
 			<ul id='dropdown100' class='dropdown-content'>
                          <li>Site Offers</li>
