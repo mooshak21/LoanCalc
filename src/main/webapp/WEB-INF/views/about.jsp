@@ -111,8 +111,8 @@
                         </ul>
       
               <!-- Lite & Premium Only -->
-            	<p class="btn dropdown-trigger" data-target='dropdown300'>Lite</p>
-                     <ul id='dropdown300' class='dropdown-content'>
+            	<p class="btn dropdown-trigger" data-target='dropdown200'>Lite</p>
+                     <ul id='dropdown200' class='dropdown-content'>
                        <li>Quick View Loan</li>
                         <li>Payoff Loan</li>
                        <li>View Loans</li>
@@ -123,7 +123,10 @@
              <!-- Premium Only -->
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
-                      
+                        <li><a href="/quickview">Quick View Loan</a></li>
+                        <li><a href="/loanpayoffask">Payoff Loan</a></li>
+                       <li><a href="/loanviewask">View Loans</a></li>
+                       <li><a href="/payment">Payment</a></li>                                      
                        <li>Aggregate Loan</li>
                        <li>Aggregate Loan Report</li>
                     </ul>

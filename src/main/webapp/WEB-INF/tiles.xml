@@ -188,6 +188,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/index.jsp" />
 	</definition>
 
+	<definition name="about" extends="loanapp.launchpage">
+		<put-attribute name="title" value="About Page" />
+		<put-attribute name="body" value="/WEB-INF/views/about.jsp" />
+	</definition>
+
 	<definition name="viewloans" extends="loanappminimal.searchpage">
 		<put-attribute name="title" value="View Loans" />
 		<put-attribute name="detail" value="/WEB-INF/views/viewloans.jsp" />
