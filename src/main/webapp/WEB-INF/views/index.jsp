@@ -114,8 +114,8 @@
  
               <!-- LiteOnly -->
              <c:if test="${(not empty userEmail) and (Plan == '9.99')}">
-            	<p class="btn dropdown-trigger" data-target='dropdown300'>Lite</p>
-                     <ul id='dropdown300' class='dropdown-content'>
+            	<p class="btn dropdown-trigger" data-target='dropdown200'>Lite</p>
+                     <ul id='dropdown200' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
                         <li><a href="/loanpayoffask">Payoff Loan</a></li>
                        <li><a href="/loanviewask">View Loans</a></li>
@@ -126,7 +126,7 @@
          
                   <!-- Premium Only -->
              <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
-             	<p class="btn dropdown-trigger" data-target='dropdown400'>Premium</p>
+             	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
                         <li><a href="/loanpayoffask">Payoff Loan</a></li>
