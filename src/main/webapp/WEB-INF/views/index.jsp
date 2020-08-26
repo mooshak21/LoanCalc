@@ -111,6 +111,17 @@
                          <li><a href="/updateExternalLinksask">Update Equity External Calculator</a></li>
                         </ul>
              </c:if>
+ 
+              <!-- Premium Only -->
+             <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
+             	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
+                     <ul id='dropdown300' class='dropdown-content'>
+                      
+                       <li><a href="/aggregateloanask">Aggregate Loan</a></li>
+                       <li><a href="/aggregateloanreportask">Aggregate Loan Report</a></li>
+                    </ul>
+               
+             </c:if>
       
               <!-- Lite & Premium Only -->
              <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
@@ -123,18 +134,8 @@
                         
                     </ul>
              </c:if>
-             
-             <!-- Premium Only -->
-             <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
-             	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
-                     <ul id='dropdown300' class='dropdown-content'>
-                      
-                       <li><a href="/aggregateloanask">Aggregate Loan</a></li>
-                       <li><a href="/aggregateloanreportask">Aggregate Loan Report</a></li>
-                    </ul>
-               
-             </c:if>
-               
+         
+          
           </div>
       </div>
     </section>
