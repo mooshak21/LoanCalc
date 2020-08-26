@@ -43,8 +43,7 @@
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
            <li><a href="/createloan">ENTER LOAN</a></li>
            <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
-           <li><a href="Equity History">EQUITY HISTORY</a></li>
-           <li><a href="">REGISTER</a></li>
+            <li><a href="/loanpreferenceviewask">REGISTER</a></li>
            <li><a href="/pricing">PRICING</a></li>
            <li><a href="/login">LOGIN</a></li>
            <li><a href="/logout">LOGOUT</a></li>
@@ -57,13 +56,13 @@
         <li><a href="/loansearchask">SEARCH LOAN</a></li>
          <li><a href="/createloan">ENTER LOAN</a></li>
         <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
-        <li><a href="">EQUITY HISTORY</a></li>
-        <li><a href="/pricing">PRICING</a></li>
-        <li><a href="">REGISTER</a></li>
+         <li><a href="/pricing">PRICING</a></li>
+        <li><a href="/loanpreferenceviewask">REGISTER</a></li>
         <li><a href="/login">LOGIN</a></li>
-        <li><a href="/logout">LOGIN</a></li>
+        <li><a href="/logout">LOGOUT</a></li>
       </ul>
     </header>
+
     <section class="loansegment">
       <div class="slider">
         <ul class="slides">
@@ -105,11 +104,11 @@
             <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
              <p  class='btn dropdown-trigger' data-target='dropdown100'> Admin</p>
 						<ul id='dropdown100' class='dropdown-content'>
-                         <li><a href="#!">Search Site Offers</a></li>
-                         <li><a href="#!">Update Site Offers</a></li>
-                         <li><a href="#!">Equity Admin</a></li>
-                         <li><a href="#!">Equity External Calculator</a></li>
-                         <li><a href="#!">Update Equity External Calculator</a></li>
+                         <li><a href="/siteoffersask">Site Offers</a></li>
+                         <li><a href="/searchSiteoffersask">Search Site Offers</a></li>
+                         <li><a href="/updatesiteoffersask">Update Site Offers</a></li>
+                         <li><a href="/externalLinksask">Equity External Calculator</a></li>
+                         <li><a href="/updateExternalLinksask">Update Equity External Calculator</a></li>
                         </ul>
              </c:if>
       
@@ -117,11 +116,10 @@
              <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
             	<p class="btn dropdown-trigger" data-target='dropdown300'>Lite</p>
                      <ul id='dropdown300' class='dropdown-content'>
-                       <li><a href="#!">Quick View Loan</a></li>
-                       <li><a href="#!">Update Loan</a></li>
-                       <li><a href="#!">Payoff Loan</a></li>
-                       <li><a href="#!">View Loans</a></li>
-                       <li><a href="#!">Payment</a></li>
+                       <li><a href="/quickview">Quick View Loan</a></li>
+                        <li><a href="/loanpayoffask">Payoff Loan</a></li>
+                       <li><a href="/loanviewask">View Loans</a></li>
+                       <li><a href="/payment">Payment</a></li>
                         
                     </ul>
              </c:if>
@@ -131,8 +129,8 @@
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                       
-                       <li><a href="#!">Aggregate Loan</a></li>
-                       <li><a href="#!">Aggregate Loan Report</a></li>
+                       <li><a href="/aggregateloanask">Aggregate Loan</a></li>
+                       <li><a href="/aggregateloanreportask">Aggregate Loan Report</a></li>
                     </ul>
                
              </c:if>
@@ -148,7 +146,6 @@
         $('.slider').slider({
           'indicators': false,
           'duration': 500,
-
         });
         $('.dropdown-trigger').dropdown({
             'closeOnClick': true,
