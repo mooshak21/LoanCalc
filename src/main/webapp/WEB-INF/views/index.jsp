@@ -127,7 +127,7 @@
              </c:if>
              
              <!-- Premium Only -->
-             <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
+             <c:if test="${(not empty userEmail) or (Plan == '19.99')}">
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                       
