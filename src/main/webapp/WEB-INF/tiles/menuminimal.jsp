@@ -96,6 +96,9 @@
 	    <li class="nav-item">
   	      <a class="nav-link menuItemXs" href="/pricing">Pricing</a>
   	     </li>
+	    <li class="nav-item">
+  	      <a class="nav-link menuItemXs" href="/about">About</a>
+ 	    </li>
 
             <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/logout">Log out</a>
@@ -191,6 +194,9 @@
     <li class="nav-item">
         <a class="nav-link menuItem" href="/pricing">Pricing</a>
     </li>
+	    <li class="nav-item">
+  	      <a class="nav-link menuItem" href="/about">About</a>
+ 	    </li>
 
     <li class="nav-item">
         <a class="nav-link menuItem" href="/logout">Log out</a>
