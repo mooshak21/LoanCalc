@@ -33,12 +33,6 @@
          <a href="#!" class="brand-logo">Loan Insight Calculator</a>
          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
          <ul class="right hide-on-med-and-down">
-         	<li class="nav-item">
-              <input type="hidden" name="hdnMennuMinimal" value="Yes">
-              <input type="hidden" name="hdnUserEmail" value="${userEmail}">
-              <input type="hidden" name="hdnUserPlan" value="${Plan}">
-              <input type="hidden" name="hdnUserPref" value="${UserPreference}">
-             </li>	
            <li><a href="">HOME</a></li>
            <li>SEARCH LOAN</li>
            <li>ENTER LOAN</li>

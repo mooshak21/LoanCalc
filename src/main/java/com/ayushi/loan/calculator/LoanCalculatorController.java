@@ -95,6 +95,11 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 	}
 
+	@RequestMapping(value = "/about")
+	public String about() {
+		return "about";
+	}
+
 	@RequestMapping(value = "/pricing", method = RequestMethod.GET)
 	public String pricing(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
