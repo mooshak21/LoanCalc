@@ -116,7 +116,10 @@
              <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
-                      
+                       <li><a href="/quickview">Quick View Loan</a></li>
+                        <li><a href="/loanpayoffask">Payoff Loan</a></li>
+                       <li><a href="/loanviewask">View Loans</a></li>
+                       <li><a href="/payment">Payment</a></li>                    
                        <li><a href="/aggregateloanask">Aggregate Loan</a></li>
                        <li><a href="/aggregateloanreportask">Aggregate Loan Report</a></li>
                     </ul>
@@ -124,7 +127,7 @@
              </c:if>
       
               <!-- Lite & Premium Only -->
-             <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
+             <c:if test="${(not empty userEmail) and (Plan == '9.99')}">
             	<p class="btn dropdown-trigger" data-target='dropdown300'>Lite</p>
                      <ul id='dropdown300' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
