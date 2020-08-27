@@ -2121,7 +2121,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 				if(!emailPasswordFlag){
 					model.addAttribute("Plan", plan != null ? plan : "");
-					return "index";
+					return "login";
 				}
 			}else 
 				emailPasswordFlag = true;
