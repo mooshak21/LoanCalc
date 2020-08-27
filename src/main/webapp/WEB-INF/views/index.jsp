@@ -22,7 +22,7 @@
           <script type="text/javascript" src="css/jquery.min.js"></script>
 
 
-    <header>
+    <header id='healer'>
     
       <nav>
         <div class="nav-wrapper">
@@ -77,7 +77,7 @@
                     <div class="row">
                       <div class="input-field col s12 m6">
                         <input placeholder="password" name="password" id="password" type="password" class="browser-default validate" required>
-                        <label for="password">password<span class="red-text">*</span></label>
+                        <label for="password">Password<span class="red-text">*</span></label>
                        </div>
 
                     </div>

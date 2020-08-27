@@ -204,69 +204,13 @@ header {
     -o-transition: 0.6;
     transition: 0.6; }
 
-#dropdown400 {
-  width: 200px !important;
-  background: #fff;
-  height: auto !important;
-  border-radius: 4px;
-  overflow: hidden !important;
-  -webkit-box-shadow: 3px 5px 17px black;
-  box-shadow: 3px 5px 17px black; }
-  #dropdown400 li {
-    margin-top: 0px !important;
-    padding-top: 10px;
-    min-height: 30px;
-    background: #eee;
-    border-bottom: 1px solid lightgrey; }
-    #dropdown400 li a {
-      color: purple !important;
-      font-size: 12px;
-      padding-bottom: 0px !important;
-      padding-top: 0px !important;
-      line-height: 5px;
-      font-weight: bold;
-      -webkit-transition: 0.6;
-      -o-transition: 0.6;
-      transition: 0.6;
-      text-decoration: none; }
-    #dropdown400 li a:hover {
-      -webkit-transform: scale(1) !important;
-      -ms-transform: scale(1) !important;
-      transform: scale(1) !important;
-      background: #fff !important;
-      opacity: 0.6; }
-  #dropdown400 li:hover {
-    background: #fff !important;
-    -webkit-transition: 0.6;
-    -o-transition: 0.6;
-    transition: 0.6; }
-
 .sidenav {
   background: purple; }
   .sidenav li a {
     color: #fff; }
-
-@media screen and (max-width: 650px) {
-  .login {
-    width: 100%;
-    margin: auto; } }
     
-
-@media screen and (max-width: 1200px) {
-  header nav {
-    width: 98%; }
-    header nav ul li a {
-      font-size: 12px; } }
-
-.loansegment .slider .slides li div h3 {
-  font-size: 30px; }
-  .loansegment .slider .slides li div h3 b {
-    font-size: 35px; }
-
-.loansegment .slider .slides li div h5 {
-  font-size: 20px; }
-
-     .login {
+    
+    .login {
   width: 100%!important;
   margin: auto; }
   .login .loginform {
@@ -308,9 +252,48 @@ header {
           .login .loginform ul.collapsible li .collapsible-body{
           height: 400px;}
 
+@media screen and (max-width: 650px) {
+  .login {
+    width: 100%;
+    margin: auto; } }
+    
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1200px) {
   header nav {
+    width: 98%; }
+    header nav ul li a {
+      font-size: 12px; } }
+
+.loansegment .slider .slides li div h3 {
+  font-size: 30px; }
+  .loansegment .slider .slides li div h3 b {
+    font-size: 35px; }
+
+.loansegment .slider .slides li div h5 {
+  font-size: 20px; }
+.login .loginform ul.collapsible li .collapsible-body form .input-field label{
+	top: -10px;
+}
+
+
+
+@media screen and (max-width: 993px) {
+	#healer{
+		width: 5%!important;
+	}
+	nav nav-wrapper{
+		left: -30px;
+	}
+	.login{
+		width: 90%;
+	}
+	
+	}
+	
+	
+	
+@media screen and (max-width: 700px) {
+	header nav {
     width: 100%; }
   .loansegment .slider .slides li div h3 {
     font-size: 30px; }
