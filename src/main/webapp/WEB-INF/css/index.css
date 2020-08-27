@@ -281,11 +281,11 @@ header {
 	#healer{
 		width: 5%!important;
 	}
-	nav nav-wrapper{
-		left: -30px;
+	nav .nav-wrapper{
+		left: -30px!important;
 	}
 	.login{
-		width: 90%;
+		width: 90%!important;
 	}
 	
 	}
