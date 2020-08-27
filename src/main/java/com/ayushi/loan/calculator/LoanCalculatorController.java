@@ -2079,7 +2079,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (email != null && !email.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			plan = getPlan(email);
-			model.addAttribute("Plan", plan != null ? plan : "");
+			model.addAttribute("Plan", plan != null ? plan : "0.0");
 			ArrayList<String> prefVal = null, prefAttr = null;
 
 			if (prefs != null) {
@@ -2107,7 +2107,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			if(!password.equals("ignore")){
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 				if(!emailPasswordFlag){
-					model.addAttribute("Plan", plan != null ? plan : "");
+					model.addAttribute("Plan", plan != null ? plan : "0.0");
 					return "index";
 				}
 			}else 
@@ -2123,17 +2123,17 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 				request.getSession().setAttribute("loginStatus", "Y");
-				request.getSession().setAttribute("Plan", plan != null ? plan : "");
-				request.getSession().setAttribute("planSelected", plan != null ? plan : "");
-				model.addAttribute("planSelected", plan != null ? plan : "");
-				model.addAttribute("Plan", plan != null ? plan : "");
+				request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
+				request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
+				model.addAttribute("planSelected", plan != null ? plan : "0.0");
+				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				model.addAttribute("userEmail", email);
 				return "index";
 			}else{
 	    		    if(email != null){
 				plan = getPlan(email);
 				model.addAttribute("userEmail", email);
-				model.addAttribute("Plan", plan != null ? plan : "");
+				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				checkUserPrefernece(model, prefs);
 				model.addAttribute("message", "Launch Form");
 				logger.info("Selected plan :" + plan);
@@ -2145,7 +2145,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				plan = getPlan(email);
 				model.addAttribute("userEmail", email);
-				model.addAttribute("Plan", plan != null ? plan : "");
+				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				checkUserPrefernece(model, prefs);
 				logger.info("Selected plan :" + plan);
 			}
