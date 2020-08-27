@@ -288,3 +288,38 @@ header {
     width: 70% !important;
     margin: auto !important;
     text-align: center; } }
+.login {
+  width: 80%;
+  margin: auto; }
+  .login .loginform {
+    border-radius: 5px !important; }
+    .login .loginform ul.collapsible {
+      border-radius: 5px !important; }
+      .login .loginform ul.collapsible li .collapsible-header {
+        border-radius: 5px;
+        background: purple;
+        color: #fff;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif; }
+      .login .loginform ul.collapsible li .collapsible-body form .input-field {
+        padding-left: 0px; }
+        .login .loginform ul.collapsible li .collapsible-body form .input-field label {
+          color: #000;
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          font-family: 'Poppins', sans-serif; }
+        .login .loginform ul.collapsible li .collapsible-body form .input-field .browser-default {
+          background: transparent !important;
+          border-radius: 4px;
+          height: 45px;
+          padding-left: 10px;
+          font-size: 14px;
+          width: 100%;
+          color: purple; }
+      .login .loginform ul.collapsible li .collapsible-body form ul li p {
+        font-family: 'Poppins', sans-serif; }
+      .login .loginform ul.collapsible li .collapsible-body form button {
+        background: purple;
+        font-size: 12px;
+        border-radius: 4px; }
