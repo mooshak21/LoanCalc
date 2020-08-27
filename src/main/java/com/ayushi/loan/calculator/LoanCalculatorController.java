@@ -2123,7 +2123,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			if(!password.equals("ignore")){
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 				if(!emailPasswordFlag)
-					return "login";
+					return "index";
 			}else 
 				emailPasswordFlag = true;
 
