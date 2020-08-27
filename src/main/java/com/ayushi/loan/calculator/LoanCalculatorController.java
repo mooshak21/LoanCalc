@@ -2078,7 +2078,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		String plan = null;
 		if (email != null && !email.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
-			plan = getPlan(emailCookie);
+			plan = getPlan(email);
 			model.addAttribute("Plan", plan != null ? plan : "");
 			ArrayList<String> prefVal = null, prefAttr = null;
 
@@ -2143,7 +2143,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		}else{
 			if(email != null){
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
-				plan = getPlan(emailCookie);
+				plan = getPlan(email);
 				model.addAttribute("userEmail", email);
 				model.addAttribute("Plan", plan != null ? plan : "");
 				checkUserPrefernece(model, prefs);
