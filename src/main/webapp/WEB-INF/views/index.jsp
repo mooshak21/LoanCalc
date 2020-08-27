@@ -72,7 +72,7 @@
                   <form class="col s12 m11 offset-m1 pull" action="/loginfromlaunch" method='post'>
                     <div class="row">
                       <div class="input-field col s12 m6">
-                        <input placeholder="Email" id="email" type="email" class="browser-default validate" required>
+                        <input placeholder="Email" id="email" name="email" type="email" class="browser-default validate" required>
                         <label for="email">Email<span class="red-text">*</span></label>
 
                        </div>
