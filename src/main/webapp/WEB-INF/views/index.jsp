@@ -87,7 +87,7 @@
                     </div>
 
                     <ul>
-                      <li><p>Do you want to <a href="/loanpreferenceviewask">Register</a>or have you <a href="/resetpasswordask">reset password</a></p></li>
+                      <li><p>Do you want to <a href="/loanpreferenceviewask">Register</a> or have you <a href="/resetpasswordask">reset password</a></p></li>
                       <li><p>or have you <a href="/forgetpasswordask">forgotten your password?</a></p></li>
                     </ul>
 
