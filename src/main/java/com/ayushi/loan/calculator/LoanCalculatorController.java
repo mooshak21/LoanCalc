@@ -2140,21 +2140,11 @@ public class LoanCalculatorController implements ServletContextAware {
 			    }
 			    return "index";
 			}
-		} else if (!loginAttempt.equals("0")) {
-				List<Preference> prefs = getPreferencesByEmailAddress(email);
-				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
-				nextLoginAttempt++;
-				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
-				model.addAttribute("message", "Launch Form");
-				plan = getPlan(emailCookie);
-				model.addAttribute("Plan", plan);
-				checkUserPrefernece(model, prefs);
-				return "loginwithrecaptcha";
 		}else{
 			if(email != null){
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				plan = getPlan(emailCookie);
-				model.addAttribute("userEmail", emailCookie);
+				model.addAttribute("userEmail", email);
 				model.addAttribute("Plan", plan != null ? plan : "");
 				checkUserPrefernece(model, prefs);
 				logger.info("Selected plan :" + plan);
