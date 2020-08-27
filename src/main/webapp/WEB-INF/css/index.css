@@ -246,6 +246,12 @@ header {
   .sidenav li a {
     color: #fff; }
 
+@media screen and (max-width: 650px) {
+  .login {
+    width: 100%;
+    margin: auto; } }
+    
+
 @media screen and (max-width: 1200px) {
   header nav {
     width: 98%; }
@@ -260,38 +266,7 @@ header {
 .loansegment .slider .slides li div h5 {
   font-size: 20px; }
 
-@media screen and (max-width: 700px) {
-  header nav {
-    width: 100%; }
-  .loansegment .slider .slides li div h3 {
-    font-size: 30px; }
-    .loansegment .slider .slides li div h3 b {
-      font-size: 35px; }
-  .loansegment .slider .slides li div h5 {
-    font-size: 20px; } }
-
-@media screen and (max-width: 500px) {
-  .loansegment .loan .loans {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical !important;
-    -webkit-box-direction: normal !important;
-    -ms-flex-direction: column !important;
-    flex-direction: column !important;
-    padding-top: 20px; }
-  header nav a.brand-logo {
-    font-size: 16px;
-    width: 80%;
-    text-align: center; }
-  #dropdown100 {
-    width: 70% !important;
-    margin: auto !important;
-    text-align: center; } }
-   .login {
-  width: 80%;
-  margin: auto; }
-  .login .loginform {
+ .login .loginform {
     border-radius: 5px !important; }
     .login .loginform ul.collapsible {
       border-radius: 5px !important; }
@@ -325,3 +300,36 @@ header {
           background: purple;
           font-size: 12px;
           border-radius: 4px; }
+
+
+@media screen and (max-width: 700px) {
+  header nav {
+    width: 100%; }
+  .loansegment .slider .slides li div h3 {
+    font-size: 30px; }
+    .loansegment .slider .slides li div h3 b {
+      font-size: 35px; }
+  .loansegment .slider .slides li div h5 {
+    font-size: 20px; } }
+
+@media screen and (max-width: 500px) {
+  .loansegment .loan .loans {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+    padding-top: 20px; }
+  header nav a.brand-logo {
+    font-size: 16px;
+    width: 80%;
+    text-align: center; }
+  #dropdown100 {
+    width: 70% !important;
+    margin: auto !important;
+    text-align: center; }
+    .loansegment .loan .loans p.btn{
+    width: 90%;
+    } }
