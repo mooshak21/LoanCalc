@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,8 +21,6 @@
           <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
           <script type="text/javascript" src="css/jquery.min.js"></script>
 
-  </head>
-  <body>
 
     <header>
     
@@ -200,8 +196,6 @@
 
       });
     </script>
-  </body>
-</html>
 
 
 
