@@ -2074,6 +2074,114 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 	}
 
+	@RequestMapping(value = "/loginfromlaunch")
+	public String loginfromlaunch(@RequestParam(value = "email", defaultValue = "") String email,
+			@RequestParam(value = "password", defaultValue = "") String password,
+			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+			@CookieValue(value = "loginAttempt", defaultValue = "0") String loginAttempt,
+			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
+			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		if (emailCookie == null) {
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			model.addAttribute("message", "Register with preferences");
+			model.addAttribute("reminderFrequency", reminderFrequency != null ? reminderFrequency : "");
+			plan = getPlan(email);
+			model.addAttribute("Plan", plan != null ? plan : "");
+			model.addAttribute("planSelected", plan != null ? plan : "");
+			checkUserPrefernece(model, prefs);
+			return "viewpreferences";
+		}
+		if (emailCookie != null && !emailCookie.equals("")) {
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			plan = getPlan(emailCookie);
+			model.addAttribute("Plan", plan != null ? plan : "");
+			ArrayList<String> prefVal = null, prefAttr = null;
+
+			if (prefs != null) {
+				prefVal = new ArrayList<String>(prefs.size());
+				prefAttr = new ArrayList<String>(prefs.size());
+				int prefIdx = 0;
+				for (Preference pref : prefs) {
+					prefAttr.add(pref.getName());
+					prefVal.add(pref.getValue());
+				}
+				for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
+					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+					if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
+						model.addAttribute("UserPreference", prefVal.get(prefIdx));
+				}
+			}
+		}
+		if (email != null && !email.equals("") && password != null && !password.equals("")) {
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			model.addAttribute("message", "Login Form");
+			model.addAttribute("userEmail", email);
+			boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
+			plan = getPlan(email);
+			List<Preference> preferences = null;		
+			if(!password.equals("ignore")){
+				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
+				if(!emailPasswordFlag)
+					return "login";
+			}else 
+				emailPasswordFlag = true;
+
+			if(emailPasswordFlag && prefs != null){
+				for (Preference preference : prefs) {
+					if (preference.getType().equals("Plan")) 
+						plan = preference.getValue();
+					
+					if (preference.getType().equals("UserPreference")) 
+						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
+						
+				}
+				response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : emailCookie));
+				response.addCookie(new Cookie("loginStatus", "Y"));
+				request.getSession().setAttribute("loginStatus", "Y");
+				request.getSession().setAttribute("Plan", plan != null ? plan : "");
+				request.getSession().setAttribute("planSelected", plan != null ? plan : "");
+				model.addAttribute("planSelected", plan != null ? plan : "");
+				model.addAttribute("Plan", plan != null ? plan : "");
+				model.addAttribute("userEmail", email);
+				return "index";
+			}else{
+	    		    if(emailCookie != null){
+				plan = getPlan(emailCookie);
+				model.addAttribute("userEmail", emailCookie);
+				model.addAttribute("Plan", plan != null ? plan : "");
+				checkUserPrefernece(model, prefs);
+				model.addAttribute("message", "Login Form");
+				logger.info("Selected plan :" + plan);
+			    }
+			    return "index";
+			}
+		} else if (!loginAttempt.equals("0")) {
+				List<Preference> prefs = getPreferencesByEmailAddress(email);
+				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
+				nextLoginAttempt++;
+				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
+				model.addAttribute("message", "Login Form");
+				plan = getPlan(emailCookie);
+				model.addAttribute("Plan", plan);
+				checkUserPrefernece(model, prefs);
+				return "loginwithrecaptcha";
+		}else{
+			if(emailCookie != null){
+				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+				plan = getPlan(emailCookie);
+				model.addAttribute("userEmail", emailCookie);
+				model.addAttribute("Plan", plan != null ? plan : "");
+				checkUserPrefernece(model, prefs);
+				logger.info("Selected plan :" + plan);
+			}
+
+			model.addAttribute("message", "Login Form");
+			return "index";
+		}
+	}
+
+
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
