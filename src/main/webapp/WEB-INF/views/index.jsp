@@ -139,7 +139,7 @@
       <div class="loan">
           <div class="loans">
           <!-- Admin button to be displayed if admin is logged In -->
-            <%if(userEmail != null && UserPreference.equals('Admin')){%>
+            <%if(userEmail != null && UserPreference.equals("Admin")){%>
              <p  class='btn dropdown-trigger' data-target='dropdown100'> Admin</p>
 						<ul id='dropdown100' class='dropdown-content'>
                          <li><a href="/siteoffersask">Site Offers</a></li>
@@ -151,7 +151,7 @@
              <%}%>
  
               <!-- LiteOnly -->
-             <%if(userEmail != null && Plan.equals('9.99')){%>
+             <%if(userEmail != null && Plan.equals("9.99")){%>
             	<p class="btn dropdown-trigger" data-target='dropdown200'>Lite</p>
                      <ul id='dropdown200' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
@@ -163,7 +163,7 @@
             <%}%>
          
                   <!-- Premium Only -->
-             <%if(userEmail != null && Plan.equals('19.99')){%>
+             <%if(userEmail != null && Plan.equals("19.99")){%>
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
