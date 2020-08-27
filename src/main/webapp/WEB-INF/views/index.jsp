@@ -183,7 +183,7 @@
     </section>
     
 
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="css/materialize.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         $('.sidenav').sidenav();
