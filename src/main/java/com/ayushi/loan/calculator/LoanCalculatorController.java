@@ -2071,7 +2071,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 	}
 
-	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.POST)
 	public String loginfromlaunch(@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
@@ -2107,7 +2107,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			if(!password.equals("ignore")){
 				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 				if(!emailPasswordFlag){
-					model.addAttribute("Plan", plan != null ? plan : "19.99");
+					model.addAttribute("Plan", plan != null ? plan : "0.0");
 					return "index";
 				}
 			}else 
