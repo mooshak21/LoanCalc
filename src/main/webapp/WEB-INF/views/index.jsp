@@ -69,7 +69,7 @@
               <li>
                 <div class="collapsible-header"><i class="material-icons">edit</i>Login</div>
                 <div class="collapsible-body">
-                  <form class="col s12 m11 offset-m1 pull" action="/loginfromlaunch" method='post'>
+                  <form class="col s12 m11 offset-m1 pull" action="/loginfromlaunch" method='get'>
                     <div class="row">
                       <div class="input-field col s12 m6">
                         <input placeholder="Email" id="email" name="email" type="email" class="browser-default validate" required>
