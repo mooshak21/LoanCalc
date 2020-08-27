@@ -266,7 +266,10 @@ header {
 .loansegment .slider .slides li div h5 {
   font-size: 20px; }
 
- .login .loginform {
+     .login {
+  width: 100%!important;
+  margin: auto; }
+  .login .loginform {
     border-radius: 5px !important; }
     .login .loginform ul.collapsible {
       border-radius: 5px !important; }
@@ -275,6 +278,7 @@ header {
         background: purple;
         color: #fff;
         font-weight: bold;
+        width: 100%;
         font-family: 'Poppins', sans-serif; }
       .login .loginform ul.collapsible li .collapsible-body {
         background: #fff !important; }
@@ -300,6 +304,9 @@ header {
           background: purple;
           font-size: 12px;
           border-radius: 4px; }
+          
+          .login .loginform ul.collapsible li .collapsible-body{
+          height: 400px;}
 
 
 @media screen and (max-width: 700px) {
