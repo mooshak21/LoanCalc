@@ -2071,7 +2071,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 	}
 
-	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.POST)
+	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.GET)
 	public String loginfromlaunch(@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password,
 			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
