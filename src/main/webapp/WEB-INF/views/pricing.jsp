@@ -8,14 +8,16 @@
 			<tr colspan="2">
 				<td>Pricing</a><td>
 			</tr>
-			<tr colspan="2"> 
+			<tr colspan="3"> 
 			<td>Lite Plan</td></tr>
 			<tr><td><a href="/loanpreferenceviewasktoregister?plan=9.99"><img style="max-width:100%;" src="css/loaninsight-pricing - lite.jpg" alt="Lite Plan" title="Lite Plan"/></a></td>
+	                <td>Quick View Loan | Payoff Loan | View Loans</td>
 			</tr>
-			<tr colspan="2"> 
+			<tr colspan="3"> 
 			<td>Premium Plan</td></tr>
 			<tr>
 			<td><a href="/loanpreferenceviewasktoregister?plan=19.99"><img style="max-width:100%;" src="css/loaninsight-pricing - premium.jpg" alt="Premium Plan" title="Premium Plan"/></a></td>
+	                <td>Quick View Loan | Payoff Loan | View Loans | Aggregate Loan | Aggregate Loan Report</td>
 			</tr>
 			<tr colspan="2">
 				<td><a href="/loanpreferenceviewask">Register</a><td>
