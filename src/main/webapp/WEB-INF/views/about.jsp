@@ -89,6 +89,7 @@
            <li>Amortize Loan</li>
             <li>Register</li>
            <li>Pricing</li>
+	   <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">About</a></li>
  	</ul>
               <!-- Admin Only -->
              <p  class='btn dropdown-trigger' data-target='dropdown100'> Admin</p>
