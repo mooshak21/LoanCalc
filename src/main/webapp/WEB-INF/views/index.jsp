@@ -55,7 +55,8 @@
         <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
          <li><a href="/pricing">PRICING</a></li>
         <li><a href="/loanpreferenceviewask">REGISTER</a></li>
-        <li><a href="/login">LOGIN</a></li>
+      <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
+     <li><a href="/login">LOGIN</a></li>
         <li><a href="/logout">LOGOUT</a></li>
       </ul>
     </header>
