@@ -34,7 +34,7 @@
          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
          <ul class="right hide-on-med-and-down">
            <li><a href="https://www.loaninsight.online/">HOME</a></li>
-	   <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">About</a></li>
+	   <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
          </ul>
         </div>
       </nav>
