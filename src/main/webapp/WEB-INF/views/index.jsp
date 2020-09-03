@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,11 +19,11 @@
           <!--Import materialize.css-->
           <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
           <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
-          <script type="text/javascript" src="css/jquery.min.js"></script>
+           <script type="text/javascript" src="css/jquery.min.js"></script>
 
 
     <header id='healer'>
-    
+
       <nav>
         <div class="nav-wrapper">
          <a href="#!" class="brand-logo">Loan Insight Calculator</a>
@@ -34,14 +34,14 @@
               <input type="hidden" name="hdnUserEmail" value="${userEmail}">
               <input type="hidden" name="hdnUserPlan" value="${Plan}">
               <input type="hidden" name="hdnUserPref" value="${UserPreference}">
-             </li>	
+             </li>
            <li><a href="">HOME</a></li>
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
            <li><a href="/createloan">ENTER LOAN</a></li>
            <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
-            <li><a href="/loanpreferenceviewask">REGISTER</a></li>
- 	   <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
-          <li><a href="/pricing">PRICING</a></li>
+  	   <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
+           <li><a href="/loanpreferenceviewask">REGISTER</a></li>
+           <li><a href="/pricing">PRICING</a></li>
            <li><a href="/login">LOGIN</a></li>
            <li><a href="/logout">LOGOUT</a></li>
          </ul>
@@ -54,51 +54,82 @@
          <li><a href="/createloan">ENTER LOAN</a></li>
         <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
          <li><a href="/pricing">PRICING</a></li>
-        <li><a href="/loanpreferenceviewask">REGISTER</a></li>
-      <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
-     <li><a href="/login">LOGIN</a></li>
+  	   <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
+       <li><a href="/loanpreferenceviewask">REGISTER</a></li>
+        <li><a href="/login">LOGIN</a></li>
         <li><a href="/logout">LOGOUT</a></li>
       </ul>
     </header>
      <section class="login">
         <div class="loginform">
-
             <ul class="collapsible">
               <li>
                 <div class="collapsible-header"><i class="material-icons">edit</i>Login</div>
                 <div class="collapsible-body">
-                  <form class="col s12 m11 offset-m1 pull" action="/loginfromlaunch" method='post'>
+                  <form class="col s12 m12" id="loginform" action="/loginfromlaunch" method='post'>
+                    <div class="boxed">
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input placeholder="Email" id="email" name="email" type="email" class="browser-default validate" required>
+                          <label for="email">Email<span class="red-text">*</span></label>
+
+                         </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input placeholder="password" name="password" id="password" type="password" class="browser-default validate" required>
+                          <label for="password">Password<span class="red-text">*</span></label>
+                         </div>
+
+                      </div>
+
+                      <ul>
+                        <li><p>Do you want to <a href="/loanpreferenceviewask">Register</a> or have you <a href="/resetpasswordask">reset password</a></p></li>
+                        <li><p>or have you <a href="/forgetpasswordask">forgotten your password?</a></p></li>
+                      </ul>
+
+                      <div class="">
+                        <button type="submit" name="submit" class='btn'> Submit</button>
+                      </div>
+                    </div>
+
+                    <div class="facebook">
+                     <a class="btn facebookbutton" href="#">Login With Facebook</a>
+                     <a class="btn sms" id='sms'> SMS verification</a>
+                   </div>
+                  </form>
+
+
+                   <form class="smsverify" method="post">
+                     <h3>SMS Verification</h3>
+                     <p>Enter your phone number, and we will send you a one-time code to secure your account</p>
+
                     <div class="row">
-                      <div class="input-field col s12 m6">
-                        <input placeholder="Email" id="email" name="email" type="email" class="browser-default validate" required>
-                        <label for="email">Email<span class="red-text">*</span></label>
+                      <div class="input-field col s12 m12">
+                        <span>
+                          <label for="password">OTP code </label>
+                          <input placeholder="Enter verification code" name="smsverification" id="smsverification" type="text" class="browser-default validate" required>
+                        </span>
+                        <span>
+                          <button type="submit" name="submit" class='btn'> Submit</button>
+                        </span>
 
                        </div>
-
                     </div>
-                    <div class="row">
-                      <div class="input-field col s12 m6">
-                        <input placeholder="password" name="password" id="password" type="password" class="browser-default validate" required>
-                        <label for="password">Password<span class="red-text">*</span></label>
-                       </div>
-
-                    </div>
-
-                    <ul>
-                      <li><p>Do you want to <a href="/loanpreferenceviewask">Register</a> or have you <a href="/resetpasswordask">reset password</a></p></li>
-                      <li><p>or have you <a href="/forgetpasswordask">forgotten your password?</a></p></li>
-                    </ul>
-
-                    <div class="">
-                      <button type="submit" name="submit" class='btn'> Submit</button>
-                    </div>
-
+                    <p id="smscancel" class='btn'> Cancel</p>
                   </form>
                 </div>
+
               </li>
             </ul>
         </div>
     </section>
+
+
+
+
+
     <section class="loansegment">
       <div class="slider">
         <ul class="slides">
@@ -147,7 +178,7 @@
                          <li><a href="/updateExternalLinksask">Update Equity External Calculator</a></li>
                         </ul>
              </c:if>
- 
+
               <!-- LiteOnly -->
              <c:if test="${(not empty userEmail) and (Plan == '9.99')}">
             	<p class="btn dropdown-trigger" data-target='dropdown200'>Lite</p>
@@ -156,10 +187,10 @@
                         <li><a href="/loanpayoffask">Payoff Loan</a></li>
                        <li><a href="/loanviewask">View Loans</a></li>
                        <li><a href="/payment">Payment</a></li>
-                        
+
                     </ul>
             </c:if>
-         
+
                   <!-- Premium Only -->
              <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
              	<p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
@@ -167,16 +198,107 @@
                        <li><a href="/quickview">Quick View Loan</a></li>
                         <li><a href="/loanpayoffask">Payoff Loan</a></li>
                        <li><a href="/loanviewask">View Loans</a></li>
-                       <li><a href="/payment">Payment</a></li>                    
+                       <li><a href="/payment">Payment</a></li>
                        <li><a href="/aggregateloanask">Aggregate Loan</a></li>
                        <li><a href="/aggregateloanreportask">Aggregate Loan Report</a></li>
                     </ul>
-               
+
              </c:if>
-          
+
           </div>
       </div>
     </section>
+
+    <style media="screen">
+      .login .loginform ul.collapsible li .collapsible-body form ul li p {
+        margin-top: 0px; }
+
+      .login .loginform .collapsible li .collapsible-body #loginform {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex; }
+
+      .login .loginform .collapsible li .collapsible-body .boxed {
+        width: 100% !important; }
+
+      .login .loginform .collapsible li .collapsible-body .facebook {
+        padding-top: 10px;
+        margin-left: 10px;
+        padding-top: 20px;
+        width: 100% !important;
+        text-align: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center; }
+        .login .loginform .collapsible li .collapsible-body .facebook a.facebookbutton {
+          background: blue;
+          border-radius: 6px;
+          font-size: 12px;
+          height: 45px;
+          line-height: 45px;
+          width: 250px;
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          font-weight: bold;
+          margin-bottom: 30px; }
+        .login .loginform .collapsible li .collapsible-body .facebook a.facebook:hover {
+          -webkit-transform: scale(1.02);
+          -ms-transform: scale(1.02);
+          transform: scale(1.02);
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s; }
+        .login .loginform .collapsible li .collapsible-body .facebook a.sms {
+          background: #fff;
+          border-radius: 6px;
+          border: 2px solid blue;
+          font-size: 13px;
+          font-weight: bold;
+          height: 45px;
+          color: blue;
+          line-height: 45px;
+          width: 250px;
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s;
+          margin-bottom: 30px; }
+        .login .loginform .collapsible li .collapsible-body .facebook a.sms:hover {
+          -webkit-transform: scale(1.02);
+          -ms-transform: scale(1.02);
+          transform: scale(1.02);
+          -webkit-transition: 0.3s;
+          -o-transition: 0.3s;
+          transition: 0.3s; }
+
+      .login .loginform .collapsible li .collapsible-body .smsverify {
+        display: none; }
+        .login .loginform .collapsible li .collapsible-body .smsverify h3 {
+          margin-top: 0px;
+          font-size: 20px;
+          color: purple;
+          font-weight: bold; }
+        .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex; }
+          .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type {
+            padding-left: 20px; }
+            .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type button {
+              position: relative;
+              top: 30px;
+              padding-left: 20px; }
+        .login .loginform .collapsible li .collapsible-body .smsverify #smscancel {
+          background: purple; }
+
+    </style>
 
     <script type="text/javascript" src="css/materialize.min.js"></script>
     <script type="text/javascript">
@@ -191,13 +313,20 @@
            'coverTrigger': false,
            'hover': true
           });
-        
+
         $('.collapsible').collapsible({
-            'accordion': false
+            'accordion': true
           });
 
+        $('#sms').click(()=>{
+          $('.login .loginform ul li div.collapsible-body #loginform').fadeOut(1);
+          $('.login .loginform ul li div.collapsible-body .smsverify').fadeIn(300);
+
+        })
+        $('#smscancel').click(()=>{
+          $('.login .loginform ul li div.collapsible-body .smsverify').fadeOut(1);
+          $('.login .loginform ul li div.collapsible-body #loginform').fadeIn(300);
+
+        })
       });
     </script>
-
-
-
