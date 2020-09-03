@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+ <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -19,8 +19,7 @@
           <!--Import materialize.css-->
           <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
           <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
-           <script type="text/javascript" src="css/jquery.min.js"></script>
-
+            <script type="text/javascript" src="css/jquery.min.js"></script>
 
     <header id='healer'>
 
@@ -66,13 +65,13 @@
               <li>
                 <div class="collapsible-header"><i class="material-icons">edit</i>Login</div>
                 <div class="collapsible-body">
+
                   <form class="col s12 m12" id="loginform" action="/loginfromlaunch" method='post'>
                     <div class="boxed">
                       <div class="row">
                         <div class="input-field col s12">
                           <input placeholder="Email" id="email" name="email" type="email" class="browser-default validate" required>
                           <label for="email">Email<span class="red-text">*</span></label>
-
                          </div>
 
                       </div>
@@ -81,7 +80,6 @@
                           <input placeholder="password" name="password" id="password" type="password" class="browser-default validate" required>
                           <label for="password">Password<span class="red-text">*</span></label>
                          </div>
-
                       </div>
 
                       <ul>
@@ -108,17 +106,18 @@
                     <div class="row">
                       <div class="input-field col s12 m12">
                         <span>
-                          <label for="password">OTP code </label>
-                          <input placeholder="Enter verification code" name="smsverification" id="smsverification" type="text" class="browser-default validate" required>
+                          <label for="phone">Phone Number </label>
+                          <input placeholder="Enter cell Number" name="phone" id="smsverification" type="tel" class="browser-default validate" required>
                         </span>
                         <span>
-                          <button type="submit" name="submit" class='btn'> Submit</button>
+                          <button type="submit" name="submit" class='btn'> Send Me code</button>
                         </span>
 
                        </div>
                     </div>
-                    <p id="smscancel" class='btn'> Cancel</p>
+                     <p id="smscancel" class='btn'> Cancel</p>
                   </form>
+
                 </div>
 
               </li>
@@ -204,101 +203,9 @@
                     </ul>
 
              </c:if>
-
           </div>
       </div>
     </section>
-
-    <style media="screen">
-      .login .loginform ul.collapsible li .collapsible-body form ul li p {
-        margin-top: 0px; }
-
-      .login .loginform .collapsible li .collapsible-body #loginform {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex; }
-
-      .login .loginform .collapsible li .collapsible-body .boxed {
-        width: 100% !important; }
-
-      .login .loginform .collapsible li .collapsible-body .facebook {
-        padding-top: 10px;
-        margin-left: 10px;
-        padding-top: 20px;
-        width: 100% !important;
-        text-align: center;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center; }
-        .login .loginform .collapsible li .collapsible-body .facebook a.facebookbutton {
-          background: blue;
-          border-radius: 6px;
-          font-size: 12px;
-          height: 45px;
-          line-height: 45px;
-          width: 250px;
-          -webkit-transition: 0.3s;
-          -o-transition: 0.3s;
-          transition: 0.3s;
-          font-weight: bold;
-          margin-bottom: 30px; }
-        .login .loginform .collapsible li .collapsible-body .facebook a.facebook:hover {
-          -webkit-transform: scale(1.02);
-          -ms-transform: scale(1.02);
-          transform: scale(1.02);
-          -webkit-transition: 0.3s;
-          -o-transition: 0.3s;
-          transition: 0.3s; }
-        .login .loginform .collapsible li .collapsible-body .facebook a.sms {
-          background: #fff;
-          border-radius: 6px;
-          border: 2px solid blue;
-          font-size: 13px;
-          font-weight: bold;
-          height: 45px;
-          color: blue;
-          line-height: 45px;
-          width: 250px;
-          -webkit-transition: 0.3s;
-          -o-transition: 0.3s;
-          transition: 0.3s;
-          margin-bottom: 30px; }
-        .login .loginform .collapsible li .collapsible-body .facebook a.sms:hover {
-          -webkit-transform: scale(1.02);
-          -ms-transform: scale(1.02);
-          transform: scale(1.02);
-          -webkit-transition: 0.3s;
-          -o-transition: 0.3s;
-          transition: 0.3s; }
-
-      .login .loginform .collapsible li .collapsible-body .smsverify {
-        display: none; }
-        .login .loginform .collapsible li .collapsible-body .smsverify h3 {
-          margin-top: 0px;
-          font-size: 20px;
-          color: purple;
-          font-weight: bold; }
-        .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field {
-          display: -webkit-box;
-          display: -ms-flexbox;
-          display: flex; }
-          .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type {
-            padding-left: 20px; }
-            .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type button {
-              position: relative;
-              top: 30px;
-              padding-left: 20px; }
-        .login .loginform .collapsible li .collapsible-body .smsverify #smscancel {
-          background: purple; }
-
-    </style>
 
     <script type="text/javascript" src="css/materialize.min.js"></script>
     <script type="text/javascript">
@@ -330,3 +237,141 @@
         })
       });
     </script>
+
+<style media="screen">
+  .login .loginform ul.collapsible li .collapsible-body form ul li p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 12px; }
+
+  .login .loginform .collapsible li .collapsible-body .boxed .row {
+    margin-bottom: 0px; }
+
+  .login .loginform .collapsible li .collapsible-body #loginform {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
+
+  .login .loginform .collapsible li .collapsible-body .boxed {
+    width: 100% !important; }
+
+  .login .loginform .collapsible li .collapsible-body .facebook {
+    padding-top: 10px;
+    margin-left: 10px;
+    padding-top: 20px;
+    width: 100% !important;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .login .loginform .collapsible li .collapsible-body .facebook a.facebookbutton {
+      background: blue;
+      border-radius: 6px;
+      font-size: 12px;
+      height: 45px;
+      line-height: 45px;
+      width: 200px;
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+      font-weight: bold;
+      margin-bottom: 30px; }
+    .login .loginform .collapsible li .collapsible-body .facebook a.facebook:hover {
+      -webkit-transform: scale(1.02);
+      -ms-transform: scale(1.02);
+      transform: scale(1.02);
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s; }
+    .login .loginform .collapsible li .collapsible-body .facebook a.sms {
+      background: #fff;
+      border-radius: 6px;
+      border: 2px solid blue;
+      font-size: 13px;
+      font-weight: bold;
+      height: 45px;
+      color: blue;
+      line-height: 45px;
+      width: 200px;
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+      margin-bottom: 30px; }
+    .login .loginform .collapsible li .collapsible-body .facebook a.sms:hover {
+      -webkit-transform: scale(1.02);
+      -ms-transform: scale(1.02);
+      transform: scale(1.02);
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s; }
+
+  .login .loginform .collapsible li .collapsible-body .smsverify {
+    display: none; }
+    .login .loginform .collapsible li .collapsible-body .smsverify h3 {
+      margin-top: 0px;
+      font-size: 20px;
+      color: purple;
+      font-weight: bold; }
+    .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; }
+      .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type {
+        padding-left: 20px; }
+        .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type button {
+          position: relative;
+          top: 30px;
+          padding-left: 20px; }
+    .login .loginform .collapsible li .collapsible-body .smsverify #smscancel {
+      background: purple; }
+
+  @media screen and (max-width: 700px) {
+    .login .loginform .collapsible li .collapsible-body #loginform {
+      -webkit-box-orient: vertical !important;
+      -webkit-box-direction: normal !important;
+      -ms-flex-direction: column !important;
+      flex-direction: column !important; }
+    .login .loginform .collapsible li .collapsible-body .facebook {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal !important;
+      -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+      flex-direction: row !important;
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+      margin-top: 20px; } }
+
+  @media screen and (max-width: 550px) {
+    .login .loginform .collapsible li .collapsible-body .facebook {
+      -webkit-box-orient: vertical !important;
+      -webkit-box-direction: normal !important;
+      -ms-flex-direction: column !important;
+      flex-direction: column !important;
+      margin-top: 0px;
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+      margin-left: 0px; }
+    .login .loginform .collapsible li .collapsible-body .facebook a.facebookbutton {
+      margin-bottom: 5px; }
+    .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+    .login .loginform .collapsible li .collapsible-body .smsverify .row .input-field span:last-of-type {
+      padding-left: 0px; }
+    .login .loginform .collapsible li .collapsible-body .smsverify p {
+      font-size: 12px; } }
+
+
+</style>
