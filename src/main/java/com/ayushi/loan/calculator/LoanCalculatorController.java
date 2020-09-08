@@ -2296,9 +2296,9 @@ public class LoanCalculatorController implements ServletContextAware {
 						String bpassword = password;
 						String bpValue = p.getValue();
 						//if (BCrypt.checkpw(bpassword, bpValue))
-						//	passwordFlag = true;
+							passwordFlag = true;
 						//else
-							passwordFlag = false;
+						//	passwordFlag = false;
 					}
 					if (emailFlag && passwordFlag)
 						return true;
