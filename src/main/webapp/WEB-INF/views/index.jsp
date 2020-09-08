@@ -34,7 +34,7 @@
               <input type="hidden" name="hdnUserPlan" value="${Plan}">
               <input type="hidden" name="hdnUserPref" value="${UserPreference}">
              </li>
-           <li><a href="">HOME</a></li>
+           <li><a href="/">HOME</a></li>
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
            <li><a href="/createloan">ENTER LOAN</a></li>
            <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
@@ -48,7 +48,7 @@
       </nav>
 
       <ul class="sidenav" id="mobile-demo">
-        <li><a href="">HOME</a></li>
+        <li><a href="/">HOME</a></li>
         <li><a href="/loansearchask">SEARCH LOAN</a></li>
          <li><a href="/createloan">ENTER LOAN</a></li>
         <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
