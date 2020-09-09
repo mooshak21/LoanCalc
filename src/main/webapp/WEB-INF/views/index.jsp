@@ -229,8 +229,8 @@
 body .container {
 width: 100% !important; }
 body .container .row {
- -webkit-box-shadow: 0px 5px 10px grey !important;
- box-shadow: 0px 5px 10px grey !important; }
+ -webkit-box-shadow: none!important;
+ box-shadow: none!important; }
 body .container .loanHeader {
  background: purple;
  color: #fff;
@@ -272,7 +272,8 @@ body .container .loanHeader {
      font-size: 12px; }
 
    .login .loginform .collapsible li .collapsible-body .boxed .row {
-     margin-bottom: 0px; }
+     margin-bottom: 0px;
+      box-shadow: none!important;}
 
    header nav ul li a {
      color: purple !important; }

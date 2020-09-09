@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/css/restyles.css" />
 
    <div class="row justify-content-center">
-        <div class="card col-10 col-md-8 cardBody">
+        <div class="card col-10 col-md-8 cardBody pricing">
             <div class="text-center center-block">
               <a href="/loanpreferenceviewasktoregister?plan=9.99">
                  <div class="card price">
