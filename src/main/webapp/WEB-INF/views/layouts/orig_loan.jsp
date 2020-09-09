@@ -1,6 +1,7 @@
+
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html>
-<html>
+<html  lang="en">
   <head>
     <title>Loan Insight Online | What Does Loan Calculator Do?</title>
     <meta charset="utf-8">
@@ -12,40 +13,62 @@
     <link rel="icon" href="${pageContext.request.contextPath}/css/loan-fav.png" type="image/png" sizes="16x16">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
 
-    <!-- Bootstrap CSS -->
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
+     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
          <!-- Include Font Awesome Stylesheet  -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	 <script>
+      <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
 	 (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-5699569860213511", enable_page_level_ads: true });
-	 </script>
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/restyles.css" />
+    </script>
+ 
+
+
+<!-- Global site tag (gtag.js) - Google AdWords: 823238525 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-823238525"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-823238525');
+</script>
+
+
+
+<!-- Event snippet for Registration conversion page -->
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-823238525/pjxfCIaO5noQ_b7GiAM',
+      'value': 9.99,
+      'currency': 'USD'
+  });
+</script>
+
 
 
   </head>
-  <body>
 
-       <div class="container" style="height: 100%">
+  <body>
+      <div class="container" style="height: 100%">
+
             <div class="row" style="height: auto">
                   <div class="col loanHeader">
                      <tiles:insertAttribute name="header" />
-                     <h1>${pageContext.request.contextPath}</h1>
                   </div>
             </div>
 
-             <div class="row hidden-sm-up" style="min-height: 80%">
+            <div class="row hidden-sm-up" style="min-height: 80%">
                   <div class="col-12 loanMenu" style="height: 15%">
                      <tiles:insertAttribute name="menu" />
                   </div>
                    <div class="col-12 loanBody">
-                     <tiles:insertAttribute name="master" />
-                     <tiles:insertAttribute name="detail" />
+                     <tiles:insertAttribute name="body" />
                   </div>
             </div>
 
@@ -54,8 +77,7 @@
                      <tiles:insertAttribute name="menu" />
                   </div>
                   <div class="col-sm-9 loanBody">
-                      <tiles:insertAttribute name="master" />
-                      <tiles:insertAttribute name="detail" />
+                     <tiles:insertAttribute name="body" />
                   </div>
             </div>
 
@@ -67,7 +89,8 @@
 
         </div>
 
-   <!-- Global site tag (gtag.js) - Google Analytics -->
+
+ <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156464584-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -76,6 +99,5 @@
 
   gtag('config', 'UA-156464584-1');
 </script>
-
   </body>
 </html>
