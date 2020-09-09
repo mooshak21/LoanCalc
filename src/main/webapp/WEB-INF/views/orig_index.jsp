@@ -225,48 +225,7 @@
 
 
  <style media="screen">
-
-body .container {
-width: 100% !important; }
-body .container .row {
- -webkit-box-shadow: 0px 5px 10px grey !important;
- box-shadow: 0px 5px 10px grey !important; }
-body .container .loanHeader {
- background: purple;
- color: #fff;
- margin-top: 0px;
- -webkit-box-shadow: 0px 4px 10px black !important;
- box-shadow: 0px 4px 10px black !important;
- z-index: 10; }
- body .container .loanHeader h2 {
-   font-size: 30px;
-   padding-top: 20px; }
- body .container .loanHeader .text-muted {
-   color: #fff !important; }
-
-   body .container .loanFooter {
-  background: #000;
-  margin-top: 0px;
-  padding: 100px 30px; }
-  body .container .loanFooter footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-    body .container .loanFooter footer p {
-      color: #fff;
-      font-size: 12px;
-      max-width: 20%; }
-
-   .login .loginform ul.collapsible li .collapsible-body form ul li p {
+    .login .loginform ul.collapsible li .collapsible-body form ul li p {
      margin-top: 0px;
      margin-bottom: 0px;
      font-size: 12px; }
@@ -393,16 +352,6 @@ body .container .loanHeader {
        top: 0; }
 
    @media screen and (max-width: 700px) {
-
-     body .container .loanFooter {
-    padding-top: 30px; }
-    body .container .loanFooter footer {
-      display: block; }
-      body .container .loanFooter footer p {
-        width: 100%;
-        max-width: 100%;
-        padding-bottom: 20px; }
-
      .login .loginform .collapsible li .collapsible-body #loginform {
        -webkit-box-orient: vertical !important;
        -webkit-box-direction: normal !important;

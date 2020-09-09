@@ -10,10 +10,10 @@
     <meta name="description" content="Ayushi Loan Calculator is to calculate the loan payments in terms of interest and principal of monthly payment and build an amortization schedule">
     <meta name="keywords" content="loan insight,loan research,equity calculator,home loan calculates,loan insight software,online loan calculator,consolidation calculator,loan calculates software,loan amortization schedule,loan amortization calculator,loan insight online software,loan amortization schedule calculator,loan aggregation and consolidation calculator">
     <link rel="icon" href="${pageContext.request.contextPath}/css/loan-fav.png" type="image/png" sizes="16x16">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
@@ -24,11 +24,12 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	 <script>
 	 (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-5699569860213511", enable_page_level_ads: true });
-	 </script> 
-    
+	 </script>
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/restyles.css" />
+
   </head>
   <body>
-      
+
        <div class="container" style="height: 100%">
             <div class="row" style="height: auto">
                   <div class="col loanHeader">
@@ -56,15 +57,15 @@
                       <tiles:insertAttribute name="detail" />
                   </div>
             </div>
-            
+
             <div class="row" style="height: auto">
                   <div class="col loanFooter">
                      <tiles:insertAttribute name="footer" />
                   </div>
             </div>
-           
+
         </div>
-        
+
  <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156464584-1"></script>
 <script>

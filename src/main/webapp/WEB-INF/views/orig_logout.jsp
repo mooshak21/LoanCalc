@@ -1,6 +1,5 @@
 
-<link rel="stylesheet" href="/css/restyles.css" />
-
+ 
  <div class="row justify-content-center align-items-center" style="background-color: white; height: 100%" >
         <div class="card col-10 col-md-8" >
             <div class="card-block">

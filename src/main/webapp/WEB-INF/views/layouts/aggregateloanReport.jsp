@@ -10,9 +10,10 @@
     <meta name="description" content="Ayushi Loan Calculator is to calculate the loan payments in terms of interest and principal of monthly payment and build an amortization schedule">
     <meta name="keywords" content="loan insight,loan research,equity calculator,home loan calculates,loan insight software,online loan calculator,consolidation calculator,loan calculates software,loan amortization schedule,loan amortization calculator,loan insight online software,loan amortization schedule calculator,loan aggregation and consolidation calculator">
     <link rel="icon" href="${pageContext.request.contextPath}/css/loan-fav.png" type="image/png" sizes="16x16">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/restyles.css" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
@@ -24,7 +25,7 @@
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	 <script>
 	 (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-5699569860213511", enable_page_level_ads: true });
-	 </script> 
+	 </script>
 
   </head>
   <body>

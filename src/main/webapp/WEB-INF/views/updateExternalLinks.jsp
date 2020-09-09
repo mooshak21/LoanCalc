@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<link rel="stylesheet" href="/css/restyles.css" />
 
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
@@ -37,8 +38,8 @@
                          </select>
                      </div>
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
-                     <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/> 
-                
+                     <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
+
                  </form>
             </div>
         </div>
@@ -67,12 +68,12 @@
         </div>
     </div>
 </div>
-             
+
 <script>
 function resetForm() {
     $( document ).ready(function() {
         $(".resetMe").val("");
     });
-    
+
 }
 </script>

@@ -3,15 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<link rel="stylesheet" href="/css/restyles.css" />
-
+ 
     <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody">
             <div class="card-header">
-              <h5>${message}</h5>
+              <h5>Find Calculator Link</h5>
             </div>
             <div class="card-block">
-                 <form name="externalLinkForm" id="linkform" action="/externalLinks" method="POST" onsubmit='if(externalLinkForm.loanType.value == ""){ alert("Please enter loan type"); externalLinkForm.loanType.focus(); return false;}'>
+                 <form name="externalLinkForm" id="linkform" action="/updateSearchExternalLinks" method="GET" onsubmit='if(externalLinkForm.loanType.value == ""){ alert("Please enter loan type"); externalLinkForm.loanType.focus(); return false;}'>
 
                      <div class="form-group">
                          <label for="loanType">Loan Type:</label>
@@ -37,10 +36,6 @@
                              <option value="South Africa" ${equityExternalCalculator.region == 'South Africa' ? 'selected' : ''}>South Africa</option>
                          </select>
                      </div>
-                     <div class="form-group">
-                         <label for="linkUrl">External URL</label>
-                         <input class="form-control resetMe" type="text" name="linkUrl" value="${equityExternalCalculator.linkUrl}" min="1" max="100" id="linkUrl" required="true">
-                     </div>
                      <input type="submit" class="btn btn-default float-left" value="Submit"/>
                      <input  type= "button" class="btn btn-default float-right"  value="Reset" onclick="resetForm()"/>
 
@@ -49,7 +44,29 @@
         </div>
     </div>
 
+<div class="row justify-content-center">
+    <div class="card col-10 col-md-8 cardBody">
+        <div class="nisl_add_div">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="table1">
+                    <thead class="thead-default">
+                    <tr>
+                        <th width="120px">External Calculator URL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="entry" items="${equityExternalCalculators}">
+                        <tr>
+                            <td><a href="/updateExternalLinks?externalCalculatorId=${entry.externalCalculatorId}"/><c:out value="${entry.linkUrl}"/></td>
+                        </tr>
+                    </c:forEach>
 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 function resetForm() {

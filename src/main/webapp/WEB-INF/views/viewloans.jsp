@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<c:if test="${not empty loans}">
-        	<jsp:include page="/WEB-INF/views/emailForm.jsp">
+        	<jsp:include page="/WEB-INF/views/emailForm.jsp"> 
             		<jsp:param name="dataType" value="amortizedLoan"/>
 	        </jsp:include>
               <div class="row justify-content-center">
@@ -12,7 +12,7 @@
                         <div class="card-block">
                             <table class="table table-hover table-bordered">
 <%--                                <tr>
-                                    <td colspan="2"><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size(); 
+                                    <td colspan="2"><% int total = ((java.util.List)request.getSession().getAttribute("loans")).size();
                                                int pages = total, pgIdx;
                                                for(pgIdx = 0; pgIdx < pages; pgIdx++){%>
                                                <a href='/viewloan/<%=(pgIdx+1)%>'</a><%=(pgIdx+1)%><%}%></td>
@@ -25,7 +25,7 @@
                                             </c:forEach>
                                         </td>
                                     </tr>
-                                </c:if>                
+                                </c:if>
                                <tr><td style="width: 40%">Loan Id:</td><td>${amortizeloan.loanId}</td></tr>
                                <tr><td style="width: 40%">Monthly Payment:</td><td><fmt:formatNumber value="${amortizeloan.monthly}" pattern="###,###,###.###" /></td></tr>
                                <tr><td style="width: 40%">Interest Rate:(%)</td><td><fmt:formatNumber value="${amortizeloan.interestRate}" pattern="###,###,###.########"/></td></tr>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-	   </c:if>	
+	   </c:if>
 
            <c:if test="${not empty amortizeloan.loanEntries}">
                <div class="row justify-content-center ">
@@ -66,11 +66,11 @@
                                             <td><fmt:formatNumber value="${entry.interest}" pattern="###,###,###.00"/></td>
                                             <td><fmt:formatNumber value="${entry.loanAmount}" pattern="###,###,###.00"/></td>
                                             <td><fmt:formatNumber value="${entry.monthly}" pattern="###,###,###.00"/></td>
-                                        </tr> 
+                                        </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
-                           
+
                              <c:if test="${amortizeloan.entries ne null}" >
                                 <table class="table table-hover table-bordered">
                                     <tr>
@@ -80,9 +80,8 @@
                                     </tr>
                                 </table>
                             </c:if>
-                       
+
                         </div>
                     </div>
                 </div>
-	   </c:if> 
-         
+	   </c:if>
