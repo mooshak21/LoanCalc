@@ -11,11 +11,11 @@
                  <img src="css/lite.png" class="card-img-top" alt="...">
                  <div class="card-body">
                    <h3 class="card-text">Lite Plan</h3>
-                   <h5>$19.99 </h5>
+                   <h5>$9.99 </h5>
                    <p> For A Year</p>
                  </div>
                </div>
-               </a
+             </a>
                <a href="/loanpreferenceviewasktoregister?plan=19.99">
                <div class="card price">
                  <img src="css/premium.png" class="card-img-top" alt="...">
