@@ -2141,6 +2141,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			    return "index";
 			}
 		}else{
+			if(email != null){
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				plan = getPlan(email);
 				model.addAttribute("userEmail", email);
