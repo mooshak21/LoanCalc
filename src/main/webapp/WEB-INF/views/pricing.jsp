@@ -15,7 +15,7 @@
                    <p> For A Year</p>
                  </div>
                </div>
-               </a
+             </a>
                <a href="/loanpreferenceviewasktoregister?plan=19.99">
                <div class="card price">
                  <img src="css/premium.png" class="card-img-top" alt="...">
