@@ -2123,10 +2123,10 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 				request.getSession().setAttribute("loginStatus", "Y");
-				request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
-				request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
-				model.addAttribute("planSelected", plan != null ? plan : "0.0");
-				model.addAttribute("Plan", plan != null ? plan : "0.0");
+				request.getSession().setAttribute("Plan", plan != null ? plan : "19.99");
+				request.getSession().setAttribute("planSelected", plan != null ? plan : "19.99");
+				model.addAttribute("planSelected", plan != null ? plan : "19.99");
+				model.addAttribute("Plan", plan != null ? plan : "19.99");
 				model.addAttribute("userEmail", email);
 				return "index";
 			}else{
@@ -2141,7 +2141,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			    return "index";
 			}
 		}else{
-			if(email != null){
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				plan = getPlan(email);
 				model.addAttribute("userEmail", email);
