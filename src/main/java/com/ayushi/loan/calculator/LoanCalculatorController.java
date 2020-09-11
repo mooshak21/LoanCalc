@@ -86,12 +86,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		request.getCookies();
 		request.getSession().setAttribute("loginStatus", "N");
 		return "index";
-
-/*		} else {
-			model.addAttribute("message", "Landing Page");
-			//searchLoanBasedOnEmail(emailCookie, plan, model);
-			return "index";
-		}*/
 	}
 
 	@RequestMapping(value = "/about")
@@ -2162,7 +2156,9 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("planSelected", plan != null ? plan : "0.0");
 				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				model.addAttribute("userEmail", email);
-				return "index";
+				model.addAttribute("message", "Landing Page");
+				searchLoanBasedOnEmail(emailCookie, plan, model);
+				return "bankoffersandnews";
 			}else{
 	    		    if(email != null){
 				plan = getPlan(email);
