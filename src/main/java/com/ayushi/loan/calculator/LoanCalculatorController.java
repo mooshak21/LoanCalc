@@ -82,16 +82,16 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 			model.addAttribute("Plan", plan);
 		}
-		if (emailCookie == null || emailCookie.equals("")) {
-			model.addAttribute("message", "Landing Page");
-			request.getCookies();
-			return "index";
-		} else {
+		model.addAttribute("message", "Landing Page");
+		request.getCookies();
+		request.getSession().setAttribute("loginStatus", "N");
+		return "index";
+
+/*		} else {
 			model.addAttribute("message", "Landing Page");
 			//searchLoanBasedOnEmail(emailCookie, plan, model);
 			return "index";
-		}
-		request.getSession().setAttribute("loginStatus", "N");
+		}*/
 	}
 
 	@RequestMapping(value = "/about")
