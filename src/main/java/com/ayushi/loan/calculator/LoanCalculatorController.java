@@ -2072,6 +2072,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "password", defaultValue = "") String password,
 			 HttpServletRequest request,
 			HttpServletResponse response, Model model) {
+		String plan = null;
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Login Form");
