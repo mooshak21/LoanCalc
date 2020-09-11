@@ -2130,17 +2130,6 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Landing Page");
 				searchLoanBasedOnEmail(emailCookie, plan, model);
 				return "bankoffersandnews";
-			}else{
-	    		    if(email != null){
-				plan = getPlan(email);
-				request.getSession().setAttribute("loginStatus", "Y");
-				model.addAttribute("userEmail", email);
-				model.addAttribute("Plan", plan != null ? plan : "0.0");
-				checkUserPrefernece(model, prefs);
-				model.addAttribute("message", "Launch Form");
-				logger.info("Selected plan :" + plan);
-			    }
-			    return "index";
 			}
 		}else{
 			if (emailCookie == null) {
@@ -2150,7 +2139,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				model.addAttribute("planSelected", plan != null ? plan : "0.0");
 				checkUserPrefernece(model, prefs);
-				request.getSession().setAttribute("loginStatus", "N");
+				request.getSession().setAttribute("loginStatus", "Y");
 				return "index";
 			}
 			else if (emailCookie != null && !emailCookie.equals("")) {
