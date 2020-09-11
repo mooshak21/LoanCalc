@@ -2089,7 +2089,7 @@ public class LoanCalculatorController implements ServletContextAware {
 //			}else 
 				emailPasswordFlag = true;
 
-			if(emailPasswordFlag && prefs != null){
+//			if(emailPasswordFlag && prefs != null){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) 
 						plan = preference.getValue();
@@ -2108,7 +2108,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Landing Page");
 				searchLoanBasedOnEmail(email, plan, model);
 				return "bankoffersandnews";
-			}
+//			}
 		}
 		model.addAttribute("message", "Login Form");
 		request.getSession().setAttribute("loginStatus", "N");
