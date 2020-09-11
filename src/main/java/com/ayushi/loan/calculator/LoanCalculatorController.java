@@ -87,8 +87,9 @@ public class LoanCalculatorController implements ServletContextAware {
 			request.getCookies();
 			return "index";
 		} else {
-			searchLoanBasedOnEmail(emailCookie, plan, model);
-			return "bankoffersandnews";
+			model.addAttribute("message", "Landing Page");
+			//searchLoanBasedOnEmail(emailCookie, plan, model);
+			return "index";
 		}
 	}
 
