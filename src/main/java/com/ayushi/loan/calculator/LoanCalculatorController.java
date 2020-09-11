@@ -2077,8 +2077,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, 
 			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		String plan = null;
-
 		if (emailCookie == null) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Home Page");
