@@ -2070,31 +2070,8 @@ public class LoanCalculatorController implements ServletContextAware {
 	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.POST)
 	public String loginfromlaunch(@RequestParam(value = "email", defaultValue = "") String email,
 			@RequestParam(value = "password", defaultValue = "") String password,
-			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, 
-			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request,
+			 HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-
-		if (email != null && !email.equals("")) {
-			List<Preference> prefs = getPreferencesByEmailAddress(email);
-			plan = getPlan(email);
-			model.addAttribute("Plan", plan != null ? plan : "0.0");
-			ArrayList<String> prefVal = null, prefAttr = null;
-
-			if (prefs != null) {
-				prefVal = new ArrayList<String>(prefs.size());
-				prefAttr = new ArrayList<String>(prefs.size());
-				int prefIdx = 0;
-				for (Preference pref : prefs) {
-					prefAttr.add(pref.getName());
-					prefVal.add(pref.getValue());
-				}
-				for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
-					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-					if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
-						model.addAttribute("UserPreference", prefVal.get(prefIdx));
-				}
-			}
-		}
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Login Form");
@@ -2132,57 +2109,10 @@ public class LoanCalculatorController implements ServletContextAware {
 				return "bankoffersandnews";
 			}
 		}else{
-			if (emailCookie == null) {
-				List<Preference> prefs = getPreferencesByEmailAddress(email);
-				model.addAttribute("userEmail", email);
-				plan = getPlan(email);
-				model.addAttribute("Plan", plan != null ? plan : "0.0");
-				model.addAttribute("planSelected", plan != null ? plan : "0.0");
-				checkUserPrefernece(model, prefs);
-				request.getSession().setAttribute("loginStatus", "Y");
-				model.addAttribute("message", "Landing Page");
-				searchLoanBasedOnEmail(email, plan, model);
-				return "bankoffersandnews";
-			}
-			else if (emailCookie != null && !emailCookie.equals("")) {
-				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-				plan = getPlan(emailCookie);
-				model.addAttribute("Plan", plan != null ? plan : "0.0");
-				ArrayList<String> prefVal = null, prefAttr = null;
-
-				if (prefs != null) {
-					prefVal = new ArrayList<String>(prefs.size());
-					prefAttr = new ArrayList<String>(prefs.size());
-					int prefIdx = 0;
-					for (Preference pref : prefs) {
-						prefAttr.add(pref.getName());
-						prefVal.add(pref.getValue());
-					}
-					for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
-						model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
-						if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
-							model.addAttribute("UserPreference", prefVal.get(prefIdx));
-					}
-				}
-				model.addAttribute("userEmail", emailCookie);
-				plan = getPlan(emailCookie);
-				model.addAttribute("Plan", plan != null ? plan : "0.0");
-				model.addAttribute("planSelected", plan != null ? plan : "0.0");
-				request.getSession().setAttribute("loginStatus", "Y");
-				model.addAttribute("message", "Landing Page");
-				searchLoanBasedOnEmail(emailCookie, plan, model);
-				return "bankoffersandnews";
-			}
+			model.addAttribute("message", "Login Form");
+			request.getSession().setAttribute("loginStatus", "N");
+			return "index";
 		}
-		model.addAttribute("userEmail", email);
-		plan = getPlan(email);
-		model.addAttribute("Plan", plan != null ? plan : "0.0");
-		model.addAttribute("planSelected", plan != null ? plan : "0.0");
-		request.getSession().setAttribute("loginStatus", "Y");
-		model.addAttribute("message", "Landing Page");
-		searchLoanBasedOnEmail(email, plan, model);
-		return "bankoffersandnews";
-	}
 
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
