@@ -2154,10 +2154,11 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 				request.getSession().setAttribute("loginStatus", "Y");
-				request.getSession().setAttribute("Plan", plan != null ? plan : "19.99");
-				request.getSession().setAttribute("planSelected", plan != null ? plan : "19.99");
-				model.addAttribute("planSelected", plan != null ? plan : "19.99");
-				model.addAttribute("Plan", plan != null ? plan : "19.99");
+				request.getSession().setAttribute("userEmail", email);
+				request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
+				request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
+				model.addAttribute("planSelected", plan != null ? plan : "0.0");
+				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				model.addAttribute("userEmail", email);
 				return "index";
 			}else{
