@@ -19,7 +19,7 @@
                     <input type="hidden" name="hdnUserPref" value="${UserPreference}">
                 </a>
             </li>
-	<c:if test="${(empty userEmail) and (empty Plan))}">
+	<c:if test="${(empty userEmail) and (empty Plan)}">
             <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/login">Login</a>
             </li>
@@ -75,7 +75,7 @@
  	    <li class="nav-item">
   	      <a class="nav-link menuItemXs" href="/about">About</a>
  	    </li>
-	<c:if test="${(not empty userEmail) and (not empty Plan))}">
+	<c:if test="${(not empty userEmail) and (not empty Plan)}">
            <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/logout">Log out</a>
             </li>
@@ -94,7 +94,7 @@
                   <input type="hidden" name="hdnUserPref" value="${UserPreference}">
               </a>
             </li>
-	<c:if test="${(empty userEmail) and (empty Plan))}">
+	<c:if test="${(empty userEmail) and (empty Plan)}">
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
@@ -139,7 +139,7 @@
     <li class="nav-item">
       <a class="nav-link menuItem" href="/about">About</a>
     </li>
-<c:if test="${(not empty userEmail) and (not empty Plan))}">
+<c:if test="${(not empty userEmail) and (not empty Plan)}">
     <li class="nav-item">
         <a class="nav-link menuItem" href="/logout">Log out</a>
     </li>
