@@ -2079,7 +2079,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("userEmail", email);
 			boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
 			plan = getPlan(email);
-			List<Preference> preferences = null;		
 //			if(!password.equals("ignore")){
 //				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 //				if(!emailPasswordFlag){
@@ -2089,7 +2088,7 @@ public class LoanCalculatorController implements ServletContextAware {
 //			}else 
 				emailPasswordFlag = true;
 
-//			if(emailPasswordFlag && prefs != null){
+			if(emailPasswordFlag && prefs != null){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) 
 						plan = preference.getValue();
@@ -2108,11 +2107,16 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Landing Page");
 				searchLoanBasedOnEmail(email, plan, model);
 				return "bankoffersandnews";
-//			}
+			}else{
+				model.addAttribute("message", "Login Form");
+				request.getSession().setAttribute("loginStatus", "N");
+				return "index";
+			}
+		}else{
+			model.addAttribute("message", "Login Form");
+			request.getSession().setAttribute("loginStatus", "N");
+			return "index";
 		}
-		model.addAttribute("message", "Login Form");
-		request.getSession().setAttribute("loginStatus", "N");
-		return "index";
 	}
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
