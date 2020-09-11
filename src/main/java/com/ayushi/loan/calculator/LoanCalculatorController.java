@@ -2134,13 +2134,15 @@ public class LoanCalculatorController implements ServletContextAware {
 		}else{
 			if (emailCookie == null) {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
-				model.addAttribute("message", "Home Page");
+				model.addAttribute("userEmail", email);
 				plan = getPlan(email);
 				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				model.addAttribute("planSelected", plan != null ? plan : "0.0");
 				checkUserPrefernece(model, prefs);
 				request.getSession().setAttribute("loginStatus", "Y");
-				return "index";
+				model.addAttribute("message", "Landing Page");
+				searchLoanBasedOnEmail(email, plan, model);
+				return "bankoffersandnews";
 			}
 			else if (emailCookie != null && !emailCookie.equals("")) {
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
@@ -2163,7 +2165,9 @@ public class LoanCalculatorController implements ServletContextAware {
 					}
 				}
 				request.getSession().setAttribute("loginStatus", "Y");
-				return "index";
+				model.addAttribute("message", "Landing Page");
+				searchLoanBasedOnEmail(emailCookie, plan, model);
+				return "bankoffersandnews";
 			}
 		}
 	    return "index";
