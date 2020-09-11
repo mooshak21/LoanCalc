@@ -2113,7 +2113,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			request.getSession().setAttribute("loginStatus", "N");
 			return "index";
 		}
-
+	}
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
