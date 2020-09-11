@@ -41,8 +41,12 @@
            <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
            <li><a href="/loanpreferenceviewask">REGISTER</a></li>
            <li><a href="/pricing">PRICING</a></li>
-           <li><a id="menulogin1">LOGIN</a></li>
+	 <c:if test="${(not empty userEmail) and (not empty Plan)}">
+          <li><a id="menulogin1">LOGIN</a></li>
+	 </c:if>
+	 <c:if test="${(empty userEmail) and (empty Plan)}">
            <li><a href="/logout">LOGOUT</a></li>
+	 </c:if>
          </ul>
         </div>
       </nav>
@@ -55,8 +59,12 @@
          <li><a href="/pricing">PRICING</a></li>
        <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
        <li><a href="/loanpreferenceviewask">REGISTER</a></li>
-        <li><a id="menulogin2">LOGIN</a></li>
-        <li><a href="/logout">LOGOUT</a></li>
+	 <c:if test="${(not empty userEmail) and (not empty Plan)}">
+          <li><a id="menulogin2">LOGIN</a></li>
+	 </c:if>
+	 <c:if test="${(empty userEmail) and (empty Plan)}">
+           <li><a href="/logout">LOGOUT</a></li>
+	 </c:if>
       </ul>
     </header>
 
