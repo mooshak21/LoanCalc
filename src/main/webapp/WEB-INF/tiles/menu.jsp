@@ -19,10 +19,11 @@
                     <input type="hidden" name="hdnUserPref" value="${UserPreference}">
                 </a>
             </li>
-
+	<c:if test="${(empty userEmail) and (empty Plan))}">
             <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/login">Login</a>
             </li>
+	</c:if>
             <c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
                 <li class="nav-item">
                     <a class="nav-link menuItemXs" href="/quickview">Quick View Loan</a>
@@ -74,10 +75,11 @@
  	    <li class="nav-item">
   	      <a class="nav-link menuItemXs" href="/about">About</a>
  	    </li>
-
+	<c:if test="${(not empty userEmail) and (not empty Plan))}">
            <li class="nav-item">
                 <a class="nav-link menuItemXs" href="/logout">Log out</a>
             </li>
+	</c:if>
         </ul>
     </div>
 </nav>
@@ -92,9 +94,11 @@
                   <input type="hidden" name="hdnUserPref" value="${UserPreference}">
               </a>
             </li>
+	<c:if test="${(empty userEmail) and (empty Plan))}">
             <li class="nav-item">
               <a class="nav-link menuItem" href="/login">Login</a>
 	    </li>
+	</c:if>
 	<c:if test="${(not empty userEmail) and ((Plan == '9.99') or (Plan == '19.99'))}">
 
 	   <li class="nav-item">
@@ -135,9 +139,10 @@
     <li class="nav-item">
       <a class="nav-link menuItem" href="/about">About</a>
     </li>
-
+<c:if test="${(not empty userEmail) and (not empty Plan))}">
     <li class="nav-item">
         <a class="nav-link menuItem" href="/logout">Log out</a>
     </li>
+</c:if>
 </ul>
 
