@@ -2073,9 +2073,42 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.POST)
 	public String loginfromlaunch(@RequestParam(value = "email", defaultValue = "") String email,
-			@RequestParam(value = "password", defaultValue = "") String password, HttpServletRequest request,
+			@RequestParam(value = "password", defaultValue = "") String password,
+			@CookieValue(value = "userEmail", defaultValue = "") String emailCookie, 
+			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		String plan = null;
+
+		if (emailCookie == null) {
+			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			model.addAttribute("message", "Home Page");
+			plan = getPlan(email);
+			model.addAttribute("Plan", plan != null ? plan : "0.0");
+			model.addAttribute("planSelected", plan != null ? plan : "0.0");
+			checkUserPrefernece(model, prefs);
+			return "index";
+		}
+		if (emailCookie != null && !emailCookie.equals("")) {
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			plan = getPlan(emailCookie);
+			model.addAttribute("Plan", plan != null ? plan : "0.0");
+			ArrayList<String> prefVal = null, prefAttr = null;
+
+			if (prefs != null) {
+				prefVal = new ArrayList<String>(prefs.size());
+				prefAttr = new ArrayList<String>(prefs.size());
+				int prefIdx = 0;
+				for (Preference pref : prefs) {
+					prefAttr.add(pref.getName());
+					prefVal.add(pref.getValue());
+				}
+				for (prefIdx = 0; prefIdx < prefAttr.size(); prefIdx++) {
+					model.addAttribute(prefAttr.get(prefIdx), prefVal.get(prefIdx));
+					if (prefAttr.get(prefIdx).equals("UserPreference") && prefVal.get(prefIdx).equals("Admin"))
+						model.addAttribute("UserPreference", prefVal.get(prefIdx));
+				}
+			}
+		}
 		if (email != null && !email.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			plan = getPlan(email);
@@ -2141,10 +2174,10 @@ public class LoanCalculatorController implements ServletContextAware {
 			    return "index";
 			}
 		}else{
-			if(email != null){
-				List<Preference> prefs = getPreferencesByEmailAddress(email);
-				plan = getPlan(email);
-				model.addAttribute("userEmail", email);
+			if(emailCookie != null){
+				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+				plan = getPlan(emailCookie);
+				model.addAttribute("userEmail", emailCookie);
 				model.addAttribute("Plan", plan != null ? plan : "0.0");
 				checkUserPrefernece(model, prefs);
 				logger.info("Selected plan :" + plan);
