@@ -2122,30 +2122,32 @@ public class LoanCalculatorController implements ServletContextAware {
 //				}
 //			}else 
 				emailPasswordFlag = true;
-
-				for (Preference preference : prefs) {
+			if(prefs == null){
+				model.addAttribute("message", "Login Failed!");
+				return "index";
+			}
+			for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) 
 						plan = preference.getValue();
 					
 					if (preference.getType().equals("UserPreference")) 
 						userPref = preference.getValue();
 						
-				}
-				response.addCookie(new Cookie("userEmail", email));
-				response.addCookie(new Cookie("loginStatus", "Y"));
-				response.addCookie(new Cookie("Plan", plan));
-				request.getSession().setAttribute("loginStatus", "Y");
-				request.getSession().setAttribute("userEmail", email);
-				request.getSession().setAttribute("Plan", plan);
-				request.getSession().setAttribute("planSelected", plan);
-				request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
-				model.addAttribute("planSelected", plan);
-				model.addAttribute("Plan", plan);
-				model.addAttribute("userEmail", email);
-				model.addAttribute("message", "Landing Page");
-				searchLoanBasedOnEmail(email, plan, model);
-
-				return "bankoffersandnews";
+			}
+			response.addCookie(new Cookie("userEmail", email));
+			response.addCookie(new Cookie("loginStatus", "Y"));
+			response.addCookie(new Cookie("Plan", plan));
+			request.getSession().setAttribute("loginStatus", "Y");
+			request.getSession().setAttribute("userEmail", email);
+			request.getSession().setAttribute("Plan", plan);
+			request.getSession().setAttribute("planSelected", plan);
+			request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
+			model.addAttribute("planSelected", plan);
+			model.addAttribute("Plan", plan);
+			model.addAttribute("userEmail", email);
+			model.addAttribute("message", "Landing Page");
+			searchLoanBasedOnEmail(email, plan, model);
+			return "bankoffersandnews";
 	}
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
