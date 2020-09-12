@@ -2097,24 +2097,27 @@ public class LoanCalculatorController implements ServletContextAware {
 						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
 						
 				}
-				request.getSession().setAttribute("loginStatus", "Y");
-				request.getSession().setAttribute("userEmail", email);
-				request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
-				request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
-				model.addAttribute("planSelected", plan != null ? plan : "0.0");
-				model.addAttribute("Plan", plan != null ? plan : "0.0");
-				model.addAttribute("userEmail", email);
-				model.addAttribute("message", "Landing Page");
-				searchLoanBasedOnEmail(email, plan, model);
-				return "bankoffersandnews";
 			}else{
 				model.addAttribute("message", "Login Form");
 				request.getSession().setAttribute("loginStatus", "N");
+
 				return "index";
 			}
+			request.getSession().setAttribute("loginStatus", "Y");
+			request.getSession().setAttribute("userEmail", email);
+			request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
+			request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
+			model.addAttribute("planSelected", plan != null ? plan : "0.0");
+			model.addAttribute("Plan", plan != null ? plan : "0.0");
+			model.addAttribute("userEmail", email);
+			model.addAttribute("message", "Landing Page");
+			searchLoanBasedOnEmail(email, plan, model);
+
+			return "bankoffersandnews";
 		}else{
 			model.addAttribute("message", "Login Form");
 			request.getSession().setAttribute("loginStatus", "N");
+
 			return "index";
 		}
 	}
