@@ -2089,11 +2089,6 @@ public class LoanCalculatorController implements ServletContextAware {
 						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
 						
 				}
-			}else{
-				model.addAttribute("message", "Login Form");
-				request.getSession().setAttribute("loginStatus", "N");
-
-				return "index";
 			}
 			request.getSession().setAttribute("loginStatus", "Y");
 			request.getSession().setAttribute("userEmail", email);
