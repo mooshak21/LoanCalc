@@ -2113,7 +2113,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 			}
-			response.addCookie(new Cookie("userEmail", email);
+			response.addCookie(new Cookie("userEmail", email));
 			response.addCookie(new Cookie("loginStatus", "Y"));
 			response.addCookie(new Cookie("Plan", plan));
 			request.getSession().setAttribute("loginStatus", "Y");
