@@ -66,7 +66,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	private static APIContext paypalApicontext;
 	
 	@RequestMapping(value = "/")
-	public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+	public String index(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model, HttpServletRequest request) {
 
