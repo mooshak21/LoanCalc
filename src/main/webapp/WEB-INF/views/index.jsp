@@ -37,7 +37,7 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <li><a href="/home">HOME</a></li>
 	 </c:if>
- 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
+ 	 <c:if test="${(sessionScope['loginStatus'] == 'N')} or ${(empty sessionScope['loginStatus'])}">
            <li><a href="/">HOME</a></li>
 	 </c:if>
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
@@ -57,7 +57,12 @@
       </nav>
 
       <ul class="sidenav" id="mobile-demo">
-        <li><a href="/home">HOME</a></li>
+	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
+           <li><a href="/home">HOME</a></li>
+	 </c:if>
+ 	 <c:if test="${(sessionScope['loginStatus'] == 'N')} or ${(empty sessionScope['loginStatus'])}">
+           <li><a href="/">HOME</a></li>
+	 </c:if>
         <li><a href="/loansearchask">SEARCH LOAN</a></li>
          <li><a href="/createloan">ENTER LOAN</a></li>
         <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
