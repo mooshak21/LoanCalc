@@ -78,8 +78,9 @@ public class LoanCalculatorController implements ServletContextAware {
 		request.getSession().setAttribute("userEmail", emailCookie);
 		model.addAttribute("userEmail", emailCookie);
 		request.getSession().setAttribute("planSelected", plan);
-		
-		if((emailCookie != null && !emailCookie.equals("")) || (request.getSession().getAttribute("loginStatus").equals("Y"))){
+		String loginStatus = request.getSession().getAttribute("loginStatus");
+
+		if((emailCookie != null && !emailCookie.equals("")) || (loginStatus != null && loginStatus.equals("Y"))){
 			request.getSession().setAttribute("loginStatus", "Y");
 			searchLoanBasedOnEmail(emailCookie, plan, model);
 			return "bankoffersandnews";
