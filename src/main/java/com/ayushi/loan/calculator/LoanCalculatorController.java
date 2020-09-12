@@ -1920,7 +1920,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		Cookie loginStatusCookie = new Cookie("loginStatus", "N");
 		loginStatusCookie.setMaxAge(0);
 
-		Cookie planCookie = new Cookie("Plan", "0");
+		Cookie planCookie = new Cookie("Plan", "");
 		planCookie.setMaxAge(0);
 
 		response.addCookie(userEmailCookie);
