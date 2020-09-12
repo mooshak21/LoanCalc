@@ -49,10 +49,10 @@
            <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
            <li><a href="/loanpreferenceviewask">REGISTER</a></li>
            <li><a href="/pricing">PRICING</a></li>
-	 <c:if test="${(empty sessionScope['loginStatus'])}">
+	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
           <li><a id="menulogin1">LOGIN</a></li>
 	 </c:if>
-	 <c:if test="${(not empty sessionScope['loginStatus'])}">
+	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <li><a href="/logout">LOGOUT</a></li>
 	 </c:if>
          </ul>
@@ -75,10 +75,10 @@
          <li><a href="/pricing">PRICING</a></li>
        <li><a href="http://www.ayushisoftware.com/loaninsight.php?selmenubaritem=services&selmenuitem=loan">ABOUT</a></li>
        <li><a href="/loanpreferenceviewask">REGISTER</a></li>
-	 <c:if test="${(empty sessionScope['loginStatus'])}">
+	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
           <li><a id="menulogin2">LOGIN</a></li>
 	 </c:if>
-	 <c:if test="${(not empty sessionScope['loginStatus'])}">
+	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <li><a href="/logout">LOGOUT</a></li>
 	 </c:if>
       </ul>
