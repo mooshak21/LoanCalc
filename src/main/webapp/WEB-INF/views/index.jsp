@@ -22,7 +22,9 @@
           <script type="text/javascript" src="css/jquery.min.js"></script>
 
     <header id='healer'>
-
+           <div class="card-header">
+              <h5>${message}</h5>
+            </div>
       <nav>
         <div class="nav-wrapper">
          <a href="#!" class="brand-logo">Loan Insight Calculator</a>
