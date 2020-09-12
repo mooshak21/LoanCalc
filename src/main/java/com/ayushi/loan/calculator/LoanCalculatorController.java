@@ -77,6 +77,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		request.getSession().setAttribute("planSelected", plan);
 		model.addAttribute("message", "Landing Page");
 		request.getCookies();
+		request.getSession().setAttribute("loginStatus", "Y");
 		return "index";
 	}
 
