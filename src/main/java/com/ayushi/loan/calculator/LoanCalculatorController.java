@@ -2093,7 +2093,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
 			boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
-			plan = getPlan(email);
 //			if(!password.equals("ignore")){
 //				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
 //				if(!emailPasswordFlag){
@@ -2112,21 +2111,21 @@ public class LoanCalculatorController implements ServletContextAware {
 						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
 						
 				}
-			}
-			response.addCookie(new Cookie("userEmail", email));
-			response.addCookie(new Cookie("loginStatus", "Y"));
-			response.addCookie(new Cookie("Plan", plan));
-			request.getSession().setAttribute("loginStatus", "Y");
-			request.getSession().setAttribute("userEmail", email);
-			request.getSession().setAttribute("Plan", plan);
-			request.getSession().setAttribute("planSelected", plan);
-			model.addAttribute("planSelected", plan);
-			model.addAttribute("Plan", plan);
-			model.addAttribute("userEmail", email);
-			model.addAttribute("message", "Landing Page");
-			searchLoanBasedOnEmail(email, plan, model);
+				response.addCookie(new Cookie("userEmail", email));
+				response.addCookie(new Cookie("loginStatus", "Y"));
+				response.addCookie(new Cookie("Plan", plan));
+				request.getSession().setAttribute("loginStatus", "Y");
+				request.getSession().setAttribute("userEmail", email);
+				request.getSession().setAttribute("Plan", plan);
+				request.getSession().setAttribute("planSelected", plan);
+				model.addAttribute("planSelected", plan);
+				model.addAttribute("Plan", plan);
+				model.addAttribute("userEmail", email);
+				model.addAttribute("message", "Landing Page");
+				searchLoanBasedOnEmail(email, plan, model);
 
-			return "bankoffersandnews";
+				return "bankoffersandnews";
+			}
 		}else{
 			model.addAttribute("message", "Landing Page");
 			return "index";
