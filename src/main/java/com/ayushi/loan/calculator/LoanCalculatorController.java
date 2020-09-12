@@ -76,7 +76,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		if((emailCookie.equals("")) && (loginStatus == null)){
 			return "index";
 		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null)){
-			request.getCookies();
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("Plan", plan);
 			request.getSession().setAttribute("Plan", plan);
@@ -86,6 +85,12 @@ public class LoanCalculatorController implements ServletContextAware {
 			searchLoanBasedOnEmail(emailCookie, plan, model);
 			return "bankoffersandnews";
 		}else{
+			model.addAttribute("reminderFrequency", reminderFrequency);
+			model.addAttribute("Plan", plan);
+			request.getSession().setAttribute("Plan", plan);
+			request.getSession().setAttribute("userEmail", emailCookie);
+			model.addAttribute("userEmail", emailCookie);
+			request.getSession().setAttribute("planSelected", plan);
 			return "index";
 		}
 	}
@@ -2108,15 +2113,15 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 			}
-			response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : ""));
+			response.addCookie(new Cookie("userEmail", email);
 			response.addCookie(new Cookie("loginStatus", "Y"));
 			response.addCookie(new Cookie("Plan", plan));
 			request.getSession().setAttribute("loginStatus", "Y");
 			request.getSession().setAttribute("userEmail", email);
-			request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
-			request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
-			model.addAttribute("planSelected", plan != null ? plan : "0.0");
-			model.addAttribute("Plan", plan != null ? plan : "0.0");
+			request.getSession().setAttribute("Plan", plan);
+			request.getSession().setAttribute("planSelected", plan);
+			model.addAttribute("planSelected", plan);
+			model.addAttribute("Plan", plan);
 			model.addAttribute("userEmail", email);
 			model.addAttribute("message", "Landing Page");
 			searchLoanBasedOnEmail(email, plan, model);
