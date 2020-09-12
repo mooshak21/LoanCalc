@@ -68,13 +68,15 @@ public class LoanCalculatorController implements ServletContextAware {
 	@RequestMapping(value = "/")
 	public String index(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
-			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model, HttpServletRequest request) {
+			@CookieValue(value = "Plan", defaultValue = "") String plan, 
+			@CookieValue(value = "loginStatus", defaultValue = "") String loginStatus, Model model, HttpServletRequest request) {
 
-		String loginStatus = (String)request.getSession().getAttribute("loginStatus");
+		String loginStatusSession = (String)request.getSession().getAttribute("loginStatus");
 
-		if((emailCookie.equals("")) && (loginStatus == null)){
+		if((emailCookie.equals("")) && (loginStatus.equals("")){
+			request.getSession().setAttribute("loginStatus", (loginStatusSession != null && !loginStatusSession.equals("")) ? loginStatusSession : "");
 			return "index";
-		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null)){
+		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null && !loginStatus.equals(""))){
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("Plan", plan);
 			request.getSession().setAttribute("Plan", plan);
@@ -88,7 +90,8 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 			}
-			request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
+			request.getSession().setAttribute("UserPreference", (userPref != null && !userPref.equals("")) ? userPref : "");
+			request.getSession().setAttribute("loginStatus", (loginStatus != null && !loginStatus.equals("")) ? loginStatus : "");
 			model.addAttribute("userEmail", emailCookie);
 			request.getSession().setAttribute("planSelected", plan);
 			searchLoanBasedOnEmail(emailCookie, plan, model);
@@ -107,7 +110,8 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 			}
-			request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
+			request.getSession().setAttribute("UserPreference", (userPref != null && !userPref.equals("")) ? userPref : "");
+			request.getSession().setAttribute("loginStatus", (loginStatusSession != null && !loginStatusSession.equals("")) ? loginStatusSession : "");
 			model.addAttribute("userEmail", emailCookie);
 			request.getSession().setAttribute("planSelected", plan);
 			return "index";
