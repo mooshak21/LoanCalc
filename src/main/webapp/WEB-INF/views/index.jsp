@@ -37,7 +37,10 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <li><a href="/home">HOME</a></li>
 	 </c:if>
- 	 <c:if test="${(sessionScope['loginStatus'] == 'N')} or ${(empty sessionScope['loginStatus'])}">
+ 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
+           <li><a href="/">HOME</a></li>
+	 </c:if>
+	<c:if test="${(empty sessionScope['loginStatus'])}">
            <li><a href="/">HOME</a></li>
 	 </c:if>
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
@@ -60,7 +63,10 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <li><a href="/home">HOME</a></li>
 	 </c:if>
- 	 <c:if test="${(sessionScope['loginStatus'] == 'N')} or ${(empty sessionScope['loginStatus'])}">
+ 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
+           <li><a href="/">HOME</a></li>
+	 </c:if>
+	<c:if test="${(empty sessionScope['loginStatus'])}">
            <li><a href="/">HOME</a></li>
 	 </c:if>
         <li><a href="/loansearchask">SEARCH LOAN</a></li>
