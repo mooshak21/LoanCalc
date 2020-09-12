@@ -51,13 +51,7 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
           <li><a id="menulogin1">LOGIN</a></li>
 	 </c:if>
-	<c:if test="${(empty sessionScope['loginStatus'])}">
-          <li><a id="menulogin1">LOGIN</a></li>
-	 </c:if>
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
-           <li><a href="/logout">LOGOUT</a></li>
-	 </c:if>
-	<c:if test="${(empty sessionScope['loginStatus'])}">
            <li><a href="/logout">LOGOUT</a></li>
 	 </c:if>
          </ul>
@@ -83,16 +77,10 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
           <li><a id="menulogin2">LOGIN</a></li>
 	 </c:if>
-	<c:if test="${(empty sessionScope['loginStatus'])}">
-          <li><a id="menulogin2">LOGIN</a></li>
-	 </c:if>
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <li><a href="/logout">LOGOUT</a></li>
 	 </c:if>
-	<c:if test="${(empty sessionScope['loginStatus'])}">
-           <li><a href="/logout">LOGOUT</a></li>
-	 </c:if>
-      </ul>
+     </ul>
     </header>
 
     <!-- Messaging Deliverer -->
