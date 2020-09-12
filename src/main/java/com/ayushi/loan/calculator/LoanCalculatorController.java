@@ -2087,8 +2087,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "password", defaultValue = "") String password,
 			 HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		String plan = null, userPref = null;
-		if (email != null && !email.equals("") && password != null && !password.equals("")) {
+			String plan = null, userPref = null;
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
@@ -2126,13 +2125,6 @@ public class LoanCalculatorController implements ServletContextAware {
 				searchLoanBasedOnEmail(email, plan, model);
 
 				return "bankoffersandnews";
-			}
-		}else{
-			model.addAttribute("message", "Landing Page");
-			response.addCookie(new Cookie("loginStatus", "N"));
-			return "index";
-		}
-		return "index";
 	}
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
