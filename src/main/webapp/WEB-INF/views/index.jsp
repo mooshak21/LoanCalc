@@ -40,9 +40,6 @@
  	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
            <li><a href="/">HOME</a></li>
 	 </c:if>
- 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
-           <li><a href="/">HOME</a></li>
-	 </c:if>
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
            <li><a href="/createloan">ENTER LOAN</a></li>
            <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
