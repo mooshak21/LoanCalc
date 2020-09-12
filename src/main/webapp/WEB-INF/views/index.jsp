@@ -22,9 +22,6 @@
           <script type="text/javascript" src="css/jquery.min.js"></script>
 
     <header id='healer'>
-           <div class="card-header">
-              <h5>${message}</h5>
-            </div>
       <nav>
         <div class="nav-wrapper">
          <a href="#!" class="brand-logo">Loan Insight Calculator</a>
@@ -54,7 +51,13 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
           <li><a id="menulogin1">LOGIN</a></li>
 	 </c:if>
+	<c:if test="${(empty sessionScope['loginStatus'])}">
+          <li><a id="menulogin1">LOGIN</a></li>
+	 </c:if>
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
+           <li><a href="/logout">LOGOUT</a></li>
+	 </c:if>
+	<c:if test="${(empty sessionScope['loginStatus'])}">
            <li><a href="/logout">LOGOUT</a></li>
 	 </c:if>
          </ul>
@@ -80,7 +83,13 @@
 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
           <li><a id="menulogin2">LOGIN</a></li>
 	 </c:if>
+	<c:if test="${(empty sessionScope['loginStatus'])}">
+          <li><a id="menulogin2">LOGIN</a></li>
+	 </c:if>
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
+           <li><a href="/logout">LOGOUT</a></li>
+	 </c:if>
+	<c:if test="${(empty sessionScope['loginStatus'])}">
            <li><a href="/logout">LOGOUT</a></li>
 	 </c:if>
       </ul>
@@ -88,7 +97,7 @@
 
     <!-- Messaging Deliverer -->
     <div class='alertmessage'>
-      <div id='message'></div>
+      <div id='message'>${message}</div>
     </div>
 
 
