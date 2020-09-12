@@ -17,6 +17,7 @@
                     <input type="hidden" name="hdnUserEmail" value="${userEmail}">
                     <input type="hidden" name="hdnUserPlan" value="${Plan}">
                     <input type="hidden" name="hdnUserPref" value="${UserPreference}">
+		    <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
                 </a>
             </li>
 	<c:if test="${(empty userEmail) and (empty Plan)}">
@@ -92,6 +93,7 @@
                   <input type="hidden" name="hdnUserEmail" value="${userEmail}">
                   <input type="hidden" name="hdnUserPlan" value="${Plan}">
                   <input type="hidden" name="hdnUserPref" value="${UserPreference}">
+		  <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
               </a>
             </li>
 	<c:if test="${(empty userEmail) and (empty Plan)}">
