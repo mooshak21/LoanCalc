@@ -69,9 +69,6 @@ public class LoanCalculatorController implements ServletContextAware {
 	public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model, HttpServletRequest request) {
-		model.addAttribute("reminderFrequency", reminderFrequency);
-		model.addAttribute("Plan", plan);
-		model.addAttribute("userEmail", emailCookie);
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		checkUserPrefernece(model, prefs);
 		if (prefs != null) {
@@ -80,7 +77,10 @@ public class LoanCalculatorController implements ServletContextAware {
 					plan = preference.getValue();
 				}
 			}
-			model.addAttribute("Plan", plan);
+			model.addAttribute("reminderFrequency", reminderFrequency);
+			request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
+			model.addAttribute("userEmail", emailCookie);
+			request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
 		}
 		model.addAttribute("message", "Landing Page");
 		request.getCookies();
