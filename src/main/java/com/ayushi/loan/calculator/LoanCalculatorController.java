@@ -73,8 +73,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		String loginStatusSession = (String)request.getSession().getAttribute("loginStatus");
 
-		if(loginStatusSession != null && loginStatusSession.equals("")){
-			request.getSession().setAttribute("loginStatus", "N");
+		if(loginStatusSession != null && loginStatusSession.equals("Y")){
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("Plan", plan);
 			request.getSession().setAttribute("Plan", plan);
@@ -89,7 +88,6 @@ public class LoanCalculatorController implements ServletContextAware {
 				}
 			}
 			request.getSession().setAttribute("UserPreference", (userPref != null && !userPref.equals("")) ? userPref : "");
-			request.getSession().setAttribute("loginStatus", (loginStatusSession != null && loginStatusSession.equals("")) ? "N" : "");
 			model.addAttribute("userEmail", emailCookie);
 			request.getSession().setAttribute("planSelected", plan);
 			return "index";
