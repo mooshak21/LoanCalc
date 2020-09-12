@@ -2108,8 +2108,9 @@ public class LoanCalculatorController implements ServletContextAware {
 						
 				}
 			}
-			response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : emailCookie));
+			response.addCookie(new Cookie("userEmail", email != null && !email.equals("") ? email : ""));
 			response.addCookie(new Cookie("loginStatus", "Y"));
+			response.addCookie(new Cookie("Plan", plan));
 			request.getSession().setAttribute("loginStatus", "Y");
 			request.getSession().setAttribute("userEmail", email);
 			request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
