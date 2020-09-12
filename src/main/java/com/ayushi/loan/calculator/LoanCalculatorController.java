@@ -71,23 +71,24 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model, HttpServletRequest request) {
 
 		model.addAttribute("message", "Landing Page");
-		request.getCookies();
-		model.addAttribute("reminderFrequency", reminderFrequency);
-		model.addAttribute("Plan", plan);
-		request.getSession().setAttribute("Plan", plan);
-		request.getSession().setAttribute("userEmail", emailCookie);
-		model.addAttribute("userEmail", emailCookie);
-		request.getSession().setAttribute("planSelected", plan);
 		String loginStatus = (String)request.getSession().getAttribute("loginStatus");
 
 		if((emailCookie.equals("")) || (loginStatus == null)){
 			request.getSession().setAttribute("loginStatus", "N");
 			return "index";
-		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null && loginStatus.equals("Y"))){
+		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null)){
+			request.getCookies();
+			model.addAttribute("reminderFrequency", reminderFrequency);
+			model.addAttribute("Plan", plan);
+			request.getSession().setAttribute("Plan", plan);
+			request.getSession().setAttribute("userEmail", emailCookie);
+			model.addAttribute("userEmail", emailCookie);
+			request.getSession().setAttribute("planSelected", plan);
 			request.getSession().setAttribute("loginStatus", "Y");
 			searchLoanBasedOnEmail(emailCookie, plan, model);
 			return "bankoffersandnews";
 		}else{
+			request.getSession().setAttribute("loginStatus", "N");
 			return "index";
 		}
 	}
