@@ -82,7 +82,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			request.getSession().setAttribute("userEmail", emailCookie);
 			String userPref = null;
 			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-			if(prefs != null && prefs.count() > 0){
+			if(prefs != null && !prefs.isEmpty()){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("UserPreference")) 
 						userPref = preference.getValue();
@@ -101,7 +101,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			request.getSession().setAttribute("userEmail", emailCookie);
 			String userPref = null;
 			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-			if(prefs != null && prefs.count() > 0){
+			if(prefs != null && !prefs.isEmpty()){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals("UserPreference")) 
 						userPref = preference.getValue();
