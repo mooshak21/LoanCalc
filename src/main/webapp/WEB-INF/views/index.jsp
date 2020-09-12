@@ -207,7 +207,7 @@
       <div class="loan">
           <div class="loans">
           <!-- Admin button to be displayed if admin is logged In -->
-            <c:if test="${(not empty userEmail) and (UserPreference == 'Admin')}">
+            <c:if test="${(not empty sessionScope['userEmail']) and (UserPreference == 'Admin')}">
              <p  class='btn dropdown-trigger' data-target='dropdown100'> Admin</p>
             <ul id='dropdown100' class='dropdown-content'>
                          <li><a href="/siteoffersask">Site Offers</a></li>
@@ -219,7 +219,7 @@
              </c:if>
 
               <!-- LiteOnly -->
-             <c:if test="${(not empty userEmail) and (Plan == '9.99')}">
+             <c:if test="${(not empty sessionScope['userEmail']) and (Plan == '9.99')}">
               <p class="btn dropdown-trigger" data-target='dropdown200'>Lite</p>
                      <ul id='dropdown200' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
@@ -231,7 +231,7 @@
             </c:if>
 
                   <!-- Premium Only -->
-             <c:if test="${(not empty userEmail) and (Plan == '19.99')}">
+             <c:if test="${(not empty sessionScope['userEmail']) and (Plan == '19.99')}">
               <p class="btn dropdown-trigger" data-target='dropdown300'>Premium</p>
                      <ul id='dropdown300' class='dropdown-content'>
                        <li><a href="/quickview">Quick View Loan</a></li>
