@@ -2130,6 +2130,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("message", "Landing Page");
 			return "index";
 		}
+		return "index";
 	}
 	private void searchLoanBasedOnEmail(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model) {
