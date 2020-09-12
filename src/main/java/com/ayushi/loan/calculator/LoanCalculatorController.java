@@ -73,7 +73,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		String loginStatusSession = (String)request.getSession().getAttribute("loginStatus");
 
-		if((emailCookie.equals("")) && (loginStatus.equals("")){
+		if(emailCookie.equals("") && loginStatus.equals("")){
 			request.getSession().setAttribute("loginStatus", (loginStatusSession != null && !loginStatusSession.equals("")) ? loginStatusSession : "");
 			return "index";
 		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null && !loginStatus.equals(""))){
