@@ -2121,11 +2121,9 @@ public class LoanCalculatorController implements ServletContextAware {
 //				}
 //			}else 
 				emailPasswordFlag = true;
-			if(prefs == null){
-				model.addAttribute("message", "Login Failed!");
-				return "index";
-			}
-			for (Preference preference : prefs) {
+
+			if(prefs != null && !prefs.isEmpty()){
+				for (Preference preference : prefs) {
 					if (preference.getType().equals("Plan")) 
 						plan = preference.getValue();
 					
