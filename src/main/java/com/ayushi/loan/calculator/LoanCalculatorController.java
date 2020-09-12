@@ -73,8 +73,25 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		String loginStatusSession = (String)request.getSession().getAttribute("loginStatus");
 
-		if(emailCookie.equals("") && loginStatus.equals("")){
-			request.getSession().setAttribute("loginStatus", (loginStatusSession != null && !loginStatusSession.equals("")) ? loginStatusSession : "");
+		if(loginStatusSession != null && loginStatusSession.equals("")){
+			request.getSession().setAttribute("loginStatus", "N");
+			model.addAttribute("reminderFrequency", reminderFrequency);
+			model.addAttribute("Plan", plan);
+			request.getSession().setAttribute("Plan", plan);
+			request.getSession().setAttribute("userEmail", emailCookie);
+			String userPref = null;
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			if(prefs != null && !prefs.isEmpty()){
+				for (Preference preference : prefs) {
+					if (preference.getType().equals("UserPreference")) 
+						userPref = preference.getValue();
+						
+				}
+			}
+			request.getSession().setAttribute("UserPreference", (userPref != null && !userPref.equals("")) ? userPref : "");
+			request.getSession().setAttribute("loginStatus", (loginStatusSession != null && loginStatusSession.equals("")) ? "N" : "");
+			model.addAttribute("userEmail", emailCookie);
+			request.getSession().setAttribute("planSelected", plan);
 			return "index";
 		}else if((emailCookie != null && !emailCookie.equals("")) && (loginStatus != null && !loginStatus.equals(""))){
 			model.addAttribute("reminderFrequency", reminderFrequency);
