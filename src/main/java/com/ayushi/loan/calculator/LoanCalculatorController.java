@@ -80,6 +80,16 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("Plan", plan);
 			request.getSession().setAttribute("Plan", plan);
 			request.getSession().setAttribute("userEmail", emailCookie);
+			String userPref = null;
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			if(prefs != null && prefs.count() > 0){
+				for (Preference preference : prefs) {
+					if (preference.getType().equals("UserPreference")) 
+						userPref = preference.getValue();
+						
+				}
+			}
+			request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
 			model.addAttribute("userEmail", emailCookie);
 			request.getSession().setAttribute("planSelected", plan);
 			searchLoanBasedOnEmail(emailCookie, plan, model);
@@ -89,6 +99,16 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("Plan", plan);
 			request.getSession().setAttribute("Plan", plan);
 			request.getSession().setAttribute("userEmail", emailCookie);
+			String userPref = null;
+			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			if(prefs != null && prefs.count() > 0){
+				for (Preference preference : prefs) {
+					if (preference.getType().equals("UserPreference")) 
+						userPref = preference.getValue();
+						
+				}
+			}
+			request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
 			model.addAttribute("userEmail", emailCookie);
 			request.getSession().setAttribute("planSelected", plan);
 			return "index";
@@ -125,6 +145,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("userEmail", emailCookie);
 		return "pricing";
 	}
+
+
 
 
 	// --------------------------------------------------------------------------------------------
