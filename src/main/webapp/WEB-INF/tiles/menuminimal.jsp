@@ -12,6 +12,15 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
+ 	 <c:if test="${(empty sessionScope['loginStatus'])}">
+  		<a class="nav-link menuItemXs" href="/">Home
+                    <input type="hidden" name="hdnMennuMinimal" value="Yes">
+                    <input type="hidden" name="hdnUserEmail" value="${userEmail}">
+                    <input type="hidden" name="hdnUserPlan" value="${Plan}">
+                    <input type="hidden" name="hdnUserPref" value="${UserPreference}">
+		    <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
+                </a>	 
+	</c:if>              
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <a class="nav-link menuItemXs" href="/home">Home
                     <input type="hidden" name="hdnMennuMinimal" value="Yes">
@@ -22,15 +31,6 @@
                 </a>
 	 </c:if>
  	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
-  		<a class="nav-link menuItemXs" href="/">Home
-                    <input type="hidden" name="hdnMennuMinimal" value="Yes">
-                    <input type="hidden" name="hdnUserEmail" value="${userEmail}">
-                    <input type="hidden" name="hdnUserPlan" value="${Plan}">
-                    <input type="hidden" name="hdnUserPref" value="${UserPreference}">
-		    <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
-                </a>	 
-	</c:if>              
- 	 <c:if test="${(empty sessionScope['loginStatus'])}">
   		<a class="nav-link menuItemXs" href="/">Home
                     <input type="hidden" name="hdnMennuMinimal" value="Yes">
                     <input type="hidden" name="hdnUserEmail" value="${userEmail}">
@@ -133,6 +133,15 @@
 <!--       aside menu -->
         <ul class="nav flex-column hidden-xs-down">
             <li class="nav-item">
+ 	 <c:if test="${(empty sessionScope['loginStatus'])}">
+  		<a class="nav-link menuItem" href="/">Home
+                    <input type="hidden" name="hdnMennuMinimal" value="Yes">
+                    <input type="hidden" name="hdnUserEmail" value="${userEmail}">
+                    <input type="hidden" name="hdnUserPlan" value="${Plan}">
+                    <input type="hidden" name="hdnUserPref" value="${UserPreference}">
+		    <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
+                </a>	 
+	</c:if>              
 	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
            <a class="nav-link menuItem" href="/home">Home
                     <input type="hidden" name="hdnMennuMinimal" value="Yes">
@@ -151,15 +160,6 @@
 		    <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
                 </a>	 
 	</c:if>   
- 	 <c:if test="${(empty sessionScope['loginStatus'])}">
-  		<a class="nav-link menuItem" href="/">Home
-                    <input type="hidden" name="hdnMennuMinimal" value="Yes">
-                    <input type="hidden" name="hdnUserEmail" value="${userEmail}">
-                    <input type="hidden" name="hdnUserPlan" value="${Plan}">
-                    <input type="hidden" name="hdnUserPref" value="${UserPreference}">
-		    <input type="hidden" name="hdnLoginStatus" value="${loginStatus}">
-                </a>	 
-	</c:if>              
             </li>
 	<c:if test="${(empty userEmail) and (empty Plan)}">
             <li class="nav-item">
