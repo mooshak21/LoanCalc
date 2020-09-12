@@ -2087,7 +2087,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "password", defaultValue = "") String password,
 			 HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		String plan = null;
+		String plan = null, userPref = null;
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
 			model.addAttribute("message", "Login Form");
@@ -2108,7 +2108,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						plan = preference.getValue();
 					
 					if (preference.getType().equals("UserPreference")) 
-						request.getSession().setAttribute("UserPreference", (preference.getValue() != null ? preference.getValue() : ""));
+						userPref = preference.getValue();
 						
 				}
 				response.addCookie(new Cookie("userEmail", email));
@@ -2118,6 +2118,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				request.getSession().setAttribute("userEmail", email);
 				request.getSession().setAttribute("Plan", plan);
 				request.getSession().setAttribute("planSelected", plan);
+				request.getSession().setAttribute("UserPreference", userPref != null ? userPref : "");
 				model.addAttribute("planSelected", plan);
 				model.addAttribute("Plan", plan);
 				model.addAttribute("userEmail", email);
@@ -2128,6 +2129,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 		}else{
 			model.addAttribute("message", "Landing Page");
+			response.addCookie(new Cookie("loginStatus", "N"));
 			return "index";
 		}
 		return "index";
