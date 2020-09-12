@@ -2102,9 +2102,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 			return "bankoffersandnews";
 		}else{
-			model.addAttribute("message", "Login Form");
-			request.getSession().setAttribute("loginStatus", "N");
-
+			model.addAttribute("message", "Landing Page");
 			return "index";
 		}
 	}
