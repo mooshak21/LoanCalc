@@ -73,7 +73,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		String loginStatusSession = (String)request.getSession().getAttribute("loginStatus");
 
-		if(loginStatusSession != null && loginStatusSession.equals("Y")){
+		if(loginStatus != null && loginStatus.equals("Y")){
 			model.addAttribute("reminderFrequency", reminderFrequency);
 			model.addAttribute("Plan", plan);
 			request.getSession().setAttribute("Plan", plan);
