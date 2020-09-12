@@ -12,7 +12,7 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link menuItemXs" href="/">Home
+                <a class="nav-link menuItemXs" href="/home">Home
                     <input type="hidden" name="hdnMennuMinimal" value="No">
                     <input type="hidden" name="hdnUserEmail" value="${userEmail}">
                     <input type="hidden" name="hdnUserPlan" value="${Plan}">
@@ -88,7 +88,7 @@
 <!--       aside menu -->
         <ul class="nav flex-column hidden-xs-down">
             <li class="nav-item">
-              <a class="nav-link active" href="/" id="menuHome">Home
+              <a class="nav-link active" href="/home" id="menuHome">Home
                   <input type="hidden" name="hdnMennuMinimal" value="No">
                   <input type="hidden" name="hdnUserEmail" value="${userEmail}">
                   <input type="hidden" name="hdnUserPlan" value="${Plan}">

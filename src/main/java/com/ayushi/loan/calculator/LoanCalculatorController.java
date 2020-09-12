@@ -81,6 +81,24 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "index";
 	}
 
+	@RequestMapping(value = "/home")
+	public String home(@CookieValue(value = "userEmail", defaultValue = "") String emailCookie,
+			@CookieValue(value = "reminderFrequency", defaultValue = "") String reminderFrequency,
+			@CookieValue(value = "Plan", defaultValue = "") String plan, Model model, HttpServletRequest request) {
+
+		request.getSession().setAttribute("loginStatus", "Y");
+		request.getSession().setAttribute("userEmail", emailCookie);
+		request.getSession().setAttribute("Plan", plan != null ? plan : "0.0");
+		request.getSession().setAttribute("planSelected", plan != null ? plan : "0.0");
+		model.addAttribute("planSelected", plan != null ? plan : "0.0");
+		model.addAttribute("Plan", plan != null ? plan : "0.0");
+		model.addAttribute("userEmail", emailCookie);
+		model.addAttribute("message", "Landing Page");
+		searchLoanBasedOnEmail(emailCookie, plan, model);
+
+		return "bankoffersandnews";
+	}
+
 	@RequestMapping(value = "/about")
 	public String about() {
 		return "about";

@@ -34,7 +34,15 @@
               <input type="hidden" name="hdnUserPlan" value="${Plan}">
               <input type="hidden" name="hdnUserPref" value="${UserPreference}">
              </li>
+	 <c:if test="${(sessionScope['loginStatus'] == 'Y')}">
+           <li><a href="/home">HOME</a></li>
+	 </c:if>
+ 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
            <li><a href="/">HOME</a></li>
+	 </c:if>
+ 	 <c:if test="${(sessionScope['loginStatus'] == 'N')}">
+           <li><a href="/">HOME</a></li>
+	 </c:if>
            <li><a href="/loansearchask">SEARCH LOAN</a></li>
            <li><a href="/createloan">ENTER LOAN</a></li>
            <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
@@ -52,7 +60,7 @@
       </nav>
 
       <ul class="sidenav" id="mobile-demo">
-        <li><a href="/">HOME</a></li>
+        <li><a href="/home">HOME</a></li>
         <li><a href="/loansearchask">SEARCH LOAN</a></li>
          <li><a href="/createloan">ENTER LOAN</a></li>
         <li><a href="/loanamortizeask">AMORTIZE LOAN</a></li>
