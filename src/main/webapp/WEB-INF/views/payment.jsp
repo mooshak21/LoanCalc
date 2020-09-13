@@ -185,6 +185,9 @@ Should you have other questions or concerns about these privacy policies, please
 		.card-header p{
 			font-size: 15px!important;
 		}
+		.card-header p a{
+			color: #fff!important;
+		}
 		.cardBody{
 			white-space: normal!important;
 		}

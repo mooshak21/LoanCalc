@@ -205,6 +205,9 @@ This option is available in Lite and Premium plans.
           font-weight: normal!important;
           text-transform: none!important;
         }
+        .card-header p a{
+    			color: #fff!important;
+    		}
         .card-header p{
           font-size: 15px!important;
         }
