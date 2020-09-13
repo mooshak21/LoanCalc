@@ -100,52 +100,6 @@
 </div>
 
 
-<style media="screen">
-  .nisl_form_div .card-header{
-    background: purple;
-    color: #fff;
-    padding: 15px;
-    font-size: 30px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .nisl_form_div .card-block form .form-group label {
-   color: purple;
-   font-weight: bold; }
-  .nisl_form_div .card-block form .form-group input.form-control, .card-block form .form-group select {
-     border: none;
-     -webkit-box-shadow: 0px 0px 8px lightgrey;
-     box-shadow: 0px 0px 8px lightgrey;
-     border-radius: 20px;
-     height: 40px;
-     color: black;
-     font-family: Poppins, sans-serif; }
-    .nisl_form_div .card-block form input.btn {
-       background: #9f0a9f;
-       color: #fff;
-       font-family: Poppins, sans-serif;
-       border-radius: 20px;
-       margin-top: 10px; }
-      .nisl_form_div .card-block form button.btn {
-         background: #9f0a9f !important;
-         color: #fff !important;
-         font-family: Poppins, sans-serif !important;
-         border-radius: 20px;
-         margin-top: 10px; }
-        .nisl_form_div .card-block form input.btn:hover {
-           color: #fff;
-           background: #4d004d; }
-        .nisl_form_div .card-block form button.btn:hover {
-             color: #fff;
-             background: #4d004d; }
-
-    @media screen and (max-width: 700px) {
-        .card-block p {
-             font-size: 12px; }
-    }
-</style>
-
-
 <script>
     function resetForm() {
         $(document).ready(function () {

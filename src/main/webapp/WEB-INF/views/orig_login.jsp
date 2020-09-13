@@ -103,101 +103,75 @@ used to tailor the ads to your localization and/or general preferences, thereby 
   				</textarea>
 		</div>
 		<div class="card-header">
-			     <p>1.	Loan Amortization Calculator</p>
-<p>
-This calculator provides a way to calculate amortization of</p>
-<p>loan for the following loan types: Auto Loan | Student Loan | Home Loan.</p>
-<p>
+			     <br>1.	Loan Amortization Calculator
+<br>
+This calculator provides a way to calculate amortization of
+<br>loan for the following loan types: Auto Loan | Student Loan | Home Loan.
+<br>
 In loan amortization schedule, the principal increases and interest
-reduces over the amortization time period achieving full amortization at the
-end of the loan period.
-</p>
-<p>
+<br>reduces over the amortization time period achieving full amortization at the
+<br>end of the loan period.
+<br>
 The loan amortization schedule can be viewed online in web browser
-& mobile browser and email sent to the user.
-</p>
-<p>
+<br>& mobile browser and email sent to the user.
+<br>
 On the dashboard, the loans are displayed in a pie chart showing the
-percentage of amounts of loans for the user.
-</p>
-<p>
+<br>percentage of amounts of loans for the user.
+<br>
 On the dashboard, different links are displayed to do research on loans from
-different banks based on region selected by the user.
-</p>
-<p>
+<br>different banks based on region selected by the user.
+<br>
 There is an option to last view of stored loan based on preference of the
-event of sending email to user. This is available in Lite plan.
+<br>event of sending email to user. This is available in Lite plan.
+<br>
 The user can enroll in annual plan of Free/Lite/Premium plans.
+<br>
 Depending on these plan enrolled, the features are displayed and
-restricted/enhanced.
+<br>restricted/enhanced.
+<br>
 To get training on the features, go to YouTube videos for Loan Insight Online.
-</p>
-<p>Training Videos:</p>
-<p><a href="https://www.youtube.com/watch?v=A8NvgCLwQzA" target="_blank">LITE Desktop Version</a></p></p>
-<p><a href="https://www.youtube.com/watch?v=V-aJhYUHxX8" target="_blank">FREE Desktop Version</a>
-<p><a href="https://www.youtube.com/watch?v=U5NGKdDCL_0" target="_blank">PREMIUM Desktop Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=GTGQ0WTPdqE" target="_blank">FREE Mobile	 Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=6RNsRzdQyiA" target="_blank">LITE Mobile Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=Qux1eCqiPuo" target="_blank">PREMIUM Mobile Version</a></p>
+<br>
+Training Videos:
+<br><a href="https://www.youtube.com/watch?v=V-aJhYUHxX8" target="_blank">FREE Desktop Version</a>
+<br><a href="https://www.youtube.com/watch?v=A8NvgCLwQzA" target="_blank">LITE Desktop Version</a>
+<br><a href="https://www.youtube.com/watch?v=U5NGKdDCL_0" target="_blank">PREMIUM Desktop Version</a>
+<br><a href="https://www.youtube.com/watch?v=GTGQ0WTPdqE" target="_blank">FREE Mobile	 Version</a>
+<br><a href="https://www.youtube.com/watch?v=6RNsRzdQyiA" target="_blank">LITE Mobile Version</a>
+<br><a href="https://www.youtube.com/watch?v=Qux1eCqiPuo" target="_blank">PREMIUM Mobile Version</a>
 <br><br>
-<p>
-2.	Loan Aggregation and Consolidation Calculator</p>
-<p>
+2.	Loan Aggregation and Consolidation Calculator
+<br>
 This calculator provides a way to consolidate the payments of the loans of
-different loan types: Auto Loan | Student Loan | Home Loan.
-</p>
-<p>
+<br>different loan types: Auto Loan | Student Loan | Home Loan.
+<br>
 The user can enroll in annual plan of Premium plan.
+<br>
 Depending on these plan enrolled, the features are displayed and restricted/
-enhanced.
-To get training on the features, go to YouTube videos for Loan Insight Online.
-</p>
-<p>Training Videos:</p>
-<p><a href="https://www.youtube.com/watch?v=V-aJhYUHxX8" target="_blank">FREE Desktop Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=A8NvgCLwQzA" target="_blank">LITE Desktop Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=U5NGKdDCL_0" target="_blank">PREMIUM Desktop Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=GTGQ0WTPdqE" target="_blank">FREE Mobile	 Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=6RNsRzdQyiA" target="_blank">LITE Mobile Version</a></p>
-<p><a href="https://www.youtube.com/watch?v=Qux1eCqiPuo" target="_blank">PREMIUM Mobile Version</a></p>
+<br>enhanced.
+<br>To get training on the features, go to YouTube videos for Loan Insight Online.
+<br>
+Training Videos:
+<br><a href="https://www.youtube.com/watch?v=V-aJhYUHxX8" target="_blank">FREE Desktop Version</a>
+<br><a href="https://www.youtube.com/watch?v=A8NvgCLwQzA" target="_blank">LITE Desktop Version</a>
+<br><a href="https://www.youtube.com/watch?v=U5NGKdDCL_0" target="_blank">PREMIUM Desktop Version</a>
+<br><a href="https://www.youtube.com/watch?v=GTGQ0WTPdqE" target="_blank">FREE Mobile	 Version</a>
+<br><a href="https://www.youtube.com/watch?v=6RNsRzdQyiA" target="_blank">LITE Mobile Version</a>
+<br><a href="https://www.youtube.com/watch?v=Qux1eCqiPuo" target="_blank">PREMIUM Mobile Version</a>
 <br><br>
-
-<p>
 3.	Equity Calculator
-</p>
-<p>
+<br>
 This calculator provides a way to calculate the equity of the loan of loan type
-either Auto Loan or Home Loan.
-
+<br>either Auto Loan or Home Loan.
+<br>
 It calculates the equity based on the home/auto value and home/auto loan
-amoritization.
-
+<br>amoritization.
+<br>
 The equity schedule can be viewed online in web browser & mobile browser.
-
+<br>
 This option is available in Lite and Premium plans.
-</p>
-
             </div>
         </div>
     </div>
-
-
-    <style media="screen">
-    	#cookiepolicy{
-    		width: 100%;
-    	}
-    	textarea{
-    		font-size: 14px!important;
-    	}
-
-    	#cookiepolicy::-webkit-scrollbar {
-    	  width: 6px;
-    	  height: 3px; }
-
-    	#cookiepolicy::-webkit-scrollbar-thumb {
-    	  background: black;
-    	  border-radius: 2px; }
-
-    </style>
 
  <script>
 function resetForm() {

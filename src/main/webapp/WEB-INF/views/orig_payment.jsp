@@ -97,8 +97,8 @@
 				</div>
 
 				<div class="card-block">
-					<p>Please proceed to payment of the subscription plan</p>
-					<p>as chosen above by clicking submit button!</p></div>
+					<br>Please proceed to payment of the subscription plan</br>
+					<br>as chosen above by clicking submit button!</br></div>
 				<input type="submit" class="btn btn-default float-left"
 					value="Submit" />
 				</div>
@@ -159,23 +159,7 @@ Should you have other questions or concerns about these privacy policies, please
 	</div>
 </div>
 
-<style media="screen">
-	#privacy{
-		width: 100%;
-	}
-	textarea{
-		font-size: 14px!important;
-	}
 
-	#privacy::-webkit-scrollbar {
-	  width: 6px;
-	  height: 3px; }
-
-	#privacy::-webkit-scrollbar-thumb {
-	  background: black;
-	  border-radius: 2px; }
-
-</style>
 <script>
 	function resetForm() {
 		$(document).ready(function() {
