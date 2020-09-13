@@ -3061,8 +3061,8 @@ public class LoanCalculatorController implements ServletContextAware {
 					plan = preference.getValue();
 				}
 			}
-			model.addAttribute("Plan", plan);
 		}
+		model.addAttribute("Plan", plan);
 		model.addAttribute("userEmail", emailCookie);
 		return "payment";
 	}
