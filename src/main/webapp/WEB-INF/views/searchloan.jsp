@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
- <link rel="stylesheet" href="/css/restyles.css" />
+ <link rel="stylesheet" href="/css/restyles.css" class="searchloan"/>
             <div class="row justify-content-center">
                 <div class="card col-10 col-md-8 cardBody">
                     <div class="card-header">

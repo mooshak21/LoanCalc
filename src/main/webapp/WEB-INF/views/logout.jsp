@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="/css/restyles.css" />
+<link rel="stylesheet" href="/css/restyles.css" class="logout" />
 
  <div class="row justify-content-center align-items-center" style="background-color: white; height: 100%" >
         <div class="card col-10 col-md-8" >

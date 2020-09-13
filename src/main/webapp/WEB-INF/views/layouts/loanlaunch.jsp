@@ -26,7 +26,7 @@
     <script>
 	 (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-5699569860213511", enable_page_level_ads: true });
     </script>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/restyles.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/restyles.css" class="loanlaunch"/>
 
 
 
