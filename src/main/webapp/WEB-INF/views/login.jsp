@@ -189,6 +189,7 @@ This option is available in Lite and Premium plans.
     	textarea{
     		font-size: 14px!important;
         border-radius: 12px!important;
+        padding: 10px!important;
 
     	}
 
@@ -205,7 +206,7 @@ This option is available in Lite and Premium plans.
           text-transform: none!important;
         }
         .card-header p{
-          font-size: 15px!important'
+          font-size: 15px!important;
         }
         .cardBody{
           white-space: normal!important;

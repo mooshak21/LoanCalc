@@ -166,6 +166,7 @@ Should you have other questions or concerns about these privacy policies, please
 	}
 	textarea{
 		font-size: 14px!important;
+		padding: 10px!important;
 		border-radius: 12px!important;
 	}
 
@@ -182,7 +183,7 @@ Should you have other questions or concerns about these privacy policies, please
 			text-transform: none!important;
 		}
 		.card-header p{
-			font-size: 15px!important'
+			font-size: 15px!important;
 		}
 		.cardBody{
 			white-space: normal!important;
