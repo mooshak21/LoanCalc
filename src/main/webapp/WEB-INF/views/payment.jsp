@@ -162,6 +162,7 @@ Should you have other questions or concerns about these privacy policies, please
 <style media="screen">
 	#privacy{
 		width: 100%;
+		height: 200px;
 	}
 	textarea{
 		font-size: 14px!important;
@@ -174,6 +175,14 @@ Should you have other questions or concerns about these privacy policies, please
 	#privacy::-webkit-scrollbar-thumb {
 	  background: black;
 	  border-radius: 2px; }
+
+		.card-header{
+			font-weight: normal!important;
+			text-transform: none;
+		}
+		.cardBody{
+			white-space: normal!important;
+		}
 
 </style>
 <script>
