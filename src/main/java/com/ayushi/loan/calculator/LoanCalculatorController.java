@@ -2302,17 +2302,17 @@ public class LoanCalculatorController implements ServletContextAware {
 	private List<Preference> getPreferencesByEmailAddress(String email) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-		List<Preference> preferences;
+		List<Preference> preferences = null;
 		try {
 			preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?",
 					new Object[] { email });
-			if (preferences != null) {
+			if (preferences != null && !preferences.isEmpty()) {
 				return preferences;
 			}
 		} catch (PreferenceAccessException ex) {
 			logger.error(ex.getMessage());
 		}
-		return null;
+		return preferences;
 	}
 
 	@RequestMapping(value = "/aggregateloanreportask", method = RequestMethod.GET)
