@@ -166,6 +166,7 @@ Should you have other questions or concerns about these privacy policies, please
 	}
 	textarea{
 		font-size: 14px!important;
+		border-radius: 12px!important;
 	}
 
 	#privacy::-webkit-scrollbar {
@@ -178,7 +179,7 @@ Should you have other questions or concerns about these privacy policies, please
 
 		.card-header{
 			font-weight: normal!important;
-			text-transform: none;
+			text-transform: none!important;
 		}
 		.cardBody{
 			white-space: normal!important;

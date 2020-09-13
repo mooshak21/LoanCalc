@@ -188,6 +188,8 @@ This option is available in Lite and Premium plans.
     	}
     	textarea{
     		font-size: 14px!important;
+        border-radius: 12px!important;
+
     	}
 
     	#cookiepolicy::-webkit-scrollbar {
@@ -200,7 +202,7 @@ This option is available in Lite and Premium plans.
 
         .card-header{
           font-weight: normal!important;
-          text-transform: none;
+          text-transform: none!important;
         }
         .cardBody{
           white-space: normal!important;
