@@ -172,7 +172,7 @@ It calculates the equity based on the home/auto value and home/auto loan
 amoritization.
 
 The equity schedule can be viewed online in web browser & mobile browser.
-
+ 
 This option is available in Lite and Premium plans.
 </p>
 
