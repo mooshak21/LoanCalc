@@ -4,7 +4,7 @@ import java.io.Serializable;
 import com.ayushi.loan.preferences.CheckPreference;
 import java.util.Objects;
 
-public abstract class Preference implements Serializable, CheckPreference {
+public class Preference implements Serializable, CheckPreference {
 	protected long serializableId = 0L;
 	protected Integer id;
         protected String emailAddress;
