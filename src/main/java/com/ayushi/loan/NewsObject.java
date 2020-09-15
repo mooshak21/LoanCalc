@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public abstract  class NewsObject implements Serializable {
+public class NewsObject implements Serializable {
     protected static final long serialVersionUID = 1L;
     protected String linkUrl;
     protected String newsType;
