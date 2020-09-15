@@ -2110,13 +2110,13 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("message", "Login Form");
 			model.addAttribute("userEmail", email);
 			boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
-//			if(!password.equals("ignore")){
-//				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
-//				if(!emailPasswordFlag){
-//					model.addAttribute("Plan", plan != null ? plan : "0.0");
-//					return "index";
-//				}
-//			}else 
+			if(!password.equals("ignore")){
+				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
+				if(!emailPasswordFlag){
+					model.addAttribute("Plan", plan != null ? plan : "0.0");
+					return "index";
+				}
+			}else
 				emailPasswordFlag = true;
 
 			if(prefs != null && !prefs.isEmpty()){
@@ -2283,10 +2283,10 @@ public class LoanCalculatorController implements ServletContextAware {
 						// previously been hashed
 						String bpassword = password;
 						String bpValue = p.getValue();
-						//if (BCrypt.checkpw(bpassword, bpValue))
+						if (BCrypt.checkpw(bpassword, bpValue))
 							passwordFlag = true;
-						//else
-						//	passwordFlag = false;
+						else
+							passwordFlag = false;
 					}
 					if (emailFlag && passwordFlag)
 						return true;
