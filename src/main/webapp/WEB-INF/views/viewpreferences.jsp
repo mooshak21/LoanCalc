@@ -93,7 +93,7 @@ function ValidateEmail(mail)
 -->
                     <div class="form-group">
                         <label for="usPreference">User Preference: </label>
-                        <input class="form-control resetMe" type="text" name="userPreference" value="${User}" id="usPreference">
+                        <input class="form-control resetMe" type="text" name="UserPreference" value="${User}" id="usPreference">
                     </div>
 
                    <div class="form-group">
