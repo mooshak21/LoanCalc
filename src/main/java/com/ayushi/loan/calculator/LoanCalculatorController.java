@@ -30,6 +30,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
@@ -952,11 +953,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = "loanId", defaultValue = "") String loanId,
 			@CookieValue(value = "Plan", defaultValue = "") String plan, HttpServletRequest request,
 			HttpServletResponse response) {
-		int total = 1;
-		if (pageid == 1) {
-		} else {
-			pageid = (pageid - 1) * total + 1;
-		}
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
