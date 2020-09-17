@@ -6,7 +6,7 @@
    <div class="row justify-content-center">
         <div class="card col-10 col-md-8 cardBody pricing">
             <div class="text-center center-block">
-              <a href="/loanpreferenceviewasktoregister?plan=9.99">
+              <a href="/loanpreferenceviewasktoregister?Plan=9.99">
                  <div class="card price">
                  <img src="css/lite.png" class="card-img-top" alt="...">
                  <div class="card-body">
@@ -16,7 +16,7 @@
                  </div>
                </div>
              </a>
-               <a href="/loanpreferenceviewasktoregister?plan=19.99">
+               <a href="/loanpreferenceviewasktoregister?Plan=19.99">
                <div class="card price">
                  <img src="css/premium.png" class="card-img-top" alt="...">
                  <div class="card-body">

@@ -93,7 +93,7 @@
 				<div class="form-group">
 					<label for="Plan">Plan Amount:</label>
 					<input class="form-control resetMe" type="text" name="Plan"
-						value="${Plan}" id="plan" disabled="disabled">
+						value="${Plan}" id="Plan" disabled="disabled">
 				</div>
 
 				<div class="card-block">
