@@ -657,11 +657,9 @@ body .container .loanHeader {
 
 <section class="ticker">
    <DIV ID="TICKER" STYLE="overflow:hidden; width:100%; bgcolor=blue" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
-     <c:if test="${(not empty sessionScope['userEmail'])}">
-           Email: <c:out value="${userEmail}" />
-           Plan: <c:out value="${Plan}" />  
-    </c:if>
-     ----------
+            Email: <c:out value="${userEmail}" />
+           Plan: <c:out value="${Plan}" />
+      ----------
 
      1. Loan Amortization Calculator.
      This calculator provides a way to calculate amortization of
