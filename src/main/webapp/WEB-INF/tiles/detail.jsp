@@ -4,7 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 	  
-       <c:if test="${not empty amortizeloan}"> 
+       <c:if test="${not empty amortizeloan && loans.size() > 0}">
 
                 <jsp:include page="/WEB-INF/views/emailForm.jsp">
                     <jsp:param name="dataType" value="amortizedLoan"/>
