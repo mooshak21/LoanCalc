@@ -459,10 +459,10 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	@RequestMapping(value = "/searchloan", method = RequestMethod.POST)
-	public String searchloan(@RequestParam("airVal") String airVal, @RequestParam("lender") String lender,
-			@RequestParam("loanAmt") String loanAmt, @RequestParam("state") String state,
-			@RequestParam("numOfYears") String numOfYears, @RequestParam("loanType") String loanType,
-			@RequestParam("amortizeOn") String amortizeOn, @RequestParam("payoffOn") String payoffOn,
+	public String searchloan(@RequestParam(value = "airVal", defaultValue = "") String airVal, @RequestParam(value = "lender", defaultValue = "") String lender,
+			@RequestParam(value = "loanAmt", defaultValue = "") String loanAmt, @RequestParam(value = "state", defaultValue = "") String state,
+			@RequestParam(value = "numOfYears", defaultValue = "") String numOfYears, @RequestParam(value = "loanType", defaultValue = "") String loanType,
+			@RequestParam(value = "amortizeOn", defaultValue = "") String amortizeOn, @RequestParam(value = "payoffOn", defaultValue = "") String payoffOn,
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
@@ -575,8 +575,9 @@ public class LoanCalculatorController implements ServletContextAware {
 				}
 
 			} else {
-				loanObject = null;
-				model.addAttribute("message", "Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
+				model.addAttribute("message", "Search Loan: No Loans Found!");
+				model.addAttribute("loans", new ArrayList<>());
+				model.asMap().remove("amortizeloan");
 				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 				addPlanToModel(model, plan, prefs);
 				checkUserPrefernece(model, prefs);
@@ -2312,6 +2313,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					e.printStackTrace();
 				}
 
+				// here could be a problem
 				model.addAttribute("loanAggId", loanAgg.getLoanAggId());
 				model.addAttribute("loanId", loanId);
 				model.addAttribute("numberOfYears", numOfYears);
