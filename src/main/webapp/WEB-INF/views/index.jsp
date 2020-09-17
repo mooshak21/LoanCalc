@@ -314,8 +314,8 @@
 
             @media screen and (max-width: 650px) {
               .rightpaste {
-                position: unset;
-                background: transparent;
+                 background: transparent;
+                 height: 100px;
                 width: 100%; }
                 .rightpaste ul {
                   display: -webkit-box;
