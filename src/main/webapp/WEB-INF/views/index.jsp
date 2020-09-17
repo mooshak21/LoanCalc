@@ -254,31 +254,37 @@
 
             <div class="rightpaste">
               <ul>
-                <a href="http://citi.com/"><li> <img class="citi" src="img/citi.jpg" alt="citi"></li></a>
-                <a href="http://bofa.com/"><li> <img class="boa" src="img/boa.svg" alt="boa"> </li></a>
-                <a href="http://goldmansachs.com/"><li> <img class="gs" src="img/gs.svg" alt="gs"></li></a>
-                <a href="http://pnc.com/"><li>  <img class="pnc" src="img/pnc.svg" alt="pnc"> </li> </a>
-                <a href="http://lendingtree.com/"><li> <img class="lt" src="img/lendingtree.svg" alt="lendtree"> </li></a>
-                <a href="http://chase.com/"><li> <img class="chase" src="img/chase.svg" alt="chase"></li></a>
-                <a href="http://quickenloans.com/"><li> <img class="ql" src="img/quickenloans.jpg" alt="quickenloans"></li></a>
+                <a href="http://citi.com/"><li> <img class="citi" src="css/citi.jpg" alt="citi"></li></a>
+                <a href="http://bofa.com/"><li> <img class="boa" src="css/boa.svg" alt="boa"> </li></a>
+                <a href="http://goldmansachs.com/"><li> <img class="gs" src="css/gs.svg" alt="gs"></li></a>
+                <a href="http://pnc.com/"><li>  <img class="pnc" src="css/pnc.svg" alt="pnc"> </li> </a>
+                <a href="http://lendingtree.com/"><li> <img class="lt" src="css/lendingtree.svg" alt="lendtree"> </li></a>
+                <a href="http://chase.com/"><li> <img class="chase" src="css/chase.svg" alt="chase"></li></a>
+                <a href="http://quickenloans.com/"><li> <img class="ql" src="css/quickenloans.jpg" alt="quickenloans"></li></a>
 
-                <a href="http://citizensbank.com/"><li> <img class="logo" src="img/citizen.svg" alt="logo"></li></a>
-                <a href="http://mtb.com/"><li> <img  class="mtb" src="img/mtb.svg" alt="mtb"></li></a>
-                <a href="http://wellsfargo.com/"><li> <img  class="wf" src="img/wellsfargo.svg" alt="wellsfrago"></li></a>
+                <a href="http://citizensbank.com/"><li> <img class="logo" src="css/citizen.svg" alt="logo"></li></a>
+                <a href="http://mtb.com/"><li> <img  class="mtb" src="css/mtb.svg" alt="mtb"></li></a>
+                <a href="http://wellsfargo.com/"><li> <img  class="wf" src="css/wellsfargo.svg" alt="wellsfrago"></li></a>
 
               </ul>
             </div>
             <style media="screen">
 
             .rightpaste {
-              background: #ddd;
-              position: fixed;
-              height: 100%;
-              right: 0px;
-              top: 0px;
-              z-index: 100;
+              background: #eee;
+              position: relative;
+              top: -280px;
+              height: 0px;
               -webkit-box-shadow: -2px 0px 24px #fff;
               box-shadow: -2px 0px 24px #fff; }
+              .rightpaste ul {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                text-align: center;
+                min-width: 400px; }
               .rightpaste ul li {
                 text-align: center;
                 padding-left: 10px;
