@@ -463,7 +463,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "loanAmt", defaultValue = "") String loanAmt, @RequestParam(value = "state", defaultValue = "") String state,
 			@RequestParam(value = "numOfYears", defaultValue = "") String numOfYears, @RequestParam(value = "loanType", defaultValue = "") String loanType,
 			@RequestParam(value = "amortizeOn", defaultValue = "") String amortizeOn, @RequestParam(value = "payoffOn", defaultValue = "") String payoffOn,
-			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
+			@RequestParam(value = USER_EMAIL, defaultValue = "") String emailParam,
+			@CookieValue String userEmail,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = new AmortizedLoan();
@@ -473,7 +474,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		Object[] queryVals = null;
 		boolean firstVal = false;
 		Double payoffAmt = null;
-		model.addAttribute(USER_EMAIL, emailCookie);
+		model.addAttribute("uEmail", emailParam);
+		model.addAttribute(USER_EMAIL, userEmail);
 
 		if (loanAmt != null && !loanAmt.equals("")) {
 			querySB.append("ln.amount=?");
@@ -534,15 +536,15 @@ public class LoanCalculatorController implements ServletContextAware {
 			queryValList.add(loanType);
 			loanObject.setLoanType(loanType);
 		}
-		if(emailCookie != null && !emailCookie.equals("")) {
+		if(emailParam != null && !emailParam.equals("")) {
 			if (firstVal)
 				querySB.append(" and ln.email=?");
 			else {
 				querySB.append(" ln.email=?");
 				firstVal = true;
 			}
-			queryValList.add(emailCookie);
-			loanObject.setEmail(emailCookie);
+			queryValList.add(emailParam);
+			loanObject.setEmail(emailParam);
 		}
 
 		if (firstVal) {
@@ -578,7 +580,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Search Loan: No Loans Found!");
 				model.addAttribute("loans", new ArrayList<>());
 				model.asMap().remove("amortizeloan");
-				List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+				List<Preference> prefs = getPreferencesByEmailAddress(emailParam);
 				addPlanToModel(model, plan, prefs);
 				checkUserPrefernece(model, prefs);
 
@@ -592,14 +594,14 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("payoffOn", payoffOn);
 			model.addAttribute("payoffAmt", payoffAmt);
 			model.addAttribute("amortizeOn", amortizeOn);
-			model.addAttribute(USER_EMAIL, emailCookie);
+			model.addAttribute(USER_EMAIL, emailParam);
 
-			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			List<Preference> prefs = getPreferencesByEmailAddress(emailParam);
 			addPlanToModel(model, plan, prefs);
 			checkUserPrefernece(model, prefs);
 			return "searchloan";
 		} else {
-			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
+			List<Preference> prefs = getPreferencesByEmailAddress(emailParam);
 			addPlanToModel(model, plan, prefs);
 			checkUserPrefernece(model, prefs);
 			model.addAttribute("message", "Search Loan: " + " Loan Parameters Not Selected!");

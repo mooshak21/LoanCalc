@@ -269,7 +269,9 @@
               </ul>
             </div>
             <style media="screen">
-
+            .loansegment{
+              height: 100%!important;
+            }
             .rightpaste {
               background: #eee;
               position: relative;

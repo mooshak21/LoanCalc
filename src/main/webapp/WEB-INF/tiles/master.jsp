@@ -73,7 +73,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email: </label>
-                        <input class="form-control" type="email" name="email" value="${userEmail}" id="email">
+                        <input class="form-control" type="email" name="email" value="${uEmail}" id="email">
                     </div>
                     <c:if test="${loanId ne null && loanId > 0}">
                         <button type="button" class="btn btn-default float-left" style="margin-left: 5px"
