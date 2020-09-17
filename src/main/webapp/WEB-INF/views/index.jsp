@@ -19,6 +19,8 @@
           <!--Import materialize.css-->
           <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
           <link type="text/css" rel="stylesheet" href="css/index.css"  media="screen,projection"/>
+          <link type="text/css" rel="stylesheet" href="css/styles.css"  media="screen,projection"/>
+          <link type="text/css" rel="stylesheet" href="css/restyles.css"  media="screen,projection"/>
           <script type="text/javascript" src="css/jquery.min.js"></script>
 
     <header id='healer'>
@@ -166,8 +168,6 @@
 
 
 
-
-
     <section class="loansegment">
       <div class="slider">
         <ul class="slides">
@@ -244,6 +244,90 @@
              </c:if>
           </div>
       </div>
+
+
+
+
+
+      <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+
+            <div class="rightpaste">
+              <ul>
+                <a href="http://citi.com/"><li> <img class="citi" src="img/citi.jpg" alt="citi"></li></a>
+                <a href="http://bofa.com/"><li> <img class="boa" src="img/boa.svg" alt="boa"> </li></a>
+                <a href="http://goldmansachs.com/"><li> <img class="gs" src="img/gs.svg" alt="gs"></li></a>
+                <a href="http://pnc.com/"><li>  <img class="pnc" src="img/pnc.svg" alt="pnc"> </li> </a>
+                <a href="http://lendingtree.com/"><li> <img class="lt" src="img/lendingtree.svg" alt="lendtree"> </li></a>
+                <a href="http://chase.com/"><li> <img class="chase" src="img/chase.svg" alt="chase"></li></a>
+                <a href="http://quickenloans.com/"><li> <img class="ql" src="img/quickenloans.jpg" alt="quickenloans"></li></a>
+
+                <a href="http://citizensbank.com/"><li> <img class="logo" src="img/citizen.svg" alt="logo"></li></a>
+                <a href="http://mtb.com/"><li> <img  class="mtb" src="img/mtb.svg" alt="mtb"></li></a>
+                <a href="http://wellsfargo.com/"><li> <img  class="wf" src="img/wellsfargo.svg" alt="wellsfrago"></li></a>
+
+              </ul>
+            </div>
+            <style media="screen">
+
+            .rightpaste {
+              background: #ddd;
+              position: fixed;
+              height: 100%;
+              right: 0px;
+              top: 0px;
+              z-index: 100;
+              -webkit-box-shadow: -2px 0px 24px #fff;
+              box-shadow: -2px 0px 24px #fff; }
+              .rightpaste ul li {
+                text-align: center;
+                padding-left: 10px;
+                padding-right: 10px; }
+                .rightpaste ul li img {
+                  width: 120px; }
+                .rightpaste ul li .boa {
+                  height: 50px; }
+                .rightpaste ul li .gs {
+                  height: 90px; }
+                .rightpaste ul li .wf {
+                  height: 50px; }
+                .rightpaste ul li .citi {
+                  height: 50px; }
+                .rightpaste ul li .lt {
+                  height: 60px;
+                  width: 80px;
+                  text-align: center;
+                  margin-right: auto; }
+                .rightpaste ul li .logo, .rightpaste ul li .chase {
+                  padding-top: 20px;
+                  padding-bottom: 20px; }
+                .rightpaste ul li .qt {
+                  height: 80px; }
+
+            @media screen and (max-width: 650px) {
+              .rightpaste {
+                position: unset;
+                background: transparent;
+                width: 100%; }
+                .rightpaste ul {
+                  display: -webkit-box;
+                  display: -ms-flexbox;
+                  display: flex;
+                  -ms-flex-wrap: wrap;
+                  flex-wrap: wrap;
+                  text-align: center;
+                  min-width: 400px; }
+                  .rightpaste ul a {
+                    margin: 10px 10px;
+                    text-align: center; }
+                    .rightpaste ul a li img {
+                      text-align: center !important;
+                      width: 80px;
+                      margin: auto; } }
+
+            </style>
+       <!-- //////////////////////////////////////////////////////////////////////////// -->
+
     </section>
 
 
@@ -557,4 +641,73 @@ body .container .loanHeader {
     }
 
 
+</script>
+
+
+
+
+
+<section class="ticker">
+   <DIV ID="TICKER" STYLE="overflow:hidden; width:100%; bgcolor=blue" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
+     The content publishing service is based on the open-source PHP-based Content Management System and RSS content aggregation and hosted on the open-source PHP-based server and integrated with the Biometrics Software Services.
+   </DIV>
+</section>
+
+<style media="screen">
+  .ticker{
+      background: #fff;
+      position: fixed;
+      z-index: 1000;
+      bottom: 0px;
+      width: 100%!important;
+      overflow: hidden;
+      box-shadow: 0px 3px 20px #fff;
+  }
+  span#ticker_body{
+    font-size: 14px!important;
+    font-weight: bold!important;
+    font-family: 'Poppins', sans-serif!important;
+  }
+</style>
+<script type="text/javascript">
+// WebTicker by Mioplanet
+// www.mioplanet.com
+TICKER_CONTENT = document.getElementById("TICKER").innerHTML;
+TICKER_RIGHTTOLEFT = false;
+TICKER_SPEED = 1;
+TICKER_STYLE = "font-family:Arial; font-size:12px; color:#444444";
+TICKER_PAUSED = false;
+ticker_start();
+
+function ticker_start() {
+var tickerSupported = false;
+TICKER_WIDTH = document.getElementById("TICKER").style.width;
+var img = "<img src=ticker_space.gif width="+TICKER_WIDTH+" height=0>";
+
+// Firefox
+if (navigator.userAgent.indexOf("Firefox")!=-1 || navigator.userAgent.indexOf("Safari")!=-1) {
+  document.getElementById("TICKER").innerHTML = "<TABLE  cellspacing='0' cellpadding='0' width='100%'><TR><TD nowrap='nowrap'>"+img+"<SPAN style='"+TICKER_STYLE+"' ID='TICKER_BODY' width='100%'>&nbsp;</SPAN>"+img+"</TD></TR></TABLE>";
+  tickerSupported = true;
+}
+// IE
+
+if (navigator.userAgent.indexOf("MSIE")!=-1 && navigator.userAgent.indexOf("Opera")==-1) {
+            document.getElementById("TICKER").innerHTML = "<DIV nowrap='nowrap' style='width:100%;'>"+img+"<SPAN style='"+TICKER_STYLE+"' ID='TICKER_BODY' width='100%'></SPAN>"+img+"</DIV>";
+  tickerSupported = true;
+}
+
+if(!tickerSupported) document.getElementById("TICKER").outerHTML = ""; else {
+  document.getElementById("TICKER").scrollLeft = TICKER_RIGHTTOLEFT ? document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth : 0;
+  document.getElementById("TICKER_BODY").innerHTML = TICKER_CONTENT;
+  document.getElementById("TICKER").style.display="block";
+  TICKER_tick();
+}
+}
+
+function TICKER_tick() {
+if(!TICKER_PAUSED) document.getElementById("TICKER").scrollLeft += TICKER_SPEED * (TICKER_RIGHTTOLEFT ? -1 : 1);
+if(TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft <= 0) document.getElementById("TICKER").scrollLeft = document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth;
+if(!TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft >= document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth) document.getElementById("TICKER").scrollLeft = 0;
+window.setTimeout("TICKER_tick()", 3);
+}
 </script>
