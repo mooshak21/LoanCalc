@@ -658,13 +658,13 @@ body .container .loanHeader {
 <section class="ticker">
 
 
-    <DIV ID="TICKER" STYLE="overflow:hidden; width:100%; bgcolor=blue" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
-      <c:if test="${(not empty sessionScope['userEmail'])}">
+    <%-- <DIV ID="TICKER" STYLE="overflow:hidden; width:100%; bgcolor=blue" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false"> --%>
+      <span id='ticker_body'><c:if test="${(not empty sessionScope['userEmail'])}">
         Email: ${sessionScope['userEmail']}
         Plan: ${sessionScope['Plan']}
       </c:if>-------- 1. Loan Amortization Calculator. This calculator provides a way to calculate amortization of loan for the following loan types: Auto Loan | Student Loan | Home Loan. In loan amortization schedule, the principal increases and interest reduces over the amortization time period achieving full amortization at the end of the loan period.
    The loan amortization schedule can be viewed online in web browser & mobile browser and email sent to the user. On the dashboard, the loans are displayed in a pie chart showing the percentage of amounts of loans for the user. On the dashboard, different links are displayed to do research on loans from different banks based on region selected by the user. There is an option to last view of stored loan based on preference of the event of sending email to user. This is available in Lite plan. The user can enroll in annual plan of Free/Lite/Premium plans. Depending on these plan enrolled, the features are displayed and restricted/enhanced. To get training on the features, go to YouTube videos for Loan Insight Online. 2. Loan Aggregation and Consolidation Calculator. This calculator provides a way to consolidate the payments of the loans of different loan types: Auto Loan | Student Loan | Home Loan. The user can enroll in annual plan of Premium plan. Depending on these plan enrolled, the features are displayed and restricted/ enhanced. To get training on the features, go to YouTube videos for Loan Insight Online. 3. Equity Calculator. This calculator provides a way to calculate the equity of the loan of loan type either Auto Loan or Home Loan. It calculates the equity based on the home/auto value and home/auto loan amoritization. The equity schedule can be viewed online in web browser & mobile browser. This option is available in Lite and Premium plans.
-    </DIV>
+    <%-- </DIV> --%></span>
 
 </section>
 
