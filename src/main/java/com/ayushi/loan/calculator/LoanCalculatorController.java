@@ -417,6 +417,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
 		model.addAttribute("amortizeOn", calTodayStr);
 		model.addAttribute("payoffOn", calTodayStr);
+		model.addAttribute("loans", new ArrayList<>());
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		addPlanToModel(model, plan, prefs);
 		model.addAttribute(USER_EMAIL, emailCookie);
@@ -894,21 +895,24 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	private void getLoanInfo(int pageid, Model model, String loanId, List loans, String amortizeOn, String payoffOn) {
 		AmortizedLoan al;
-		if (loans != null) {
-			Loan loan = (Loan) loans.get(pageid - 1);
-			if (amortizeOn != null) {
-				al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(),
-						loan.getLender(), loan.getRegion(), loan.getState(), loan.getInterestRate(), loan.getAPR(),
-						loan.getNumberOfYears(), 0, loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(),
-						loan.getEmail(), loan.getName(), null, null, null, null, null, null, null, null);
-				model.addAttribute("payoffAmt",
-						!payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null)
-								? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
-				model.addAttribute("amortizeloan", al);
-				model.addAttribute("loanId", loanId);
-				al.setLoanId(loan.getLoanId());
-			}
+		if (loans == null || loans.size() < 1) {
+			return;
 		}
+		//		if (loans != null) {
+		//			if (amortizeOn != null) {
+		Loan loan = (Loan) loans.get(pageid - 1);
+		al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(),
+				loan.getRegion(), loan.getState(), loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0,
+				loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail(), loan.getName(), null, null,
+				null, null, null, null, null, null);
+		model.addAttribute("amortizeloan", al);
+		model.addAttribute("loanId", loanId);
+		al.setLoanId(loan.getLoanId());
+		//				model.addAttribute("payoffAmt",
+		//						!payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null)
+		//								? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
+		//			}
+		//		}
 	}
 
 	@RequestMapping(value = "/viewloanexcel/{loanid}")
