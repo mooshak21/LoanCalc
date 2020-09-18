@@ -582,7 +582,6 @@ public class LoanCalculatorController implements ServletContextAware {
 				return "searchloan";
 			}
 			model.addAttribute("message", "Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
-			// request.getSession().setAttribute("loans", loans);
 			model.addAttribute("loans", loans);
 
 			model.addAttribute("amortizeloan", loanObject);
@@ -869,18 +868,18 @@ public class LoanCalculatorController implements ServletContextAware {
 	public String viewloan(@PathVariable int pageid, Model model,
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = "loanId", defaultValue = "") String loanId,
-			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request,
-			HttpServletResponse response) {
+			@CookieValue(value = PLAN, defaultValue = "") String plan) {
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
-		List loans = (List) request.getSession().getAttribute("loans");
 		AmortizedLoan al;
 		String amortizeOn = (String) model.asMap().get("amortizeOn");
 		String payoffOn = (String) model.asMap().get("payoffOn");
 		if (payoffOn == null || payoffOn.isEmpty()) {
 			payoffOn = calTodayStr;
 		}
+		List loans = (List)model.asMap().get("loans");
+		model.addAttribute("loans", loans);
 		getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
 		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
 
@@ -894,21 +893,24 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	private void getLoanInfo(int pageid, Model model, String loanId, List loans, String amortizeOn, String payoffOn) {
 		AmortizedLoan al;
-		if (loans != null) {
-			Loan loan = (Loan) loans.get(pageid - 1);
-			if (amortizeOn != null) {
-				al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(),
-						loan.getLender(), loan.getRegion(), loan.getState(), loan.getInterestRate(), loan.getAPR(),
-						loan.getNumberOfYears(), 0, loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(),
-						loan.getEmail(), loan.getName(), null, null, null, null, null, null, null, null);
-				model.addAttribute("payoffAmt",
-						!payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null)
-								? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
-				model.addAttribute("amortizeloan", al);
-				model.addAttribute("loanId", loanId);
-				al.setLoanId(loan.getLoanId());
-			}
+		if (loans == null || loans.size() < 1) {
+			return;
 		}
+		//		if (loans != null) {
+		//			if (amortizeOn != null) {
+		Loan loan = (Loan) loans.get(pageid - 1);
+		al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(),
+				loan.getRegion(), loan.getState(), loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0,
+				loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail(), loan.getName(), null, null,
+				null, null, null, null, null, null);
+		model.addAttribute("amortizeloan", al);
+		model.addAttribute("loanId", loanId);
+		al.setLoanId(loan.getLoanId());
+		//				model.addAttribute("payoffAmt",
+		//						!payoffOn.isEmpty() ? ((al.getPayoffAmount(loan.getAmount(), payoffOn) != null)
+		//								? al.getPayoffAmount(loan.getAmount(), payoffOn) : "-1.0") : "-1.0");
+		//			}
+		//		}
 	}
 
 	@RequestMapping(value = "/viewloanexcel/{loanid}")

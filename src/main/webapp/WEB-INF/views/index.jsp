@@ -656,15 +656,8 @@ body .container .loanHeader {
 
 
 <section class="ticker">
-
-
-    <DIV ID="TICKER" STYLE="overflow:hidden; width:100%; bgcolor=blue" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
-      <c:if test="${(not empty sessionScope['userEmail'])}">
-        Email: ${sessionScope['userEmail']}
-        Plan: ${sessionScope['Plan']}
-      </c:if>-------- 1. Loan Amortization Calculator. This calculator provides a way to calculate amortization of loan for the following loan types: Auto Loan | Student Loan | Home Loan. In loan amortization schedule, the principal increases and interest reduces over the amortization time period achieving full amortization at the end of the loan period.
-   The loan amortization schedule can be viewed online in web browser & mobile browser and email sent to the user. On the dashboard, the loans are displayed in a pie chart showing the percentage of amounts of loans for the user. On the dashboard, different links are displayed to do research on loans from different banks based on region selected by the user. There is an option to last view of stored loan based on preference of the event of sending email to user. This is available in Lite plan. The user can enroll in annual plan of Free/Lite/Premium plans. Depending on these plan enrolled, the features are displayed and restricted/enhanced. To get training on the features, go to YouTube videos for Loan Insight Online. 2. Loan Aggregation and Consolidation Calculator. This calculator provides a way to consolidate the payments of the loans of different loan types: Auto Loan | Student Loan | Home Loan. The user can enroll in annual plan of Premium plan. Depending on these plan enrolled, the features are displayed and restricted/ enhanced. To get training on the features, go to YouTube videos for Loan Insight Online. 3. Equity Calculator. This calculator provides a way to calculate the equity of the loan of loan type either Auto Loan or Home Loan. It calculates the equity based on the home/auto value and home/auto loan amoritization. The equity schedule can be viewed online in web browser & mobile browser. This option is available in Lite and Premium plans.
-    </DIV>
+   <span id='ticker_body'><c:if test="${(not empty sessionScope['userEmail'])}">Email: ${sessionScope['userEmail']} - Plan: ${sessionScope['Plan']}</c:if>-------- 1. Loan Amortization Calculator. This calculator provides a way to calculate amortization of loan for the following loan types: Auto Loan | Student Loan | Home Loan. In loan amortization schedule, the principal increases and interest reduces over the amortization time period achieving full amortization at the end of the loan period. The loan amortization schedule can be viewed online in web browser & mobile browser and email sent to the user. On the dashboard, the loans are displayed in a pie chart showing the percentage of amounts of loans for the user. On the dashboard, different links are displayed to do research on loans from different banks based on region selected by the user. There is an option to last view of stored loan based on preference of the event of sending email to user. This is available in Lite plan. The user can enroll in annual plan of Free/Lite/Premium plans. Depending on these plan enrolled, the features are displayed and restricted enhanced. To get training on the features, go to YouTube videos for Loan Insight Online. 2. Loan Aggregation and Consolidation Calculator. This calculator provides a way to consolidate the payments of the loans of different loan types: Auto Loan | Student Loan | Home Loan. The user can enroll in annual plan of Premium plan. Depending on these plan enrolled, the features are displayed and restricted/ enhanced. To get training on the features, go to YouTube videos for Loan Insight Online. 3. Equity Calculator. This calculator provides a way to calculate the equity of the loan of loan type either Auto Loan or Home Loan. It calculates the equity based on the home/auto value and home/auto loan amoritization. The equity schedule can be viewed online in web browser & mobile browser. This option is available in Lite and Premium plans.
+    </span>
 
 </section>
 
@@ -673,6 +666,7 @@ body .container .loanHeader {
       background: #fff;
       position: fixed;
       z-index: 1000;
+      height: 50px!important;
       bottom: 0px;
       width: 100%!important;
       overflow: hidden;
@@ -682,15 +676,52 @@ body .container .loanHeader {
     font-size: 14px!important;
     font-weight: bold!important;
     font-family: 'Poppins', sans-serif!important;
+ color: #000;
+ position: absolute;
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);
+ transform:translateX(100%);
+ /* Apply animation to this element */
+ -moz-animation: example1 15s linear infinite;
+ -webkit-animation: example1 15s linear infinite;
+ animation: example1 15s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example1 {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes example1 {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes example1 {
+ 0%   {
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%);
+ }
+ 100% {
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%);
+ }
   }
 </style>
-<script type="text/javascript">
+
+<%-- <script type="text/javascript">
 // WebTicker by Mioplanet
 // www.mioplanet.com
 TICKER_CONTENT = document.getElementById("TICKER").innerHTML;
 TICKER_RIGHTTOLEFT = false;
-TICKER_SPEED = 1;
-TICKER_STYLE = "font-family:Arial; font-size:12px; color:#444444";
+TICKER_SPEED = 3;
+TICKER_STYLE = "'Poppins', sans-serif; font-size:14px; color:#000000";
 TICKER_PAUSED = false;
 ticker_start();
 
@@ -723,6 +754,6 @@ function TICKER_tick() {
 if(!TICKER_PAUSED) document.getElementById("TICKER").scrollLeft += TICKER_SPEED * (TICKER_RIGHTTOLEFT ? -1 : 1);
 if(TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft <= 0) document.getElementById("TICKER").scrollLeft = document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth;
 if(!TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft >= document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth) document.getElementById("TICKER").scrollLeft = 0;
-window.setTimeout("TICKER_tick()", 3);
+window.setTimeout("TICKER_tick()", 9);
 }
-</script>
+</script> --%>
