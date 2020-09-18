@@ -680,7 +680,7 @@ body .container .loanHeader {
  position: absolute;
  width: 11000px;
  height: 100%;
- margin: 0;
+ margin: 0; 
  line-height: 50px;
  text-align: center;
  /* Starting position */
