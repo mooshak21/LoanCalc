@@ -680,7 +680,7 @@ body .container .loanHeader {
  position: absolute;
  width: 11000px;
  height: 100%;
- margin: 0; 
+ margin: 0;
  line-height: 50px;
  text-align: center;
  /* Starting position */
@@ -688,9 +688,9 @@ body .container .loanHeader {
  -webkit-transform:translateX(100%);
  transform:translateX(100%);
  /* Apply animation to this element */
- -moz-animation: example1 75s linear infinite;
- -webkit-animation: example1 75s linear infinite;
- animation: example1 75s linear infinite;
+ -moz-animation: example1 125s linear infinite;
+ -webkit-animation: example1 125s linear infinite;
+ animation: example1 125s linear infinite;
 }
 /* Move it (define the animation) */
 @-moz-keyframes example1 {
