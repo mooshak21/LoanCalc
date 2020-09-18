@@ -92,6 +92,14 @@ public class AmortizedLoan extends Loan {
 		else
 			return -1.0;
 
-	} 
+	}
+
+	public static AmortizedLoan getAmortizedLoan(String calTodayStr, Loan searchloan) {
+		return new AmortizedLoan(calTodayStr, searchloan.getMonthly(), searchloan.getAmount(), searchloan.getTotal(),
+				searchloan.getLender(), searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(),
+				searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(), searchloan.getLoanType(),
+				searchloan.getLoanDenomination(), searchloan.getEmail(), searchloan.getName(), null, null, null, null, null,
+				null, null, null);
+	}
 
 }

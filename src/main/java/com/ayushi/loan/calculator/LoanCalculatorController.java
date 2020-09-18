@@ -463,8 +463,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "loanAmt", defaultValue = "") String loanAmt, @RequestParam(value = "state", defaultValue = "") String state,
 			@RequestParam(value = "numOfYears", defaultValue = "") String numOfYears, @RequestParam(value = "loanType", defaultValue = "") String loanType,
 			@RequestParam(value = "amortizeOn", defaultValue = "") String amortizeOn, @RequestParam(value = "payoffOn", defaultValue = "") String payoffOn,
-			@RequestParam(value = USER_EMAIL, defaultValue = "") String emailParam,
-			@CookieValue String userEmail,
+			@RequestParam(value = "email", defaultValue = "") String emailParam,
+			@CookieValue(value = USER_EMAIL, defaultValue = "") String userEmail,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request) {
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = new AmortizedLoan();
@@ -563,12 +563,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				Loan searchloan = (Loan) loans.get(0);
 
 				if (searchloan != null) {
-					AmortizedLoan amortizeLoan = new AmortizedLoan(amortizeOn, searchloan.getMonthly(),
-							searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(),
-							searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(),
-							searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(),
-							searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail(),
-							searchloan.getName(), null, null, null, null, null, null, null, null);
+					AmortizedLoan amortizeLoan = AmortizedLoan.getAmortizedLoan(amortizeOn, searchloan);
 					LoanApp loanApp = new LoanApp(amortizeLoan);
 					amortizeLoan.setLoanApp(loanApp);
 					payoffAmt = amortizeLoan.getPayoffAmount(searchloan.getAmount(), payoffOn);
@@ -785,12 +780,7 @@ public class LoanCalculatorController implements ServletContextAware {
 						new Object[] { new Long(loanId) });
 				if (loans != null && loans.size() > 0) {
 					Loan searchloan = (Loan) loans.get(0);
-					AmortizedLoan amortizeLoan = new AmortizedLoan(calTodayStr, searchloan.getMonthly(),
-							searchloan.getAmount(), searchloan.getTotal(), searchloan.getLender(),
-							searchloan.getRegion(), searchloan.getState(), searchloan.getInterestRate(),
-							searchloan.getAPR(), searchloan.getNumberOfYears(), 0, searchloan.getLoanId(),
-							searchloan.getLoanType(), searchloan.getLoanDenomination(), searchloan.getEmail(),
-							searchloan.getName(), null, null, null, null, null, null, null, null);
+					AmortizedLoan amortizeLoan = AmortizedLoan.getAmortizedLoan(calTodayStr, searchloan);
 					LoanApp loanApp = new LoanApp(amortizeLoan);
 					amortizeLoan.setLoanApp(loanApp);
 					amortizeLoan.setLoanId(searchloan.getLoanId());
@@ -3539,12 +3529,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute("loanType", searchLoan.getLoanType());
 			model.addAttribute("assetValue", searchLoan.getAmount());
 			model.addAttribute("valuationDate", valuationDate);
-			AmortizedLoan amortizeLoan = new AmortizedLoan(loanStartDate, searchLoan.getMonthly(),
-					searchLoan.getAmount(), searchLoan.getTotal(), searchLoan.getLender(), searchLoan.getRegion(),
-					searchLoan.getState(), searchLoan.getInterestRate(), searchLoan.getAPR(),
-					searchLoan.getNumberOfYears(), 0, searchLoan.getLoanId(), searchLoan.getLoanType(),
-					searchLoan.getLoanDenomination(), searchLoan.getEmail(), searchLoan.getName(), null, null, null,
-					null, null, null, null, null);
+			AmortizedLoan amortizeLoan = AmortizedLoan.getAmortizedLoan(loanStartDate, searchLoan);
 			LoanApp loanApp = new LoanApp(amortizeLoan);
 			amortizeLoan.setLoanApp(loanApp);
 			String todaysDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
