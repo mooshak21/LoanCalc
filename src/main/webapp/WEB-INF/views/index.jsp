@@ -682,15 +682,52 @@ body .container .loanHeader {
     font-size: 14px!important;
     font-weight: bold!important;
     font-family: 'Poppins', sans-serif!important;
+ color: #000;
+/* // position: absolute; */
+ width: 100%;
+ height: 100%;
+ margin: 0;
+ line-height: 50px;
+ text-align: center;
+ /* Starting position */
+ -moz-transform:translateX(100%);
+ -webkit-transform:translateX(100%);
+ transform:translateX(100%);
+ /* Apply animation to this element */
+ -moz-animation: example1 15s linear infinite;
+ -webkit-animation: example1 15s linear infinite;
+ animation: example1 15s linear infinite;
+}
+/* Move it (define the animation) */
+@-moz-keyframes example1 {
+ 0%   { -moz-transform: translateX(100%); }
+ 100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes example1 {
+ 0%   { -webkit-transform: translateX(100%); }
+ 100% { -webkit-transform: translateX(-100%); }
+}
+@keyframes example1 {
+ 0%   {
+ -moz-transform: translateX(100%); /* Firefox bug fix */
+ -webkit-transform: translateX(100%); /* Firefox bug fix */
+ transform: translateX(100%);
+ }
+ 100% {
+ -moz-transform: translateX(-100%); /* Firefox bug fix */
+ -webkit-transform: translateX(-100%); /* Firefox bug fix */
+ transform: translateX(-100%);
+ }
   }
 </style>
-<script type="text/javascript">
+
+<%-- <script type="text/javascript">
 // WebTicker by Mioplanet
 // www.mioplanet.com
 TICKER_CONTENT = document.getElementById("TICKER").innerHTML;
 TICKER_RIGHTTOLEFT = false;
 TICKER_SPEED = 3;
-TICKER_STYLE = "font-family:Arial; font-size:12px; color:#444444";
+TICKER_STYLE = "'Poppins', sans-serif; font-size:14px; color:#000000";
 TICKER_PAUSED = false;
 ticker_start();
 
@@ -725,4 +762,4 @@ if(TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft <= 0) docu
 if(!TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft >= document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth) document.getElementById("TICKER").scrollLeft = 0;
 window.setTimeout("TICKER_tick()", 9);
 }
-</script>
+</script> --%>
