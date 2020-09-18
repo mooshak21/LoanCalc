@@ -417,7 +417,6 @@ public class LoanCalculatorController implements ServletContextAware {
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
 		model.addAttribute("amortizeOn", calTodayStr);
 		model.addAttribute("payoffOn", calTodayStr);
-		model.addAttribute("loans", new ArrayList<>());
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		addPlanToModel(model, plan, prefs);
 		model.addAttribute(USER_EMAIL, emailCookie);
