@@ -871,11 +871,11 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = "loanId", defaultValue = "") String loanId,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request,
+			@ModelAttribute("loans") List loans,
 			HttpServletResponse response) {
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
-		List loans = (List) request.getSession().getAttribute("loans");
 		AmortizedLoan al;
 		String amortizeOn = (String) model.asMap().get("amortizeOn");
 		String payoffOn = (String) model.asMap().get("payoffOn");
