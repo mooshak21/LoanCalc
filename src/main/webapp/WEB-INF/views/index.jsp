@@ -689,7 +689,7 @@ body .container .loanHeader {
 // www.mioplanet.com
 TICKER_CONTENT = document.getElementById("TICKER").innerHTML;
 TICKER_RIGHTTOLEFT = false;
-TICKER_SPEED = 0.5;
+TICKER_SPEED = 3;
 TICKER_STYLE = "font-family:Arial; font-size:12px; color:#444444";
 TICKER_PAUSED = false;
 ticker_start();
@@ -723,6 +723,6 @@ function TICKER_tick() {
 if(!TICKER_PAUSED) document.getElementById("TICKER").scrollLeft += TICKER_SPEED * (TICKER_RIGHTTOLEFT ? -1 : 1);
 if(TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft <= 0) document.getElementById("TICKER").scrollLeft = document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth;
 if(!TICKER_RIGHTTOLEFT && document.getElementById("TICKER").scrollLeft >= document.getElementById("TICKER").scrollWidth - document.getElementById("TICKER").offsetWidth) document.getElementById("TICKER").scrollLeft = 0;
-window.setTimeout("TICKER_tick()", 1);
+window.setTimeout("TICKER_tick()", 9);
 }
 </script>

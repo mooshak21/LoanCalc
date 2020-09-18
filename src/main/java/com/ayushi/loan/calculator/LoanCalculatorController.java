@@ -410,7 +410,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	@RequestMapping(value = "/loansearchask")
 	public String loansearchask(Model model, @CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
-			@CookieValue(value = PLAN, defaultValue = "") String plan) {
+			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request) {
 		model.addAttribute("message", "Search Loan");
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
@@ -418,6 +418,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("amortizeOn", calTodayStr);
 		model.addAttribute("payoffOn", calTodayStr);
 		model.addAttribute("loans", new ArrayList<>());
+		request.getSession().setAttribute("loans", new ArrayList<>());
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		addPlanToModel(model, plan, prefs);
 		model.addAttribute(USER_EMAIL, emailCookie);
@@ -575,6 +576,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			} else {
 				model.addAttribute("message", "Search Loan: No Loans Found!");
 				model.addAttribute("loans", new ArrayList<>());
+				request.getSession().setAttribute("loans", new ArrayList<>());
 				model.asMap().remove("amortizeloan");
 				List<Preference> prefs = getPreferencesByEmailAddress(emailParam);
 				addPlanToModel(model, plan, prefs);
@@ -583,7 +585,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				return "searchloan";
 			}
 			model.addAttribute("message", "Search Loan: " + ((loans != null) ? loans.size() : 0) + " Loans Found!");
-			// request.getSession().setAttribute("loans", loans);
+			request.getSession().setAttribute("loans", loans);
 			model.addAttribute("loans", loans);
 
 			model.addAttribute("amortizeloan", loanObject);
@@ -871,11 +873,11 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = "loanId", defaultValue = "") String loanId,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request,
+			@ModelAttribute("loans") List loans,
 			HttpServletResponse response) {
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
-		List loans = (List) request.getSession().getAttribute("loans");
 		AmortizedLoan al;
 		String amortizeOn = (String) model.asMap().get("amortizeOn");
 		String payoffOn = (String) model.asMap().get("payoffOn");
