@@ -18,37 +18,37 @@
                     </c:if>
                     <div class="form-group">
                         <label for="loanAmount">Loan Amount:</label>
-                        <input class="form-control" type="number" name="loanAmt" value="${amount}"
+                        <input class="form-control resetMe"" type="number" name="loanAmt" value="${amount}"
                                min="1" max="9999999999" id="loanAmount">
                         <input type="hidden" name="loanId" value="${amortizeloan.loanId}" id="loanId">
                     </div>
 
                     <div class="form-group">
                         <label for="numberOfYears">Number of Years:</label>
-                        <input class="form-control" type="number" name="numOfYears"
+                        <input class="form-control resetMe"" type="number" name="numOfYears"
                                value="${numberOfYears}" min="1" max="100" id="numberOfYears">
                     </div>
 
                     <div class="form-group">
                         <label for="lender">Lender:</label>
-                        <input class="form-control" type="text" name="lender" value="${lender}"
+                        <input class="form-control resetMe"" type="text" name="lender" value="${lender}"
                                id="lender">
                     </div>
 
                     <div class="form-group">
                         <label for="state">State: </label>
-                        <input class="form-control" type="text" name="state"
+                        <input class="form-control resetMe"" type="text" name="state"
                                id="state">
                     </div>
 
                     <div class="form-group">
                         <label for="interestRate">Annual Interest Rate: </label>
-                        <input class="form-control" type="number" name="airVal" value="${APR}"
+                        <input class="form-control resetMe"" type="number" name="airVal" value="${APR}"
                                min="0" max="100" step="0.01" id="interestRate">
                     </div>
                     <div class="form-group">
                         <label for="loanType">Loan Type:</label>
-                        <select class="form-control" name="loanType" id="loanType">
+                        <select class="form-control resetMe"" name="loanType" id="loanType">
                             <option value="">Choose a Loan Type</option>
                             <option value="Student Loan"  ${loanType == 'Student Loan' ? 'selected' : ''}>
                                 Student Loan
@@ -63,17 +63,17 @@
                     </div>
                     <div class="form-group">
                         <label for="amortize">Amortize on Date:* </label>
-                        <input class="form-control" type="text" name="amortizeOn" value="${amortizeOn}"
+                        <input class="form-control resetMe"" type="text" name="amortizeOn" value="${amortizeOn}"
                                required="true" id="amortize">
                     </div>
 
                     <div class="form-group">
                         <label for="payoff"> Payoff on Date: </label>
-                        <input class="form-control" type="text" name="payoffOn" value="${payoffOn}" id="payoff">
+                        <input class="form-control resetMe"" type="text" name="payoffOn" value="${payoffOn}" id="payoff">
                     </div>
                     <div class="form-group">
                         <label for="email">Email: </label>
-                        <input class="form-control" type="email" name="email" value="${uEmail}" id="email">
+                        <input class="form-control resetMe"" type="email" name="email" value="${uEmail}" id="email">
                     </div>
                     <c:if test="${loanId ne null && loanId > 0}">
                         <button type="button" class="btn btn-default float-left" style="margin-left: 5px"
