@@ -678,7 +678,7 @@ body .container .loanHeader {
     font-family: 'Poppins', sans-serif!important;
  color: #000;
  position: absolute;
- width: 100%;
+ width: 11000px;
  height: 100%;
  margin: 0;
  line-height: 50px;
@@ -688,9 +688,9 @@ body .container .loanHeader {
  -webkit-transform:translateX(100%);
  transform:translateX(100%);
  /* Apply animation to this element */
- -moz-animation: example1 15s linear infinite;
- -webkit-animation: example1 15s linear infinite;
- animation: example1 15s linear infinite;
+ -moz-animation: example1 125s linear infinite;
+ -webkit-animation: example1 125s linear infinite;
+ animation: example1 125s linear infinite;
 }
 /* Move it (define the animation) */
 @-moz-keyframes example1 {
