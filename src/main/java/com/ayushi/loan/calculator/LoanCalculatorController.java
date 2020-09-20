@@ -804,9 +804,11 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Loan no longer available!");
 			}
 		}
-		model.addAttribute(USER_EMAIL, emailCookie);
+		if(emailCookie != null)
+			model.addAttribute(USER_EMAIL, emailCookie);
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
-		addPlanToModel(model, plan, prefs);
+		if(prefs != null)
+			addPlanToModel(model, plan, prefs);
 		checkUserPrefernece(model, prefs);
 
 		return "viewloans";
@@ -821,7 +823,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("loanId", loanId);
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		addPlanToModel(model, plan, prefs);
-		model.addAttribute(USER_EMAIL, emailCookie);
+		if(emailCookie != null)
+			model.addAttribute(USER_EMAIL, emailCookie);
 		checkUserPrefernece(model, prefs);
 
 		return "viewloans";
@@ -859,7 +862,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
 		if(prefs1 != null)
 			addPlanToModel(model, plan, prefs1);
-		model.addAttribute(USER_EMAIL, emailCookie);
+		if(emailCookie != null)
+			model.addAttribute(USER_EMAIL, emailCookie);
 		checkUserPrefernece(model, prefs1);
 
 		return "viewloans";
@@ -885,7 +889,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
 		if(prefs1 != null)
 			addPlanToModel(model, plan, prefs1);
-		model.addAttribute(USER_EMAIL, emailCookie);
+		if(emailCookie != null)
+			model.addAttribute(USER_EMAIL, emailCookie);
 		checkUserPrefernece(model, prefs1);
 		model.addAttribute("message", "View Loans");
 
