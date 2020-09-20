@@ -884,8 +884,10 @@ public class LoanCalculatorController implements ServletContextAware {
 			payoffOn = calTodayStr;
 		}
 		List loans = (List)model.asMap().get("loans");
-		model.addAttribute("loans", loans);
-		getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
+		if(loans != null){
+			model.addAttribute("loans", loans);
+			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
+		}
 		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
 		if(prefs1 != null)
 			addPlanToModel(model, plan, prefs1);
