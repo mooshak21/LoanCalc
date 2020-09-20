@@ -874,7 +874,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	public String viewloan(@PathVariable int pageid, Model model,
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = "loanId", defaultValue = "") String loanId,
-			@CookieValue(value = PLAN, defaultValue = "") String plan) {
+			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request) {
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
