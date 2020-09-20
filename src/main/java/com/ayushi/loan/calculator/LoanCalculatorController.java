@@ -559,6 +559,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Search Loan Failed!");
 			}
 			if (loans != null && loans.size() > 0) {
+				request.getSession().setAttribute("loans", loans);
 				total = loans.size();
 				Loan searchloan = (Loan) loans.get(0);
 
@@ -883,7 +884,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (payoffOn == null || payoffOn.isEmpty()) {
 			payoffOn = calTodayStr;
 		}
-		List loans = (List)model.asMap().get("loans");
+		List loans = (List)request.getSession().getAttribute("loans");
 		if(loans != null){
 			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
 		}else{
