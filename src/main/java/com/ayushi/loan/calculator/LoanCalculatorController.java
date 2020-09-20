@@ -888,13 +888,19 @@ public class LoanCalculatorController implements ServletContextAware {
 		if(loans != null){
 			model.addAttribute("loans", loans);
 			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
+		}else{
+			model.addAttribute("message", "View Loan on Page#: " + pageid + " Not Found");
+			return "viewloan";
 		}
-		if(emailCookie != null)
+		if(emailCookie != null){
 			model.addAttribute(USER_EMAIL, emailCookie);
-		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
-		if(prefs1 != null){
-			addPlanToModel(model, plan, prefs1);
-			checkUserPrefernece(model, prefs1);
+			List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
+			if(prefs1 != null){
+				addPlanToModel(model, plan, prefs1);
+				checkUserPrefernece(model, prefs1);
+		}else{
+			model.addAttribute("message", "View Loan on Page#: " + pageid + " with " + ((emailCookie != null && !emailCookie.equals("")) ? emailCookie ? " Email ") + "Not Found");
+			return "viewloan";
 		}
 		
 		model.addAttribute("message", "View Loans");
