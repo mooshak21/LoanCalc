@@ -885,7 +885,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 		List loans = (List)model.asMap().get("loans");
 		if(loans != null){
-			model.addAttribute("loans", loans);
 			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
 		}else{
 			model.addAttribute("message", "View Loan on Page#: " + pageid + " Not Found");
@@ -924,7 +923,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					null, null, null, null, null, null);
 	
 				model.addAttribute("amortizeloan", al);
-//				model.addAttribute("loanId", loanId);
+				model.addAttribute("loanId", loanId);
 				al.setLoanId(loan.getLoanId());
 			}
 		}
