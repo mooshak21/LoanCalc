@@ -573,7 +573,8 @@ public class LoanCalculatorController implements ServletContextAware {
 
 			} else {
 				model.addAttribute("message", "Search Loan: No Loans Found!");
-				model.addAttribute("loans", new ArrayList<>());
+				List loansPrev = (List)model.asMap("loans");
+				model.addAttribute("loans",  (loansPrev != null && loansPrev.size() > 0) ? loansPrev : new ArrayList<>());
 				model.asMap().remove("amortizeloan");
 				List<Preference> prefs = getPreferencesByEmailAddress(emailParam);
 				addPlanToModel(model, plan, prefs);
