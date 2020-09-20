@@ -45,7 +45,7 @@ import org.mindrot.jbcrypt.BCrypt;
 		"planSelected", "Plan" })
 public class LoanCalculatorController implements ServletContextAware {
 
-	protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99";
+	protected static final String PREMIUM_PLAN = "19.99", LITE_PLAN = "9.99", FREE_PLAN = "0.0";
 	private static final String PLAN = "Plan";
 	private static final String USER_PREFERENCE = "UserPreference";
 	private static final String REMINDER_FREQUENCY = "reminderFrequency";
@@ -3748,7 +3748,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				}
 			}
 		}
-		model.addAttribute(PLAN, plan);
+		model.addAttribute(PLAN, plan != null && !plan.equals("") ? plan : FREE_PLAN);
 	}
 
 }
