@@ -889,7 +889,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
 		}else{
 			model.addAttribute("message", "View Loan on Page#: " + pageid + " Not Found");
-			return "viewloan";
+			return "searchloan";
 		}
 		if(emailCookie != null){
 			model.addAttribute(USER_EMAIL, emailCookie);
@@ -900,12 +900,12 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 		}else{
 			model.addAttribute("message", "View Loan on Page#: " + pageid + " with " + ((emailCookie != null && !emailCookie.equals("")) ? emailCookie : " Email ") + "Not Found");
-			return "viewloan";
+			return "searchloan";
 		}
 		
 		model.addAttribute("message", "View Loans");
 
-		return "viewloan";
+		return "searchloan";
 	}
 
 	private void getLoanInfo(int pageid, Model model, String loanId, List loans, String amortizeOn, String payoffOn) {
