@@ -857,7 +857,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("loanId", loanId);
 		model.addAttribute("message", "View Loans");
 		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
-		addPlanToModel(model, plan, prefs1);
+		if(prefs1 != null)
+			addPlanToModel(model, plan, prefs1);
 		model.addAttribute(USER_EMAIL, emailCookie);
 		checkUserPrefernece(model, prefs1);
 
@@ -882,8 +883,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute("loans", loans);
 		getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
 		List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
-
-		addPlanToModel(model, plan, prefs1);
+		if(prefs1 != null)
+			addPlanToModel(model, plan, prefs1);
 		model.addAttribute(USER_EMAIL, emailCookie);
 		checkUserPrefernece(model, prefs1);
 		model.addAttribute("message", "View Loans");
