@@ -924,7 +924,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					null, null, null, null, null, null);
 	
 				model.addAttribute("amortizeloan", al);
-				model.addAttribute("loanId", loanId);
+//				model.addAttribute("loanId", loanId);
 				al.setLoanId(loan.getLoanId());
 			}
 		}
