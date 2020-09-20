@@ -884,13 +884,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (payoffOn == null || payoffOn.isEmpty()) {
 			payoffOn = calTodayStr;
 		}
-		List loans = (List)request.getSession().getAttribute("loans");
-		if(loans != null){
-			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
-		}else{
-			model.addAttribute("message", "View Loan on Page#: " + pageid + " Not Found");
-			return "searchloan";
-		}
 		if(emailCookie != null){
 			model.addAttribute(USER_EMAIL, emailCookie);
 			List<Preference> prefs1 = getPreferencesByEmailAddress(emailCookie);
@@ -898,11 +891,16 @@ public class LoanCalculatorController implements ServletContextAware {
 				addPlanToModel(model, plan, prefs1);
 				checkUserPrefernece(model, prefs1);
 			}
+		}
+
+		List loans = (List)request.getSession().getAttribute("loans");
+		if(loans != null){
+			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
 		}else{
-			model.addAttribute("message", "View Loan on Page#: " + pageid + " with " + ((emailCookie != null && !emailCookie.equals("")) ? emailCookie : " Email ") + "Not Found");
+			model.addAttribute("message", "View Loan on Page#: " + pageid + " Not Found");
 			return "searchloan";
 		}
-		
+
 		model.addAttribute("message", "View Loans");
 
 		return "searchloan";
