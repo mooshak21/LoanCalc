@@ -1,7 +1,6 @@
 package com.ayushi.loan;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class Loan implements Serializable, Comparable<Loan> {
