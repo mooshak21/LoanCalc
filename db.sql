@@ -221,3 +221,38 @@ WITH (
 OIDS = FALSE
 )
 TABLESPACE pg_default;
+
+create index on loan (apr);
+create index on loan (lender);
+create index on loan (st);
+create index on loan (loan_amt);
+create index on loan (num_of_yrs);
+create index on loan (loan_type);
+create index on loan (email);
+create index on loan (loan_amt,apr);
+create index on loan (loan_amt,num_of_yrs);
+create index on loan (loan_amt,st,lender,apr,num_of_yrs);
+create index on loan (loan_amt,num_of_yrs,st,lender,apr,num_of_yrs,loan_type,email);
+create index on loan (loan_id);
+
+create index on pref (pref_emailaddress);
+
+create index on loan_relationship (loan_agg_id);
+create index on loan_relationship (loan_rel_id);
+create index on loan_relationship (loan_agg_id,loan_rel_id);
+create index on loan_relationship (loan_id);
+
+create index on loanagg (loan_agg_id);
+
+create index on news_object (offer_id);
+create index on news_object (loan_type);
+create index on news_object (region);
+create index on news_object (region,loan_type);
+create index on news_object (offer_start_date);
+create index on news_object (offer_end_date);
+create index on news_object (region,loan_type,offer_start_date,offer_end_date);
+
+create index on equity_external_calculator (external_calculator_id);
+create index on equity_external_calculator (region);
+create index on equity_external_calculator (loan_type);
+create index on equity_external_calculator (region, loan_type);
