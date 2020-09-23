@@ -465,7 +465,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "amortizeOn", defaultValue = "") String amortizeOn, @RequestParam(value = "payoffOn", defaultValue = "") String payoffOn,
 			@RequestParam(value = "email", defaultValue = "") String emailParam,
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String userEmail,
-			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request) {
+			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request, @ModelAttribute("loans") Loan.Loans loansList, RedirectAttributes attributes) {
+		loansList.clear();
 		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = new AmortizedLoan();
 		int total = 0;
@@ -559,7 +560,11 @@ public class LoanCalculatorController implements ServletContextAware {
 				model.addAttribute("message", "Search Loan Failed!");
 			}
 			if (loans != null && loans.size() > 0) {
-				request.getSession().setAttribute("loans", loans);
+//				request.getSession().setAttribute("loans", loans);
+//				attributes.addFlashAttribute("loans", loans);
+				loans.forEach(loan -> loansList.add((Loan) loan));
+				attributes.addFlashAttribute("loans", loansList);
+//				model.addAttribute("loans", loans);
 				total = loans.size();
 				Loan searchloan = (Loan) loans.get(0);
 
@@ -874,7 +879,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	public String viewloan(@PathVariable int pageid, Model model,
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = "loanId", defaultValue = "") String loanId,
-			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request) {
+			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request, @ModelAttribute("loans") Loan.Loans loansList) {
 		java.util.Calendar calToday = java.util.Calendar.getInstance();
 		String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 				+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
@@ -893,9 +898,10 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 		}
 
-		List loans = (List)request.getSession().getAttribute("loans");
-		if(loans != null){
-			getLoanInfo(pageid, model, loanId, loans, amortizeOn, payoffOn);
+//		List loans = Arrays.asList(loans().toArray());
+//		List loans = (List)attributes.getFlashAttributes().get("loans");
+		if(!loansList.isEmpty()){
+			getLoanInfo(pageid, model, loanId, loansList, amortizeOn, payoffOn);
 		}else{
 			model.addAttribute("message", "View Loan on Page#: " + pageid + " Not Found");
 			return "searchloan";
@@ -906,15 +912,15 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "searchloan";
 	}
 
-	private void getLoanInfo(int pageid, Model model, String loanId, List loans, String amortizeOn, String payoffOn) {
+	private void getLoanInfo(int pageid, Model model, String loanId, Loan.Loans loans, String amortizeOn, String payoffOn) {
 		AmortizedLoan al;
-		if (loans == null || loans.size() < 1) {
+		if (loans == null || loans.isEmpty()) {
 			return;
 		}
 		//		if (loans != null) {
 		//			if (amortizeOn != null) {
 		if((pageid - 1) < loans.size()){
-			Loan loan = (Loan) loans.get(pageid - 1);
+			Loan loan = loans.get(pageid - 1);
 			if(loan != null){
 				al = new AmortizedLoan(amortizeOn, loan.getMonthly(), loan.getAmount(), loan.getTotal(), loan.getLender(),
 					loan.getRegion(), loan.getState(), loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0,
@@ -3763,6 +3769,11 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 		}
 		model.addAttribute(PLAN, plan != null && !plan.equals("") ? plan : FREE_PLAN);
+	}
+
+	@ModelAttribute("loans")
+	public Loan.Loans loans() {
+		return new Loan.Loans();
 	}
 
 }

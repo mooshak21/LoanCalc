@@ -1,6 +1,8 @@
 package com.ayushi.loan;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 public class Loan implements Serializable, Comparable<Loan> {
 	private static final long serialVersionUID = 1L;
@@ -298,5 +300,8 @@ public class Loan implements Serializable, Comparable<Loan> {
 
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
+	}
+
+	public static class Loans extends ArrayList<Loan> {
 	}
 }
