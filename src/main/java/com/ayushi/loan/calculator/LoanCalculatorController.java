@@ -1079,10 +1079,10 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		if (password != null && !password.equals("")) {
 			if (!isPasswordValid(password)) {
-				model.addAttribute("invalidPasswordMessage", INVALID_PASSWORD_MESSAGE);
+				model.addAttribute("message", INVALID_PASSWORD_MESSAGE);
 				return "viewpreferences";
 			}
-			model.addAttribute("invalidPasswordMessage", null);
+			model.addAttribute("message", null);
 			passwordPreference = password;
 		}
 		List<Preference> prefList = new ArrayList<Preference>();

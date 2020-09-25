@@ -110,6 +110,7 @@ function ValidateEmail(mail)
                        <label for="confirmpassword">Confirm Password:*</label>
                        <input class="form-control resetMe" type="password" name="confirmpassword" value="" id="confirmpassword" required="true">
                    </div>
+                   <p>Password must be at least eight characters long, contain one upper case, one lower case and one number.</p>
 
                     <div class="form-group">
                         <label for="reminderfreq">Reminder Frequency: </label>

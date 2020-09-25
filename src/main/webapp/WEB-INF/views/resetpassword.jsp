@@ -33,7 +33,7 @@ function ValidateEmail(mail)
                        <label for="newpassword">New Password: </label>
                        <input class="form-control resetMe" type="password" name="newpassword" value="" id="newpassword" required="true">
                    </div>
-                   <p>Password must be at least eight characters long, contain one upper case, one lower case and one number.<p>
+                   <p>Password must be at least eight characters long, contain one upper case, one lower case and one number.</p>
 		<p>Do you want to <a href="/loanpreferenceviewask">Register</a> or <a href="/resetpasswordask">reset password</a></p>
 		<p>or have you <a href="/forgetpasswordask">forgotten your password</a>?</p>
                  <input type="submit" class="btn btn-default float-left" value="Submit"/>
