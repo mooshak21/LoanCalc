@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import static com.ayushi.loan.preferences.PasswordPreference.PASSWORD_PREFERENCE_TYPE;
+import static com.ayushi.loan.preferences.SaltPreference.SALT_PREFERENCE_TYPE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.io.*;
@@ -27,6 +29,8 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.support.SessionStatus;
@@ -52,6 +56,8 @@ public class LoanCalculatorController implements ServletContextAware {
 	private static final String LOGIN_STATUS = "loginStatus";
 	private static final String USER_EMAIL = "userEmail";
 	private static final String PLAN_SELECTED = "planSelected";
+	private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$";
+	private static final String INVALID_PASSWORD_MESSAGE = "Password is too weak!";
 
 	private ServletContext context;
 
@@ -1065,8 +1071,39 @@ public class LoanCalculatorController implements ServletContextAware {
 			statePreference = state;
 		if (numOfYears != null && !numOfYears.equals(""))
 			numberOfYearsPreference = numOfYears;*/
-		if (password != null && !password.equals(""))
+
+		if (reminderFreq != null && !reminderFreq.equals("")) {
+			model.addAttribute(REMINDER_FREQUENCY, reminderFreq);
+			response.addCookie(new Cookie(REMINDER_FREQUENCY, reminderFreq));
+		}
+
+		if (password != null && !password.equals("")) {
+			if (!isPasswordValid(password)) {
+				model.addAttribute("invalidPasswordMessage", INVALID_PASSWORD_MESSAGE);
+				return "viewpreferences";
+			}
+			model.addAttribute("invalidPasswordMessage", null);
 			passwordPreference = password;
+		}
+		List<Preference> prefList = new ArrayList<Preference>();
+
+		if (passwordPreference != null) {
+			PasswordPreference lpwdPref = new PasswordPreference();
+			lpwdPref.setId(12);
+			lpwdPref.setName("Password");
+			lpwdPref.setEmailAddress(email);
+			SaltPreference saltPreference = getSaltPreference(email);
+
+			// Hash a password for the first time
+			String hashed = BCrypt.hashpw(passwordPreference, saltPreference.getValue());
+
+			lpwdPref.setValue(hashed);
+			lpwdPref.setFlag(true);
+			lpwdPref.setActive("Y");
+			prefList.add(lpwdPref);
+			prefList.add(saltPreference);
+		}
+
 		if (plan != null && !plan.equals("")) {
 			planPreference = plan;
 			model.addAttribute(PLAN, plan);
@@ -1081,14 +1118,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			response.addCookie(new Cookie(USER_EMAIL, email));
 		}
 
-		if (reminderFreq != null && !reminderFreq.equals("")) {
-			model.addAttribute(REMINDER_FREQUENCY, reminderFreq);
-			response.addCookie(new Cookie(REMINDER_FREQUENCY, reminderFreq));
-		}
-
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
-		List<Preference> prefList = new ArrayList<Preference>();
+		PreferenceService prefService = getPrefServiceBean();
 
 /*		if (locationPreference != null && !locationPreference.equals("")) {
 			LocationPreference locPref = new LocationPreference();
@@ -1208,20 +1238,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			prefList.add(lstPref);
 		}
 
-*/		if (passwordPreference != null && !passwordPreference.equals("")) {
-			PasswordPreference lpwdPref = new PasswordPreference();
-			lpwdPref.setId(12);
-			lpwdPref.setName("Password");
-			lpwdPref.setEmailAddress(email);
-			// Hash a password for the first time
-			String hashed = BCrypt.hashpw(passwordPreference, BCrypt.gensalt(15));
-
-			lpwdPref.setValue(hashed);
-			lpwdPref.setFlag(true);
-			lpwdPref.setActive("Y");
-			prefList.add(lpwdPref);
-		}
-
+*/
 		if (planPreference != null && !planPreference.isEmpty()) {
 			PlanPreference planPref = new PlanPreference();
 			planPref.setId(13);
@@ -1298,6 +1315,16 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "viewpreferences";
 	}
 
+	private SaltPreference getSaltPreference(String email) {
+		SaltPreference saltPreference = new SaltPreference();
+		saltPreference.setEmailAddress(email);
+		saltPreference.setValue(BCrypt.gensalt(15));
+		saltPreference.setFlag(true);
+		saltPreference.setActive("Y");
+
+		return saltPreference;
+	}
+
 	// ---------------------------------------------------------------------------------------
 	private Properties getProperties(String fileProp) {
 		Properties prop = new Properties();
@@ -1311,8 +1338,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	private void addPreference(Preference pref, Integer id, String email, String name, String value)
 			throws PreferenceAccessException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		PreferenceService prefService = getPrefServiceBean();
 		pref.setId(id);
 		pref.setEmailAddress(email);
 		pref.setName(name);
@@ -1324,8 +1350,7 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	private void modifyPreference(Preference pref, Integer id, String email, String name, String value)
 			throws PreferenceAccessException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		PreferenceService prefService = getPrefServiceBean();
 		pref.setId(id);
 		pref.setEmailAddress(email);
 		pref.setName(name);
@@ -1337,8 +1362,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences;
 		try {
 			preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?",
@@ -1960,19 +1984,24 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 		if (email != null && !email.equals("") && password != null && !password.equals("")) {
 			List<Preference> prefs = getPreferencesByEmailAddress(email);
+			if(prefs == null || prefs.isEmpty()) {
+				model.addAttribute("message", "User with given username doesn't exist in the database!");
+				return "login";
+			}
+
+			if (!hasSaltPreference(prefs)) {
+				model.addAttribute("message", "Please reset your password!");
+				return "resetpassword";
+			}
 			model.addAttribute("message", "Login Form");
 			model.addAttribute(USER_EMAIL, email);
-			boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
 			plan = getPlan(email);
-			List<Preference> preferences = null;		
-			if(!password.equals("ignore")){
-				emailPasswordFlag = checkPreferenceEmailAddress(email, password);
-				if(!emailPasswordFlag)
-					return "login";
-			}else 
-				emailPasswordFlag = true;
+			//			if(!password.equals("ignore")){
+			if (!checkPreferenceEmailAddress(email, password)) {
+				return "login";
+			}
 
-			if(emailPasswordFlag && prefs != null){
+			if(prefs != null){
 				for (Preference preference : prefs) {
 					if (preference.getType().equals(PLAN))
 						plan = preference.getValue();
@@ -2022,7 +2051,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				List<Preference> prefs = getPreferencesByEmailAddress(email);
 				Integer nextLoginAttempt = Integer.valueOf(loginAttempt);
 				nextLoginAttempt++;
-				response.addCookie(new Cookie("loginAttempt", nextLoginAttempt.toString()));
+				response.addCookie(new Cookie("loginAttempt", Integer.toString(nextLoginAttempt)));
 				model.addAttribute("message", "Login Form");
 				plan = getPlan(emailCookie);
 				model.addAttribute(PLAN, plan);
@@ -2043,13 +2072,23 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 	}
 
+	private boolean hasSaltPreference(List<Preference> prefs) {
+		return prefs.stream().anyMatch(preference -> preference.getType().equals(SALT_PREFERENCE_TYPE));
+	}
+
 	@RequestMapping(value = "/loginfromlaunch", method = RequestMethod.POST)
 	public String loginfromlaunch(@RequestParam(value = "email", defaultValue = "") String email,
-			@RequestParam(value = "password", defaultValue = "") String password,
-			 HttpServletRequest request,
+			@RequestParam(value = "password", defaultValue = "") String password, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-			String plan = null, userPref = null;
-			List<Preference> prefs = getPreferencesByEmailAddress(email);
+		String plan = null, userPref = null;
+		List<Preference> prefs = getPreferencesByEmailAddress(email);
+		if (prefs == null || prefs.isEmpty()) {
+			return "index";
+		}
+		if (!hasSaltPreference(prefs)) {
+			model.addAttribute("message", "Please reset your password!");
+			return "resetpassword";
+		}
 			model.addAttribute("message", "Login Form");
 			model.addAttribute(USER_EMAIL, email);
 			boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
@@ -2137,40 +2176,56 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute(USER_EMAIL, email);
 			model.addAttribute("oldpassword", oldpassword);
 			model.addAttribute("newpassword", newpassword);
-			if (checkPreferenceEmailAddress(email, oldpassword) && updatePreferencePassword(email, newpassword))
-				model.addAttribute("message", "Reset Password Successful!");
-			else
-				model.addAttribute("message", "Reset Password Failed!");
+
+			if (!checkPreferenceEmailAddress(email, oldpassword)) {
+				model.addAttribute("message", "Invalid Credentials! Please, try again!");
+				return "resetpassword";
+			}
+			if (!isPasswordValid(newpassword)) {
+				model.addAttribute("message", INVALID_PASSWORD_MESSAGE);
+				return "resetpassword";
+			}
+			boolean updateSuccessful = updatePreferencePassword(email, newpassword);
+			String message = updateSuccessful ? "Reset Password Successful!" : "Reset Password Failed!";
+			model.addAttribute("message", message);
 		}
+
 		return "resetpassword";
 	}
 
 	private boolean updatePreferencePassword(String email, String newPassword) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences;
-		boolean passwordChanged = false;
 		try {
 			preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?",
 					new Object[] { email });
-			if (preferences != null) {
-				for (Preference p : preferences) {
-					if (p instanceof PasswordPreference) {
-						// Hash a password for the first time
-	
-						String hashed = BCrypt.hashpw(newPassword, BCrypt.gensalt(15));
-
-						p.setValue(hashed);
-						prefService.modifyPreference(p);
-						passwordChanged = true;
-						break;
-					}
-				}
+			if (preferences == null) {
+				return false;
 			}
+			Map<String, Preference> preferencesKeyValues = getPreferencesMap(preferences);
+			Preference databaseHashedPassword = preferencesKeyValues.get(PASSWORD_PREFERENCE_TYPE);
+			Preference saltPreference = preferencesKeyValues.get(SALT_PREFERENCE_TYPE);
+			saltPreference = saltPreference == null ? getSaltPreference(email) : saltPreference;
+
+			String hashedPassword = BCrypt.hashpw(newPassword, saltPreference.getValue());
+			databaseHashedPassword.setValue(hashedPassword);
+
+			prefService.modifyPreference(databaseHashedPassword);
+			prefService.modifyPreference(saltPreference);
+
+			return true;
+
 		} catch (PreferenceAccessException ex) {
 			logger.error(ex.getMessage());
 		}
-		return passwordChanged;
+
+		return false;
+	}
+
+	private Map<String, Preference> getPreferencesMap(List<Preference> preferences) {
+		Map<String, Preference> preferencesKeyValues = new HashMap<>();
+		preferences.forEach(preference -> preferencesKeyValues.put(preference.getType(), preference));
+		return preferencesKeyValues;
 	}
 
 	@RequestMapping(value = "/forgetpasswordask")
@@ -2209,34 +2264,24 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences;
-		boolean emailFlag = false, passwordFlag = false;
 		try {
 			preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?",
-					new Object[] { newEmail });
-			if (preferences != null) {
-				for (Preference p : preferences) {
-					if (p.getEmailAddress().equals(newEmail))
-						emailFlag = true;
-					if (p instanceof PasswordPreference) {
-						// Check that an unencrypted password matches one that
-						// has
-						// previously been hashed
-						String bpassword = password;
-						String bpValue = p.getValue();
-						if (BCrypt.checkpw(bpassword, bpValue))
-							passwordFlag = true;
-						else
-							passwordFlag = false;
-					}
-					if (emailFlag && passwordFlag)
-						return true;
-				}
-
+					new Object[] {newEmail});
+			if (preferences == null || preferences.isEmpty()) {
 				return false;
 			}
+			Map<String, Preference> preferencesKeyValues = getPreferencesMap(preferences);
+			Preference databaseHashedPassword = preferencesKeyValues.get(PASSWORD_PREFERENCE_TYPE);
+			Preference salt = preferencesKeyValues.get(SALT_PREFERENCE_TYPE);
+			if (salt == null) {
+				return BCrypt.checkpw(password, databaseHashedPassword.getValue());
+			}
+			String hashedPassword = BCrypt.hashpw(password, salt.getValue());
+
+			return databaseHashedPassword.getValue().equals(hashedPassword);
+
 		} catch (PreferenceAccessException ex) {
 			logger.error(ex.getMessage());
 		}
@@ -2244,8 +2289,7 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	private List<Preference> getPreferencesByEmailAddress(String email) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PreferenceService prefService = (PreferenceService) appCtx.getBean("preferenceService");
+		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences = null;
 		try {
 			preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?",
@@ -3774,6 +3818,16 @@ public class LoanCalculatorController implements ServletContextAware {
 	@ModelAttribute("loans")
 	public Loan.Loans loans() {
 		return new Loan.Loans();
+	}
+
+	private boolean isPasswordValid(String password) {
+		Pattern textPattern = Pattern.compile(PASSWORD_VALIDATION_REGEX);
+		return textPattern.matcher(password).matches();
+	}
+
+	private PreferenceService getPrefServiceBean() {
+		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		return (PreferenceService) appCtx.getBean("preferenceService");
 	}
 
 }

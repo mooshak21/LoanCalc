@@ -12,7 +12,6 @@ public class UserPreference extends Preference{
          type = "UserPreference";
         name = "User Preference";
         description = "UserPreference";
-        
     }
     
 }

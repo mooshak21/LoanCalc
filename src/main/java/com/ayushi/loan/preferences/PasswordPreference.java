@@ -11,11 +11,13 @@ package com.ayushi.loan.preferences;
  */
 public class PasswordPreference extends Preference{
 
+    public static final String PASSWORD_PREFERENCE_TYPE = "PasswordPreference";
+
     public PasswordPreference() {
         super();
-         type = "PasswordPreference";
-        name = "PasswordPreference";
-        description = "PasswordPreference";
+         type = PASSWORD_PREFERENCE_TYPE;
+        name = PASSWORD_PREFERENCE_TYPE;
+        description = PASSWORD_PREFERENCE_TYPE;
         
     }
     
