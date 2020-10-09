@@ -1,10 +1,11 @@
 package com.ayushi.loan.dao;
 
 import java.io.Serializable;
+
+import org.hibernate.Query;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
 import com.ayushi.loan.Loan;
 import java.util.List;
@@ -87,6 +88,17 @@ public class PreferenceDao extends HibernateDaoSupport{
 			throw new PreferenceAccessException(dae);
 		}
 	}
+
+	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
+	@SuppressWarnings("unchecked")
+	public List<Preference> findByUserEmail(String email) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("select pref from Preference pref where pref.emailAddress = :email");
+		query.setParameter("email", email);
+
+		return (List<Preference>) query.list();
+	}
+
 	@Transactional(value = "txManager", propagation = Propagation.REQUIRED, readOnly = true)
 	public Object find(Class entityClass, Serializable o) throws PreferenceAccessException{
 //		HibernateTemplate ht = new HibernateTemplate(sessionFactory);

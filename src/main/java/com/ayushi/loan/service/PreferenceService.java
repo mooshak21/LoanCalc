@@ -4,16 +4,12 @@ import com.ayushi.loan.dao.PreferenceDao;
 import com.ayushi.loan.exception.PreferenceAccessException;
 import com.ayushi.loan.exception.PreferenceProcessException;
 import java.util.List;
-import java.io.Serializable;
-import com.ayushi.loan.preferences.CheckPreference;
 import java.util.function.Predicate;
 import com.ayushi.loan.preferences.Preference;
 import com.ayushi.loan.preferences.Preferences;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 
+public class PreferenceService {
 
-public class PreferenceService implements PreferenceAttributeService {
 	private PreferenceDao preferenceDao;
 
 	public PreferenceService(PreferenceDao preferenceDao){
@@ -45,6 +41,10 @@ public class PreferenceService implements PreferenceAttributeService {
 
 	public List<Preference> findPreference(String query, Object[] objVals) throws PreferenceAccessException {
 		return (List<Preference>) preferenceDao.find(query, objVals);
+	}
+
+	public List<Preference> findByUserEmail(String email) {
+		return preferenceDao.findByUserEmail(email);
 	}
 
         public Preference findOnePreference(Integer id, String email) throws PreferenceAccessException {
