@@ -32,8 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +58,36 @@ public class LoanCalculatorController implements ServletContextAware {
 	private static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$";
 	private static final String INVALID_PASSWORD_MESSAGE = "Password is too weak!";
 
-	private ServletContext context;
+	private PreferenceService preferenceService;
+  private LoanService loanService;
+  private LoanRelationshipService loanRelationshipService;
+  private LoanWebService loanWebService;
+//  private final LoanEmailGeneratorService loanEmailGeneratorService;
+  private LoanAggService loanAggService;
+  private BasicDataSource dataSource;
+  private PaymentService paymentService;
+  private EquityService equityService;
+  private EquityExternalCalculatorService equityExternalCalculatorService;
+  private SiteOfferService siteOfferService;
+
+  private ServletContext context;
+
+	public LoanCalculatorController(PreferenceService preferenceService, LoanService loanService,
+      LoanRelationshipService loanRelationshipService, LoanWebService loanWebService, LoanAggService loanAggService,
+      SiteOfferService siteOfferService, PaymentService paymentService, EquityService equityService,
+      EquityExternalCalculatorService equityExternalCalculatorService, BasicDataSource dataSource) {
+    this.preferenceService = preferenceService;
+    this.loanService = loanService;
+    this.loanRelationshipService = loanRelationshipService;
+    this.loanWebService = loanWebService;
+//    this.loanEmailGeneratorService = loanEmailGeneratorService;
+    this.loanAggService = loanAggService;
+    this.dataSource = dataSource;
+    this.paymentService = paymentService;
+    this.equityService = equityService;
+    this.equityExternalCalculatorService = equityExternalCalculatorService;
+    this.siteOfferService = siteOfferService;
+  }
 
 	public void setServletContext(ServletContext servletContext) {
 		this.context = servletContext;
@@ -213,8 +240,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 		if (allVal) {
 			logger.info("allValue become true.");
-			ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-			LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
 			try {
 				loanObject = loanWebService.calculateLoan(loanQryObject);
 				logger.info("Loan Calculation function call successfully.");
@@ -232,7 +257,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			 * Loan.class);
 			 */
 			if (loanObject != null) {
-				LoanService loanService = (LoanService) appCtx.getBean("loanService");
 				try {
 					loanObject.setLoanType(loanType);
 					loanObject.setRegion(region);
@@ -343,8 +367,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			loanQryObject.setAPR(Double.valueOf(airVal));
 		}
 		if (allVal) {
-			ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-			LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
 			AmortizedLoan loanObject = null;
 			try {
 				loanObject = loanWebService.amortizeLoan(loanQryObject, amortizeOn);
@@ -446,7 +468,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String userEmail,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request, @ModelAttribute("loans") Loan.Loans loansList, RedirectAttributes attributes) {
 		loansList.clear();
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = new AmortizedLoan();
 		int total = 0;
 		StringBuffer querySB = new StringBuffer();
@@ -531,7 +552,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			queryVals = new Object[queryValList.size()];
 			queryVals = queryValList.toArray(queryVals);
 			java.util.List<Serializable> loans = null;
-			LoanService loanService = (LoanService) appCtx.getBean("loanService");
 			try {
 				loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
 			} catch (LoanAccessException lae) {
@@ -594,9 +614,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		List<Serializable> loans = new ArrayList<>();
-		LoanService loanService = (LoanService) appCtx.getBean("loanService");
 		model.addAttribute(PLAN, plan);
 		try {
 			loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?",
@@ -626,7 +644,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws LoanAccessException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		Loan loanQryObject = new Loan();
 		loanQryObject.setLoanId(Long.valueOf(loanId));
 		loanQryObject.setAmount(Double.valueOf(loanAmt));
@@ -636,10 +653,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		loanQryObject.setNumberOfYears(Integer.valueOf(numOfYears));
 		loanQryObject.setAPR(Double.valueOf(airVal));
 		loanQryObject.setEmail(email);
-		LoanService loanService = (LoanService) appCtx.getBean("loanService");
 		Loan loan = loanService.createLoan(loanQryObject);
 		AmortizedLoan loanObject = new AmortizedLoan();
-		LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
 		try {
 			loanObject = loanWebService.amortizeLoan(loanQryObject, amortizeOn);
 		} catch (LoanAccessException lae) {
@@ -676,8 +691,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "dataType") String dataType, @RequestParam(value = "prevMessage") String prevMessage,
 			RedirectAttributes redirectAttributes, Model model, HttpServletResponse response,
 			HttpServletRequest request) {
-
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = (AmortizedLoan) model.asMap().get("amortizeloan");
 		Loan loan = (Loan) model.asMap().get("loan");
 		Double payoffAmt = (Double) model.asMap().get("payoffAmt");
@@ -694,26 +707,24 @@ public class LoanCalculatorController implements ServletContextAware {
 		Properties prop = getProperties("spring/email.properties");
 
 		if (email != null && !email.isEmpty()) {
-
-			LoanEmailGeneratorService emailService = (LoanEmailGeneratorService) appCtx.getBean("emailService");
 			String message = null;
 			String subject = null;
 
 			if (loanObject != null && dataType.equals("amortizedLoan")) {
-				message = emailService.buildMessage(loanObject, payoffAmt, payoffOn);
+//				message = loanEmailGeneratorService.buildMessage(loanObject, payoffAmt, payoffOn);
 				subject = prop.getProperty("email.subject") + loanObject.getLoanId();
 				loanId = loanObject.getLoanId();
 			}
 
 			if (loan != null && dataType.equals("Loan")) {
-				message = emailService.buildMessage(loan);
+//				message = loanEmailGeneratorService.buildMessage(loan);
 				subject = prop.getProperty("email.subject") + loan.getLoanId();
 				loanId = loan.getLoanId();
 			}
 
 			if (message != null && subject != null) {
 				try {
-					emailService.sendMail(email, subject, message);
+//					loanEmailGeneratorService.sendMail(email, subject, message);
 					redirectAttributes.addFlashAttribute("emailMsg", prop.getProperty("email.success"));
 					response.addCookie(new Cookie("loanId", loanId.toString()));
 					List<Preference> prefs = getPreferencesByEmailAddress(email);
@@ -729,11 +740,11 @@ public class LoanCalculatorController implements ServletContextAware {
 							loanidPrefId = prefs.size() + 1;
 					}
 					addPreference(new LoanIdPreference(), loanidPrefId, email, "LoanId", loanId.toString());
-				} catch (EmailServiceException ex) {
+				} /*catch (EmailServiceException ex) {
 					logger.error(ex.getMessage());
 					redirectAttributes.addFlashAttribute("emailErr",
 							"we couldn't send you the email. Please try later!");
-				} catch (PreferenceAccessException ex) {
+				}*/ catch (PreferenceAccessException ex) {
 					logger.error(ex.getMessage());
 				}
 			}
@@ -754,8 +765,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = PLAN, defaultValue = "") String plan) {
 		if (loanId != null && !loanId.equals("")) {
 			List<Serializable> loans = new ArrayList<>();
-			ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-			LoanService loanService = (LoanService) appCtx.getBean("loanService");
 			java.util.Calendar calToday = java.util.Calendar.getInstance();
 			String calTodayStr = (calToday.get(java.util.Calendar.MONTH) + 1) + "/"
 					+ calToday.get(java.util.Calendar.DAY_OF_MONTH) + "/" + calToday.get(java.util.Calendar.YEAR);
@@ -905,7 +914,7 @@ public class LoanCalculatorController implements ServletContextAware {
 					loan.getRegion(), loan.getState(), loan.getInterestRate(), loan.getAPR(), loan.getNumberOfYears(), 0,
 					loan.getLoanId(), loan.getLoanType(), loan.getLoanDenomination(), loan.getEmail(), loan.getName(), null, null,
 					null, null, null, null, null, null);
-	
+
 				model.addAttribute("amortizeloan", al);
 				model.addAttribute("loanId", loanId);
 				al.setLoanId(loan.getLoanId());
@@ -1048,7 +1057,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 
 		if (password != null && !password.equals("")) {
-			if (!isPasswordValid(password)) {
+			if (!checkPasswordStrength(password)) {
 				model.addAttribute("message", INVALID_PASSWORD_MESSAGE);
 				return "viewpreferences";
 			}
@@ -1087,8 +1096,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 			response.addCookie(new Cookie(USER_EMAIL, email));
 		}
-
-		PreferenceService prefService = getPrefServiceBean();
 
 /*		if (locationPreference != null && !locationPreference.equals("")) {
 			LocationPreference locPref = new LocationPreference();
@@ -1235,11 +1242,11 @@ public class LoanCalculatorController implements ServletContextAware {
 		Preferences prefs = new Preferences();
 		prefs.setPreferences(prefList);
 		try {
-			preferences = prefService.processPreferences(prefs, pref -> pref.getFlag() && pref.getActive().equals("Y"));
+			preferences = preferenceService.processPreferences(prefs, pref -> pref.getFlag() && pref.getActive().equals("Y"));
 			if (preferences != null && preferences.size() > 0) {
 				for (Preference p : preferences) {
 					System.out.println("Email Address is " + p.getEmailAddress());
-					prefService.createPreference(p);
+					preferenceService.createPreference(p);
 				}
 				if (userPreference != null && !userPreference.equals("")) {
 					model.addAttribute(USER_PREFERENCE, userPreference);
@@ -1308,43 +1315,40 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	private void addPreference(Preference pref, Integer id, String email, String name, String value)
 			throws PreferenceAccessException {
-		PreferenceService prefService = getPrefServiceBean();
 		pref.setId(id);
 		pref.setEmailAddress(email);
 		pref.setName(name);
 		pref.setValue(value);
 		pref.setFlag(true);
 		pref.setActive("Y");
-		prefService.createPreference(pref);
+		preferenceService.createPreference(pref);
 	}
 
 	private void modifyPreference(Preference pref, Integer id, String email, String name, String value)
 			throws PreferenceAccessException {
-		PreferenceService prefService = getPrefServiceBean();
 		pref.setId(id);
 		pref.setEmailAddress(email);
 		pref.setName(name);
 		pref.setValue(value);
 		pref.setFlag(true);
 		pref.setActive("Y");
-		prefService.modifyPreference(pref);
+		preferenceService.modifyPreference(pref);
 		System.out.println("Plan Found is " + id + ":" + value);
 	}
 
 	private void updatePreferenceEmailAddress(String newEmail, String oldEmail) {
-		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences;
 		try {
-			preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?",
+			preferences = preferenceService.findPreference("select p from Preference p where p.emailAddress = ?",
 					new Object[] { oldEmail });
 			if (preferences != null) {
 				for (Preference p : preferences) {
-					prefService.removePreference(p);
+					preferenceService.removePreference(p);
 					p.setEmailAddress(newEmail);
 					if (p instanceof EmailReminderPreference) {
 						p.setValue(newEmail);
 					}
-					prefService.createPreference(p);
+					preferenceService.createPreference(p);
 				}
 			}
 		} catch (PreferenceAccessException ex) {
@@ -1372,8 +1376,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			LoanAgg loanAgg = null;
 			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 			AggregationSummary aggregationSummary = new AggregationSummary();
-			ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-			LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
 
 			List<Loan> aggregatedLoans = new ArrayList<Loan>();
 
@@ -1497,13 +1499,11 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	private java.util.List<Serializable> searchLoanRelationship(List<Serializable> loan) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		StringBuffer querySB = new StringBuffer();
 		java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 		Object[] queryVals = null;
 		java.util.List<Serializable> loanRelationship = null;
 		java.util.List<Serializable> loanRelationshipUsingLoanAgg = null;
-		LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
 		for (int i = 0; i < loan.size(); i++) {
 			if (i == 0 && (i == loan.size() - 1)) {
 				querySB.append("?)");
@@ -1543,7 +1543,6 @@ public class LoanCalculatorController implements ServletContextAware {
 
 	private java.util.List<Serializable> searchLoanForAggregation(String loanId, String loanAmt, String lender,
 			String state, String numOfYears, String airVal, String email) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		AmortizedLoan loanObject = new AmortizedLoan();
 		int total = 0;
 		StringBuffer querySB = new StringBuffer();
@@ -1627,7 +1626,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		if (firstVal) {
 			queryVals = new Object[queryValList.size()];
 			queryVals = queryValList.toArray(queryVals);
-			LoanService loanService = (LoanService) appCtx.getBean("loanService");
 			try {
 				loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
 			} catch (LoanAccessException lae) {
@@ -1645,7 +1643,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		List<Serializable> loanAggDetails = null;
 		List<Loan> loans1 = new ArrayList<Loan>();
 		java.util.List<Serializable> loansForAgg = null;
@@ -1669,8 +1666,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			loanAgg.setStartDate(cal);
 			loanAgg.setTerm(term);
 		}
-		LoanAggService loanAggService = (LoanAggService) appCtx.getBean("loanAggService");
-		LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean("loanRelationshipService");
 		StringBuffer querySB = new StringBuffer();
 		Object[] queryVals = null;
 		Object[] queryValsForRemove = null;
@@ -1730,7 +1725,6 @@ public class LoanCalculatorController implements ServletContextAware {
 						loanRelationshipService.createLoanRelation(loanRelationship);
 					}
 					java.util.List<Serializable> loans = null;
-					LoanService loanService = (LoanService) appCtx.getBean("loanService");
 					for (int counter = 0; counter < loanId.length; counter++) {
 						StringBuffer querySBForLoan = new StringBuffer();
 						Object[] queryValsForLoan = null;
@@ -1744,7 +1738,6 @@ public class LoanCalculatorController implements ServletContextAware {
 						loans1.add((Loan) loans.get(0));
 					}
 					System.out.println(loans1);
-					LoanWebService loanWebService = (LoanWebService) appCtx.getBean("loanWebService");
 					try {
 						aggregationSummary = loanWebService.aggregationSummary(loans1, cal);
 					} catch (LoanAccessException lae) {
@@ -1921,7 +1914,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute(USER_EMAIL, email);
 			plan = getPlan(email);
 			//			if(!password.equals("ignore")){
-			if (!checkPreferenceEmailAddress(email, password)) {
+			if (!isValidPassword(password, prefs)) {
 				return "login";
 			}
 
@@ -2006,7 +1999,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(value = "password", defaultValue = "") String password, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 		String plan = null, userPref = null;
-		List<Preference> prefs = getPreferencesByEmailAddress(email);
+		List<Preference> prefs = preferenceService.findByUserEmail(email);
 		if (prefs == null || prefs.isEmpty()) {
 			return "index";
 		}
@@ -2016,15 +2009,10 @@ public class LoanCalculatorController implements ServletContextAware {
 		}
 		model.addAttribute("message", "Login Form");
 		model.addAttribute(USER_EMAIL, email);
-		boolean emailPasswordIgnoreFlag = false, emailPasswordFlag = false;
-		if (!password.equals("ignore")) {
-			emailPasswordFlag = checkPreferenceEmailAddress(email, password);
-			if (!emailPasswordFlag) {
-				model.addAttribute(PLAN, plan != null ? plan : "0.0");
-				return "index";
-			}
-		} else
-			emailPasswordFlag = true;
+		if (!password.equals("ignore") && !isValidPassword(password, prefs)) {
+			model.addAttribute(PLAN, "0.0");
+			return "index";
+		}
 
 		if (prefs != null && !prefs.isEmpty()) {
 			for (Preference preference : prefs) {
@@ -2049,12 +2037,12 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute(USER_EMAIL, email);
 		model.addAttribute("message", "Landing Page");
 		searchLoanBasedOnEmail(email, plan, model);
+
 		return "bankoffersandnews";
 	}
 
 	private void searchLoanBasedOnEmail(@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		StringBuffer querySB = new StringBuffer();
 		List<Object> queryValList = new ArrayList<Object>();
 		Object[] queryVals = null;
@@ -2066,7 +2054,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		try {
 			queryVals = new Object[queryValList.size()];
 			queryVals = queryValList.toArray(queryVals);
-			LoanService loanService = (LoanService) appCtx.getBean("loanService");
 			loans = loanService.findLoan("select ln from Loan ln where " + querySB.toString(), queryVals);
 			logger.debug("loans" + loans);
 		} catch (LoanAccessException lae) {
@@ -2102,12 +2089,13 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute(USER_EMAIL, email);
 			model.addAttribute("oldpassword", oldpassword);
 			model.addAttribute("newpassword", newpassword);
+			List<Preference> preferences = preferenceService.findByUserEmail(email);
 
-			if (!checkPreferenceEmailAddress(email, oldpassword)) {
+			if (!isValidPassword(oldpassword, preferences)) {
 				model.addAttribute("message", "Invalid Credentials! Please, try again!");
 				return "resetpassword";
 			}
-			if (!isPasswordValid(newpassword)) {
+			if (!checkPasswordStrength(newpassword)) {
 				model.addAttribute("message", INVALID_PASSWORD_MESSAGE);
 				return "resetpassword";
 			}
@@ -2120,10 +2108,9 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	private boolean updatePreferencePassword(String email, String newPassword) {
-		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences;
 		try {
-			preferences = prefService.findPreference("select p from Preference p where p.emailAddress = ?",
+			preferences = preferenceService.findPreference("select p from Preference p where p.emailAddress = ?",
 					new Object[] {email});
 			if (preferences == null) {
 				return false;
@@ -2136,8 +2123,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			String hashedPassword = BCrypt.hashpw(newPassword, saltPreference.getValue());
 			databaseHashedPassword.setValue(hashedPassword);
 
-			prefService.modifyPreference(databaseHashedPassword);
-			prefService.modifyPreference(saltPreference);
+			preferenceService.modifyPreference(databaseHashedPassword);
+			preferenceService.modifyPreference(saltPreference);
 
 			return true;
 
@@ -2172,7 +2159,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute(USER_EMAIL, email);
 			model.addAttribute("password", password);
 
-			if (!isPasswordValid(password)) {
+			if (!checkPasswordStrength(password)) {
 				model.addAttribute("message", "New password is too weak!");
 				return "forgetpassword";
 			}
@@ -2186,36 +2173,25 @@ public class LoanCalculatorController implements ServletContextAware {
 		return "forgetpassword";
 	}
 
-	private boolean checkPreferenceEmailAddress(String newEmail, String password) {
-		PreferenceService prefService = getPrefServiceBean();
-		List<Preference> preferences;
-		try {
-			preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?",
-					new Object[] {newEmail});
-			if (preferences == null || preferences.isEmpty()) {
-				return false;
-			}
-			Map<String, Preference> preferencesKeyValues = getPreferencesMap(preferences);
-			Preference databaseHashedPassword = preferencesKeyValues.get(PASSWORD_PREFERENCE_TYPE);
-			Preference salt = preferencesKeyValues.get(SALT_PREFERENCE_TYPE);
-			if (salt == null) {
-				return BCrypt.checkpw(password, databaseHashedPassword.getValue());
-			}
-			String hashedPassword = BCrypt.hashpw(password, salt.getValue());
-
-			return databaseHashedPassword.getValue().equals(hashedPassword);
-
-		} catch (PreferenceAccessException ex) {
-			logger.error(ex.getMessage());
+	private boolean isValidPassword(String password, List<Preference> preferences) {
+		if (preferences == null || preferences.isEmpty()) {
+			return false;
 		}
-		return false;
+		Map<String, Preference> preferencesKeyValues = getPreferencesMap(preferences);
+		Preference databaseHashedPassword = preferencesKeyValues.get(PASSWORD_PREFERENCE_TYPE);
+		Preference salt = preferencesKeyValues.get(SALT_PREFERENCE_TYPE);
+		if (salt == null) {
+			return BCrypt.checkpw(password, databaseHashedPassword.getValue());
+		}
+		String hashedPassword = BCrypt.hashpw(password, salt.getValue());
+
+		return databaseHashedPassword.getValue().equals(hashedPassword);
 	}
 
 	private List<Preference> getPreferencesByEmailAddress(String email) {
-		PreferenceService prefService = getPrefServiceBean();
 		List<Preference> preferences = null;
 		try {
-			preferences = prefService.findPreference("select pref from Preference pref where pref.emailAddress = ?",
+			preferences = preferenceService.findPreference("select pref from Preference pref where pref.emailAddress = ?",
 					new Object[] {email});
 			if (preferences != null && !preferences.isEmpty()) {
 				return preferences;
@@ -2278,9 +2254,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			java.util.List<Serializable> loanRelationship = null;
 			java.util.List<Serializable> loanRelationshipforCount = null;
 			LoanAgg loanAgg = null;
-			ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-			LoanRelationshipService loanRelationshipService = (LoanRelationshipService) appCtx.getBean(
-					"loanRelationshipService");
 			loanRelationship = searchLoanRelationship(loans);
 			if (loanRelationship != null && loanRelationship.size() > 0) {
 				loanAgg = ((LoanRelationship) loanRelationship.get(0)).getLoanAgg();
@@ -2360,12 +2333,9 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		try {
 
-			ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-			BasicDataSource dbBean = (BasicDataSource) appCtx.getBean("dataSource");
-
-			Class.forName(dbBean.getDriverClassName());
-			String postgresURL = dbBean.getUrl();
-			connection = DriverManager.getConnection(postgresURL, dbBean.getUsername(), dbBean.getPassword());
+			Class.forName(dataSource.getDriverClassName());
+			String postgresURL = dataSource.getUrl();
+			connection = DriverManager.getConnection(postgresURL, dataSource.getUsername(), dataSource.getPassword());
 			logger.debug("connection is null:" + connection == null);
 		} catch (SQLException ex) {
 			logger.error(ex.getMessage());
@@ -2455,8 +2425,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		} catch (ParseException parseEx) {
 			parseEx.printStackTrace();
 		}
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
 		if (newsType.equals("Bank Offer")) {
 			Offer offer = new Offer();
 			offer.setBankName(bankName);
@@ -2519,7 +2487,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		Offer newsObject = new Offer();
 		int total = 0;
 		StringBuffer querySB = new StringBuffer();
@@ -2532,7 +2499,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		queryVals = new Object[queryValList.size()];
 		queryVals = queryValList.toArray(queryVals);
 		List<NewsObject> newsObjects = null;
-		SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
 		try {
 			newsObjects = siteOfferService.findNewsObject("select ln from NewsObject ln where  " + querySB.toString(),
 					queryVals);
@@ -2579,8 +2545,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		} catch (ParseException parseEx) {
 			parseEx.printStackTrace();
 		}
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
 		if (newsType.equals("Bank Offer")) {
 			Offer offer = new Offer();
 			offer.setOfferId(Long.valueOf(offerId));
@@ -2649,14 +2613,12 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		List<NewsObject> newsObject = null;
 		StringBuffer querySB = new StringBuffer();
 		java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 		Object[] queryVals = null;
 		querySB.append("ln.offerId=?");
 		queryValList.add(Long.valueOf(offerId));
-		SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
 		queryVals = new Object[queryValList.size()];
 		queryVals = queryValList.toArray(queryVals);
 
@@ -2700,8 +2662,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
 		addPlanFromPreferencesToModel(model, prefs);
 		checkUserPrefernece(model, prefs);
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		SiteOfferService siteOfferService = (SiteOfferService) appCtx.getBean("SiteOfferService");
 		List<NewsObject> newsObjects = new ArrayList<NewsObject>();
 		List<NewsObject> newsarticle = new ArrayList<NewsObject>();
 		List<NewsObject> siteoffers = new ArrayList<NewsObject>();
@@ -2869,9 +2829,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@RequestParam(name = "payPalPassword", defaultValue = "") String payPalPassword, HttpServletRequest request,
 			HttpServletResponse response, @CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan1, Model model) throws IOException {
-
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PaymentService paymentService = (PaymentService) appCtx.getBean("paymentService");
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -3112,8 +3069,6 @@ public class LoanCalculatorController implements ServletContextAware {
 		// System.err.println(e.getDetails());
 		// model.addAttribute("message", "Payment Service Failed!");
 		// }
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		PaymentService paymentService = (PaymentService) appCtx.getBean("paymentService");
 		System.out.println("PayPal Return Called");
 		String message = paymentService.completePayment(new PayPalModel(paymentId, payerId));
 		System.out.println(message);
@@ -3177,16 +3132,12 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
-
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx
-				.getBean("EquityExternalCalculatorService");
 		EquityExternalCalculator equityExternalCalculator = new EquityExternalCalculator();
 		equityExternalCalculator.setLinkUrl(linkUrl);
 		equityExternalCalculator.setLoanType(loanType);
 		equityExternalCalculator.setRegion(region);
 		try {
-			externalCalculatorService.createEquityExternalCalculator(equityExternalCalculator);
+			equityExternalCalculatorService.createEquityExternalCalculator(equityExternalCalculator);
 		} catch (LoanAccessException lae) {
 			lae.printStackTrace();
 			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
@@ -3223,10 +3174,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			throws ParseException {
 		model.addAttribute(USER_EMAIL, emailCookie);
 		model.addAttribute(PLAN, plan);
-
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean(
-				"EquityExternalCalculatorService");
 		List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<EquityExternalCalculator>();
 		StringBuffer querySB = new StringBuffer();
 		List<Object> queryValList = new ArrayList<Object>();
@@ -3251,7 +3198,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			queryVals = new Object[queryValList.size()];
 			queryVals = queryValList.toArray(queryVals);
 			try {
-				equityExternalCalculators = externalCalculatorService.findEquityExternalCalculator(
+				equityExternalCalculators = equityExternalCalculatorService.findEquityExternalCalculator(
 						"select n from EquityExternalCalculator n where " + querySB.toString(), queryVals);
 				if (equityExternalCalculators != null) {
 					model.addAttribute("equityExternalCalculators", equityExternalCalculators);
@@ -3274,8 +3221,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
 
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		EquityExternalCalculator equityExternalCalculator = new EquityExternalCalculator();
 		StringBuffer querySB = new StringBuffer();
 		java.util.List<Object> queryValList = new java.util.ArrayList<Object>();
 		Object[] queryVals = null;
@@ -3286,10 +3231,8 @@ public class LoanCalculatorController implements ServletContextAware {
 		queryVals = new Object[queryValList.size()];
 		queryVals = queryValList.toArray(queryVals);
 		List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<>();
-		EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx
-				.getBean("EquityExternalCalculatorService");
 		try {
-			equityExternalCalculators = externalCalculatorService.findEquityExternalCalculator(
+			equityExternalCalculators = equityExternalCalculatorService.findEquityExternalCalculator(
 					"select ln from EquityExternalCalculator ln where  " + querySB.toString(), queryVals);
 		} catch (LoanAccessException lae) {
 			lae.printStackTrace();
@@ -3323,9 +3266,6 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = PLAN, defaultValue = "") String plan, Model model, HttpServletRequest request)
 			throws ParseException {
 		EquityExternalCalculator equityExternalCalculator = new EquityExternalCalculator();
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean(
-				"EquityExternalCalculatorService");
 
 		equityExternalCalculator.setExternalCalculatorId(Long.valueOf(externalCalculatorId));
 		equityExternalCalculator.setLinkUrl(linkUrl);
@@ -3334,7 +3274,7 @@ public class LoanCalculatorController implements ServletContextAware {
 		equityExternalCalculator.setRegion(region);
 		EquityExternalCalculator equityExternalCalculator1 = new EquityExternalCalculator();
 		try {
-			equityExternalCalculator1 = externalCalculatorService.modifyEquityExternalCalculator(equityExternalCalculator);
+			equityExternalCalculator1 = equityExternalCalculatorService.modifyEquityExternalCalculator(equityExternalCalculator);
 		} catch (LoanAccessException lae) {
 			lae.printStackTrace();
 			List<Preference> prefs = getPreferencesByEmailAddress(emailCookie);
@@ -3376,9 +3316,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan) throws ParseException {
 		model.addAttribute("message", "Equity Calculation");
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		List<Serializable> loans = new ArrayList<>();
-		LoanService loanService = (LoanService) appCtx.getBean("loanService");
 		model.addAttribute(PLAN, plan);
 		try {
 			loans = loanService.findLoan("select ln from Loan ln where ln.loanId = ?", new Object[] {new Long(loanId)});
@@ -3412,11 +3350,8 @@ public class LoanCalculatorController implements ServletContextAware {
 			}
 			model.addAttribute("remainingYear", searchLoan.getNumberOfYears() - diff);
 			model.addAttribute("equityValue", searchLoan.getAmount() - loanEntries.get(loanSize).getLoanAmount());
-			EquityExternalCalculatorService externalCalculatorService = (EquityExternalCalculatorService) appCtx.getBean(
-					"EquityExternalCalculatorService");
 			List<EquityExternalCalculator> equityExternalCalculators = new ArrayList<EquityExternalCalculator>();
 			Equity equity = new Equity();
-			EquityService equityService = (EquityService) appCtx.getBean("EquityService");
 
 			equity.setAssetValue(searchLoan.getAmount());
 			equity.setRemainingYear(searchLoan.getNumberOfYears() - diff);
@@ -3468,7 +3403,7 @@ public class LoanCalculatorController implements ServletContextAware {
 				queryVals = new Object[queryValList.size()];
 				queryVals = queryValList.toArray(queryVals);
 				try {
-					equityExternalCalculators = externalCalculatorService.findEquityExternalCalculator(
+					equityExternalCalculators = equityExternalCalculatorService.findEquityExternalCalculator(
 							"select n from EquityExternalCalculator n where " + querySB.toString(), queryVals);
 					if (equityExternalCalculators != null && equityExternalCalculators.size() != 0) {
 						model.addAttribute("linkUrl", equityExternalCalculators.get(0).getLinkUrl());
@@ -3495,28 +3430,25 @@ public class LoanCalculatorController implements ServletContextAware {
 	}
 
 	public int sendEquityEmail(String email, Equity equity, String valuationDate) {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		Properties prop = getProperties("spring/email.properties");
 
 		if (email != null && !email.isEmpty()) {
-
-			LoanEmailGeneratorService emailService = (LoanEmailGeneratorService) appCtx.getBean("emailService");
 			String message = null;
 			String subject = null;
 
 			if (equity != null) {
 				if (valuationDate != null) {
-					message = emailService.buildEquityMessage(equity, valuationDate);
+//					message = loanEmailGeneratorService.buildEquityMessage(equity, valuationDate);
 				} else {
 					String todaysDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
-					message = emailService.buildEquityMessage(equity, todaysDate);
+//					message = loanEmailGeneratorService.buildEquityMessage(equity, todaysDate);
 				}
 				subject = prop.getProperty("email.subject") + equity.getLoanId();
 			}
 
 			if (message != null && subject != null) {
 				try {
-					emailService.sendMail(email, subject, message);
+//          loanEmailGeneratorService.sendMail(email, subject, message);
 					List<Preference> prefs = getPreferencesByEmailAddress(email);
 					int loanidPrefId = -1;
 					if (prefs != null) {
@@ -3530,9 +3462,9 @@ public class LoanCalculatorController implements ServletContextAware {
 							loanidPrefId = prefs.size() + 1;
 					}
 					addPreference(new LoanIdPreference(), loanidPrefId, email, "LoanId", equity.getEmail());
-				} catch (EmailServiceException ex) {
+				} /*catch (EmailServiceException ex) {
 					logger.error(ex.getMessage());
-				} catch (PreferenceAccessException ex) {
+				}*/ catch (PreferenceAccessException ex) {
 					logger.error(ex.getMessage());
 				}
 			}
@@ -3556,9 +3488,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = USER_EMAIL, defaultValue = "") String emailCookie,
 			@CookieValue(value = PLAN, defaultValue = "") String plan) throws ParseException {
 		model.addAttribute("message", "Equity History");
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		List<Serializable> equity = new ArrayList<>();
-		EquityService equityService = (EquityService) appCtx.getBean("EquityService");
 		model.addAttribute(PLAN, plan);
 		try {
 			equity = equityService.findEquity("select eq from Equity eq where eq.loanId = ?",
@@ -3602,14 +3532,9 @@ public class LoanCalculatorController implements ServletContextAware {
 		model.addAttribute(PLAN, plan != null && !plan.equals("") ? plan : FREE_PLAN);
 	}
 
-	private boolean isPasswordValid(String password) {
+	private boolean checkPasswordStrength(String password) {
 		Pattern textPattern = Pattern.compile(PASSWORD_VALIDATION_REGEX);
 		return textPattern.matcher(password).matches();
-	}
-
-	private PreferenceService getPrefServiceBean() {
-		ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		return (PreferenceService) appCtx.getBean("preferenceService");
 	}
 
 	@ModelAttribute("loans")
@@ -3623,6 +3548,86 @@ public class LoanCalculatorController implements ServletContextAware {
 									 .filter(preference -> preference.getType().equals(PLAN))
 									 .findFirst()
 									 .ifPresent(preference -> model.addAttribute(PLAN, preference.getValue()));
+	}
+
+	public PreferenceService getPreferenceService() {
+		return preferenceService;
+	}
+
+	public void setPreferenceService(PreferenceService preferenceService) {
+		this.preferenceService = preferenceService;
+	}
+
+	public LoanService getLoanService() {
+		return loanService;
+	}
+
+	public void setLoanService(LoanService loanService) {
+		this.loanService = loanService;
+	}
+
+	public LoanRelationshipService getLoanRelationshipService() {
+		return loanRelationshipService;
+	}
+
+	public void setLoanRelationshipService(LoanRelationshipService loanRelationshipService) {
+		this.loanRelationshipService = loanRelationshipService;
+	}
+
+	public LoanWebService getLoanWebService() {
+		return loanWebService;
+	}
+
+	public void setLoanWebService(LoanWebService loanWebService) {
+		this.loanWebService = loanWebService;
+	}
+
+	public LoanAggService getLoanAggService() {
+		return loanAggService;
+	}
+
+	public void setLoanAggService(LoanAggService loanAggService) {
+		this.loanAggService = loanAggService;
+	}
+
+	public BasicDataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(BasicDataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	public PaymentService getPaymentService() {
+		return paymentService;
+	}
+
+	public void setPaymentService(PaymentService paymentService) {
+		this.paymentService = paymentService;
+	}
+
+	public EquityService getEquityService() {
+		return equityService;
+	}
+
+	public void setEquityService(EquityService equityService) {
+		this.equityService = equityService;
+	}
+
+	public EquityExternalCalculatorService getEquityExternalCalculatorService() {
+		return equityExternalCalculatorService;
+	}
+
+	public void setEquityExternalCalculatorService(EquityExternalCalculatorService equityExternalCalculatorService) {
+		this.equityExternalCalculatorService = equityExternalCalculatorService;
+	}
+
+	public SiteOfferService getSiteOfferService() {
+		return siteOfferService;
+	}
+
+	public void setSiteOfferService(SiteOfferService siteOfferService) {
+		this.siteOfferService = siteOfferService;
 	}
 
 }
