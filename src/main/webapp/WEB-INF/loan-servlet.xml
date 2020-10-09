@@ -1,16 +1,69 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/mvc 
-http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
- 
-	<context:component-scan base-package="com.ayushi.loan.calculator" />
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <context:component-scan base-package="com.ayushi.loan" />
+
+    <context:property-placeholder location="classpath*:/spring/*.properties"/>
+
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager" />
+
+    <context:spring-configured/>
+
+    <context:component-scan base-package="com.ayushi.loan">
+    </context:component-scan>
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <!--        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>-->
+        <property name="timeBetweenEvictionRunsMillis" value="18000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <!--<property name="minEvictableIdleTimeMillis" value="1800000"/>-->
+        <property name="minEvictableIdleTimeMillis" value="18000"/>
+        <property name="validationQuery" value="SELECT version();"/>
+        <property name="removeAbandoned" value="true"/>
+    </bean>
+
+    <bean class="java.net.URI" id="dbUrl">
+        <constructor-arg value="${DATABASE_URL}"/>
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mappingResources">
+            <list>
+                <value>/spring/Loan.hbm.xml</value>
+                <value>/spring/LoanApp.hbm.xml</value>
+                <value>/spring/LoanAgg.hbm.xml </value>
+                <value>/spring/LoanRelationship.hbm.xml </value>
+                <value>/spring/Preference.hbm.xml </value>
+                <value>/spring/NewsObject.hbm.xml </value>
+                <value>/spring/EquityExternalCalculator.hbm.xml </value>
+                <value>/spring/Equity.hbm.xml </value>
+                <value>/spring/Payment.hbm.xml </value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.c3p0.min_size">1</prop>
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.timeout">180</prop>
+                <prop key="hibernate.c3p0.max_statements">10</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+
+        <property name="sessionFactory" ref="sessionFactory" />
+
+    </bean>
 	<bean id="viewResolver"  
         class="org.springframework.web.servlet.view.UrlBasedViewResolver">  
         <property name="viewClass">  
@@ -26,6 +79,123 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
                 <value>/WEB-INF/tiles.xml</value>  
             </list>  
         </property>  
+    </bean>
+    <bean id="loanService"
+          class="com.ayushi.loan.service.LoanService">
+        <property name="loanDao" ref="loanDao" />
+    </bean>
+
+    <bean id="loanDao"
+          class="com.ayushi.loan.dao.LoanDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="loanWebService"
+          class="com.ayushi.loan.service.LoanWebService">
+    </bean>
+
+    <bean id="preferenceDao"
+          class="com.ayushi.loan.dao.PreferenceDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="preferenceService"
+          class="com.ayushi.loan.service.PreferenceService">
+        <property name="preferenceDao" ref="preferenceDao" />
+    </bean>
+
+    <bean id="loanAggDao"
+          class="com.ayushi.loan.dao.LoanAggDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="loanAggService"
+          class="com.ayushi.loan.service.LoanAggServiceImpl">
+        <property name="loanAggDao" ref="loanAggDao" />
+    </bean>
+    <bean id="loanRelationshipDao"
+          class="com.ayushi.loan.dao.LoanRelationshipDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="loanRelationshipService"
+          class="com.ayushi.loan.service.LoanRelationshipServiceImpl">
+        <property name="loanRelationshipDao" ref="loanRelationshipDao" />
+    </bean>
+
+    <bean id="siteOfferDao"
+          class="com.ayushi.loan.dao.SiteOfferDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="siteOfferService"
+          class="com.ayushi.loan.service.SiteOfferServiceImpl">
+        <property name="siteOfferDao" ref="siteOfferDao" />
+    </bean>
+
+    <bean id="externalCalculatorDao"
+          class="com.ayushi.loan.dao.ExternalCalculatorDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="equityExternalCalculatorService"
+          class="com.ayushi.loan.service.EquityExternalCalculatorServiceImpl">
+        <property name="externalCalculatorDao" ref="externalCalculatorDao" />
+    </bean>
+
+    <bean id="equityDao"
+          class="com.ayushi.loan.dao.EquityDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="equityService"
+          class="com.ayushi.loan.service.EquityServiceImpl">
+        <property name="equityDao" ref="equityDao" />
+    </bean>
+
+    <bean id="paymentDao"
+          class="com.ayushi.loan.dao.PaymentDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="paymentService"
+          class="com.ayushi.loan.service.PaymentServiceImpl">
+        <property name="paymentDao" ref="paymentDao" />
+    </bean>
+
+<!--    <bean id="loanEmailGeneratorService"-->
+<!--          class="com.ayushi.loan.service.LoanEmailGeneratorServiceImpl">-->
+<!--        <property name="emailFrom" value="${email.from}" />-->
+<!--        <property name="headerTitle" value="${email.header.title}" />-->
+<!--        <property name="headerSubTitle" value="${email.header.subtitle}" />-->
+<!--        <property name="footerTitle" value="${email.footer.title}" />-->
+<!--        <property name="footerSubTitle" value="${email.footer.subtitle}" />-->
+<!--        <property name="colorDark" value="${email.color.dark}" />-->
+<!--        <property name="colorlight" value="${email.color.light}" />-->
+<!--        <property name="secretApiKey" value="${email.sendgrid.secretapikey}" />-->
+<!--    </bean>-->
+
+    <bean id="loanCalculatorController" class="com.ayushi.loan.calculator.LoanCalculatorController">
+        <property name="preferenceService" ref="preferenceService"/>
+        <property name="loanService" ref="loanService"/>
+        <property name="loanRelationshipService" ref="loanRelationshipService"/>
+        <property name="loanWebService" ref="loanWebService"/>
+<!--        <property name="loanEmailGeneratorService" ref="loanEmailGeneratorService"/>-->
+        <property name="loanAggService" ref="loanAggService"/>
+        <property name="paymentService" ref="paymentService"/>
+        <property name="equityService" ref="equityService"/>
+        <property name="equityExternalCalculatorService" ref="equityExternalCalculatorService"/>
+        <property name="siteOfferService" ref="siteOfferService"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
     </bean>
 
     <mvc:annotation-driven/>
