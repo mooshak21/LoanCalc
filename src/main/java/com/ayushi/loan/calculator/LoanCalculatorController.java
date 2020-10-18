@@ -3269,7 +3269,6 @@ public class LoanCalculatorController implements ServletContextAware {
 
 		equityExternalCalculator.setExternalCalculatorId(Long.valueOf(externalCalculatorId));
 		equityExternalCalculator.setLinkUrl(linkUrl);
-		;
 		equityExternalCalculator.setLoanType(loanType);
 		equityExternalCalculator.setRegion(region);
 		EquityExternalCalculator equityExternalCalculator1 = new EquityExternalCalculator();
