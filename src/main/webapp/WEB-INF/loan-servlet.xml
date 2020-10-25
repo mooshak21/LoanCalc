@@ -12,10 +12,10 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <context:component-scan base-package="com.ayushi.loan">
     </context:component-scan>
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
-        <property name="driverClassName" value="${database.driverClassName}"/>
-        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
-        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
-        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/LoanCalculator"/>
+        <property name="username" value="rdm"/>
+        <property name="password" value="rdm"/>
         <property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
         <property name="testWhileIdle" value="true"/>
@@ -29,7 +29,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     </bean>
 
     <bean class="java.net.URI" id="dbUrl">
-        <constructor-arg value="${DATABASE_URL}"/>
+        <constructor-arg value="jdbc:postgresql://localhost:5432/LoanCalculator"/>
     </bean>
 
     <bean id="sessionFactory"
