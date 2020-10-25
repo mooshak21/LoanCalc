@@ -28,6 +28,7 @@
         <maven-plugin.version>2.4</maven-plugin.version>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <jetty-runner.version>9.2.7.v20150116</jetty-runner.version>
+        <liquibase-version>3.6.3</liquibase-version>
     </properties>
 
     <parent>
@@ -152,6 +153,13 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api.version}</version>
+        </dependency>
+
+        <!--Liquibase-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-version}</version>
         </dependency>
 
     </dependencies>
