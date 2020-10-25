@@ -4,13 +4,20 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet author="dpetrovic" id="{add-column-id}-1">
+    <changeSet author="dpetrovic" id="add-column-1">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="payment" schemaName="LoanCalculator"/>
         </preConditions>
         <addColumn tableName="payment">
             <column name="PAYPAL_PLANID"
                     type="varchar(100)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="dpetrovic" id="add-column-2">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="payment" schemaName="LoanCalculator"/>
+        </preConditions>
+        <addColumn tableName="payment">
             <column name="PAYPAL_AGREEMENTID"
                     type="varchar(100)"/>
         </addColumn>
