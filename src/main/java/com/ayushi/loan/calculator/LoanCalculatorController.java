@@ -831,10 +831,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			@CookieValue(value = PLAN, defaultValue = "") String plan, HttpServletRequest request,
 			HttpServletResponse response) {
 		int total = 12;
-		if (pageid == 1) {
-		} else {
-			pageid = (pageid - 1) * total + 1;
-		}
+		pageid = pageid == 1 ? pageid : (pageid - 1) * total + 1;
 		AmortizedLoan al = (AmortizedLoan) request.getSession().getAttribute("amortizeloan");
 		ArrayList<LoanEntry> loanEntries = new ArrayList<LoanEntry>(12);
 		if (al != null) {
@@ -860,7 +857,7 @@ public class LoanCalculatorController implements ServletContextAware {
 			model.addAttribute(USER_EMAIL, emailCookie);
 		checkUserPrefernece(model, prefs1);
 
-		return "viewloans";
+		return "amortizeloan";
 	}
 
 	@RequestMapping(value = "/viewloan/{pageid}")
